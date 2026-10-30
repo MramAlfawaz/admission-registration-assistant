@@ -19,7 +19,7 @@ from app.intent.context_extractor import extract_context
 from app.intent.language import answer_language, detect_language
 from app.rules.selection import extract_inputs, run_rules
 from app.safety.escalation import NEXT_STEP, escalation_block, escalation_reason, record_escalation
-from app.safety.verifier import verify_text
+from app.safety.sentence_filter import filter_items, filter_sentences
 
 log = logging.getLogger(__name__)
 
@@ -33,10 +33,10 @@ class Assistant:
     """Answer one question about one date, safely."""
 
     def __init__(self, classifier, retriever, engine, generator, sources_by_id, top_k=5,
-                 scorer=overlap_scorer, escalation_log=None):
+                 scorer=overlap_scorer, escalation_log=None, glossary=()):
         self.classifier, self.retriever, self.engine = classifier, retriever, engine
         self.generator, self.sources_by_id, self.top_k = generator, sources_by_id, top_k
-        self.scorer, self.escalation_log = scorer, escalation_log
+        self.scorer, self.escalation_log, self.glossary = scorer, escalation_log, list(glossary)
 
     def answer(self, question, as_of, clarification=None):
         """Return a verified schema response.
@@ -101,26 +101,29 @@ class Assistant:
         return self._finish(response, trace, trace["mode"])
 
     def _compose(self, question, intent, language, as_of, evidence, rules, rule_texts, trace):
-        """Fixed rule sentences, then a verified model explanation or quoted evidence."""
+        """Fixed rule sentences, then model sentences that pass every check, else quoted evidence."""
         r = base_response("ANSWERABLE", intent, language, as_of)
         r["rule_outputs"] = [{k: x[k] for k in ("rule_id", "output", "details")} for x in rules]
         rule_sources = [dict(s) for x in rules for s in x["sources"]]
-        draft, issues = None, []
         try:
             draft = self.generator.draft(question, language, as_of, evidence, rules, rule_texts)
         except ValueError as e:
-            issues = [f"model output unusable: {e}"]
+            draft = None
+            trace["verification_issues"] = [f"model output unusable: {e}"]
+        kept = []
         if draft is not None:
-            model_text = " ".join([draft["explanation"], *draft["conditions"], draft["required_action"]])
-            given = [c["text"] for c in draft["given"]] + rule_texts
-            issues = verify_text(model_text, language, given, rules, question)
-            if not draft["explanation"]:
-                issues.append("empty explanation")
-        trace["verification_issues"] = issues
-        if draft is not None and not issues:
+            context = dict(language=language, evidence_texts=[c["text"] for c in draft["given"]],
+                           rule_outputs=rules, rule_texts=rule_texts, intent=intent,
+                           glossary=self.glossary, question=question)
+            kept, dropped = filter_sentences(draft["explanation"], **context)
+            action, _ = filter_sentences(draft["required_action"], **context)
+            r["conditions"] = filter_items(draft["conditions"], **context)
+            r["required_action"] = " ".join(action)
+            trace["verification_issues"] = [f"{s[:60]}... -> {', '.join(i)}" for s, i in dropped]
+            trace["sentences_kept"] = len(kept)
+        if kept:
             trace["mode"] = "generated"
-            r["answer"] = " ".join(rule_texts + [draft["explanation"]])
-            r["conditions"], r["required_action"] = draft["conditions"], draft["required_action"]
+            r["answer"] = " ".join(rule_texts + kept)
             r["sources"] = _source_refs(draft["used"])
         else:
             quotes = select_sentences(question, evidence, self.scorer, k=2)
@@ -130,6 +133,7 @@ class Assistant:
             quoted = " ".join(f"«{s}»" for s, _ in quotes)
             r["answer"] = " ".join(rule_texts + ([f"{QUOTE_INTRO[language]} {quoted}"] if quotes else []))
             r["sources"] = _source_refs([c for _, c in quotes])
+            r["conditions"], r["required_action"] = [], ""
         for s in rule_sources:
             if s not in r["sources"]:
                 r["sources"].append(s)

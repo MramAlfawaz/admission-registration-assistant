@@ -3,6 +3,7 @@ import json
 import logging
 
 from app.generation.templates import CLARIFY, CLARIFY_OPTIONS, CONTACT, DATE_BASIS, OUT_OF_SCOPE_ACTION, TEXTS
+from app.documents.normalize import normalize_for_search
 from app.models.prompts import fill, load_prompt
 
 log = logging.getLogger(__name__)
@@ -65,6 +66,19 @@ class AnswerGenerator:
         _, self.glossary = load_prompt("glossary_v1", prompts_dir)
         self.evidence_limit, self.evidence_chars = evidence_limit, evidence_chars
 
+    def _relevant_glossary(self, language, given):
+        """Return glossary lines for English answers whose Arabic term is in the evidence.
+
+        Real runs showed the small model copying every glossary term into Arabic
+        answers, so Arabic answers get none and English answers only what they need.
+        """
+        if language != "en":
+            return "(none)"
+        evidence = normalize_for_search(" ".join(c["text"] for c in given))
+        lines = [ln for ln in self.glossary.splitlines()
+                 if "=" in ln and normalize_for_search(ln.split("=")[0].strip()) in evidence]
+        return "\n".join(lines) or "(none)"
+
     def draft(self, question, language, as_of, evidence, rule_outputs, rule_texts):
         """Ask the model for an explanation to add after the fixed rule sentences.
 
@@ -80,7 +94,8 @@ class AnswerGenerator:
             f"{' '.join(c['text'].split())[: self.evidence_chars]}"
             for label, c in labelled.items())
         stated = "\n".join(f"- {t}" for t in rule_texts) or "(nothing)"
-        prompt = fill(self.template, language_name=LANGUAGE_NAMES[language], glossary=self.glossary,
+        glossary = self._relevant_glossary(language, given)
+        prompt = fill(self.template, language_name=LANGUAGE_NAMES[language], glossary=glossary,
                       as_of=as_of, question=question, stated=stated, rules=_rules_text(rule_outputs),
                       evidence=evidence_text)
         output = self.client.generate_json(prompt)

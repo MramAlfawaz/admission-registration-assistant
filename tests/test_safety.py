@@ -55,3 +55,42 @@ def test_escalation_reasons():
     assert escalation_reason("كم معدلي التراكمي؟") == "personal_record"
     assert escalation_reason("كم نسبة الحضور المطلوبة؟") is None
     assert escalation_reason("x", [{"output": "exception_only"}]) == "exception_rule"
+
+
+# ---- phase 10b: per-sentence filter ----
+from pathlib import Path
+
+from app.safety.sentence_filter import filter_items, filter_sentences, load_glossary, split_sentences
+
+GLOSSARY = load_glossary(Path(__file__).resolve().parents[1] / "prompts" / "glossary_v1.md")
+CTX = dict(language="ar", evidence_texts=EVIDENCE, rule_outputs=[], rule_texts=[],
+           intent="SEMESTER_WITHDRAWAL", glossary=GLOSSARY, question="")
+
+
+def test_glossary_loads_pairs():
+    assert len(GLOSSARY) >= 10 and all(ar and en for ar, en in GLOSSARY)
+
+
+def test_preamble_trimmed():
+    assert split_sentences("بناءً على الأدلة، آخر موعد للاعتذار الخميس.") == ["آخر موعد للاعتذار الخميس."]
+
+
+def test_each_sentence_judged_alone():
+    text = "آخر موعد للاعتذار عن الفصل الدراسي الأول الخميس 2026-11-19. ربما يمكنك الانسحاب من البرنامج."
+    kept, dropped = filter_sentences(text, **CTX)
+    assert kept == ["آخر موعد للاعتذار عن الفصل الدراسي الأول الخميس 2026-11-19."]
+    assert "speculation" in dropped[0][1]
+
+
+def test_other_situation_and_ungrounded_term_dropped():
+    _, dropped = filter_sentences("يمكنك دراسة الفصل التكميلي بعد الاعتذار.", **CTX)
+    assert any(i.startswith("other situation") for i in dropped[0][1])
+    ctx = dict(CTX, intent="ADMISSION_REQUIREMENTS")
+    _, dropped = filter_sentences("يحصل الطالب على المرتبة الشرفية.", **ctx)
+    assert any("term not in evidence" in i for i in dropped[0][1])
+
+
+def test_conditions_must_be_grounded_sentences():
+    items = ["تأجيل الدراسة", "conditions written in the evidence",
+             "آخر موعد للاعتذار عن الفصل الدراسي الأول الخميس 2026-11-19"]
+    assert filter_items(items, **CTX) == [items[2]]

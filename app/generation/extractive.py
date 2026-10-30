@@ -3,13 +3,19 @@ import re
 
 from app.retrieval.tokenize import tokenize
 
+MIN_QUOTE_TOKENS = 6
+
 
 def split_sentences(text):
-    """Split passage text into sentences of readable length."""
+    """Split passage text into sentences of readable length.
+
+    Lines are joined first: PDF layout often moves a number such as 75% onto the
+    next line, and splitting on line breaks would cut it off its sentence.
+    """
     sentences = []
-    for p in re.split(r"[.\n؛]", text):
-        s = " ".join(p.split()).strip(" .،")
-        if 20 <= len(s) <= 350:
+    for p in re.split(r"[.؛]", " ".join(text.split())):
+        s = p.strip(" .،")
+        if 20 <= len(s) <= 450 and len(tokenize(s)) >= MIN_QUOTE_TOKENS:
             sentences.append(s)
     return sentences
 

@@ -51,3 +51,31 @@ Spelled-out numbers (ثلاث سنوات) are not checked; this is a known limit
 The response states the reason, what can be confirmed (with sources), and the next step.
 Each escalation is appended to `data/processed/escalations.jsonl` with reason, intent and
 sources, never the question text (`docs/data-handling.md`).
+
+## phase 10b: per-sentence filter (`app/safety/sentence_filter.py`)
+
+Replaying the real outputs of phase 10 (`evaluation/results/generation_sample_after.json`,
+`smoke_after.json`) showed that checking the whole model text at once is not enough:
+the text passed the verifier yet still contained wrong content.
+
+| failure seen | example | check |
+|---|---|---|
+| another situation mixed in | semester withdrawal answer says "you can withdraw from the program and study the supplementary term" | `OTHER_SITUATION` words per intent |
+| glossary terms copied | "according to the honours rank" in a re-enrolment answer | a glossary term must appear in the evidence |
+| prompt placeholders echoed | condition "conditions written in the evidence" | `PROMPT_ECHO` phrases |
+| internal term id leaked | "1448-T1" | `\d{4}-T[12]` |
+| speculation | "قد لا يكون لديهم خيارات" | `SPECULATION` words |
+| fixed sentence repeated | the deadline sentence written twice | 60% token overlap with a rule sentence |
+| invented wording | Arabic sentence mostly made of words not in the evidence | under 50% token overlap |
+
+Each sentence is judged alone: good sentences are kept, bad ones are dropped and recorded
+in `_trace.verification_issues`. Harmless openings ("بناءً على المعلومات المقدمة،") are trimmed,
+not rejected. Conditions must be real sentences (4 words or more) that pass the same checks.
+If no model sentence survives, the answer is the fixed rule sentences plus 1 or 2 quoted
+evidence sentences (6 or more words each); with neither, the status is `INSUFFICIENT_EVIDENCE`.
+
+The glossary is now sent to the model only for English answers, and only the terms whose
+Arabic form is in the evidence, because the small model copied every glossary term it saw.
+
+Known cost: a correct sentence can be dropped when it also quotes the prompt
+(R043: "النص الأول من الأدلة"). Dropping is the safe side: the answer falls back to quotes.

@@ -10,6 +10,7 @@ from app.pipeline.assistant import Assistant
 from app.rules.calendar_rules import CalendarStore
 from app.rules.rule_engine import RuleEngine
 from app.rules.selection import extract_inputs, run_rules
+from app.safety.sentence_filter import load_glossary
 from app.schemas.answer import STATUSES, validate_response
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -61,9 +62,13 @@ class FixedRetriever:
         return self.chunks[:k]
 
 
+GLOSSARY = load_glossary(PROMPTS / "glossary_v1.md")
+
+
 def assistant(intent, chunks, output=None, error=None, log=None):
     g = AnswerGenerator(FakeClient(output, error), prompts_dir=PROMPTS)
-    return Assistant(FixedClassifier(intent), FixedRetriever(chunks), ENGINE, g, BY_ID, escalation_log=log)
+    return Assistant(FixedClassifier(intent), FixedRetriever(chunks), ENGINE, g, BY_ID,
+                     escalation_log=log, glossary=GLOSSARY)
 
 
 def test_every_non_answer_status_is_schema_valid_in_both_languages():
@@ -182,3 +187,45 @@ def test_decision_request_escalates():
     r = assistant("ATTENDANCE", [HB16], {"answer": "يحرم الطالب إذا قلت نسبة حضوره عن 75%.", "used_evidence": ["E1"]}).answer(
         "أطلب استثناء من شرط الحضور", "2026-10-14")
     assert r["status"] == "STAFF_REVIEW_REQUIRED" and r["escalation"]["next_step"]
+
+
+# ---- regressions replayed from real outputs after phase 10 (2026-10-31) ----
+
+HB14 = {"chunk_id": "HANDBOOK-1446#014", "source_id": "HANDBOOK-1446", "page": 21, "section": "طي القيد",
+        "text": "يطوى قيد الطالب إذا حصل على إنذارين أكاديميين متتاليين. إعادة القيد: يمكن للطالب المطوي قيده "
+                "التقدم بطلب إعادة قيده إلى القسم خلال أربعة فصول دراسية من تاريخ طي القيد."}
+
+
+def test_regression_wrong_situation_and_glossary_copy_dropped():
+    bad = {"answer": "بعد طي القيد، يمكنك طلب إعادة القيد وفقًا للمرتبة الشرفية أو إذا كنت بحاجة إلى تأجيل دراستك "
+                     "أو الانسحاب من البرنامج. يتقدم الطالب بطلب إعادة قيده إلى القسم خلال أربعة فصول دراسية.",
+           "conditions": ["تأجيل الدراسة", "الانسحاب من البرنامج"], "used_evidence": ["E1"]}
+    r = assistant("REENROLLMENT", [HB14], bad).answer("كيف أطلب إعادة القيد بعد طي القيد؟", "2026-10-14")
+    assert "المرتبة الشرفية" not in r["answer"] and "تأجيل" not in r["answer"]
+    assert "خلال أربعة فصول دراسية" in r["answer"] and r["conditions"] == []
+
+
+def test_regression_speculation_and_term_id_dropped():
+    bad = {"answer": "وفقًا للمرتبة 1448-T1 في التقويم. الطلاب الذين لم يتمكنوا من الاعتذار قد لا يكون لديهم خيارات أخرى.",
+           "used_evidence": ["E1"]}
+    r = assistant("SEMESTER_WITHDRAWAL", [CAL6, HB10], bad).answer("متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟", "2026-10-14")
+    assert "1448-T1" not in r["answer"] and "قد لا" not in r["answer"]
+    assert r["answer"].startswith("آخر موعد للاعتذار عن الفصل الدراسي الأول هو الخميس")
+
+
+def test_regression_echoed_placeholders_dropped():
+    bad = {"answer": "The student should seek guidance about a supplementary semester.",
+           "conditions": ["conditions written in the evidence"],
+           "required_action": "what the student should do, only if the evidence says it", "used_evidence": ["E1"]}
+    r = assistant("GRADING_AND_STANDING", [HB14], bad).answer("What happens after two consecutive academic warnings?", "2026-10-14")
+    assert "supplementary" not in r["answer"] and "conditions written" not in str(r["conditions"])
+    assert "only if the evidence" not in r["required_action"]
+    assert any("الفصل التكميلي" in i for i in r["_trace"].get("verification_issues", []))
+
+
+def test_harmless_opening_is_trimmed_not_dropped():
+    good = {"answer": "بناءً على المعلومات المقدمة، تبدأ الدراسة للفصل الدراسي الثاني يوم الأحد 2027-01-03.", "used_evidence": ["E1"]}
+    cal11 = {"chunk_id": "CALENDAR-1448#011", "source_id": "CALENDAR-1448", "page": 1, "section": "row 11",
+             "text": "بداية الدراسة للفصل الدراسي الثاني: الأحد 2027-01-03م (1448-07-25هـ)"}
+    r = assistant("ACADEMIC_CALENDAR", [cal11], good).answer("متى تبدأ الدراسة للفصل الدراسي الثاني؟", "2026-10-14")
+    assert r["_trace"]["mode"] == "generated" and r["answer"].startswith("تبدأ الدراسة")

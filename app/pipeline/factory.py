@@ -3,6 +3,7 @@ from pathlib import Path
 
 from app.generation.answer_generator import AnswerGenerator
 from app.generation.extractive import embedding_scorer
+from app.safety.sentence_filter import load_glossary
 from app.intent.llm_classifier import LLMIntentClassifier
 from app.models.llm_client import LLMClient
 from app.pipeline.assistant import Assistant
@@ -26,4 +27,5 @@ def build_assistant(cfg):
         top_k=cfg.TOP_K,
         scorer=embedding_scorer(retriever.embeddings.encoder),
         escalation_log=cfg.ESCALATION_LOG,
+        glossary=load_glossary(Path(cfg.PROMPTS_DIR) / "glossary_v1.md"),
     )
