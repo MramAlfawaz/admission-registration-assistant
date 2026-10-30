@@ -2,7 +2,7 @@
 import json
 import logging
 
-from app.generation.templates import CLARIFY, CONTACT, DATE_BASIS, TEXTS
+from app.generation.templates import CLARIFY, CLARIFY_OPTIONS, CONTACT, DATE_BASIS, OUT_OF_SCOPE_ACTION, TEXTS
 from app.models.prompts import fill, load_prompt
 
 log = logging.getLogger(__name__)
@@ -32,10 +32,11 @@ def non_answer(status, intent, language, as_of, conflicts=None, missing=None):
     if status == "CLARIFICATION_REQUIRED":
         field = (missing or ["withdrawal_scope"])[0]
         r["answer"] = CLARIFY[field][language]
-        r["clarification"] = {"missing": field, "question": CLARIFY[field][language]}
+        r["clarification"] = {"missing": field, "question": CLARIFY[field][language],
+                              "options": [{"value": v, "label": lab[language]} for v, lab in CLARIFY_OPTIONS[field]]}
         return r
     r["answer"] = TEXTS[status][language]
-    r["required_action"] = CONTACT[language]
+    r["required_action"] = OUT_OF_SCOPE_ACTION[language] if status == "OUT_OF_SCOPE" else CONTACT[language]
     for c in conflicts or []:
         for source_id, chunk_id in c["chunks"].items():
             r["sources"].append({"source_id": source_id, "chunk_id": chunk_id, "value": c["values"][source_id]})
@@ -57,45 +58,37 @@ def _rules_text(rule_outputs):
 class AnswerGenerator:
     """Ask the local model to phrase an answer from evidence and rule outputs."""
 
-    def __init__(self, client, prompts_dir="prompts", evidence_limit=3, evidence_chars=700):
+    def __init__(self, client, prompts_dir="prompts", evidence_limit=3, evidence_chars=700, prompt_name="answer_v2"):
         self.client = client
-        self.header, self.template = load_prompt("answer_v1", prompts_dir)
+        self.prompt_name = prompt_name
+        self.header, self.template = load_prompt(prompt_name, prompts_dir)
         _, self.glossary = load_prompt("glossary_v1", prompts_dir)
         self.evidence_limit, self.evidence_chars = evidence_limit, evidence_chars
 
-    def answer(self, question, intent, language, as_of, evidence, rule_outputs, conditions):
-        """Return an ANSWERABLE response whose content comes from the given evidence.
+    def draft(self, question, language, as_of, evidence, rule_outputs, rule_texts):
+        """Ask the model for an explanation to add after the fixed rule sentences.
 
-        Sources are attached by code from the evidence the model says it used;
-        if it names none, every passage it was given is cited.
+        Returns:
+            A dict with explanation, conditions, required_action, the passages
+            given and the passages the model says it used. Raises ValueError
+            when the model output is not valid JSON.
         """
-        used = evidence[: self.evidence_limit]
-        labelled = {f"E{i}": c for i, c in enumerate(used, 1)}
+        given = evidence[: self.evidence_limit]
+        labelled = {f"E{i}": c for i, c in enumerate(given, 1)}
         evidence_text = "\n\n".join(
-            f"[{label}] {c['source_id']} (page {c.get('page')}, {c.get('section') or ''}):\n"
+            f"[{label}] (page {c.get('page')}, {c.get('section') or ''}):\n"
             f"{' '.join(c['text'].split())[: self.evidence_chars]}"
             for label, c in labelled.items())
+        stated = "\n".join(f"- {t}" for t in rule_texts) or "(nothing)"
         prompt = fill(self.template, language_name=LANGUAGE_NAMES[language], glossary=self.glossary,
-                      as_of=as_of, question=question, rules=_rules_text(rule_outputs), evidence=evidence_text)
-        r = base_response("ANSWERABLE", intent, language, as_of)
-        r["rule_outputs"] = [{k: x[k] for k in ("rule_id", "output", "details")} for x in rule_outputs]
-        try:
-            output = self.client.generate_json(prompt)
-        except ValueError as e:
-            log.warning("model output unusable, answering INSUFFICIENT_EVIDENCE: %s", e)
-            return non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of)
-        r["answer"] = str(output.get("answer", "")).strip()
-        r["conditions"] = [str(c) for c in output.get("conditions", []) if str(c).strip()]
-        r["required_action"] = str(output.get("required_action", "")).strip()
-        cited = [labelled[e] for e in output.get("used_evidence", []) if e in labelled] or used
-        r["sources"] = [{"source_id": c["source_id"], "chunk_id": c["chunk_id"],
-                         "page": c.get("page"), "section": c.get("section")} for c in cited]
-        for x in rule_outputs:
-            for s in x["sources"]:
-                if s not in r["sources"]:
-                    r["sources"].append(dict(s))
-        r["_evidence_given"] = [c["chunk_id"] for c in used]
-        r["_condition_candidates"] = [c["text"] for c in conditions]
-        if not r["answer"]:
-            return non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of)
-        return r
+                      as_of=as_of, question=question, stated=stated, rules=_rules_text(rule_outputs),
+                      evidence=evidence_text)
+        output = self.client.generate_json(prompt)
+        used = [labelled[e] for e in output.get("used_evidence", []) if e in labelled] or given
+        return {"explanation": str(output.get("answer", "")).strip(),
+                "conditions": [str(c).strip() for c in output.get("conditions", []) if str(c).strip()]
+                if isinstance(output.get("conditions"), list) else [],
+                "required_action": str(output.get("required_action", "")).strip()
+                if not isinstance(output.get("required_action"), list)
+                else " ".join(str(x) for x in output["required_action"]),
+                "given": given, "used": used}

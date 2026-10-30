@@ -1,0 +1,6 @@
+{"id": "S01", "question": "متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟", "as_of": "2026-10-14", "expected_status": "ANSWERABLE", "must_contain": ["2026-11-19"], "origin": "synthetic", "note": "dev: used while building phase 10"}
+{"id": "S02", "question": "When is the semester withdrawal deadline?", "as_of": "2026-12-01", "expected_status": "ANSWERABLE", "must_contain": ["closed", "Thursday"], "origin": "synthetic", "note": "dev: closed window, real failure on 2026-10-31"}
+{"id": "S03", "question": "هل أقدر أنسحب؟", "as_of": "2026-10-14", "expected_status": "CLARIFICATION_REQUIRED", "must_contain": [], "origin": "synthetic", "note": "dev: ambiguous, real failure on 2026-10-31"}
+{"id": "S04", "question": "هل يوجد سكن للطلاب؟", "as_of": "2026-10-14", "expected_status": "OUT_OF_SCOPE", "must_contain": [], "origin": "synthetic", "note": "dev"}
+{"id": "S05", "question": "نسبة حضوري 70% هل أنحرم من الاختبار النهائي؟", "as_of": "2026-10-14", "expected_status": "STAFF_REVIEW_REQUIRED", "must_contain": ["75%"], "origin": "synthetic", "note": "dev: exception rule escalates"}
+{"id": "S06", "question": "أطلب استثناء من شرط الخبرة العملية لماجستير الأمن الوطني", "as_of": "2026-10-14", "expected_status": "STAFF_REVIEW_REQUIRED", "must_contain": [], "origin": "synthetic", "note": "dev: decision request"}

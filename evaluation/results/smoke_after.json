@@ -1,0 +1,435 @@
+{
+  "schema_valid": 6,
+  "n": 6,
+  "statuses": {
+    "ANSWERABLE": 2,
+    "CLARIFICATION_REQUIRED": 1,
+    "OUT_OF_SCOPE": 1,
+    "STAFF_REVIEW_REQUIRED": 2
+  },
+  "modes": {
+    "generated": 2,
+    "templated": 2,
+    "escalated": 2
+  },
+  "rows": [
+    {
+      "id": "S01",
+      "question": "متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": null,
+      "schema_errors": [],
+      "checks": {
+        "status": true,
+        "contains": true
+      },
+      "mode": "generated",
+      "verification_issues": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "آخر موعد للاعتذار عن الفصل الدراسي الأول هو الخميس 2026-11-19 (1448-06-09هـ)، وفترة الاعتذار ما زالت مفتوحة حتى ذلك التاريخ. آخر موعد للاعتذار عن الفصل الدراسي الأول هو الخميس 2026-11-19 (1448-06-09هـ)، وفقًا للمرتبة 1448-T1 في التقويم الأكاديمي 1448. تم فتح فترة الاعتذار حتى ذلك التاريخ، مما يعني أن الطلاب الذين لم يتمكنوا من الاعتذار في هذا الموعد قد لا يكون لديهم خيارات أخرى للاعتذار عن الفصل الدراسي الأول.",
+        "conditions": [
+          "آخر موعد للاعتذار عن الفصل الدراسي الأول هو الخميس 2026-11-19 (1448-06-09هـ)"
+        ],
+        "required_action": "",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-01",
+            "output": "open",
+            "details": {
+              "term_id": "1448-T1",
+              "term_basis": "stated",
+              "event": "آخر موعد للاعتذار عن الفصل الدراسي الأول",
+              "date": "2026-11-19",
+              "hijri": "1448-06-09",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 6
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#006",
+            "page": 1,
+            "section": "row 6"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 6 and 18"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p18 الاعتذار عن الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "SEMESTER_WITHDRAWAL",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "retrieved": [
+          "CALENDAR-1448#006",
+          "CALENDAR-1448#018",
+          "CALENDAR-1448#004",
+          "CALENDAR-1448#002",
+          "HANDBOOK-1446#010"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "CALENDAR-1448#004",
+          "CALENDAR-1448#002"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-01",
+            "open"
+          ]
+        ],
+        "verification_issues": [],
+        "mode": "generated"
+      }
+    },
+    {
+      "id": "S02",
+      "question": "When is the semester withdrawal deadline?",
+      "as_of": "2026-12-01",
+      "expected_evidence": null,
+      "schema_errors": [],
+      "checks": {
+        "status": true,
+        "contains": true
+      },
+      "mode": "generated",
+      "verification_issues": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "en",
+        "as_of": "2026-12-01",
+        "answer": "The deadline to withdraw from the first semester was Thursday 2026-11-19 (1448-06-09 AH); this withdrawal period has closed (term identified from the question date). The semester withdrawal deadline for the first semester has already passed on Thursday, 2026-11-19 (1448-06-09 AH). The withdrawal period has closed, and the student cannot withdraw from the first semester after this date.",
+        "conditions": [
+          "الاعتذار عن الفصل الدراسي"
+        ],
+        "required_action": "",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-01",
+            "output": "closed",
+            "details": {
+              "term_id": "1448-T1",
+              "term_basis": "current term resolved from as_of",
+              "event": "آخر موعد للاعتذار عن الفصل الدراسي الأول",
+              "date": "2026-11-19",
+              "hijri": "1448-06-09",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 6
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#011",
+            "page": 19,
+            "section": ".الاختبارات النهائية بأسبوعين"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 6 and 18"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p18 الاعتذار عن الدراسة"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-12-01.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "SEMESTER_WITHDRAWAL",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "retrieved": [
+          "FAQ-NAUSS#020",
+          "HANDBOOK-1446#011",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#015",
+          "CALENDAR-1448#006"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "FAQ-NAUSS#020",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#015"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-01",
+            "closed"
+          ]
+        ],
+        "verification_issues": [],
+        "mode": "generated"
+      }
+    },
+    {
+      "id": "S03",
+      "question": "هل أقدر أنسحب؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": null,
+      "schema_errors": [],
+      "checks": {
+        "status": true,
+        "contains": true
+      },
+      "mode": "templated",
+      "verification_issues": [],
+      "response": {
+        "status": "CLARIFICATION_REQUIRED",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "هل تقصد الانسحاب من مقرر واحد، أم الاعتذار عن الفصل الدراسي كاملاً، أم الانسحاب من البرنامج؟",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": {
+          "missing": "withdrawal_scope",
+          "question": "هل تقصد الانسحاب من مقرر واحد، أم الاعتذار عن الفصل الدراسي كاملاً، أم الانسحاب من البرنامج؟",
+          "options": [
+            {
+              "value": "course",
+              "label": "مقرر واحد"
+            },
+            {
+              "value": "semester",
+              "label": "الفصل الدراسي كاملاً"
+            },
+            {
+              "value": "program",
+              "label": "البرنامج"
+            }
+          ]
+        },
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "SEMESTER_WITHDRAWAL",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "S04",
+      "question": "هل يوجد سكن للطلاب؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": null,
+      "schema_errors": [],
+      "checks": {
+        "status": true,
+        "contains": true
+      },
+      "mode": "templated",
+      "verification_issues": [],
+      "response": {
+        "status": "OUT_OF_SCOPE",
+        "intent": "OUT_OF_SCOPE",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "هذا السؤال خارج نطاق شؤون القبول والتسجيل التي أستطيع الإجابة عنها.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع الجهة المختصة في الجامعة.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "OUT_OF_SCOPE",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "S05",
+      "question": "نسبة حضوري 70% هل أنحرم من الاختبار النهائي؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": null,
+      "schema_errors": [],
+      "checks": {
+        "status": true,
+        "contains": true
+      },
+      "mode": "escalated",
+      "verification_issues": [],
+      "response": {
+        "status": "STAFF_REVIEW_REQUIRED",
+        "intent": "ATTENDANCE",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "تسمح اللائحة بذلك على سبيل الاستثناء فقط، ويعود القرار إلى المجالس المختصة.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك.",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-REG-01",
+            "output": "deprived_exception_possible",
+            "details": {
+              "threshold": 75,
+              "exception_minimum": 50,
+              "exception_requires": "accepted excuse and council approval"
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#016",
+            "page": 23,
+            "section": "أداء الاختبارات"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p23 الحرمان من دخول الاختبار النهائي"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": {
+          "reason": "تسمح اللائحة بذلك على سبيل الاستثناء فقط، ويعود القرار إلى المجالس المختصة.",
+          "reason_code": "exception_rule",
+          "confirmed": [
+            "نسبة حضور 70% أقل من 75%، فيُحرم الطالب من دخول الاختبار النهائي، ويجوز رفع الحرمان استثناءً فقط بعذر يقبله مجلسا القسم والكلية وبنسبة حضور لا تقل عن 50%. نظراً لأن نسبة حضور الطالب أقل من 75%، حسب النسبة المحددة في النقطة 1 من النص، فإن الطالب محروم من دخول الاختبار النهائي بناءً على النص المذكور."
+          ],
+          "evidence": [
+            {
+              "source_id": "HANDBOOK-1446",
+              "section": "أداء الاختبارات"
+            },
+            {
+              "source_id": "HANDBOOK-1446",
+              "section": "p23 الحرمان من دخول الاختبار النهائي"
+            }
+          ],
+          "next_step": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك."
+        },
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ATTENDANCE",
+        "intent": "ATTENDANCE",
+        "retrieved": [
+          "HANDBOOK-1446#016",
+          "HANDBOOK-1446#017",
+          "HANDBOOK-1446#033",
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#015"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#015"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-REG-01",
+            "deprived_exception_possible"
+          ]
+        ],
+        "verification_issues": [],
+        "mode": "escalated"
+      }
+    },
+    {
+      "id": "S06",
+      "question": "أطلب استثناء من شرط الخبرة العملية لماجستير الأمن الوطني",
+      "as_of": "2026-10-14",
+      "expected_evidence": null,
+      "schema_errors": [],
+      "checks": {
+        "status": true,
+        "contains": true
+      },
+      "mode": "escalated",
+      "verification_issues": [],
+      "response": {
+        "status": "STAFF_REVIEW_REQUIRED",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "يتعلق هذا الطلب بقرار رسمي أو استثناء من الجهة المختصة، ولا يمكنني اتخاذ هذا القرار أو توقعه.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#036",
+            "page": 60,
+            "section": ". تفسير مرتكزات دراسات الأمن الوطني"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": {
+          "reason": "يتعلق هذا الطلب بقرار رسمي أو استثناء من الجهة المختصة، ولا يمكنني اتخاذ هذا القرار أو توقعه.",
+          "reason_code": "decision",
+          "confirmed": [
+            "بناءً على المعلومات المقدمة، فإن شروط برنامج ماجستير الأمن الوطني تشمل ضرورة الخبرة العملية. لذا، يجب على الطالب تقديم اعتذار عن الفصل الدراسي أو تأجيل الدراسة أو الانسحاب من البرنامج إذا لم يتمكن من توفير الخبرة العملية المطلوبة."
+          ],
+          "evidence": [
+            {
+              "source_id": "PROGRAMS-GUIDE-1448",
+              "section": ". تفسير مرتكزات دراسات الأمن الوطني"
+            }
+          ],
+          "next_step": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك."
+        },
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#036",
+          "PROGRAMS-GUIDE-1448#027",
+          "PROGRAMS-GUIDE-1448#026",
+          "PROGRAMS-GUIDE-1448#025",
+          "PROGRAMS-GUIDE-1448#035"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "mode": "escalated"
+      }
+    }
+  ]
+}

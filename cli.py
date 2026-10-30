@@ -319,7 +319,8 @@ def ask(cfg, args):
     from app.pipeline.factory import build_assistant
     from app.schemas.answer import validate_response
 
-    response = build_assistant(cfg).answer(args.question, args.as_of)
+    clarification = dict(pair.split("=", 1) for pair in args.clarify)
+    response = build_assistant(cfg).answer(args.question, args.as_of, clarification=clarification or None)
     errors = validate_response(response)
     log.info("status=%s intent=%s schema_errors=%s", response["status"], response["intent"], errors or "none")
     shown = {k: v for k, v in response.items() if not k.startswith("_")}
@@ -333,26 +334,43 @@ def generate_sample(cfg, args):
     from app.retrieval.evaluate import load_gold
     from app.schemas.answer import validate_response
 
-    gold = load_gold(Path(cfg.EVAL_DIR) / "retrieval" / "gold.jsonl")
-    step = max(1, len(gold) // args.n)
-    picked = gold[::step][: args.n]
+    if args.file:
+        picked = load_gold(args.file)
+    else:
+        gold = load_gold(Path(cfg.EVAL_DIR) / "retrieval" / "gold.jsonl")
+        step = max(1, len(gold) // args.n)
+        picked = gold[::step][: args.n]
     assistant = build_assistant(cfg)
     rows, statuses = [], {}
     for i, g in enumerate(picked, 1):
         response = assistant.answer(g["question"], g["as_of"])
         errors = validate_response(response)
         statuses[response["status"]] = statuses.get(response["status"], 0) + 1
+        trace = response.get("_trace", {})
+        checks = {}
+        if "expected_status" in g:
+            checks["status"] = response["status"] == g["expected_status"]
+            text = json.dumps(response, ensure_ascii=False)
+            checks["contains"] = all(m in text for m in g.get("must_contain", []))
         rows.append({"id": g["id"], "question": g["question"], "as_of": g["as_of"],
-                     "expected_evidence": g["evidence"], "schema_errors": errors,
+                     "expected_evidence": g.get("evidence"), "schema_errors": errors, "checks": checks,
+                     "mode": trace.get("mode"), "verification_issues": trace.get("verification_issues", []),
                      "response": {k: v for k, v in response.items() if not k.startswith("_")},
                      "trace": response.get("_trace", {})})
-        log.info("%d/%d %s %s schema_errors=%d", i, len(picked), g["id"], response["status"], len(errors))
+        log.info("%d/%d %s %-22s mode=%-10s schema_errors=%d %s", i, len(picked), g["id"], response["status"],
+                 trace.get("mode"), len(errors), checks or "")
     valid = sum(not r["schema_errors"] for r in rows)
-    out = Path(cfg.EVAL_DIR) / "results" / "generation_sample.json"
+    modes = {}
+    for r in rows:
+        modes[r["mode"]] = modes.get(r["mode"], 0) + 1
+    out = Path(cfg.EVAL_DIR) / "results" / f"{args.out}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps({"schema_valid": valid, "n": len(rows), "statuses": statuses, "rows": rows},
-                              ensure_ascii=False, indent=2), encoding="utf-8")
-    log.info("schema valid %d/%d, statuses %s -> %s", valid, len(rows), statuses, out)
+    out.write_text(json.dumps({"schema_valid": valid, "n": len(rows), "statuses": statuses, "modes": modes,
+                               "rows": rows}, ensure_ascii=False, indent=2), encoding="utf-8")
+    passed = [r for r in rows if r["checks"] and all(r["checks"].values())]
+    log.info("schema valid %d/%d, statuses %s, modes %s -> %s", valid, len(rows), statuses, modes, out)
+    if any(r["checks"] for r in rows):
+        log.info("expectation checks passed %d/%d", len(passed), len(rows))
 
 
 def build_parser():
@@ -386,8 +404,12 @@ def build_parser():
     ak = sub.add_parser("ask", help="answer one question through the pipeline")
     ak.add_argument("question")
     ak.add_argument("--as-of", required=True, help="YYYY-MM-DD, the date the question is about")
+    ak.add_argument("--clarify", action="append", default=[],
+                    help="clarification reply, e.g. withdrawal_scope=semester or degree_level=master")
     gs = sub.add_parser("generate-sample", help="run gold questions end to end and check the schema")
     gs.add_argument("--n", type=int, default=10)
+    gs.add_argument("--file", default=None, help="question file with expected_status, e.g. evaluation/generation/smoke.jsonl")
+    gs.add_argument("--out", default="generation_sample", help="results file name in evaluation/results/")
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")

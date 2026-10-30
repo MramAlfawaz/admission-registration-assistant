@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\nالاعتذار عن الفصل الدراسي = semester withdrawal\nتأجيل الدراسة = postponement of study\nالانسحاب من البرنامج = withdrawal from the program\nإعادة القيد = re-enrolment\nطي القيد = enrolment closure\nالحرمان من دخول الاختبار = exam deprivation\nالإنذار الأكاديمي = academic warning\nالمعدل التراكمي = cumulative GPA\nالاختبار الشامل = comprehensive exam\nالفصل التكميلي = supplementary semester\nمرتبة الشرف = honours\nالرسوم الدراسية = tuition fees\nالرسوم الإدارية = administrative fees\nعمادة القبول والتسجيل = Deanship of Admission and Registration\nالتقويم الأكاديمي = academic calendar\n\nDate the question is about: 2026-10-14\nQuestion: هل تقبل الجامعة طلابا من غير السعوديين؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 1, هل تقبل الجامعة طلاباً غير سعوديين؟):\nهل تقبل الجامعة طلاباً غير سعوديين؟ تقبل الجامعة الدارسين من كافة الدول العربية؛ كونها مؤسسة إقليمية وجهازًا علميًا لمجلس وزراء الداخلية العرب.\n\n[E2] (page 1, هل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟):\nهل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟ تقبل الجامعة كافة الطلبة من العسكريين والمدنيين وفقاً لشروط القبول العامة والخاصة.\n\n[E3] (page 37, .الجامعة أو تمثيلهم لها رسمًّيًا):\nداخل الجامعة. . إقامة أو تنظيم أي أنشطة أو فعاليات غير مرخص لها من جهة الاختصاص 7 ،داخل الجامعة بأي وسيلة كانت إلكترونية أو غيرها أو المشاركة فيها أو إصدار المطبوعات أو النشرات أو الملصقات، أو المشاركة في توزيعها، أو جمع الأموال أو التبرعات أو التوقيعات، دون موافقة الجهات ذات العلاقة. . الابتزاز أو الاعتداء اللفظي أو الجسدي على أي كان داخل الحرم الجامعي 8 ،وجميع المرافق المرتبطة بها سواًءً تجاه العمال، أو الموظفين، أو الطلاب أو أعضاء هيئة التدريس، أو زوار الجامعة. . الامتناع عن تقديم الأوراق الثبوتية لجهات الاختصاص في حال طلبها.9 . انتحال شخصية الغير في أي أمر من الأمور التي لها علاقة بالجامعة10 وشؤونها وإعطاء وثائق جامعية بقصد استعمالها بطريقة غير مشروعة أو التحدث باسم الجامعة دون صفة رسمية\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "الجامعة تقبل طلاباً من غير السعوديين، حيث تقبل الدارسين من كافة الدول العربية، مما يشير إلى أن الجامعة تقبل طلاباً من خارج المملكة العربية السعودية.",
+    "conditions": [
+      "الجامعة تقبل الدارسين من كافة الدول العربية"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 17.65
+}

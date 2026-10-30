@@ -30,6 +30,7 @@ class BaseConfig:
     SOURCES_FILE = os.getenv("SOURCES_FILE", "data/sources.json")
     EVAL_DIR = os.getenv("EVAL_DIR", "evaluation")
     RULES_FILE = os.getenv("RULES_FILE", "rules/rule_library.json")
+    ESCALATION_LOG = os.getenv("ESCALATION_LOG", "data/processed/escalations.jsonl")
     # --- logging ---
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 

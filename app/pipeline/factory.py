@@ -2,6 +2,7 @@
 from pathlib import Path
 
 from app.generation.answer_generator import AnswerGenerator
+from app.generation.extractive import embedding_scorer
 from app.intent.llm_classifier import LLMIntentClassifier
 from app.models.llm_client import LLMClient
 from app.pipeline.assistant import Assistant
@@ -23,4 +24,6 @@ def build_assistant(cfg):
         generator=AnswerGenerator(client, cfg.PROMPTS_DIR, cfg.GEN_EVIDENCE_LIMIT, cfg.GEN_EVIDENCE_CHARS),
         sources_by_id=sources,
         top_k=cfg.TOP_K,
+        scorer=embedding_scorer(retriever.embeddings.encoder),
+        escalation_log=cfg.ESCALATION_LOG,
     )
