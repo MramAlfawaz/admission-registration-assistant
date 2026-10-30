@@ -9,8 +9,9 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** phases 1 to 4 of 13 complete. The system can load, clean, version and
-> chunk the documents and classify questions; retrieval and answering come next.
+> **Status:** phases 1 to 5 of 13 complete. The system can load, clean, version and
+> chunk the documents, classify questions, and retrieve the right passages for the
+> question's date. Evidence validation and answering come next.
 
 ---
 
@@ -24,7 +25,10 @@ Standards document.
 | intent labels | 17 |
 | labelled evaluation questions | 155 (87 Arabic, 64 English, 4 mixed) |
 | labelled version-selection cases | 15, all passing |
-| automated tests | 68 passing |
+| retrieval gold questions | 64 (39 Arabic, 25 English), each with a reference date |
+| Arabic retrieval, hybrid | recall@5 0.974, recall@10 1.000 |
+| passages retrieved from a version not in force | 0 |
+| automated tests | 78 passing |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -97,7 +101,13 @@ Check: `CALENDAR-1448: 24 events` and `186 chunks ... (sha256 9e6394386f2f)`.
 ```bash
 python -m pytest
 ```
-Check: `68 passed`.
+Check: `78 passed`.
+
+**9. run retrieval once** (downloads the pinned embedding model, about 470 MB, on first use)
+```bash
+python cli.py evaluate-retrieval --method all
+```
+Check: three methods reported, each with `version leaks=0`.
 
 ---
 
@@ -112,6 +122,8 @@ Check: `68 passed`.
 | `python cli.py add-source ...` | registers a new document version without code changes (see below) |
 | `python cli.py check-model` | verifies the installed model against `models.lock` |
 | `python cli.py evaluate-intent --method keyword\|llm --split dev\|test\|all` | scores an intent classifier and saves results to `evaluation/results/` |
+| `python cli.py evaluate-retrieval --method bm25\|embeddings\|hybrid\|all` | scores retrieval on the gold set and saves results to `evaluation/results/` |
+| `python cli.py search "question" --as-of YYYY-MM-DD` | shows the top passages for one question, searching only versions in force on that date |
 
 ### adding a new document version
 When the department publishes a new calendar or guide:
@@ -134,6 +146,7 @@ questions about past dates still use the rules that applied then.
 app/
   documents/   loader, normalize, calendar_parser, chunker, version_selector, registry, ingest
   intent/      taxonomy, language, keyword_baseline, llm_classifier, context_extractor, evaluate
+  retrieval/   tokenize, bm25, embeddings, hybrid, retriever, evaluate, factory
   models/      llm_client, prompts, seed
 config/        config.py, the only source of settings
 prompts/       versioned prompt files (classify_intent_v1.md)
@@ -144,10 +157,11 @@ data/
   cache/llm/   every model call, committed as evidence for reported numbers
 evaluation/
   intent/              155 labelled questions
+  retrieval/           64 gold questions with reference dates and evidence
   version_selection/   15 labelled date cases
   results/             saved evaluation outputs
-docs/          authority-hierarchy.md, data-handling.md, intent-taxonomy.md
-tests/         68 tests with fixtures from the real documents
+docs/          authority-hierarchy.md, data-handling.md, intent-taxonomy.md, retrieval-failures.md
+tests/         78 tests with fixtures from the real documents
 ```
 
 ---
@@ -288,6 +302,57 @@ The mixed-language subset has 3 questions, too few to draw a conclusion.
 
 ---
 
+## phase 5: retrieval
+
+### methods
+- **BM25** (`bm25.py`): keyword search over section heading and text. The tokenizer
+  normalises Arabic, strips article prefixes (`ال`, `وال`, `بال`, `لل`) and common
+  question words, and returns nothing for passages sharing no word with the question.
+- **embeddings** (`embeddings.py`): `intfloat/multilingual-e5-small` loaded at the
+  revision pinned in `models.lock`, with `query:` and `passage:` prefixes. Passage
+  vectors are computed once and cached.
+- **hybrid** (`hybrid.py`): reciprocal rank fusion (k = 60) of the top 50 from each.
+
+Every method searches **only passages from versions in force on the question's
+date** (`retriever.py`), using the same version selector as phase 3.
+
+### gold set
+`evaluation/retrieval/gold.jsonl`: 64 synthetic questions, 39 Arabic and 25 English,
+each with a reference date and one or more evidence groups (a question needing a
+calendar date and the regulation behind it has two groups). Because every source is
+Arabic, all English questions are cross-language. It includes the same question at
+two dates where the guide changed: the MA in Criminology is 2 years in the 1447 guide
+and 1 year in the 1448 guide.
+
+Recall@k is the share of evidence groups with a passage in the top k. Precision@5 is
+the share of the top 5 that is evidence; with one correct passage its maximum is 0.2.
+
+### experiment 2: BM25 vs embeddings vs hybrid
+
+| method | recall@5 | recall@10 | Arabic R@5 / R@10 | English R@5 / R@10 | version leaks |
+|---|---|---|---|---|---|
+| BM25 | 0.602 | 0.641 | 0.936 / **1.000** | 0.080 / 0.080 | 0 |
+| embeddings | 0.781 | 0.875 | 0.923 / 0.949 | **0.560 / 0.760** | 0 |
+| **hybrid** | **0.797** | **0.875** | **0.974 / 1.000** | 0.520 / 0.680 | 0 |
+
+- For Arabic, BM25 alone already finds every answer in the top 10, as the brief anticipated for regulation text.
+- For English, BM25 cannot match English words to Arabic text; embeddings recover most of the gap.
+- **Hybrid is the default**: best overall and best Arabic recall@5.
+- Negative result: on English, hybrid is below embeddings alone, because the handbook's only English text (the grading table) attracts English questions through BM25.
+
+### bugs found by testing
+- The Arabic question mark `؟` was kept inside tokens, so `المقرر؟` never matched `المقرر`. Fixing it raised Arabic recall@10 from 0.949 to 1.000 (BM25).
+- BM25 returned passages with a zero score; it now returns nothing, so later stages can answer `INSUFFICIENT_EVIDENCE`.
+
+### failure analysis
+All 8 failures at top 10 are English questions; each is reviewed in
+`docs/retrieval-failures.md`. Causes: the English grading table attracting English
+questions (2), gold annotations that were too strict (2), page layout splitting a
+program's details from its title (1), similar program names (1), and meaning drift
+toward a dominant topic (2).
+
+---
+
 ## development standards compliance
 
 | rule | how it is met | check |
@@ -315,6 +380,8 @@ The mixed-language subset has 3 questions, too few to draw a conclusion.
 - **Add/drop and single-course withdrawal** are not covered by any source and will be answered `INSUFFICIENT_EVIDENCE`.
 - **Evaluation questions are synthetic** and written by the same developer who wrote the keyword rules, which may favour the baseline.
 - **Mixed-language questions** number only 4.
+- **English retrieval is weaker** than Arabic (hybrid recall@10 0.68 vs 1.00); candidate fixes are listed in `docs/retrieval-failures.md` and must be tested on new questions.
+- **Programs guide layout**: each program's language, duration and fee box lands in the same passage as the start of the next program.
 
 ---
 
@@ -326,8 +393,8 @@ The mixed-language subset has 3 questions, too few to draw a conclusion.
 | 2. documents, extraction, calendar, required docs | done |
 | 3. ingestion and version selection | done |
 | 4. intent understanding and experiment 1 | done |
-| 5. retrieval: BM25 vs embeddings, per language, cross-language | next |
-| 6. evidence validation: currency, contradiction, completeness | |
+| 5. retrieval: BM25 vs embeddings vs hybrid, per language, cross-language | done |
+| 6. evidence validation: currency, contradiction, completeness | next |
 | 7. rule library | |
 | 8. grounded generation | |
 | 9. clarification | |
