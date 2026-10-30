@@ -1,0 +1,155 @@
+{"id": "I001", "question": "ما هي شروط القبول في برنامج الماجستير؟", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I002", "question": "هل يشترط تقدير معين للقبول في الدبلوم العالي؟", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I003", "question": "معدلي في البكالوريوس مقبول، هل يحق لي التقديم على الماجستير؟", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I004", "question": "هل لازم ايلتس عشان اقدم على ماجستير الجرائم السيبرانية؟", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I005", "question": "هل برنامج الأمن الوطني يحتاج خبرة عملية؟", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I006", "question": "ابي اعرف وش المطلوب عشان ينقبل الواحد في الدكتوراه", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I007", "question": "What are the admission requirements for the master's in criminology?", "language": "en", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I008", "question": "Do I need an English test to apply for the forensic sciences program?", "language": "en", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I009", "question": "Is a bachelor's grade of good enough for admission?", "language": "en", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I010", "question": "Am I eligible for the PhD if I only have a bachelor's degree?", "language": "en", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I011", "question": "هل تقبل الجامعة شهادة البكالوريوس عن بعد؟", "language": "ar", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I012", "question": "Can civilians apply or is it only for military applicants?", "language": "en", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I013", "question": "ما هي الوثائق المطلوبة للقبول النهائي؟", "language": "ar", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I014", "question": "وش الأوراق اللي لازم أجيبها بعد القبول؟", "language": "ar", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I015", "question": "هل أحتاج أحضر أصل السجل الأكاديمي؟", "language": "ar", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I016", "question": "كم صورة شخصية مطلوبة ومقاسها؟", "language": "ar", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I017", "question": "What documents do I need to submit after I get accepted?", "language": "en", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I018", "question": "Do I have to bring my passport and original transcript?", "language": "en", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I019", "question": "If my employer sponsors me, what letter do I need to provide?", "language": "en", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I020", "question": "هل مطلوب خطاب من جهة العمل؟", "language": "ar", "intent": "ADMISSION_DOCUMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I021", "question": "كيف أقدم على برامج الجامعة؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I022", "question": "ما هي خطوات التقديم على الماجستير؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I023", "question": "هل فيه مقابلة شخصية؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I024", "question": "كيف تطلع نتيجة القبول؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I025", "question": "ما انقبلت السنة الماضية، اقدر اقدم مرة ثانية؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I026", "question": "هل أقدر أختار أكثر من رغبة؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I027", "question": "هل يوجد تأجيل للقبول؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I028", "question": "هل يوجد قبول في الفصل الثاني؟", "language": "ar", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I029", "question": "How do I apply to the university?", "language": "en", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I030", "question": "Where is the online admission portal?", "language": "en", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I031", "question": "Can I apply to more than one program at the same time?", "language": "en", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I032", "question": "Can I defer my admission to next year?", "language": "en", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I033", "question": "When does admission open?", "language": "en", "intent": "ADMISSION_PROCEDURE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I034", "question": "كم رسوم الماجستير؟", "language": "ar", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I035", "question": "كم رسوم التقديم؟", "language": "ar", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I036", "question": "هل الرسوم الإدارية تسترد؟", "language": "ar", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I037", "question": "هل أقدر أقسط الرسوم الدراسية؟", "language": "ar", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I038", "question": "متى أدفع رسوم الفصل؟", "language": "ar", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I039", "question": "انسحبت قبل بداية الدراسة، هل ترجع لي الفلوس؟", "language": "ar", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I040", "question": "How much is the tuition for the PhD program?", "language": "en", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I041", "question": "Is the application fee refundable?", "language": "en", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I042", "question": "When do I have to pay the semester fees?", "language": "en", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I043", "question": "How much does an extra semester cost if I exceed the program duration?", "language": "en", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I044", "question": "ما هي البرامج المتاحة في الجامعة؟", "language": "ar", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I045", "question": "هل الدراسة مسائية ولا صباحية؟", "language": "ar", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I046", "question": "هل يوجد برنامج دكتوراه؟", "language": "ar", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I047", "question": "هل برنامج الذكاء الاصطناعي الآمن يدرس بالانجليزي؟", "language": "ar", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I048", "question": "وش التخصصات اللي عندكم في الماجستير؟", "language": "ar", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I049", "question": "هل البرامج متاحة للطالبات؟", "language": "ar", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I050", "question": "What master's programs do you offer?", "language": "en", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I051", "question": "Is the cybercrime program taught in English?", "language": "en", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I052", "question": "Do you have any evening programs?", "language": "en", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I053", "question": "Does the university have branches outside Riyadh?", "language": "en", "intent": "PROGRAM_INFORMATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I054", "question": "كم مدة الدراسة في الماجستير؟", "language": "ar", "intent": "STUDY_DURATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I055", "question": "كم سنة الدبلوم العالي؟", "language": "ar", "intent": "STUDY_DURATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I056", "question": "كم مدة الدراسة؟", "language": "ar", "intent": "STUDY_DURATION", "ambiguous": true, "expected_missing": ["degree_level"], "origin": "synthetic", "split": "test"}
+{"id": "I057", "question": "ما هو الحد الأقصى لمدة الدراسة في الدكتوراه؟", "language": "ar", "intent": "STUDY_DURATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I058", "question": "ماجستير علم الجريمة كم فصل؟", "language": "ar", "intent": "STUDY_DURATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I059", "question": "How long is the master's program?", "language": "en", "intent": "STUDY_DURATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I060", "question": "How many semesters is the higher diploma?", "language": "en", "intent": "STUDY_DURATION", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I061", "question": "How long does it take to finish?", "language": "en", "intent": "STUDY_DURATION", "ambiguous": true, "expected_missing": ["degree_level"], "origin": "synthetic", "split": "test"}
+{"id": "I062", "question": "متى تبدأ الدراسة للفصل الأول؟", "language": "ar", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I063", "question": "متى الاختبارات النهائية للفصل الثاني؟", "language": "ar", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I064", "question": "متى إجازة عيد الفطر؟", "language": "ar", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I065", "question": "هل اليوم الوطني إجازة؟", "language": "ar", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I066", "question": "متى نرجع بعد اجازة عيد الاضحى؟", "language": "ar", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I067", "question": "متى يبدأ الترم الثاني؟", "language": "ar", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I068", "question": "When does the first semester start?", "language": "en", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I069", "question": "When are the final exams for the second semester?", "language": "en", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I070", "question": "Is there a mid-year break and when does it start?", "language": "en", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I071", "question": "When does the next academic year begin?", "language": "en", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I072", "question": "متى آخر موعد لتأجيل الفصل الدراسي الأول؟", "language": "ar", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I073", "question": "أبي أأجل الترم، كيف؟", "language": "ar", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I074", "question": "هل أقدر أأجل دراستي فصلين؟", "language": "ar", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I075", "question": "هل مدة التأجيل تحسب من مدة الدراسة؟", "language": "ar", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I076", "question": "متى آخر يوم للتأجيل؟", "language": "ar", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I077", "question": "What is the deadline to postpone the second semester?", "language": "en", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I078", "question": "Can I postpone my studies for one semester?", "language": "en", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I079", "question": "Does the postponement period count toward the maximum study duration?", "language": "en", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I080", "question": "How do I defer this semester?", "language": "en", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I081", "question": "متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟", "language": "ar", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I082", "question": "أبي أعتذر عن الفصل، وش الشروط؟", "language": "ar", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I083", "question": "هل ترجع الرسوم إذا اعتذرت عن الفصل؟", "language": "ar", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I084", "question": "كم فصل أقدر أعتذر؟", "language": "ar", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I085", "question": "متى آخر يوم للاعتذار؟", "language": "ar", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I086", "question": "When is the last day to withdraw from the semester?", "language": "en", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I087", "question": "Can I withdraw from this semester and come back next term?", "language": "en", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I088", "question": "Who approves a semester withdrawal request?", "language": "en", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I089", "question": "What's the semester withdrawal deadline?", "language": "en", "intent": "SEMESTER_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I090", "question": "كيف أنسحب من البرنامج نهائيا؟", "language": "ar", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I091", "question": "إذا انسحبت من الجامعة هل أقدر أرجع؟", "language": "ar", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I092", "question": "أبي أترك الجامعة، وش الإجراء؟", "language": "ar", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I093", "question": "متى آخر موعد للانسحاب من البرنامج؟", "language": "ar", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I094", "question": "How do I withdraw from the program completely?", "language": "en", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I095", "question": "If I leave the university, can I come back later?", "language": "en", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I096", "question": "I want to quit the program, what should I do?", "language": "en", "intent": "PROGRAM_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I097", "question": "اقدر اسحب المادة؟", "language": "ar", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I098", "question": "كيف أحذف مادة واحدة؟", "language": "ar", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I099", "question": "متى فترة الحذف والإضافة؟", "language": "ar", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I100", "question": "أبي أنسحب من مقرر واحد بس", "language": "ar", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I101", "question": "Can I drop a course after the semester starts?", "language": "en", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I102", "question": "When is the add and drop period?", "language": "en", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I103", "question": "what's the last day I can get out of a course", "language": "en", "intent": "COURSE_WITHDRAWAL", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I104", "question": "هل أقدر أنسحب؟", "language": "ar", "intent": "WITHDRAWAL_UNSPECIFIED", "ambiguous": true, "expected_missing": ["withdrawal_scope"], "origin": "synthetic", "split": "test"}
+{"id": "I105", "question": "متى آخر موعد للانسحاب؟", "language": "ar", "intent": "WITHDRAWAL_UNSPECIFIED", "ambiguous": true, "expected_missing": ["withdrawal_scope"], "origin": "synthetic", "split": "dev"}
+{"id": "I106", "question": "أبي أسحب، وش أسوي؟", "language": "ar", "intent": "WITHDRAWAL_UNSPECIFIED", "ambiguous": true, "expected_missing": ["withdrawal_scope"], "origin": "synthetic", "split": "test"}
+{"id": "I107", "question": "Can I withdraw?", "language": "en", "intent": "WITHDRAWAL_UNSPECIFIED", "ambiguous": true, "expected_missing": ["withdrawal_scope"], "origin": "synthetic", "split": "test"}
+{"id": "I108", "question": "What is the withdrawal deadline?", "language": "en", "intent": "WITHDRAWAL_UNSPECIFIED", "ambiguous": true, "expected_missing": ["withdrawal_scope"], "origin": "synthetic", "split": "dev"}
+{"id": "I109", "question": "I need to withdraw, how?", "language": "en", "intent": "WITHDRAWAL_UNSPECIFIED", "ambiguous": true, "expected_missing": ["withdrawal_scope"], "origin": "synthetic", "split": "test"}
+{"id": "I110", "question": "قيدي انطوى، كيف أعيد القيد؟", "language": "ar", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I111", "question": "متى آخر موعد لطلب إعادة القيد للفصل الثاني؟", "language": "ar", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I112", "question": "كم مرة أقدر أطلب إعادة القيد؟", "language": "ar", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I113", "question": "هل فيه مدة محددة لإعادة القيد بعد طي القيد؟", "language": "ar", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I114", "question": "My enrollment was closed, can I re-enroll?", "language": "en", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I115", "question": "What is the deadline to request re-enrolment for the first semester?", "language": "en", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I116", "question": "How many times is re-enrollment allowed?", "language": "en", "intent": "REENROLLMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I117", "question": "كم نسبة الحضور المطلوبة؟", "language": "ar", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I118", "question": "إذا غبت كثير هل أنحرم من الاختبار؟", "language": "ar", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I119", "question": "هل يمكن رفع الحرمان إذا عندي عذر؟", "language": "ar", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I120", "question": "كم مسموح لي أغيب؟", "language": "ar", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I121", "question": "What is the minimum attendance required?", "language": "en", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I122", "question": "Will I be barred from the final exam if I miss too many classes?", "language": "en", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I123", "question": "Can the deprivation be lifted with a medical excuse?", "language": "en", "intent": "ATTENDANCE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I124", "question": "كم درجة النجاح في المقرر؟", "language": "ar", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I125", "question": "متى ينذر الطالب أكاديميا؟", "language": "ar", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I126", "question": "وش يصير إذا جاني إنذارين؟", "language": "ar", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I127", "question": "كيف أعترض على درجة الاختبار النهائي؟", "language": "ar", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I128", "question": "كيف يحسب المعدل التراكمي؟", "language": "ar", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I129", "question": "What is the passing mark for a course?", "language": "en", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I130", "question": "What happens if my GPA drops below the minimum?", "language": "en", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I131", "question": "How many times can I appeal a final exam grade?", "language": "en", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I132", "question": "How much of the course grade is the final exam?", "language": "en", "intent": "GRADING_AND_STANDING", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I133", "question": "ما هي متطلبات التخرج من الماجستير؟", "language": "ar", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I134", "question": "كم المعدل المطلوب للتخرج؟", "language": "ar", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": true, "expected_missing": ["degree_level"], "origin": "synthetic", "split": "test"}
+{"id": "I135", "question": "هل لازم أنجح في الاختبار الشامل عشان أتخرج؟", "language": "ar", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": true, "expected_missing": ["degree_level"], "origin": "synthetic", "split": "dev"}
+{"id": "I136", "question": "متى أحصل على مرتبة الشرف؟", "language": "ar", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": true, "expected_missing": ["degree_level"], "origin": "synthetic", "split": "test"}
+{"id": "I137", "question": "What do I need to graduate?", "language": "en", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": true, "expected_missing": ["degree_level"], "origin": "synthetic", "split": "test"}
+{"id": "I138", "question": "What GPA is required to graduate from the higher diploma?", "language": "en", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I139", "question": "Is a thesis required for the PhD?", "language": "en", "intent": "GRADUATION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I140", "question": "هل يوجد سكن للطلاب؟", "language": "ar", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I141", "question": "نسيت كلمة المرور حق البريد الجامعي", "language": "ar", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I142", "question": "وين مواقف السيارات؟", "language": "ar", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I143", "question": "أبي أقدم شكوى على دكتور", "language": "ar", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I144", "question": "كم المكافأة الشهرية؟", "language": "ar", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I145", "question": "كيف الجو في الرياض الحين؟", "language": "ar", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I146", "question": "Is there student housing on campus?", "language": "en", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I147", "question": "The wifi is not working in the library", "language": "en", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I148", "question": "How do I apply for the Prince Nayef scholarship?", "language": "en", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I149", "question": "Can you recommend a good restaurant nearby?", "language": "en", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I150", "question": "Write me an essay about cybersecurity", "language": "en", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I151", "question": "What time does the cafeteria close?", "language": "en", "intent": "OUT_OF_SCOPE", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I152", "question": "متى الـ final exams للفصل الأول؟", "language": "mixed", "intent": "ACADEMIC_CALENDAR", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I153", "question": "هل الـ IELTS شرط للقبول في cybercrime؟", "language": "mixed", "intent": "ADMISSION_REQUIREMENTS", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "dev"}
+{"id": "I154", "question": "كيف أسوي postpone للترم الثاني؟", "language": "mixed", "intent": "POSTPONEMENT", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}
+{"id": "I155", "question": "هل الـ tuition تنقسط؟", "language": "mixed", "intent": "FEES", "ambiguous": false, "expected_missing": [], "origin": "synthetic", "split": "test"}

@@ -16,10 +16,11 @@ class BaseConfig:
     # --- retrieval ---
     TOP_K = int(os.getenv("TOP_K", "5"))
     # --- paths ---
-    SOURCES_FILE = os.getenv("SOURCES_FILE", "data/sources.json")
     RAW_DIR = os.getenv("RAW_DIR", "data/raw")
     PROCESSED_DIR = os.getenv("PROCESSED_DIR", "data/processed")
     CACHE_DIR = os.getenv("CACHE_DIR", "data/cache")
+    SOURCES_FILE = os.getenv("SOURCES_FILE", "data/sources.json")
+    EVAL_DIR = os.getenv("EVAL_DIR", "evaluation")
     # --- logging ---
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 

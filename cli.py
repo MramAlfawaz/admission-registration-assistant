@@ -122,6 +122,29 @@ def add_source_cmd(cfg, args):
              args.source_id, args.supersedes or "nothing")
 
 
+def evaluate_intent(cfg, args):
+    """Score an intent classifier on the labelled set and save the results."""
+    from app.intent.evaluate import evaluate, load_questions
+
+    if args.method == "keyword":
+        from app.intent.keyword_baseline import classify
+    else:
+        log.error("unknown method: %s", args.method)
+        return
+    split = None if args.split == "all" else args.split
+    rows = load_questions(Path(cfg.EVAL_DIR) / "intent" / "questions.jsonl", split)
+    result = evaluate(classify, rows)
+    out = Path(cfg.EVAL_DIR) / "results" / f"intent_{args.method}_{args.split}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    for part in ["overall", "ar", "en", "mixed"]:
+        if part in result:
+            r = result[part]
+            log.info("%-7s n=%3d accuracy=%.3f macro_f1=%.3f out_of_scope_f1=%.3f",
+                     part, r["n"], r["accuracy"], r["macro_f1"], r["out_of_scope_f1"])
+    log.info("%d errors; full results -> %s", len(result["errors"]), out)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -130,6 +153,9 @@ def build_parser():
     sub.add_parser("peek", help="extract text to data/processed/peek for inspection")
     sub.add_parser("build-calendar", help="parse calendars into structured events")
     sub.add_parser("ingest", help="chunk all sources into data/processed/chunks.jsonl")
+    ev = sub.add_parser("evaluate-intent", help="score an intent classifier")
+    ev.add_argument("--method", default="keyword", choices=["keyword"])
+    ev.add_argument("--split", default="test", choices=["dev", "test", "all"])
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
@@ -147,7 +173,8 @@ def build_parser():
 
 
 COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
-            "ingest": ingest, "add-source": add_source_cmd}
+            "ingest": ingest, "add-source": add_source_cmd,
+            "evaluate-intent": evaluate_intent}
 
 
 def main():
