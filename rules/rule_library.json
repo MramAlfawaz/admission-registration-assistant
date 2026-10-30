@@ -1,0 +1,384 @@
+[
+  {
+    "rule_id": "RULE-CAL-01",
+    "title": "Semester withdrawal window",
+    "kind": "calendar",
+    "event_code": "SEMESTER_WITHDRAWAL_DEADLINE",
+    "comparison": "on_or_before",
+    "inputs": [
+      "as_of",
+      "term_id"
+    ],
+    "outputs": [
+      "open",
+      "closed"
+    ],
+    "condition": "as_of <= semester withdrawal deadline of the term",
+    "sources": [
+      {
+        "source_id": "CALENDAR-1448",
+        "section": "rows 6 and 18"
+      },
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p18 الاعتذار عن الدراسة"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_cal01_boundaries",
+      "test_cal_unknown_without_calendar"
+    ],
+    "term_basis": "current"
+  },
+  {
+    "rule_id": "RULE-CAL-02",
+    "title": "Semester postponement window",
+    "kind": "calendar",
+    "event_code": "POSTPONEMENT_DEADLINE",
+    "comparison": "on_or_before",
+    "inputs": [
+      "as_of",
+      "term_id"
+    ],
+    "outputs": [
+      "open",
+      "closed"
+    ],
+    "condition": "as_of <= postponement deadline of the term",
+    "sources": [
+      {
+        "source_id": "CALENDAR-1448",
+        "section": "rows 4 and 12"
+      },
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p17 تأجيل الدراسة"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_cal02_boundaries"
+    ],
+    "term_basis": "current"
+  },
+  {
+    "rule_id": "RULE-CAL-03",
+    "title": "Re-enrolment request window",
+    "kind": "calendar",
+    "event_code": "REENROLLMENT_DEADLINE",
+    "comparison": "on_or_before",
+    "inputs": [
+      "as_of",
+      "term_id"
+    ],
+    "outputs": [
+      "open",
+      "closed"
+    ],
+    "condition": "as_of <= re-enrolment request deadline of the term",
+    "sources": [
+      {
+        "source_id": "CALENDAR-1448",
+        "section": "rows 2 and 10"
+      },
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p21 إعادة القيد"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_cal03_boundaries"
+    ],
+    "term_basis": "upcoming"
+  },
+  {
+    "rule_id": "RULE-CAL-04",
+    "title": "Tuition refund on program withdrawal",
+    "kind": "calendar",
+    "event_code": "TERM_START",
+    "comparison": "before",
+    "inputs": [
+      "as_of",
+      "term_id"
+    ],
+    "outputs": [
+      "refund_eligible",
+      "refund_not_eligible"
+    ],
+    "condition": "as_of < study start date of the term (tuition only; administrative fees are never refunded)",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p19 الانسحاب من الجامعة"
+      },
+      {
+        "source_id": "FAQ-NAUSS",
+        "section": "FAQ-NAUSS#020"
+      },
+      {
+        "source_id": "CALENDAR-1448",
+        "section": "rows 3 and 11"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_cal04_boundaries"
+    ],
+    "term_basis": "current"
+  },
+  {
+    "rule_id": "RULE-CAL-05",
+    "title": "Program withdrawal request window",
+    "kind": "calendar",
+    "event_code": "FINAL_EXAMS_START",
+    "comparison": "before",
+    "inputs": [
+      "as_of",
+      "term_id"
+    ],
+    "outputs": [
+      "open",
+      "closed"
+    ],
+    "condition": "as_of < start of final exams of the term",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p19 الانسحاب من الجامعة"
+      },
+      {
+        "source_id": "CALENDAR-1448",
+        "section": "rows 7 and 19"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_cal05_boundaries"
+    ],
+    "term_basis": "current"
+  },
+  {
+    "rule_id": "RULE-REG-01",
+    "title": "Attendance and exam deprivation",
+    "kind": "regulation",
+    "function": "attendance",
+    "inputs": [
+      "attendance_percent"
+    ],
+    "outputs": [
+      "eligible_for_final",
+      "deprived_exception_possible",
+      "deprived"
+    ],
+    "condition": ">= 75% eligible; 50% to under 75% only with an accepted excuse; under 50% deprived",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p23 الحرمان من دخول الاختبار النهائي"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_reg01_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-REG-02",
+    "title": "Course pass mark",
+    "kind": "regulation",
+    "function": "course_pass",
+    "inputs": [
+      "course_grade"
+    ],
+    "outputs": [
+      "passed",
+      "failed"
+    ],
+    "condition": "final course grade >= 70 of 100",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p22 اجتياز المقرر الدراسي"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_reg02_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-REG-03",
+    "title": "Academic warning",
+    "kind": "regulation",
+    "function": "academic_warning",
+    "inputs": [
+      "degree",
+      "gpa"
+    ],
+    "outputs": [
+      "warning",
+      "no_warning"
+    ],
+    "condition": "GPA < 3.75/5 (PhD, master's) or < 3.00/5 (higher diploma)",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p15 الإنذار الأكاديمي"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_reg03_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-REG-04",
+    "title": "Enrolment closure after warnings",
+    "kind": "regulation",
+    "function": "enrolment_closure",
+    "inputs": [
+      "consecutive_warnings"
+    ],
+    "outputs": [
+      "enrolment_closed",
+      "enrolment_continues"
+    ],
+    "condition": "two or more consecutive academic warnings",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p21 طي القيد، البند 5"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_reg04_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-REG-05",
+    "title": "Re-enrolment eligibility",
+    "kind": "regulation",
+    "function": "reenrolment_eligibility",
+    "inputs": [
+      "semesters_since_closure",
+      "previous_reenrolments"
+    ],
+    "outputs": [
+      "eligible_to_apply",
+      "not_eligible",
+      "exception_only"
+    ],
+    "condition": "within 4 semesters of closure and not re-enrolled before",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p21-22 إعادة القيد"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_reg05_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-REG-06",
+    "title": "Final exam grade appeals remaining",
+    "kind": "regulation",
+    "function": "appeals_remaining",
+    "inputs": [
+      "degree",
+      "appeals_used"
+    ],
+    "outputs": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "condition": "3 appeals (PhD, master's) or 2 (diploma) minus those used",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p26 المادة 34"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_reg06_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-ELIG-01",
+    "title": "Graduation GPA",
+    "kind": "regulation",
+    "function": "graduation_gpa",
+    "inputs": [
+      "degree",
+      "gpa"
+    ],
+    "outputs": [
+      "meets_gpa",
+      "below_gpa"
+    ],
+    "condition": "GPA >= 3.75/5 (PhD, master's) or >= 3.00/5 (higher diploma)",
+    "sources": [
+      {
+        "source_id": "PROGRAMS-GUIDE-1448",
+        "section": "متطلبات التخرج"
+      },
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p15 الإنذار الأكاديمي"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_elig01_boundaries"
+    ]
+  },
+  {
+    "rule_id": "RULE-ELIG-02",
+    "title": "Graduation honours",
+    "kind": "regulation",
+    "function": "honours",
+    "inputs": [
+      "gpa",
+      "failed_any_course",
+      "disciplinary_penalty",
+      "enrolment_ever_closed"
+    ],
+    "outputs": [
+      "first_honours",
+      "second_honours",
+      "no_honours",
+      "not_eligible"
+    ],
+    "condition": "GPA >= 4.75 first, >= 4.50 second; excluded by a failed course, penalty or closure",
+    "sources": [
+      {
+        "source_id": "HANDBOOK-1446",
+        "section": "p25 مراتب الشرف"
+      }
+    ],
+    "effective_from": "2024-08-01",
+    "effective_to": null,
+    "tests": [
+      "test_elig02_boundaries"
+    ]
+  }
+]

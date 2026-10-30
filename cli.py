@@ -253,6 +253,67 @@ def conflict_report(cfg, args):
     log.info("%d distinct conflicts -> %s", len(conflicts), out_dir / "conflict_report.md")
 
 
+def _parse_value(text):
+    """Turn a command-line value into a bool, number or string."""
+    if text.lower() in ("true", "false"):
+        return text.lower() == "true"
+    try:
+        return float(text) if "." in text else int(text)
+    except ValueError:
+        return text
+
+
+def run_rule(cfg, args):
+    """Evaluate one rule from the library on a date, for manual checking."""
+    from app.rules.calendar_rules import CalendarStore
+    from app.rules.rule_engine import RuleEngine
+
+    sources = load_sources(cfg)
+    store = CalendarStore.from_dir(Path(cfg.PROCESSED_DIR) / "calendar", sources)
+    engine = RuleEngine.from_file(cfg.RULES_FILE, store)
+    inputs = dict(pair.split("=", 1) for pair in args.input)
+    result = engine.run(args.rule_id, args.as_of, term_id=args.term,
+                        **{k: _parse_value(v) for k, v in inputs.items()})
+    log.info("%s on %s -> %s", result["rule_id"], result["as_of"], result["output"])
+    log.info("details: %s", json.dumps(result["details"], ensure_ascii=False))
+    log.info("sources: %s", ", ".join(f"{s['source_id']} ({s['section']})" for s in result["sources"]))
+
+
+def rules_doc(cfg, args):
+    """Write docs/rules.md from the rule library so the two never disagree."""
+    library = json.loads(Path(cfg.RULES_FILE).read_text(encoding="utf-8"))
+    lines = ["# rules", "",
+             f"Generated from `{cfg.RULES_FILE}` by `python cli.py rules-doc`; edit the JSON, not this file.", "",
+             "Every rule cites an institutional source, declares its inputs, and has boundary tests in",
+             "`tests/test_rules.py`. A missing input returns `unknown`; nothing is filled with a default.",
+             "Rules inform the student; they never take an official decision.", "",
+             "## calendar rules", "",
+             "Calendar rules read the academic calendar **in force on `as_of`**. When the question names",
+             "no term, `current` rules use the term in progress (first term before it starts) and",
+             "`upcoming` rules use the next term to start. The answer states which basis was used.", ""]
+    for kind, title in (("calendar", None), ("regulation", "## regulation rules")):
+        if title:
+            lines += [title, ""]
+        for r in (x for x in library if x["kind"] == kind):
+            lines += [f"### {r['rule_id']}: {r['title']}", "",
+                      f"- **source:** {'; '.join(s['source_id'] + ', ' + s['section'] for s in r['sources'])}",
+                      f"- **inputs:** {', '.join(r['inputs'])}",
+                      f"- **condition:** {r['condition']}",
+                      f"- **outputs:** {', '.join(r['outputs'])}",
+                      f"- **effective:** {r['effective_from']} to {r['effective_to'] or 'open'}"]
+            if kind == "calendar":
+                lines.append(f"- **calendar event:** `{r['event_code']}`, compared `{r['comparison']}`, term basis `{r['term_basis']}`")
+            lines += [f"- **tests:** {', '.join(r['tests'])}", ""]
+    lines += ["## notes", "",
+              "- **Semester withdrawal:** the handbook says the request is made at least two weeks before",
+              "  final exams (latest 2026-11-22 for the first term); the calendar sets 2026-11-19. The calendar",
+              "  date is the stricter one and is the date the rule uses.",
+              "- **Refunds:** only tuition for a term not yet started is refundable; administrative fees never are."]
+    out = Path("docs") / "rules.md"
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log.info("%d rules -> %s", len(library), out)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -275,6 +336,12 @@ def build_parser():
     sub.add_parser("evaluate-conflicts", help="score evidence validation on planted conflicts")
     cr = sub.add_parser("conflict-report", help="report source conflicts found for gold questions")
     cr.add_argument("--method", default="hybrid", choices=["bm25", "embeddings", "hybrid"])
+    ru = sub.add_parser("rule", help="evaluate one rule on a date")
+    ru.add_argument("rule_id")
+    ru.add_argument("--as-of", required=True, help="YYYY-MM-DD")
+    ru.add_argument("--term", default=None, help="e.g. 1448-T1; resolved from the date when omitted")
+    ru.add_argument("--input", action="append", default=[], help="key=value, repeatable")
+    sub.add_parser("rules-doc", help="write docs/rules.md from the rule library")
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
@@ -295,7 +362,8 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "ingest": ingest, "add-source": add_source_cmd,
             "evaluate-intent": evaluate_intent, "check-model": check_model,
             "evaluate-retrieval": evaluate_retrieval, "search": search,
-            "evaluate-conflicts": evaluate_conflicts, "conflict-report": conflict_report}
+            "evaluate-conflicts": evaluate_conflicts, "conflict-report": conflict_report,
+            "rule": run_rule, "rules-doc": rules_doc}
 
 
 def main():

@@ -26,6 +26,7 @@ class BaseConfig:
     CACHE_DIR = os.getenv("CACHE_DIR", "data/cache")
     SOURCES_FILE = os.getenv("SOURCES_FILE", "data/sources.json")
     EVAL_DIR = os.getenv("EVAL_DIR", "evaluation")
+    RULES_FILE = os.getenv("RULES_FILE", "rules/rule_library.json")
     # --- logging ---
     LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 
