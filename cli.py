@@ -1,7 +1,9 @@
 """Run project tasks from the command line."""
 import argparse
+import hashlib
 import json
 import logging
+import shutil
 import time
 from pathlib import Path
 
@@ -17,7 +19,7 @@ def load_sources(cfg):
     return json.loads(Path(cfg.SOURCES_FILE).read_text(encoding="utf-8"))
 
 
-def fetch(cfg):
+def fetch(cfg, args):
     """Download every source listed in the sources file into the raw folder."""
     raw = Path(cfg.RAW_DIR)
     raw.mkdir(parents=True, exist_ok=True)
@@ -26,6 +28,9 @@ def fetch(cfg):
         target = raw / s["filename"]
         if target.exists():
             log.info("skip %s (already downloaded)", s["source_id"])
+            continue
+        if not s.get("url"):
+            log.error("%s has no url and its file is missing: %s", s["source_id"], target)
             continue
         for attempt in range(3):
             try:
@@ -42,7 +47,7 @@ def fetch(cfg):
             log.error("could not download %s from %s", s["source_id"], s["url"])
 
 
-def peek(cfg):
+def peek(cfg, args):
     """Write the extracted text of every source to a file for inspection."""
     from app.documents.loader import extract_pages
 
@@ -57,7 +62,7 @@ def peek(cfg):
                  s["source_id"], len(pages), empty, sum(len(p) for p in pages))
 
 
-def build_calendar(cfg):
+def build_calendar(cfg, args):
     """Parse every calendar source into structured events."""
     from app.documents.calendar_parser import parse_calendar
     from app.documents.loader import extract_pages
@@ -74,19 +79,84 @@ def build_calendar(cfg):
         log.info("%s: %d events -> %s", s["source_id"], len(events), target)
 
 
-COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar}
+def ingest(cfg, args):
+    """Chunk every source into one JSON-lines file; identical input gives identical output."""
+    from app.documents.ingest import build_chunks
+
+    chunks = []
+    for s in load_sources(cfg):
+        part = build_chunks(s, cfg.RAW_DIR)
+        log.info("%s: %d chunks", s["source_id"], len(part))
+        chunks.extend(part)
+    out = Path(cfg.PROCESSED_DIR) / "chunks.jsonl"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    body = "".join(json.dumps(c, ensure_ascii=False, sort_keys=True) + "\n" for c in chunks)
+    out.write_text(body, encoding="utf-8")
+    digest = hashlib.sha256(body.encode("utf-8")).hexdigest()[:12]
+    log.info("%d chunks -> %s (sha256 %s)", len(chunks), out, digest)
+
+
+def add_source_cmd(cfg, args):
+    """Register a new document version and copy its file into the raw folder."""
+    from app.documents.registry import add_source
+
+    src_file = Path(args.file)
+    if not src_file.exists():
+        log.error("file not found: %s", src_file)
+        return
+    filename = f"{args.source_id}{src_file.suffix.lower()}"
+    new = {
+        "source_id": args.source_id, "title": args.title, "document_type": args.type,
+        "authority_level": args.authority, "version": args.version,
+        "effective_from": args.effective_from, "effective_to": args.effective_to,
+        "language": args.language, "supersedes": args.supersedes,
+        "url": args.url, "filename": filename,
+    }
+    sources = add_source(load_sources(cfg), new)
+    raw = Path(cfg.RAW_DIR)
+    raw.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(src_file, raw / filename)
+    Path(cfg.SOURCES_FILE).write_text(
+        json.dumps(sources, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    log.info("added %s (supersedes %s); run 'python cli.py ingest' next",
+             args.source_id, args.supersedes or "nothing")
+
+
+def build_parser():
+    """Define the command-line interface."""
+    parser = argparse.ArgumentParser(description="Admission assistant tasks")
+    sub = parser.add_subparsers(dest="command", required=True)
+    sub.add_parser("fetch", help="download the source documents")
+    sub.add_parser("peek", help="extract text to data/processed/peek for inspection")
+    sub.add_parser("build-calendar", help="parse calendars into structured events")
+    sub.add_parser("ingest", help="chunk all sources into data/processed/chunks.jsonl")
+    add = sub.add_parser("add-source", help="register a new document version")
+    add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
+    add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
+    add.add_argument("--title", required=True)
+    add.add_argument("--type", required=True,
+                     choices=["regulation", "calendar", "program_requirements", "procedure", "faq"])
+    add.add_argument("--authority", required=True, type=int, help="1 = highest")
+    add.add_argument("--version", required=True)
+    add.add_argument("--effective-from", required=True, help="YYYY-MM-DD")
+    add.add_argument("--effective-to", default=None, help="YYYY-MM-DD, optional")
+    add.add_argument("--supersedes", default=None, help="source_id this version replaces")
+    add.add_argument("--language", default="ar", choices=["ar", "en"])
+    add.add_argument("--url", default=None, help="public URL, so 'fetch' can restore the file")
+    return parser
+
+
+COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
+            "ingest": ingest, "add-source": add_source_cmd}
 
 
 def main():
     """Parse arguments and run the chosen command."""
-    parser = argparse.ArgumentParser(description="Admission assistant tasks")
-    parser.add_argument("command", choices=COMMANDS)
-    args = parser.parse_args()
-
+    args = build_parser().parse_args()
     cfg = config_by_name["default"]
     logging.basicConfig(level=cfg.LOG_LEVEL,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-    COMMANDS[args.command](cfg)
+    COMMANDS[args.command](cfg, args)
 
 
 if __name__ == "__main__":

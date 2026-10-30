@@ -1,0 +1,17 @@
+[
+  {"id": "V01", "as_of": "2026-03-01", "family": "PROGRAMS-GUIDE", "expected": "PROGRAMS-GUIDE-1447"},
+  {"id": "V02", "as_of": "2026-07-31", "family": "PROGRAMS-GUIDE", "expected": "PROGRAMS-GUIDE-1447"},
+  {"id": "V03", "as_of": "2026-08-01", "family": "PROGRAMS-GUIDE", "expected": "PROGRAMS-GUIDE-1448"},
+  {"id": "V04", "as_of": "2026-10-14", "family": "PROGRAMS-GUIDE", "expected": "PROGRAMS-GUIDE-1448"},
+  {"id": "V05", "as_of": "2025-07-31", "family": "PROGRAMS-GUIDE", "expected": null},
+  {"id": "V06", "as_of": "2026-08-11", "family": "CALENDAR", "expected": null},
+  {"id": "V07", "as_of": "2026-08-12", "family": "CALENDAR", "expected": "CALENDAR-1448"},
+  {"id": "V08", "as_of": "2026-11-19", "family": "CALENDAR", "expected": "CALENDAR-1448"},
+  {"id": "V09", "as_of": "2027-08-21", "family": "CALENDAR", "expected": "CALENDAR-1448"},
+  {"id": "V10", "as_of": "2027-08-22", "family": "CALENDAR", "expected": null},
+  {"id": "V11", "as_of": "2024-07-31", "family": "HANDBOOK", "expected": null},
+  {"id": "V12", "as_of": "2026-10-14", "family": "HANDBOOK", "expected": "HANDBOOK-1446"},
+  {"id": "V13", "as_of": "2025-08-22", "family": "ADMISSION-PAGE", "expected": null},
+  {"id": "V14", "as_of": "2025-08-23", "family": "ADMISSION-PAGE", "expected": "ADMISSION-PAGE-2025"},
+  {"id": "V15", "as_of": "2020-01-01", "family": "FAQ", "expected": "FAQ-NAUSS"}
+]
