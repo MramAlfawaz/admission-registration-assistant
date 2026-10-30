@@ -57,18 +57,36 @@ def peek(cfg):
                  s["source_id"], len(pages), empty, sum(len(p) for p in pages))
 
 
+def build_calendar(cfg):
+    """Parse every calendar source into structured events."""
+    from app.documents.calendar_parser import parse_calendar
+    from app.documents.loader import extract_pages
+
+    out_dir = Path(cfg.PROCESSED_DIR) / "calendar"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for s in load_sources(cfg):
+        if s["document_type"] != "calendar":
+            continue
+        text = "\n".join(extract_pages(Path(cfg.RAW_DIR) / s["filename"]))
+        events = parse_calendar(text, s["source_id"], s["version"])
+        target = out_dir / f"{s['source_id']}.json"
+        target.write_text(json.dumps(events, ensure_ascii=False, indent=2), encoding="utf-8")
+        log.info("%s: %d events -> %s", s["source_id"], len(events), target)
+
+
+COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar}
+
+
 def main():
     """Parse arguments and run the chosen command."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
-    sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("fetch", help="download the source documents")
-    sub.add_parser("peek", help="extract text to data/processed/peek for inspection")
+    parser.add_argument("command", choices=COMMANDS)
     args = parser.parse_args()
 
     cfg = config_by_name["default"]
     logging.basicConfig(level=cfg.LOG_LEVEL,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-    {"fetch": fetch, "peek": peek}[args.command](cfg)
+    COMMANDS[args.command](cfg)
 
 
 if __name__ == "__main__":
