@@ -1,0 +1,365 @@
+{
+  "cases": 20,
+  "detection_rate": 1.0,
+  "false_positive_rate": 0.0,
+  "resolution_accuracy": 1.0,
+  "status_accuracy": 1.0,
+  "all_checks_passed": 1.0,
+  "results": [
+    {
+      "id": "P01",
+      "description": "brief example: FAQ deadline vs calendar deadline",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "date",
+          "kind": "semester_withdrawal",
+          "values": {
+            "CAL": "11-20|2026",
+            "FAQ": "11-15|"
+          },
+          "winner": "CAL",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "description": "FAQ master's duration vs guide criminology duration",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "duration",
+          "kind": "study_duration",
+          "values": {
+            "GUIDE": 2,
+            "FAQ": 4
+          },
+          "winner": "GUIDE",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "description": "two calendars, same authority and date, different deadline",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "CONFLICTING_EVIDENCE",
+      "conflicts": [
+        {
+          "type": "date",
+          "kind": "semester_withdrawal",
+          "values": {
+            "CAL": "11-19|2026",
+            "CAL-B": "11-22|2026"
+          },
+          "winner": null,
+          "rule": "unresolved"
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "description": "regulation attendance 75% vs FAQ 80%",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "percent",
+          "kind": "attendance",
+          "values": {
+            "REG": 75,
+            "FAQ": 80
+          },
+          "winner": "REG",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "description": "guide tuition vs procedure page tuition",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "money",
+          "kind": "tuition",
+          "values": {
+            "GUIDE": 100000,
+            "PAGE": 90000
+          },
+          "winner": "GUIDE",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "description": "approved vs superseded, both in force",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "percent",
+          "kind": "attendance",
+          "values": {
+            "REG": 75,
+            "REG-OLD": 70
+          },
+          "winner": "REG",
+          "rule": "status"
+        }
+      ]
+    },
+    {
+      "id": "P07",
+      "description": "same authority, later effective date wins",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "money",
+          "kind": "application",
+          "values": {
+            "PAGE-NEW": 150,
+            "PAGE": 100
+          },
+          "winner": "PAGE-NEW",
+          "rule": "effective_date"
+        }
+      ]
+    },
+    {
+      "id": "P08",
+      "description": "regulation vs guide graduation GPA",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "gpa",
+          "kind": "graduation",
+          "values": {
+            "REG": 3.75,
+            "GUIDE": 3.5
+          },
+          "winner": "REG",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "P09",
+      "description": "three sources, FAQ outvoted by guide",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "duration",
+          "kind": "study_duration",
+          "values": {
+            "GUIDE": 2,
+            "FAQ": 4
+          },
+          "winner": "GUIDE",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "P10",
+      "description": "two undated FAQs disagree",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "CONFLICTING_EVIDENCE",
+      "conflicts": [
+        {
+          "type": "money",
+          "kind": "application",
+          "values": {
+            "FAQ-B": 100,
+            "FAQ-ND": 200
+          },
+          "winner": null,
+          "rule": "unresolved"
+        }
+      ]
+    },
+    {
+      "id": "P11",
+      "description": "postponement deadline FAQ vs calendar",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "resolution": true
+      },
+      "status": "OK",
+      "conflicts": [
+        {
+          "type": "date",
+          "kind": "postponement",
+          "values": {
+            "CAL": "01-07|2027",
+            "FAQ": "01-10|2027"
+          },
+          "winner": "CAL",
+          "rule": "authority"
+        }
+      ]
+    },
+    {
+      "id": "N01",
+      "description": "same duration, different wording",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "N02",
+      "description": "master's vs diploma durations differ legitimately",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "N03",
+      "description": "first and second term deadlines differ legitimately",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "N04",
+      "description": "application fee vs administrative fee",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "N05",
+      "description": "same date in ISO and Arabic month form",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "N06",
+      "description": "attendance percent vs equivalency percent",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "V01",
+      "description": "superseded guide out of force is rejected before comparison",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "currency": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "V02",
+      "description": "program-withdrawal refund is off topic for semester withdrawal",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "relevance": true
+      },
+      "status": "OK",
+      "conflicts": []
+    },
+    {
+      "id": "V03",
+      "description": "deadline question with no calendar in force",
+      "passed": true,
+      "checks": {
+        "conflict": true,
+        "status": true,
+        "completeness": true
+      },
+      "status": "INSUFFICIENT_EVIDENCE",
+      "conflicts": []
+    }
+  ]
+}

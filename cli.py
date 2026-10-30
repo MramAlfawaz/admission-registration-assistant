@@ -200,6 +200,59 @@ def search(cfg, args):
         log.info("%d. %s (p%s) %s", rank_no, chunk["chunk_id"], chunk["page"], snippet)
 
 
+def evaluate_conflicts(cfg, args):
+    """Score evidence validation on the planted conflict set and save the results."""
+    from app.evidence.evaluate import evaluate_planted, load_planted
+
+    result = evaluate_planted(load_planted(Path(cfg.EVAL_DIR) / "conflicts" / "planted.jsonl"))
+    out = Path(cfg.EVAL_DIR) / "results" / "conflicts_planted.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    for key in ("cases", "detection_rate", "false_positive_rate", "resolution_accuracy",
+                "status_accuracy", "all_checks_passed"):
+        log.info("%-20s %s", key, result[key])
+    for r in result["results"]:
+        if not r["passed"]:
+            log.warning("failed %s: %s %s", r["id"], r["description"], r["checks"])
+    log.info("full results -> %s", out)
+
+
+def conflict_report(cfg, args):
+    """Validate the evidence for every gold question and report conflicts for the department."""
+    from app.evidence.validator import validate_evidence
+    from app.retrieval.evaluate import load_gold
+    from app.retrieval.factory import build_retriever
+
+    retriever = build_retriever(cfg, with_embeddings=args.method != "bm25")
+    sources = {s["source_id"]: s for s in retriever.sources}
+    found, statuses = {}, {}
+    for g in load_gold(Path(cfg.EVAL_DIR) / "retrieval" / "gold.jsonl"):
+        chunks = retriever.search(g["question"], g["as_of"], args.method, cfg.TOP_K)
+        report = validate_evidence(g["intent"], g["question"], chunks, sources, g["as_of"])
+        statuses[report["status"]] = statuses.get(report["status"], 0) + 1
+        for c in report["conflicts"]:
+            key = json.dumps([c["type"], c["kind"], c["chunks"]], sort_keys=True)
+            entry = found.setdefault(key, {**c, "questions": []})
+            entry["questions"].append(g["id"])
+    conflicts = list(found.values())
+    out_dir = Path(cfg.EVAL_DIR) / "results"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "conflict_report.json").write_text(
+        json.dumps({"statuses": statuses, "conflicts": conflicts}, ensure_ascii=False, indent=2), encoding="utf-8")
+    lines = ["# conflict report for the Admission and Registration Deanship", "",
+             f"Generated from {sum(statuses.values())} gold questions with {args.method} retrieval.", "",
+             "| type | values by source | applies | rule | review | questions |", "|---|---|---|---|---|---|"]
+    for c in conflicts:
+        values = "; ".join(f"{s}: {v}" for s, v in c["values"].items())
+        lines.append(f"| {c['type']}/{c['kind']} | {values} | {c['winner'] or 'UNRESOLVED'} | {c['rule']} "
+                     f"| {', '.join(c['flag_for_review'])} | {', '.join(c['questions'])} |")
+    if not conflicts:
+        lines.append("| none found | | | | | |")
+    (out_dir / "conflict_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log.info("statuses: %s", statuses)
+    log.info("%d distinct conflicts -> %s", len(conflicts), out_dir / "conflict_report.md")
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -219,6 +272,9 @@ def build_parser():
     se.add_argument("--as-of", required=True, help="YYYY-MM-DD, the date the question is about")
     se.add_argument("--method", default="hybrid", choices=["bm25", "embeddings", "hybrid"])
     se.add_argument("--k", type=int, default=5)
+    sub.add_parser("evaluate-conflicts", help="score evidence validation on planted conflicts")
+    cr = sub.add_parser("conflict-report", help="report source conflicts found for gold questions")
+    cr.add_argument("--method", default="hybrid", choices=["bm25", "embeddings", "hybrid"])
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
@@ -238,7 +294,8 @@ def build_parser():
 COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "ingest": ingest, "add-source": add_source_cmd,
             "evaluate-intent": evaluate_intent, "check-model": check_model,
-            "evaluate-retrieval": evaluate_retrieval, "search": search}
+            "evaluate-retrieval": evaluate_retrieval, "search": search,
+            "evaluate-conflicts": evaluate_conflicts, "conflict-report": conflict_report}
 
 
 def main():
