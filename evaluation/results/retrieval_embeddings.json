@@ -1,0 +1,620 @@
+{
+  "method": "embeddings",
+  "overall": {
+    "n": 64,
+    "recall@5": 0.7812,
+    "recall@10": 0.875,
+    "precision@5": 0.1937
+  },
+  "version_leaks": 0,
+  "failures": [
+    {
+      "id": "R008",
+      "question": "If I withdraw from a semester, do I get my fees back?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#011"
+        ]
+      ],
+      "retrieved_top5": [
+        "FAQ-NAUSS#001",
+        "FAQ-NAUSS#020",
+        "FAQ-NAUSS#013",
+        "FAQ-NAUSS#022",
+        "HANDBOOK-1446#018"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R016",
+      "question": "كم درجة النجاح في المقرر؟",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#015"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#006",
+        "HANDBOOK-1446#007",
+        "PROGRAMS-GUIDE-1448#028",
+        "HANDBOOK-1446#009",
+        "PROGRAMS-GUIDE-1448#033"
+      ],
+      "suggested_cause": "wrong section or chunk granularity"
+    },
+    {
+      "id": "R017",
+      "question": "What is the passing mark for a course?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#015"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#018",
+        "FAQ-NAUSS#022",
+        "FAQ-NAUSS#009",
+        "FAQ-NAUSS#002",
+        "HANDBOOK-1446#017"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R021",
+      "question": "How do I appeal a final exam grade?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#020"
+        ]
+      ],
+      "retrieved_top5": [
+        "FAQ-NAUSS#022",
+        "FAQ-NAUSS#002",
+        "FAQ-NAUSS#012",
+        "HANDBOOK-1446#017",
+        "FAQ-NAUSS#011"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R029",
+      "question": "كيف توزع درجة المقرر بين الأعمال الفصلية والاختبار النهائي؟",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#008"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#006",
+        "HANDBOOK-1446#016",
+        "HANDBOOK-1446#015",
+        "HANDBOOK-1446#007",
+        "HANDBOOK-1446#020"
+      ],
+      "suggested_cause": "wrong section or chunk granularity"
+    },
+    {
+      "id": "R041",
+      "question": "Is the administrative fee refundable?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "ADMISSION-PAGE-2025#001",
+          "PROGRAMS-GUIDE-1448#005"
+        ]
+      ],
+      "retrieved_top5": [
+        "FAQ-NAUSS#020",
+        "FAQ-NAUSS#019",
+        "HANDBOOK-1446#018",
+        "FAQ-NAUSS#001",
+        "CALENDAR-1448#001"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R054",
+      "question": "Is the secure AI master's program taught in English?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1448#020"
+        ]
+      ],
+      "retrieved_top5": [
+        "PROGRAMS-GUIDE-1448#019",
+        "FAQ-NAUSS#016",
+        "PROGRAMS-GUIDE-1448#021",
+        "PROGRAMS-GUIDE-1448#014",
+        "PROGRAMS-GUIDE-1448#018"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R056",
+      "question": "Does the national security master's require work experience?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1448#028"
+        ]
+      ],
+      "retrieved_top5": [
+        "PROGRAMS-GUIDE-1448#036",
+        "PROGRAMS-GUIDE-1448#025",
+        "PROGRAMS-GUIDE-1448#027",
+        "PROGRAMS-GUIDE-1448#034",
+        "PROGRAMS-GUIDE-1448#026"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    }
+  ],
+  "per_question": [
+    {
+      "id": "R001",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R002",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R003",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R004",
+      "language": "ar",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R005",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R006",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R007",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R008",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R009",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R010",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R011",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R012",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R013",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R014",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R015",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R016",
+      "language": "ar",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R017",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R018",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R019",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R020",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R021",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R022",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R023",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R024",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R025",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R026",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R027",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R028",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R029",
+      "language": "ar",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R030",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R031",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R032",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R033",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R034",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R035",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R036",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R037",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R038",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R039",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R040",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R041",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R042",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6
+    },
+    {
+      "id": "R043",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.6
+    },
+    {
+      "id": "R044",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R045",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R046",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R047",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R048",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R049",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R050",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R051",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R052",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R053",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R054",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R055",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R056",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R057",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R058",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R059",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R060",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R061",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R062",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R063",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R064",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    }
+  ],
+  "ar": {
+    "n": 39,
+    "recall@5": 0.9231,
+    "recall@10": 0.9487,
+    "precision@5": 0.2462
+  },
+  "en": {
+    "n": 25,
+    "recall@5": 0.56,
+    "recall@10": 0.76,
+    "precision@5": 0.112
+  }
+}

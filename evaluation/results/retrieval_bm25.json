@@ -1,0 +1,780 @@
+{
+  "method": "bm25",
+  "overall": {
+    "n": 64,
+    "recall@5": 0.6016,
+    "recall@10": 0.6406,
+    "precision@5": 0.1406
+  },
+  "version_leaks": 0,
+  "failures": [
+    {
+      "id": "R002",
+      "question": "What is the minimum attendance to sit the final exam?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#016"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R005",
+      "question": "Can I postpone my studies for two semesters?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#009"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R008",
+      "question": "If I withdraw from a semester, do I get my fees back?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#011"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#018"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R010",
+      "question": "When is the semester withdrawal deadline for the second semester?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "CALENDAR-1448#018"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R012",
+      "question": "If I leave the university, can I come back later?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#011"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R014",
+      "question": "How many times can a student be re-enrolled?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#015"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R017",
+      "question": "What is the passing mark for a course?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#015"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#018",
+        "HANDBOOK-1446#017"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R019",
+      "question": "What happens after two consecutive academic warnings?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#014"
+        ]
+      ],
+      "retrieved_top5": [
+        "PROGRAMS-GUIDE-1448#001",
+        "PROGRAMS-GUIDE-1448#036",
+        "PROGRAMS-GUIDE-1448#017",
+        "PROGRAMS-GUIDE-1448#030",
+        "PROGRAMS-GUIDE-1448#044"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R021",
+      "question": "How do I appeal a final exam grade?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#020"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#017"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R023",
+      "question": "What GPA is needed for first-class honours?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#018"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#007"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R027",
+      "question": "What score is needed to pass the PhD comprehensive exam?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "HANDBOOK-1446#022"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#018"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R032",
+      "question": "When do final exams start for the first semester?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "CALENDAR-1448#007"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R034",
+      "question": "When is the National Day holiday?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "CALENDAR-1448#005"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R036",
+      "question": "What is the re-enrolment deadline for the second semester?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "CALENDAR-1448#010"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R041",
+      "question": "Is the administrative fee refundable?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "ADMISSION-PAGE-2025#001",
+          "PROGRAMS-GUIDE-1448#005"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R046",
+      "question": "Can I apply to more than one program?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "FAQ-NAUSS#018"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#017",
+        "HANDBOOK-1446#018"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R048",
+      "question": "Do you accept bachelor's degrees earned through distance learning?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "FAQ-NAUSS#006"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R050",
+      "question": "Are there evening programs?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "FAQ-NAUSS#013"
+        ]
+      ],
+      "retrieved_top5": [
+        "PROGRAMS-GUIDE-1448#001",
+        "PROGRAMS-GUIDE-1448#036",
+        "PROGRAMS-GUIDE-1448#017",
+        "PROGRAMS-GUIDE-1448#030",
+        "PROGRAMS-GUIDE-1448#044"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R052",
+      "question": "How long is the PhD in criminal law?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1448#006"
+        ]
+      ],
+      "retrieved_top5": [
+        "HANDBOOK-1446#044"
+      ],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R054",
+      "question": "Is the secure AI master's program taught in English?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1448#020"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R056",
+      "question": "Does the national security master's require work experience?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1448#028"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R061",
+      "question": "How long is the MA in criminology?",
+      "as_of": "2026-10-14",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1448#030"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    },
+    {
+      "id": "R062",
+      "question": "How long is the MA in criminology?",
+      "as_of": "2026-03-01",
+      "expected": [
+        [
+          "PROGRAMS-GUIDE-1447#031"
+        ]
+      ],
+      "retrieved_top5": [],
+      "suggested_cause": "cross-language vocabulary mismatch"
+    }
+  ],
+  "per_question": [
+    {
+      "id": "R001",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R002",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R003",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R004",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R005",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R006",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R007",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R008",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R009",
+      "language": "ar",
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R010",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R011",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R012",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R013",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R014",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R015",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R016",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R017",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R018",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R019",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R020",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R021",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R022",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R023",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R024",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R025",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R026",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R027",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R028",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R029",
+      "language": "ar",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R030",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R031",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R032",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R033",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R034",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R035",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R036",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R037",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R038",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R039",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R040",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R041",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R042",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.4
+    },
+    {
+      "id": "R043",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R044",
+      "language": "en",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R045",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R046",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R047",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R048",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R049",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R050",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R051",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R052",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R053",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R054",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R055",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R056",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R057",
+      "language": "ar",
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R058",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R059",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R060",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R061",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R062",
+      "language": "en",
+      "recall@5": 0.0,
+      "recall@10": 0.0,
+      "precision@5": 0.0
+    },
+    {
+      "id": "R063",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    },
+    {
+      "id": "R064",
+      "language": "ar",
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "precision@5": 0.2
+    }
+  ],
+  "ar": {
+    "n": 39,
+    "recall@5": 0.9359,
+    "recall@10": 1.0,
+    "precision@5": 0.2205
+  },
+  "en": {
+    "n": 25,
+    "recall@5": 0.08,
+    "recall@10": 0.08,
+    "precision@5": 0.016
+  }
+}

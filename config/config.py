@@ -18,6 +18,8 @@ class BaseConfig:
     PROMPTS_DIR = os.getenv("PROMPTS_DIR", "prompts")
     # --- retrieval ---
     TOP_K = int(os.getenv("TOP_K", "5"))
+    RETRIEVAL_CANDIDATES = int(os.getenv("RETRIEVAL_CANDIDATES", "50"))
+    RRF_K = int(os.getenv("RRF_K", "60"))
     # --- paths ---
     RAW_DIR = os.getenv("RAW_DIR", "data/raw")
     PROCESSED_DIR = os.getenv("PROCESSED_DIR", "data/processed")

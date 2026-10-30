@@ -166,6 +166,40 @@ def check_model(cfg, args):
     log.info("OK: %s matches models.lock (%s)", cfg.LLM_MODEL, digest[:12])
 
 
+def evaluate_retrieval(cfg, args):
+    """Run the retrieval gold set for one or all methods and save the results."""
+    from app.retrieval.evaluate import evaluate, load_gold
+    from app.retrieval.factory import build_retriever
+    from app.retrieval.retriever import METHODS
+
+    methods = METHODS if args.method == "all" else (args.method,)
+    retriever = build_retriever(cfg, with_embeddings=methods != ("bm25",))
+    gold = load_gold(Path(cfg.EVAL_DIR) / "retrieval" / "gold.jsonl")
+    out_dir = Path(cfg.EVAL_DIR) / "results"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for method in methods:
+        result = evaluate(retriever, gold, method)
+        out = out_dir / f"retrieval_{method}.json"
+        out.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+        for part in ["overall", "ar", "en", "mixed"]:
+            if part in result:
+                r = result[part]
+                log.info("%-10s %-7s n=%2d recall@5=%.3f recall@10=%.3f precision@5=%.3f",
+                         method, part, r["n"], r["recall@5"], r["recall@10"], r["precision@5"])
+        log.info("%-10s version leaks=%d, failures=%d -> %s",
+                 method, result["version_leaks"], len(result["failures"]), out)
+
+
+def search(cfg, args):
+    """Show the top passages for one question, for manual checking."""
+    from app.retrieval.factory import build_retriever
+
+    retriever = build_retriever(cfg, with_embeddings=args.method != "bm25")
+    for rank_no, chunk in enumerate(retriever.search(args.question, args.as_of, args.method, args.k), 1):
+        snippet = " ".join(chunk["text"].split())[:160]
+        log.info("%d. %s (p%s) %s", rank_no, chunk["chunk_id"], chunk["page"], snippet)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -178,6 +212,13 @@ def build_parser():
     ev = sub.add_parser("evaluate-intent", help="score an intent classifier")
     ev.add_argument("--method", default="keyword", choices=["keyword", "llm"])
     ev.add_argument("--split", default="test", choices=["dev", "test", "all"])
+    er = sub.add_parser("evaluate-retrieval", help="score retrieval on the gold set")
+    er.add_argument("--method", default="all", choices=["bm25", "embeddings", "hybrid", "all"])
+    se = sub.add_parser("search", help="show the top passages for one question")
+    se.add_argument("question")
+    se.add_argument("--as-of", required=True, help="YYYY-MM-DD, the date the question is about")
+    se.add_argument("--method", default="hybrid", choices=["bm25", "embeddings", "hybrid"])
+    se.add_argument("--k", type=int, default=5)
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
@@ -196,7 +237,8 @@ def build_parser():
 
 COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "ingest": ingest, "add-source": add_source_cmd,
-            "evaluate-intent": evaluate_intent, "check-model": check_model}
+            "evaluate-intent": evaluate_intent, "check-model": check_model,
+            "evaluate-retrieval": evaluate_retrieval, "search": search}
 
 
 def main():
