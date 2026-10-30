@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- project rules ---
+*.log
+logs/
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
