@@ -126,13 +126,22 @@ def evaluate_intent(cfg, args):
     """Score an intent classifier on the labelled set and save the results."""
     from app.intent.evaluate import evaluate, load_questions
 
+    split = None if args.split == "all" else args.split
+    rows = load_questions(Path(cfg.EVAL_DIR) / "intent" / "questions.jsonl", split)
     if args.method == "keyword":
         from app.intent.keyword_baseline import classify
     else:
-        log.error("unknown method: %s", args.method)
-        return
-    split = None if args.split == "all" else args.split
-    rows = load_questions(Path(cfg.EVAL_DIR) / "intent" / "questions.jsonl", split)
+        from app.intent.llm_classifier import LLMIntentClassifier
+        from app.models.llm_client import LLMClient
+
+        classifier = LLMIntentClassifier(LLMClient(cfg), prompts_dir=cfg.PROMPTS_DIR)
+        done = {"n": 0}
+
+        def classify(question):
+            done["n"] += 1
+            if done["n"] % 10 == 0 or done["n"] == len(rows):
+                log.info("classified %d/%d", done["n"], len(rows))
+            return classifier.classify(question)
     result = evaluate(classify, rows)
     out = Path(cfg.EVAL_DIR) / "results" / f"intent_{args.method}_{args.split}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -145,6 +154,18 @@ def evaluate_intent(cfg, args):
     log.info("%d errors; full results -> %s", len(result["errors"]), out)
 
 
+def check_model(cfg, args):
+    """Confirm the pinned generation model is installed and matches models.lock."""
+    from app.models.llm_client import LLMClient, ModelUnavailableError
+
+    try:
+        digest = LLMClient(cfg).verify_model()
+    except ModelUnavailableError as e:
+        log.error("%s", e)
+        raise SystemExit(1)
+    log.info("OK: %s matches models.lock (%s)", cfg.LLM_MODEL, digest[:12])
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -153,8 +174,9 @@ def build_parser():
     sub.add_parser("peek", help="extract text to data/processed/peek for inspection")
     sub.add_parser("build-calendar", help="parse calendars into structured events")
     sub.add_parser("ingest", help="chunk all sources into data/processed/chunks.jsonl")
+    sub.add_parser("check-model", help="verify the pinned model against models.lock")
     ev = sub.add_parser("evaluate-intent", help="score an intent classifier")
-    ev.add_argument("--method", default="keyword", choices=["keyword"])
+    ev.add_argument("--method", default="keyword", choices=["keyword", "llm"])
     ev.add_argument("--split", default="test", choices=["dev", "test", "all"])
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
@@ -174,7 +196,7 @@ def build_parser():
 
 COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "ingest": ingest, "add-source": add_source_cmd,
-            "evaluate-intent": evaluate_intent}
+            "evaluate-intent": evaluate_intent, "check-model": check_model}
 
 
 def main():
@@ -183,6 +205,9 @@ def main():
     cfg = config_by_name["default"]
     logging.basicConfig(level=cfg.LOG_LEVEL,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
+    from app.models.seed import set_seed
+
+    set_seed(cfg.SEED)
     COMMANDS[args.command](cfg, args)
 
 

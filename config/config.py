@@ -13,6 +13,9 @@ class BaseConfig:
     TEMPERATURE = float(os.getenv("TEMPERATURE", "0"))
     SEED = int(os.getenv("SEED", "42"))
     ALLOW_MODEL_FALLBACK = os.getenv("ALLOW_MODEL_FALLBACK", "false").lower() == "true"
+    LLM_TIMEOUT = int(os.getenv("LLM_TIMEOUT", "180"))
+    MODELS_LOCK = os.getenv("MODELS_LOCK", "models.lock")
+    PROMPTS_DIR = os.getenv("PROMPTS_DIR", "prompts")
     # --- retrieval ---
     TOP_K = int(os.getenv("TOP_K", "5"))
     # --- paths ---
