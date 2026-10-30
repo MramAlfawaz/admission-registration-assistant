@@ -12,13 +12,17 @@ from config.config import config_by_name
 log = logging.getLogger("cli")
 
 
+def load_sources(cfg):
+    """Read the sources file."""
+    return json.loads(Path(cfg.SOURCES_FILE).read_text(encoding="utf-8"))
+
+
 def fetch(cfg):
     """Download every source listed in the sources file into the raw folder."""
     raw = Path(cfg.RAW_DIR)
     raw.mkdir(parents=True, exist_ok=True)
-    sources = json.loads(Path(cfg.SOURCES_FILE).read_text(encoding="utf-8"))
     headers = {"User-Agent": "Mozilla/5.0 (admission-registration-assistant)"}
-    for s in sources:
+    for s in load_sources(cfg):
         target = raw / s["filename"]
         if target.exists():
             log.info("skip %s (already downloaded)", s["source_id"])
@@ -38,18 +42,33 @@ def fetch(cfg):
             log.error("could not download %s from %s", s["source_id"], s["url"])
 
 
+def peek(cfg):
+    """Write the extracted text of every source to a file for inspection."""
+    from app.documents.loader import extract_pages
+
+    out_dir = Path(cfg.PROCESSED_DIR) / "peek"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for s in load_sources(cfg):
+        pages = extract_pages(Path(cfg.RAW_DIR) / s["filename"])
+        empty = sum(1 for p in pages if len(p.strip()) < 20)
+        parts = [f"===== page {i} =====\n{p}" for i, p in enumerate(pages, 1)]
+        (out_dir / f"{s['source_id']}.txt").write_text("\n".join(parts), encoding="utf-8")
+        log.info("%s: %d pages, %d empty, %d chars",
+                 s["source_id"], len(pages), empty, sum(len(p) for p in pages))
+
+
 def main():
     """Parse arguments and run the chosen command."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("fetch", help="download the source documents")
+    sub.add_parser("peek", help="extract text to data/processed/peek for inspection")
     args = parser.parse_args()
 
     cfg = config_by_name["default"]
     logging.basicConfig(level=cfg.LOG_LEVEL,
                         format="%(asctime)s %(levelname)s %(name)s: %(message)s")
-    if args.command == "fetch":
-        fetch(cfg)
+    {"fetch": fetch, "peek": peek}[args.command](cfg)
 
 
 if __name__ == "__main__":
