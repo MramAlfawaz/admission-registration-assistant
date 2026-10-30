@@ -20,6 +20,9 @@ class BaseConfig:
     TOP_K = int(os.getenv("TOP_K", "5"))
     RETRIEVAL_CANDIDATES = int(os.getenv("RETRIEVAL_CANDIDATES", "50"))
     RRF_K = int(os.getenv("RRF_K", "60"))
+    # --- generation ---
+    GEN_EVIDENCE_LIMIT = int(os.getenv("GEN_EVIDENCE_LIMIT", "3"))
+    GEN_EVIDENCE_CHARS = int(os.getenv("GEN_EVIDENCE_CHARS", "700"))
     # --- paths ---
     RAW_DIR = os.getenv("RAW_DIR", "data/raw")
     PROCESSED_DIR = os.getenv("PROCESSED_DIR", "data/processed")

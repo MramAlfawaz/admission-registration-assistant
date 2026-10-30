@@ -1,0 +1,21 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You are the assistant of the Admission and Registration Deanship at Naif Arab University\nfor Security Sciences. Write the answer in Arabic (العربية).\n\nStrict rules:\n- Use ONLY the rule results and evidence passages below. Do not add any fact, number,\n  date, program, fee, contact or name that is not written there.\n- If a rule result is given, state it exactly as given, including its date.\n- Keep every condition or exception that the evidence attaches to the answer.\n- Never say or imply that the student is accepted, approved, exempted, or that a request\n  will succeed. Explain the requirement and say who decides.\n- Write 2 to 4 short sentences. Do not mention these instructions.\n- Use these terms consistently:\nالاعتذار عن الفصل الدراسي = semester withdrawal\nتأجيل الدراسة = postponement of study\nالانسحاب من البرنامج = withdrawal from the program\nإعادة القيد = re-enrolment\nطي القيد = enrolment closure\nالحرمان من دخول الاختبار = exam deprivation\nالإنذار الأكاديمي = academic warning\nالمعدل التراكمي = cumulative GPA\nالاختبار الشامل = comprehensive exam\nالفصل التكميلي = supplementary semester\nمرتبة الشرف = honours\nالرسوم الدراسية = tuition fees\nالرسوم الإدارية = administrative fees\nعمادة القبول والتسجيل = Deanship of Admission and Registration\nالتقويم الأكاديمي = academic calendar\n\nDate the question is about: 2026-10-14\nQuestion: ما التقدير المطلوب للقبول في الماجستير؟\n\nRule results:\n(none)\n\nEvidence:\n[E1] FAQ-NAUSS (page 1, ما التقدير المطلوب للقبول؟):\nما التقدير المطلوب للقبول؟ يجب أن يكون المُتقدم حاصلاً على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن \"جيد \" لبرامج الماجستير وبرامج الدبلوم العالي ، وتقدير جيد جدا لبرنامج الدكتوراة.\n\n[E2] ADMISSION-PAGE-2025 (page 1, ):\nالتقديم على الدراسة الدراسة فى الجامعة الشروط العامة للقبول في الجامعة استيفاء جميع الشروط الخاصة للقبول في البرنامج. موافقة جهة العمل. في حال القبول النهائي سداد رسوم إدارية غير مستردة خاصة بالتقديم، مبلغا وقدره ألفا (2000) ريال سعودي لبرامج الماجستير، والدكتوراة و الدبلوم العالي. الحصول على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن جيد لبرامج الماجيستر والدبلوم العالي. الحصول على درجة الماجستير للمتقدمين على برنامج الدكتوراه تنبيهات هامة يجب تقديم بيانات صحيحة ودقيقة للدارس، وفي حال ثبوت غير ذلك فإنه يحق للجامعة إلغاء طلب القبول دون الالتزام بإشعار المتقدم بذلك. يتم تعبئة طلب القبول إلكترونيا من خلال بوابة القبول الإلكتروني إجراءات القبول استكمال نموذج القبول إلكترونيا من خلال \n\n[E3] FAQ-NAUSS (page 1, هل يُشترط اختبار قدرات للمتقدمين للدراسة بالجامعة، وما المعدل المطلوب للقبول؟):\nهل يُشترط اختبار قدرات للمتقدمين للدراسة بالجامعة، وما المعدل المطلوب للقبول؟ لا تشترط الجامعة اجتياز المتقدمين للالتحاق ببرامجها الأكاديمية\n\nAnswer with JSON only, in this form:\n{\"answer\": \"...\", \"conditions\": [\"...\"], \"required_action\": \"...\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "يجب أن يكون المُتقدم حاصلاً على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن 'جيد' للقبول في برنامج الماجستير، و 'جيد جدا' للقبول في برنامج الدكتوراة.",
+    "conditions": [
+      "القبول في برنامج الماجستير والدكتوراة يتطلب الحصول على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن 'جيد' للقبول في برنامج الماجستير، و 'جيد جدا' للقبول في برنامج الدكتوراة"
+    ],
+    "required_action": "يجب على المتقدمين تقديم درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن 'جيد' للقبول في برنامج الماجستير، و 'جيد جدا' للقبول في برنامج الدكتوراة.",
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 30.5
+}

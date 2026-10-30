@@ -57,6 +57,8 @@ class RuleEngine:
         if source is None:
             return UNKNOWN, {"reason": f"no academic calendar in force on {day}"}
         basis = "stated"
+        if term_id in ("T1", "T2"):
+            term_id = f"{source['version']}-{term_id}"
         if term_id is None:
             term_basis = rule.get("term_basis", "current")
             term_id = resolve_term(events, day, source["version"], term_basis)

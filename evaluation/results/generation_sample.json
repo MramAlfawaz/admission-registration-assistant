@@ -1,0 +1,613 @@
+{
+  "schema_valid": 10,
+  "n": 10,
+  "statuses": {
+    "ANSWERABLE": 9,
+    "CLARIFICATION_REQUIRED": 1
+  },
+  "rows": [
+    {
+      "id": "R001",
+      "question": "كم نسبة الحضور المطلوبة لدخول الاختبار النهائي؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "HANDBOOK-1446#016"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "يجب على الطالب أن يكون حاضراً بنسبة لا تقل عن 75% من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل الدراسي لدخول الاختبار النهائي. إذا لم يلتزم الطالب بهذه النسبة، قد يُحرم من دخول الاختبار النهائي ويرصد له تقدير محروم (ح).",
+        "conditions": [
+          "نسبة الحضور المطلوبة لا تقل عن 75% من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل الدراسي لدخول الاختبار النهائي"
+        ],
+        "required_action": "يجب على الطالب الالتزام بنسبة حضور لا تقل عن 75% من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل الدراسي لتجنب حرمانه من دخول الاختبار النهائي.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#016",
+            "page": 23,
+            "section": "أداء الاختبارات"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "GRADING_AND_STANDING",
+        "context": {
+          "values": {},
+          "missing": []
+        },
+        "retrieved": [
+          "HANDBOOK-1446#016",
+          "HANDBOOK-1446#006",
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#017",
+          "HANDBOOK-1446#027"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#027"
+        ],
+        "overridden": [],
+        "rules": []
+      }
+    },
+    {
+      "id": "R007",
+      "question": "ما شروط الاعتذار عن الفصل الدراسي؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "HANDBOOK-1446#010",
+          "HANDBOOK-1446#011"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "شروط الاعتذار عن الفصل الدراسي تبدأ في 2026-11-19 (1448-06-09 هـ) وفقًا للcalendar-1448، حيث يُسمح للطالب بالاعتذار عن مواصلة الدراسة لمدة فصل دراسي واحد أو فصلين متتاليين خلال المرحلة الدراسية. يجب تقديم الاعتذار إلى رئيس القسم المعني قبل بدء الاختبارات النهائية، وتحسب مدة الاعتذار ضمن الحد الأقصى للحصول على الدرجة العلمية، مع عدم الاحتساب من الفرص الإضافية. لا يحق للطالب استعادة الرسوم الدراسية المدفوعة، ويجوز له استرداد ما دفع من رسوم دراسية للفصول التي لم يدرسها إذا تقدم بطلب الانسحاب قبل تاريخ بدء الدراسة.",
+        "conditions": [
+          "الاعتذار عن الفصل الدراسي يبدأ في 2026-11-19 (1448-06-09 هـ) وفقًا للcalendar-1448"
+        ],
+        "required_action": "['تقديم الاعتذار إلى رئيس القسم المعني قبل بدء الاختبارات النهائية']",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-01",
+            "output": "open",
+            "details": {
+              "term_id": "1448-T1",
+              "term_basis": "current term resolved from as_of",
+              "event": "آخر موعد للاعتذار عن الفصل الدراسي الأول",
+              "date": "2026-11-19",
+              "hijri": "1448-06-09",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 6
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#010",
+            "page": 18,
+            "section": "تأجيل الدراسة"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 6 and 18"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p18 الاعتذار عن الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "context": {
+          "values": {
+            "withdrawal_scope": "semester"
+          },
+          "missing": []
+        },
+        "retrieved": [
+          "HANDBOOK-1446#010",
+          "HANDBOOK-1446#011",
+          "CALENDAR-1448#006",
+          "CALENDAR-1448#018",
+          "HANDBOOK-1446#016"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#016"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-01",
+            "open"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "R013",
+      "question": "كيف أطلب إعادة القيد بعد طي القيد؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#015"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "REENROLLMENT",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "لطلب إعادة القيد، يجب أن يلتزم الطالب بالشروط المذكورة في الحدود الأكاديمية، خاصة إذا كان قد طوى قيده أو كان لديه إنذار أكاديمي. يجب أن يطلب الطالب من عمادة القبول والتسجيل إعادة القيد في الموعد المحدد، وهو السبت 2026-12-26م (1448-07-17هـ). يجب أن يراجع الطالب الحدود الأكاديمية لتحديد الشروط المطلوبة.",
+        "conditions": [
+          "طوى القيد",
+          "إنذار أكاديمي"
+        ],
+        "required_action": "طلب إعادة القيد من عمادة القبول والتسجيل في الموعد المحدد",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-03",
+            "output": "open",
+            "details": {
+              "term_id": "1448-T2",
+              "term_basis": "upcoming term resolved from as_of",
+              "event": "آخر موعد لطلب إعادة القيد للفصل الدراسي الثاني",
+              "date": "2026-12-26",
+              "hijri": "1448-07-17",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 10
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#014",
+            "page": 21,
+            "section": "طي القيد"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 2 and 10"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p21 إعادة القيد"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "REENROLLMENT",
+        "context": {
+          "values": {},
+          "missing": []
+        },
+        "retrieved": [
+          "HANDBOOK-1446#014",
+          "CALENDAR-1448#010",
+          "HANDBOOK-1446#015",
+          "CALENDAR-1448#002",
+          "HANDBOOK-1446#025"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#025"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-03",
+            "open"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "R019",
+      "question": "What happens after two consecutive academic warnings?",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "HANDBOOK-1446#014"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "CLARIFICATION_REQUIRED",
+        "intent": "GRADUATION_REQUIREMENTS",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "Is your question about the PhD, a master's degree, or a higher diploma?",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": {
+          "missing": "degree_level",
+          "question": "Is your question about the PhD, a master's degree, or a higher diploma?"
+        },
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "en",
+        "intent": "GRADUATION_REQUIREMENTS",
+        "context": {
+          "values": {},
+          "missing": [
+            "degree_level"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R025",
+      "question": "ما هي الفرص الإضافية إذا لم أتخرج في المدة المحددة؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "HANDBOOK-1446#009"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "إذا لم يحصل الطالب على الدرجة العلمية بسبب تجاوزه المدة المحددة للبرنامج، يمكنه الحصول على فرص إضافية بحد أقصى فصل دراسي واحد، وذلك بطلب توصية من مجلس القسم وموافقة من مجلس الكلية لتمكينه من استكمال متطلبات الحصول على الدرجة العلمية.",
+        "conditions": [
+          "الطالب لم يحصل على الدرجة العلمية بسبب تجاوزه المدة المحددة للبرنامج"
+        ],
+        "required_action": "طلب توصية من مجلس القسم وموافقة من مجلس الكلية",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#009",
+            "page": 17,
+            "section": ".على الدرجة العلمية"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "context": {
+          "values": {},
+          "missing": []
+        },
+        "retrieved": [
+          "HANDBOOK-1446#009",
+          "HANDBOOK-1446#012",
+          "HANDBOOK-1446#011",
+          "HANDBOOK-1446#014",
+          "PROGRAMS-GUIDE-1448#036"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": []
+      }
+    },
+    {
+      "id": "R031",
+      "question": "متى تبدأ الدراسة للفصل الدراسي الثاني؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "CALENDAR-1448#011"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "تبدأ الدراسة للفصل الدراسي الثاني في الأحد 2027-01-03 (1448-07-25هـ).",
+        "conditions": [],
+        "required_action": "لا يوجد إجراء مطلوب",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#011",
+            "page": 1,
+            "section": "row 11"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "ACADEMIC_CALENDAR",
+        "context": {
+          "values": {},
+          "missing": []
+        },
+        "retrieved": [
+          "CALENDAR-1448#011",
+          "CALENDAR-1448#012",
+          "CALENDAR-1448#019",
+          "CALENDAR-1448#020",
+          "CALENDAR-1448#010"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [
+          "CALENDAR-1448#012",
+          "CALENDAR-1448#010"
+        ],
+        "overridden": [],
+        "rules": []
+      }
+    },
+    {
+      "id": "R037",
+      "question": "متى تبدأ إجازة منتصف العام؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "CALENDAR-1448#009"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "تبدأ إجازة منتصف العام في 1448-07-08هـ (نهاية دوام الخميس 2026-12-17م).",
+        "conditions": [
+          "إجازة منتصف العام"
+        ],
+        "required_action": "لا يوجد إجراء مطلوب",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#009",
+            "page": 1,
+            "section": "row 9"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "ACADEMIC_CALENDAR",
+        "context": {
+          "values": {},
+          "missing": []
+        },
+        "retrieved": [
+          "CALENDAR-1448#009",
+          "CALENDAR-1448#021",
+          "CALENDAR-1448#013",
+          "CALENDAR-1448#016",
+          "CALENDAR-1448#015"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": []
+      }
+    },
+    {
+      "id": "R043",
+      "question": "ما التقدير المطلوب للقبول في الماجستير؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "ADMISSION-PAGE-2025#001",
+          "PROGRAMS-GUIDE-1448#005",
+          "FAQ-NAUSS#012"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "يجب أن يكون المُتقدم حاصلاً على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن 'جيد' للقبول في برنامج الماجستير، و 'جيد جدا' للقبول في برنامج الدكتوراة.",
+        "conditions": [
+          "القبول في برنامج الماجستير والدكتوراة يتطلب الحصول على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن 'جيد' للقبول في برنامج الماجستير، و 'جيد جدا' للقبول في برنامج الدكتوراة"
+        ],
+        "required_action": "يجب على المتقدمين تقديم درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن 'جيد' للقبول في برنامج الماجستير، و 'جيد جدا' للقبول في برنامج الدكتوراة.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "FAQ-NAUSS",
+            "chunk_id": "FAQ-NAUSS#012",
+            "page": 1,
+            "section": "ما التقدير المطلوب للقبول؟"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "context": {
+          "values": {
+            "degree_level": "master"
+          },
+          "missing": []
+        },
+        "retrieved": [
+          "FAQ-NAUSS#012",
+          "ADMISSION-PAGE-2025#001",
+          "FAQ-NAUSS#014",
+          "PROGRAMS-GUIDE-1448#005",
+          "PROGRAMS-GUIDE-1448#008"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": []
+      }
+    },
+    {
+      "id": "R049",
+      "question": "هل تقبل الجامعة طلابا من غير السعوديين؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "FAQ-NAUSS#007"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "الجامعة تقبل طلاباً غير سعوديين من كافة الدول العربية، لكنها لا تقبل طلاباً مدنيين وعسكريين إلا وفقًا لشروط القبول العامة والخاصة.",
+        "conditions": [
+          "طلاب غير سعوديين من كافة الدول العربية"
+        ],
+        "required_action": "لا تقبل الجامعة طلاباً مدنيين وعسكريين إلا وفقًا لشروط القبول العامة والخاصة.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "FAQ-NAUSS",
+            "chunk_id": "FAQ-NAUSS#007",
+            "page": 1,
+            "section": "هل تقبل الجامعة طلاباً غير سعوديين؟"
+          },
+          {
+            "source_id": "FAQ-NAUSS",
+            "chunk_id": "FAQ-NAUSS#008",
+            "page": 1,
+            "section": "هل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "context": {
+          "values": {
+            "withdrawal_scope": "program"
+          },
+          "missing": []
+        },
+        "retrieved": [
+          "FAQ-NAUSS#007",
+          "FAQ-NAUSS#008",
+          "HANDBOOK-1446#031",
+          "PROGRAMS-GUIDE-1448#005",
+          "ADMISSION-PAGE-2025#001"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": []
+      }
+    },
+    {
+      "id": "R055",
+      "question": "هل يحتاج ماجستير إنفاذ القانون خبرة عملية؟",
+      "as_of": "2026-10-14",
+      "expected_evidence": [
+        [
+          "PROGRAMS-GUIDE-1448#017"
+        ]
+      ],
+      "schema_errors": [],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "لا يوجد في النص أي معلومات تؤكد أو تنفي ا需要 ماجستير إنفاذ القانون خبرة عملية. لذلك، لا يمكن تحديد أي موقف بشأن هذا الموضوع.",
+        "conditions": [],
+        "required_action": "لا يوجد أي قرار أو موقف مطلوب من قبل عمادة القبول والتسجيل بناءً على النص المقدم.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#015",
+            "page": 31,
+            "section": "مقدمة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": false
+      },
+      "trace": {
+        "language_detected": "ar",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "context": {
+          "values": {
+            "degree_level": "master"
+          },
+          "missing": []
+        },
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#015",
+          "PROGRAMS-GUIDE-1448#017",
+          "PROGRAMS-GUIDE-1448#028",
+          "PROGRAMS-GUIDE-1448#007",
+          "PROGRAMS-GUIDE-1448#009"
+        ],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": []
+      }
+    }
+  ]
+}

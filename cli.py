@@ -314,6 +314,47 @@ def rules_doc(cfg, args):
     log.info("%d rules -> %s", len(library), out)
 
 
+def ask(cfg, args):
+    """Answer one question through the pipeline and print the response."""
+    from app.pipeline.factory import build_assistant
+    from app.schemas.answer import validate_response
+
+    response = build_assistant(cfg).answer(args.question, args.as_of)
+    errors = validate_response(response)
+    log.info("status=%s intent=%s schema_errors=%s", response["status"], response["intent"], errors or "none")
+    shown = {k: v for k, v in response.items() if not k.startswith("_")}
+    log.info("response:\n%s", json.dumps(shown, ensure_ascii=False, indent=2))
+    log.info("trace: %s", json.dumps(response.get("_trace", {}), ensure_ascii=False))
+
+
+def generate_sample(cfg, args):
+    """Run a spread of gold questions end to end and check every response against the schema."""
+    from app.pipeline.factory import build_assistant
+    from app.retrieval.evaluate import load_gold
+    from app.schemas.answer import validate_response
+
+    gold = load_gold(Path(cfg.EVAL_DIR) / "retrieval" / "gold.jsonl")
+    step = max(1, len(gold) // args.n)
+    picked = gold[::step][: args.n]
+    assistant = build_assistant(cfg)
+    rows, statuses = [], {}
+    for i, g in enumerate(picked, 1):
+        response = assistant.answer(g["question"], g["as_of"])
+        errors = validate_response(response)
+        statuses[response["status"]] = statuses.get(response["status"], 0) + 1
+        rows.append({"id": g["id"], "question": g["question"], "as_of": g["as_of"],
+                     "expected_evidence": g["evidence"], "schema_errors": errors,
+                     "response": {k: v for k, v in response.items() if not k.startswith("_")},
+                     "trace": response.get("_trace", {})})
+        log.info("%d/%d %s %s schema_errors=%d", i, len(picked), g["id"], response["status"], len(errors))
+    valid = sum(not r["schema_errors"] for r in rows)
+    out = Path(cfg.EVAL_DIR) / "results" / "generation_sample.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({"schema_valid": valid, "n": len(rows), "statuses": statuses, "rows": rows},
+                              ensure_ascii=False, indent=2), encoding="utf-8")
+    log.info("schema valid %d/%d, statuses %s -> %s", valid, len(rows), statuses, out)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -342,6 +383,11 @@ def build_parser():
     ru.add_argument("--term", default=None, help="e.g. 1448-T1; resolved from the date when omitted")
     ru.add_argument("--input", action="append", default=[], help="key=value, repeatable")
     sub.add_parser("rules-doc", help="write docs/rules.md from the rule library")
+    ak = sub.add_parser("ask", help="answer one question through the pipeline")
+    ak.add_argument("question")
+    ak.add_argument("--as-of", required=True, help="YYYY-MM-DD, the date the question is about")
+    gs = sub.add_parser("generate-sample", help="run gold questions end to end and check the schema")
+    gs.add_argument("--n", type=int, default=10)
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
@@ -363,7 +409,8 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "evaluate-intent": evaluate_intent, "check-model": check_model,
             "evaluate-retrieval": evaluate_retrieval, "search": search,
             "evaluate-conflicts": evaluate_conflicts, "conflict-report": conflict_report,
-            "rule": run_rule, "rules-doc": rules_doc}
+            "rule": run_rule, "rules-doc": rules_doc,
+            "ask": ask, "generate-sample": generate_sample}
 
 
 def main():

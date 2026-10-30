@@ -1,0 +1,22 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You are the assistant of the Admission and Registration Deanship at Naif Arab University\nfor Security Sciences. Write the answer in Arabic (العربية).\n\nStrict rules:\n- Use ONLY the rule results and evidence passages below. Do not add any fact, number,\n  date, program, fee, contact or name that is not written there.\n- If a rule result is given, state it exactly as given, including its date.\n- Keep every condition or exception that the evidence attaches to the answer.\n- Never say or imply that the student is accepted, approved, exempted, or that a request\n  will succeed. Explain the requirement and say who decides.\n- Write 2 to 4 short sentences. Do not mention these instructions.\n- Use these terms consistently:\nالاعتذار عن الفصل الدراسي = semester withdrawal\nتأجيل الدراسة = postponement of study\nالانسحاب من البرنامج = withdrawal from the program\nإعادة القيد = re-enrolment\nطي القيد = enrolment closure\nالحرمان من دخول الاختبار = exam deprivation\nالإنذار الأكاديمي = academic warning\nالمعدل التراكمي = cumulative GPA\nالاختبار الشامل = comprehensive exam\nالفصل التكميلي = supplementary semester\nمرتبة الشرف = honours\nالرسوم الدراسية = tuition fees\nالرسوم الإدارية = administrative fees\nعمادة القبول والتسجيل = Deanship of Admission and Registration\nالتقويم الأكاديمي = academic calendar\n\nDate the question is about: 2026-10-14\nQuestion: هل تقبل الجامعة طلابا من غير السعوديين؟\n\nRule results:\n(none)\n\nEvidence:\n[E1] FAQ-NAUSS (page 1, هل تقبل الجامعة طلاباً غير سعوديين؟):\nهل تقبل الجامعة طلاباً غير سعوديين؟ تقبل الجامعة الدارسين من كافة الدول العربية؛ كونها مؤسسة إقليمية وجهازًا علميًا لمجلس وزراء الداخلية العرب.\n\n[E2] FAQ-NAUSS (page 1, هل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟):\nهل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟ تقبل الجامعة كافة الطلبة من العسكريين والمدنيين وفقاً لشروط القبول العامة والخاصة.\n\n[E3] HANDBOOK-1446 (page 37, .الجامعة أو تمثيلهم لها رسمًّيًا):\nداخل الجامعة. . إقامة أو تنظيم أي أنشطة أو فعاليات غير مرخص لها من جهة الاختصاص 7 ،داخل الجامعة بأي وسيلة كانت إلكترونية أو غيرها أو المشاركة فيها أو إصدار المطبوعات أو النشرات أو الملصقات، أو المشاركة في توزيعها، أو جمع الأموال أو التبرعات أو التوقيعات، دون موافقة الجهات ذات العلاقة. . الابتزاز أو الاعتداء اللفظي أو الجسدي على أي كان داخل الحرم الجامعي 8 ،وجميع المرافق المرتبطة بها سواًءً تجاه العمال، أو الموظفين، أو الطلاب أو أعضاء هيئة التدريس، أو زوار الجامعة. . الامتناع عن تقديم الأوراق الثبوتية لجهات الاختصاص في حال طلبها.9 . انتحال شخصية الغير في أي أمر من الأمور التي لها علاقة بالجامعة10 وشؤونها وإعطاء وثائق جامعية بقصد استعمالها بطريقة غير مشروعة أو التحدث باسم الجامعة دون صفة رسمية\n\nAnswer with JSON only, in this form:\n{\"answer\": \"...\", \"conditions\": [\"...\"], \"required_action\": \"...\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "الجامعة تقبل طلاباً غير سعوديين من كافة الدول العربية، لكنها لا تقبل طلاباً مدنيين وعسكريين إلا وفقًا لشروط القبول العامة والخاصة.",
+    "conditions": [
+      "طلاب غير سعوديين من كافة الدول العربية"
+    ],
+    "required_action": "لا تقبل الجامعة طلاباً مدنيين وعسكريين إلا وفقًا لشروط القبول العامة والخاصة.",
+    "used_evidence": [
+      "E1",
+      "E2"
+    ]
+  },
+  "seconds": 22.09
+}
