@@ -238,7 +238,7 @@ first-pass labels; English claims need human review.
 | 4. model alone, no retrieval (100) | 14/100 correct and 79 wrong answers, against 82/100 and 13 for the assistant | `exp4_no_retrieval.md` |
 | 5. efficiency (held-out, uncached) | median 32.4 s per response; 34.8 s answered; 1.8 s refusal or clarification; Deanship baseline **unknown** | `exp5_efficiency.md` |
 | 5. answer rating (20 answers) | correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25; drafted by the AI assistant that helped build the system; **not reviewed by a person** | `exp5_ratings.md` |
-| 5. claim review (40 claims) | Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: None (0 labelled); agreement with the automatic labels on 0 Arabic claims: None. | `exp5_claims.md` |
+| 5. claim review (40 claims) | Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: 0.533 (30 labelled); agreement with the automatic labels on 10 Arabic claims: 0.8. | `exp5_claims.md` |
 | 5. user evaluation | Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. Individual ratings were not recorded per person and no staff took part, so no means are reported. | `evaluation/user_evaluation/` |
 | 5. response time on the public demo | 186 s for a new question (2 shared CPU cores; the model's draft cut at 180 s, answer from the rule sentence) | Space container log, 2026-10-31 |
 | reproducibility | 1.00 on every run (each inquiry answered twice) | every results file |

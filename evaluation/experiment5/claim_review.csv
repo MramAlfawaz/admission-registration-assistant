@@ -3,30 +3,30 @@ E021,en,model,unverified,The evidence indicates that the program aims to develop
 .باستخدام تقنيات الذكاء الاصطناعي، إضافة إلى تنمية مهارات البحث العلمي والابتكار
 :أبرز نواتج التعلم
 .بناء أساس معرفي وتقني قوي في الذكاء الاصطناعي الموجه للأمن
-.توظيف تقنيات الذ",,
+.توظيف تقنيات الذ",grounded,AI-draft: Stated in the programme goals.
 E021,en,model,unverified,"While it mentions the use of programming techniques, it does not explicitly state a programming background requirement.","،يهدف البرنامج إلى تطوير كفاءات متخصصة في الذكاء الاصطناعي لتلبية احتياجات القطاعات الأمنية وإنفاذ القانون وتعزيز القدرات في التنبؤ بالجرائم المستحدثة واكتشافها والاستجابة لها، وتدريب الدارسين على تطوير حلول تطبيقية مبتكرة
 .باستخدام تقنيات الذكاء الاصطناعي، إضافة إلى تنمية مهارات البحث العلمي والابتكار
 :أبرز نواتج التعلم
 .بناء أساس معرفي وتقني قوي في الذكاء الاصطناعي الموجه للأمن
-.توظيف تقنيات الذ",,
+.توظيف تقنيات الذ",unsupported,AI-draft: Inference about what the passage omits; 'programming techniques' is not stated.
 E021,en,model,unverified,"Therefore, we cannot conclude that a programming background is required for the security AI master's program.","،يهدف البرنامج إلى تطوير كفاءات متخصصة في الذكاء الاصطناعي لتلبية احتياجات القطاعات الأمنية وإنفاذ القانون وتعزيز القدرات في التنبؤ بالجرائم المستحدثة واكتشافها والاستجابة لها، وتدريب الدارسين على تطوير حلول تطبيقية مبتكرة
 .باستخدام تقنيات الذكاء الاصطناعي، إضافة إلى تنمية مهارات البحث العلمي والابتكار
 :أبرز نواتج التعلم
 .بناء أساس معرفي وتقني قوي في الذكاء الاصطناعي الموجه للأمن
-.توظيف تقنيات الذ",,
+.توظيف تقنيات الذ",unsupported,"AI-draft: Conclusion drawn by the model, not stated."
 E021,en,action,unverified,The student should review the specific admission requirements provided by the Admission and Registration Deanship for the security AI master's program.,"،يهدف البرنامج إلى تطوير كفاءات متخصصة في الذكاء الاصطناعي لتلبية احتياجات القطاعات الأمنية وإنفاذ القانون وتعزيز القدرات في التنبؤ بالجرائم المستحدثة واكتشافها والاستجابة لها، وتدريب الدارسين على تطوير حلول تطبيقية مبتكرة
 .باستخدام تقنيات الذكاء الاصطناعي، إضافة إلى تنمية مهارات البحث العلمي والابتكار
 :أبرز نواتج التعلم
 .بناء أساس معرفي وتقني قوي في الذكاء الاصطناعي الموجه للأمن
-.توظيف تقنيات الذ",,
+.توظيف تقنيات الذ",unsupported,"AI-draft: Generic advice, not in the evidence."
 E024,en,model,unverified,"For PhD applicants, the required grade is a good or better, and they must provide their bachelor's degree from an accredited university with a minimum overall grade of 'good' for master's and postgraduate diploma programs, and a 'very good' for the doctoral program.","ما التقدير المطلوب للقبول؟
-يجب أن يكون المُتقدم حاصلاً على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن ""جيد "" لبرامج الماجستير وبرامج الدبلوم العالي ، وتقدير جيد جدا لبرنامج الدكتوراة.",,
+يجب أن يكون المُتقدم حاصلاً على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن ""جيد "" لبرامج الماجستير وبرامج الدبلوم العالي ، وتقدير جيد جدا لبرنامج الدكتوراة.",unsupported,AI-draft: Wrong for PhD: PhD applicants need a master's with 'very good'; the sentence contradicts itself.
 E027,en,model,unverified,You can apply again as you were previously accepted.,"هل يمكن لي التقديم مرة أخرى إذا لم يتم قبولي في السنة الماضية؟
-نعم. يمكنك التقدم بطلب جديد",,
+نعم. يمكنك التقدم بطلب جديد",unsupported,AI-draft: Wrong: the FAQ is about applicants who were NOT accepted; the claim says 'previously accepted'.
 E027,en,model,unverified,"However, you should contact the Deanship of Admission and Registration to ensure all procedures are followed.","هل يمكن لي التقديم مرة أخرى إذا لم يتم قبولي في السنة الماضية؟
-نعم. يمكنك التقدم بطلب جديد",,
+نعم. يمكنك التقدم بطلب جديد",unsupported,"AI-draft: Generic advice, not in the evidence."
 E030,en,model,unverified,"If you withdraw from the program before study starts, you do not get the administrative fee back, as per the academic calendar, which states that the withdrawal must be made before the start of the study, and the refund is only for tuition fees.","هل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟
-يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",,
+يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",grounded,"AI-draft: FAQ: tuition only is refunded, not the administrative fee, if before study starts. Attribution to 'the calendar' is loose."
 E032,en,model,unverified,The PhD in Criminal Law program at Naif Arab University for Security Sciences includes tuition fees and administrative fees.,".العمل بفاعلية مع الفريق والالتزام بالمسؤولية في دراسة قضايا الجريمة
 دليل البرامج الأكاديمية
 53
@@ -35,7 +35,7 @@ Academic Programs
 :شروط القبول الخاصة
 - الخدمة الاجتماعية- علم النفس- الحصول على درجة البكالوريوس في إحدى التخصصات التالية: علم الاجتماع
 التخصصات- العدالة الجنائية- علم الجريمة- الدراسات الأمنية- العلوم- الإعلام- الأنظمة- الحقوق- القانون
-.أو التخصصات ذات العلاقة التي ترى لجنة القبول مناسبتها",,
+.أو التخصصات ذات العلاقة التي ترى لجنة القبول مناسبتها",unsupported,AI-draft: Cited passage is admission conditions of another programme; fees not stated there.
 E033,en,model,unverified,"The tuition fees for the Higher Diploma in Counter-Terrorism are 50,000 for the program, which is divided into two academic semesters, and an administrative fee is also required.",".)مدة الدراسة: عام دراسي (فصلان دراسيان منتظمان
 ريال مقسمة بالتساوي50,000 :الرسوم الدراسية للبرنامج
 .على فصلين دراسيين، بالإضافة إلى سداد الرسوم الإدارية
@@ -43,64 +43,64 @@ E033,en,model,unverified,"The tuition fees for the Higher Diploma in Counter-Ter
 الإرهاب
 مقدمة
 تتنامى التهديدات الإرهابية حول العالم بشكل ملحوظ، وتتنوع أساليب التنظيمات الإرهابية في تنفيذ عملياتها النوعية
-واستحداث إستراتيجيات التجنيد والاستقطاب؛ لذا كان لزامًاً على الأجهزة الأمنية تطوير قدراتها في مكا",,
+واستحداث إستراتيجيات التجنيد والاستقطاب؛ لذا كان لزامًاً على الأجهزة الأمنية تطوير قدراتها في مكا",grounded,"AI-draft: 50,000 over two semesters plus administrative fees; the fee box precedes the Counter-Terrorism title (known layout)."
 E036,en,model,unverified,"If you go beyond the program duration, you will not be granted an additional semester due to exceeding the program duration, and you will be required to pay the tuition fees for the additional semester.",") كالتالي: لا يحتسب الفصل الدراسي المعتذر عنه ضمن الفرص الإضافية4( *تفسر الفقرة الرابعة والاستثنائية ويترتب على الطالب المعتذر دفع الرسوم الدراسية المستحقة للفصل التعويضي دون رسوم الفرصة الإضافية أو الاستثنائية.
 20
 التحويل لبرنامج أكاديمي آخر
 يجوز للطالب التحويل من برنامج أكاديمي إلى آخر داخل الجامعة بناًءً على
 توصية القسم وموافقة الكلية المحول منها وإليها، وفقًاً لما يلي:
-. انطباق شروط القبول الخ",,
+. انطباق شروط القبول الخ",unsupported,"AI-draft: Misstates the passage, which is about a withdrawn semester not counting as an extra chance."
 E036,en,model,unverified,Your cumulative GPA will not be affected by the postponement of study.,") كالتالي: لا يحتسب الفصل الدراسي المعتذر عنه ضمن الفرص الإضافية4( *تفسر الفقرة الرابعة والاستثنائية ويترتب على الطالب المعتذر دفع الرسوم الدراسية المستحقة للفصل التعويضي دون رسوم الفرصة الإضافية أو الاستثنائية.
 20
 التحويل لبرنامج أكاديمي آخر
 يجوز للطالب التحويل من برنامج أكاديمي إلى آخر داخل الجامعة بناًءً على
 توصية القسم وموافقة الكلية المحول منها وإليها، وفقًاً لما يلي:
-. انطباق شروط القبول الخ",,
+. انطباق شروط القبول الخ",unsupported,AI-draft: Not stated.
 E039,en,model,unverified,"The Cybercrime and Digital Forensic Investigation master's program is taught in English, as the program is provided in the English language as stated in the requirements for obtaining the degree.",".تطوير وتطبيق منهجيات علمية منظمة للتحقيق في الحوادث والانتهاكات السيبرانية واستخلاص الأدلة الرقمية
 ماجستير الجرائم السيبرانية والتحقيق الجنائي الرقمي40
 ماجستير الجرائم السيبرانية والتحقيق الجنائي الرقمي
 أهداف البرنامج
-يهدف البرنامج إلى إعداد خبراء ومختصين مؤهلين قادرين على الإسهام في تحقيق الأمن والعدالة، وتعزيز الأمن السيبراني، والحد من الجرائم السيبرانية، من خلال تعميق معارفهم ومهاراتهم في مجال",,
+يهدف البرنامج إلى إعداد خبراء ومختصين مؤهلين قادرين على الإسهام في تحقيق الأمن والعدالة، وتعزيز الأمن السيبراني، والحد من الجرائم السيبرانية، من خلال تعميق معارفهم ومهاراتهم في مجال",grounded,AI-draft: The programme box (PROGRAMS-GUIDE-1448#020) says English; not visible in the 400-character excerpt.
 E039,en,condition,unverified,The program is provided in the English language,".تطوير وتطبيق منهجيات علمية منظمة للتحقيق في الحوادث والانتهاكات السيبرانية واستخلاص الأدلة الرقمية
 ماجستير الجرائم السيبرانية والتحقيق الجنائي الرقمي40
 ماجستير الجرائم السيبرانية والتحقيق الجنائي الرقمي
 أهداف البرنامج
-يهدف البرنامج إلى إعداد خبراء ومختصين مؤهلين قادرين على الإسهام في تحقيق الأمن والعدالة، وتعزيز الأمن السيبراني، والحد من الجرائم السيبرانية، من خلال تعميق معارفهم ومهاراتهم في مجال",,
+يهدف البرنامج إلى إعداد خبراء ومختصين مؤهلين قادرين على الإسهام في تحقيق الأمن والعدالة، وتعزيز الأمن السيبراني، والحد من الجرائم السيبرانية، من خلال تعميق معارفهم ومهاراتهم في مجال",grounded,AI-draft: Same as previous row.
 E041,en,model,unverified,"The program focuses on economic crimes, which is taught in the context of financial and administrative sciences.","الشريعة الإسلامية، أو العلوم المالية والإدارية، أو العلوم الأمنية، أو علوم الحاسب، أو علم الجريمة، أو التخصصات
 .ذات العلاقة التي ترى لجنة القبول مناسبتها
 أو ما يكافئه منIELTS إجادة اللغة الإنجليزية، وتكون أولوية القبول للنتيجة الأعلى في اختبار اللغة الإنجليزية
 .الاختبارات المعيارية الأخرى
 . المقابلة الشخصية
 متطلبات التخرج
-، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في",,
+، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في",unsupported,AI-draft: The passage lists admissible bachelor's majors; it says nothing about teaching context.
 E041,en,model,unverified,"Given that the program is related to the sciences mentioned in the admission rules, it is likely taught in English.","الشريعة الإسلامية، أو العلوم المالية والإدارية، أو العلوم الأمنية، أو علوم الحاسب، أو علم الجريمة، أو التخصصات
 .ذات العلاقة التي ترى لجنة القبول مناسبتها
 أو ما يكافئه منIELTS إجادة اللغة الإنجليزية، وتكون أولوية القبول للنتيجة الأعلى في اختبار اللغة الإنجليزية
 .الاختبارات المعيارية الأخرى
 . المقابلة الشخصية
 متطلبات التخرج
-، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في",,
+، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في",grounded,AI-draft: Right fact (the box says English) reached by weak reasoning; hedged.
 E043,en,model,unverified,The Master of Arts in Criminology program at Naif Arab University for Security Sciences is a two-year program (four semesters) offered in Arabic.,".على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية
 مقدمة
 َنَى القانون الجنائي بمكافحة الظاهرة الإجرامية والحد منها، لما تمثله من أضرار متنوعة وخطيرة على المجتمع، واستجابةْْعُُي
 لذلك يأتي تقديم برنامج ماجستير القانون الجنائي والعلوم الجنائية في جامعة نايف العربية لإعداد كوادر متخصصة لتحقيق
 .ذلك، سواء تعلق الأمر بالتعامل مع هذه الظاهرة من الناحية القانونية أو الاجتماعية
-ماجستير الآداب في القانو",,
+ماجستير الآداب في القانو",grounded,AI-draft: Two years / four semesters per the box before the programme title (#028); excerpt truncated.
 E043,en,model,unverified,Tuition fees for the program are provided.,".على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية
 مقدمة
 َنَى القانون الجنائي بمكافحة الظاهرة الإجرامية والحد منها، لما تمثله من أضرار متنوعة وخطيرة على المجتمع، واستجابةْْعُُي
 لذلك يأتي تقديم برنامج ماجستير القانون الجنائي والعلوم الجنائية في جامعة نايف العربية لإعداد كوادر متخصصة لتحقيق
 .ذلك، سواء تعلق الأمر بالتعامل مع هذه الظاهرة من الناحية القانونية أو الاجتماعية
-ماجستير الآداب في القانو",,
+ماجستير الآداب في القانو",unsupported,AI-draft: Says nothing checkable.
 E051,en,model,unverified,"To withdraw from the program, you should submit a request to the Deanship of Admission and Registration, as specified in the academic calendar, and ensure that your request is made before the start of the academic year as per the calendar.","هل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟
-يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",,
+يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",unsupported,"AI-draft: Deanship part is right; 'before the start of the academic year' is the refund condition, not the withdrawal deadline."
 E051,en,condition,unverified,the student must submit a request to the Deanship of Admission and Registration,"هل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟
-يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",,
+يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",grounded,AI-draft: FAQ: request submitted to the Deanship.
 E051,en,condition,unverified,the request must be made before the start of the academic year as per the academic calendar,"هل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟
-يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",,
+يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",unsupported,"AI-draft: That timing is the refund condition, not a condition for withdrawing."
 E051,en,action,unverified,Submit a request to the Deanship of Admission and Registration,"هل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟
-يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",,
-E054,en,model,unverified,"Therefore, you cannot be reinstated again.",آخر موعد لطلب إعادة القيد للفصل الدراسي الثاني: السبت 2026-12-26م (1448-07-17هـ),,
+يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.",grounded,AI-draft: FAQ: request submitted to the Deanship.
+E054,en,model,unverified,"Therefore, you cannot be reinstated again.",آخر موعد لطلب إعادة القيد للفصل الدراسي الثاني: السبت 2026-12-26م (1448-07-17هـ),unsupported,"AI-draft: Cited evidence is a calendar row; the handbook allows a further re-enrolment only by university council decision, so 'cannot' is too absolute."
 E062,en,model,unverified,The student has already been informed that an appeal is submitted within three days of the result.,"في حال تغيب الطالب عن الاختبار النهائي وُقُبل عذره من مجلسي القسم
 والكلية، يعاد اختباره قبل نهاية الفصل التالي.
 24
@@ -113,7 +113,7 @@ E062,en,model,unverified,The student has already been informed that an appeal is
 75 إلى أقل من70 3,00ج جيد
 70 إلى أقل من65 2.00 +د
 راسب65 إلى أقل من60 1.50د
-60 أقل من1.",,
+60 أقل من1.",grounded,"AI-draft: Handbook: an appeal within three days of the result (rule REG-06); not in the excerpt shown, and it does not answer how many appeals."
 E065,en,model,unverified,"If you fail more than two courses in the same semester, you will not be eligible for an honours ranking, as the rule states that the student should not have failed any course to receive an honours ranking.","F 1.00 Less than 60
 - NP - Pass
 - NF - Fail
@@ -129,7 +129,7 @@ Transferred TR - Transferred
 إلى أقل من3.75 4.50 ًجيد جدًاVery Good 3.75 To Less than 4.50
 3.75 إلى أقل من3جيدGood 3.00 To Less than 3.75
 مراتب الشرف
-تمنح مرتبة ",,
+تمنح مرتبة ",grounded,AI-draft: True (honours require no failed course) but answers a different question; the inquiry was about enrolment closure.
 E065,en,condition,unverified,not having failed any course,"F 1.00 Less than 60
 - NP - Pass
 - NF - Fail
@@ -145,31 +145,31 @@ Transferred TR - Transferred
 إلى أقل من3.75 4.50 ًجيد جدًاVery Good 3.75 To Less than 4.50
 3.75 إلى أقل من3جيدGood 3.00 To Less than 3.75
 مراتب الشرف
-تمنح مرتبة ",,
+تمنح مرتبة ",grounded,AI-draft: Honours condition stated in the handbook.
 E068,en,model,unverified,"The student can transfer to another program once, as the transfer is allowed only once per student, and the transfer is subject to the approval of the department and the transferring and receiving colleges based on the admission criteria and other conditions set by the department and the college.",") كالتالي: لا يحتسب الفصل الدراسي المعتذر عنه ضمن الفرص الإضافية4( *تفسر الفقرة الرابعة والاستثنائية ويترتب على الطالب المعتذر دفع الرسوم الدراسية المستحقة للفصل التعويضي دون رسوم الفرصة الإضافية أو الاستثنائية.
 20
 التحويل لبرنامج أكاديمي آخر
 يجوز للطالب التحويل من برنامج أكاديمي إلى آخر داخل الجامعة بناًءً على
 توصية القسم وموافقة الكلية المحول منها وإليها، وفقًاً لما يلي:
-. انطباق شروط القبول الخ",,
+. انطباق شروط القبول الخ",grounded,"AI-draft: Transfer allowed once, with department recommendation and approval of both colleges (handbook #012)."
 E068,en,condition,unverified,the transfer is allowed only once per student,") كالتالي: لا يحتسب الفصل الدراسي المعتذر عنه ضمن الفرص الإضافية4( *تفسر الفقرة الرابعة والاستثنائية ويترتب على الطالب المعتذر دفع الرسوم الدراسية المستحقة للفصل التعويضي دون رسوم الفرصة الإضافية أو الاستثنائية.
 20
 التحويل لبرنامج أكاديمي آخر
 يجوز للطالب التحويل من برنامج أكاديمي إلى آخر داخل الجامعة بناًءً على
 توصية القسم وموافقة الكلية المحول منها وإليها، وفقًاً لما يلي:
-. انطباق شروط القبول الخ",,
+. انطباق شروط القبول الخ",grounded,AI-draft: Handbook #012 item 5.
 E068,en,condition,unverified,the transfer is subject to the approval of the department and the transferring and receiving colleges,") كالتالي: لا يحتسب الفصل الدراسي المعتذر عنه ضمن الفرص الإضافية4( *تفسر الفقرة الرابعة والاستثنائية ويترتب على الطالب المعتذر دفع الرسوم الدراسية المستحقة للفصل التعويضي دون رسوم الفرصة الإضافية أو الاستثنائية.
 20
 التحويل لبرنامج أكاديمي آخر
 يجوز للطالب التحويل من برنامج أكاديمي إلى آخر داخل الجامعة بناًءً على
 توصية القسم وموافقة الكلية المحول منها وإليها، وفقًاً لما يلي:
-. انطباق شروط القبول الخ",,
+. انطباق شروط القبول الخ",grounded,AI-draft: Stated in the excerpt.
 E068,en,condition,unverified,the transfer is based on the admission criteria and other conditions set by the department and the college,") كالتالي: لا يحتسب الفصل الدراسي المعتذر عنه ضمن الفرص الإضافية4( *تفسر الفقرة الرابعة والاستثنائية ويترتب على الطالب المعتذر دفع الرسوم الدراسية المستحقة للفصل التعويضي دون رسوم الفرصة الإضافية أو الاستثنائية.
 20
 التحويل لبرنامج أكاديمي آخر
 يجوز للطالب التحويل من برنامج أكاديمي إلى آخر داخل الجامعة بناًءً على
 توصية القسم وموافقة الكلية المحول منها وإليها، وفقًاً لما يلي:
-. انطباق شروط القبول الخ",,
+. انطباق شروط القبول الخ",grounded,AI-draft: Excerpt: 'انطباق شروط القبول...'.
 E067,ar,model,grounded,درجة اجتياز الاختبار الشامل في الدكتوراه هي 75 درجة، حيث أن الطالب يجتاز الاختبار إذا حصل على درجة 75 من إجمالي 100 درجة، والتي تشمل 75 درجة لاختبار التخصص الرئيس للطالب وما يتعلق به من مجالات فرعية، و25 درجة لاختبار مناهج البحث العلمي.,") بتقدير “جيد 5 من3.75( المعتمدة وحصلوا عى معدل تراكمي لا يقل عن
 جداً”.
 • ) درجة توزع على النحو التالي:100( الدرجة الكلية للاختبار الشامل هي
@@ -179,7 +179,7 @@ E067,ar,model,grounded,درجة اجتياز الاختبار الشامل في 
 ) درجة لاختبار مناهج البحث العلمي.25( -
 • ) من درجة الاختبار، وفي75%( يجتاز الطالب الاختبار الشامل إذا حصل عى
 حالة عدم اجتيازه الاختبار في المرة الأولى، يعيد الاختبار مرة واحدة فقط في
-",,
+",grounded,AI-draft: Agrees with the automatic label: 75/25 split and 75% pass mark are stated.
 E017,ar,condition,grounded,تقديم البرنامج باللغة العربية,"الهوية الوطنية / الإقامة
 جواز السفر
 السجل الأكاديمي
@@ -195,20 +195,20 @@ E017,ar,condition,grounded,تقديم البرنامج باللغة العربي
 .يقدم البرنامج باللغة العربية
 .)مدة الدراسة: أربع سنوات (ثمانية فصول دراسية منتظمة
 ريال مقسمة بالتساوي200,000 :الرسوم الدراسية للبرنامج
-.على الفصول ا",,
-E002,ar,quote,grounded,بداية الدراسة بعد إجازة عيد الفطر: الأحد 2027-03-14م (1448-10-06هـ),بداية إجازة عيد الفطر: الأحد 2027-02-07م (1448-08-30هـ) || بداية الدراسة بعد إجازة عيد الفطر: الأحد 2027-03-14م (1448-10-06هـ),,
+.على الفصول ا",grounded,AI-draft: Agrees: 'يقدم البرنامج باللغة العربية'.
+E002,ar,quote,grounded,بداية الدراسة بعد إجازة عيد الفطر: الأحد 2027-03-14م (1448-10-06هـ),بداية إجازة عيد الفطر: الأحد 2027-02-07م (1448-08-30هـ) || بداية الدراسة بعد إجازة عيد الفطر: الأحد 2027-03-14م (1448-10-06هـ),grounded,AI-draft: Agrees: verbatim calendar row.
 E031,ar,model,grounded,"كما ورد في متطلبات التخرج، فإن الرسوم الدراسية لبرنامج الجرائم الاقتصادية تبلغ ريال سعودي 100,000، بالإضافة إلى الرسوم الإدارية المذكورة.","ويجوز قبول التخصصات التالية: الشريعة الإسلامية- الأنظمة- الحقوق- الحصول على درجة البكالوريوس في: القانون
 العلوم الأمنية- العلوم الإدارية- العلوم السياسية- العلوم الإنسانية- العلوم الاجتماعية- الدراسات الإسلامية-
 العلوم التطبيقية ذات العلاقة، شرط اجتياز مقررات الفصل التكميلي بمعدل تراكمي لا يقل- العلوم العسكرية-
 .5 من3.50 عن
 .) اختبار القدرات العامة للجامعيين (عنصر مفاضلة اختياري
 .المقابلة الشخصية
-",,
+",grounded,"AI-draft: Agrees on the fee (100,000); the framing 'as stated in graduation requirements' is wrong."
 E026,ar,condition,unsupported,يُطوى قيد الطالب في الحالات الآتية: إذا لم ينتظم في دراسته لأربعة أسابيع متتالية بعد قبوله للدراسة، أو إذا لم يجتز المقررات التكميلية، أو إذا انقطع عن الدراسة لمدة فصل دراسي دون عذر مقبول، أو إذا لم يقدم طالب الماجستير خطة الرسالة، أو إذا حصل على إنذارين أكاديميين متتاليين، أو إذا لم يجتز الاختبار الشامل في مرحلة الدكتوراه للمرة الثانية، أو إذا لم يحصل على الدرجة العلمية خلال المدة المحددة وفقًا للخطة المعتمدة لكل برنامج، أو إذا رسب الطالب في أكثر من مقررين دراسيين في نفس الفصل، أو إذا لم يتسجل الطالب في رغبة واحدة فقط عند التقديم.,"هل يوجد تقديم للبرامج الأكاديمية في الفصل الثاني؟
-غير متاح حاليًا.",,
+غير متاح حاليًا.",unsupported,"AI-draft: Agrees: the cited FAQ entry is about second-semester applications, not enrolment closure."
 E025,ar,quote,unsupported,كيف يمكنني التقديم على الجامعة؟ التقديم للالتحاق ببرامج الجامعة يكون من خلال صفحة القبول بالموقع الإلكتروني للجامعة واستكمال نموذج القبول الإلكتروني,"كيف يمكنني التقديم على الجامعة؟
 التقديم للالتحاق ببرامج الجامعة يكون من خلال صفحة القبول بالموقع الإلكتروني للجامعة واستكمال نموذج القبول الإلكتروني. || هل يوجد تقديم للقبول في مرحلة الدكتوراة؟
-نعم يوجد ، حاليا برنامج الدكتوراه في القانون الجنائي",,
+نعم يوجد ، حاليا برنامج الدكتوراه في القانون الجنائي",grounded,AI-draft: DISAGREES with the automatic label: the quote occurs verbatim in the FAQ evidence (likely a matching bug with the question-and-answer line break).
 E017,ar,condition,grounded,"رسوم الدراسة تبلغ 200,000 ريال سعودي","الهوية الوطنية / الإقامة
 جواز السفر
 السجل الأكاديمي
@@ -224,7 +224,7 @@ E017,ar,condition,grounded,"رسوم الدراسة تبلغ 200,000 ريال س
 .يقدم البرنامج باللغة العربية
 .)مدة الدراسة: أربع سنوات (ثمانية فصول دراسية منتظمة
 ريال مقسمة بالتساوي200,000 :الرسوم الدراسية للبرنامج
-.على الفصول ا",,
+.على الفصول ا",grounded,"AI-draft: Agrees: 200,000 stated."
 E017,ar,condition,grounded,الهوية الوطنية / الإقامة,"الهوية الوطنية / الإقامة
 جواز السفر
 السجل الأكاديمي
@@ -240,7 +240,7 @@ E017,ar,condition,grounded,الهوية الوطنية / الإقامة,"اله�
 .يقدم البرنامج باللغة العربية
 .)مدة الدراسة: أربع سنوات (ثمانية فصول دراسية منتظمة
 ريال مقسمة بالتساوي200,000 :الرسوم الدراسية للبرنامج
-.على الفصول ا",,
+.على الفصول ا",grounded,"AI-draft: Agrees on content (verbatim), though it is a required document, not an admission condition."
 E069,ar,condition,grounded,يجب تقديم طلب الانسحاب إلى عمادة القبول والتسجيل قبل بدء الاختبارات النهائية,"بشرط أن تكون مطروحة من قبل القسم، وإذا لم تطرح تلك المقررات في
 الفصل التالي تؤجل دراسته للفصل الذي يتم فيه طرح مقررات الفصل
 الذي تم الاعتذار عنه.
@@ -248,7 +248,7 @@ E069,ar,condition,grounded,يجب تقديم طلب الانسحاب إلى عم
 .. تحتسب مدة الاعتذار ضمن الحد الأقصى للحصول على الدرجة العلمية5
 .. لا يحق للطالب المعتذر استعادة الرسوم الدراسية المدفوعة6
 الانسحاب من الجامعة
-أوًلاً: يجوز للطالب تقديم طلب الانسحاب من البر",,
+أوًلاً: يجوز للطالب تقديم طلب الانسحاب من البر",grounded,AI-draft: Agrees: program withdrawal is requested before final exams; note the inquiry was about semester withdrawal.
 E057,ar,model,unsupported,في حال حضور الطالب 40% فقط من المحاضرات والدروس العملية المحددة لكل مقرر، يُحرم من دخول الاختبار النهائي ويُصنف راسبًا في ذلك المقرر.,"القسم المختص يعطى الطالب تقدير غير مكتمل (ل) في درجات أعمال الفصل،
 على أن يستكمل الطالب الأعمال المطلوبة قبل نهاية الفصل الذي يليه وفي حال
 عدم استكماله ُيُعد راسبًاً في ذلك المقرر.
@@ -256,4 +256,4 @@ E057,ar,model,unsupported,في حال حضور الطالب 40% فقط من ال
 في حال رسوب الطالب في مقرر دراسي يجب عليه إعادة دراسته في الفصل
 الذي يطرح فيه المقرر، ويجوز بناًءً على توصية مجلس القسم وموافقة مجلس
 الكلية طرح المقرر في الفصل التالي.
-الحرمان من دخول الاختبار ا",,
+الحرمان من دخول الاختبار ا",grounded,"AI-draft: DISAGREES: the handbook (p23) states deprivation below 75% and that a deprived student fails the course; '40%' is the student's own figure, which the automatic check could not find in the excerpt."

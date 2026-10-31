@@ -703,7 +703,7 @@ have no support in the approved documents.
   for correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
   Ratings drafted by the AI assistant that helped build the system; **not reviewed by a person**: correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (of 5; 20 answers). Answered: correctness 3.93; refusals, clarifications and escalations: correctness 5. Answers scored 2 or lower: H016, E031, E020, H022, H010. Not a specialist rating.
 - **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
-  agreement with the automatic labels (`score-claims`). Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: None (0 labelled); agreement with the automatic labels on 0 Arabic claims: None.
+  agreement with the automatic labels (`score-claims`). Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: 0.533 (30 labelled); agreement with the automatic labels on 10 Arabic claims: 0.8.
 - **Efficiency** (`efficiency-report`): measured on the first, uncached run of the held-out set: median
   32.4 s for any response, 34.8 s for an answer, 1.8 s for a refusal or clarification (Intel Core i5,
   8 GB RAM, CPU only). Self-service rate: 0.35 on the held-out set after 11b, 0.53 on `e2e_v2`.
