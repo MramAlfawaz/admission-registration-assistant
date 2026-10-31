@@ -100,10 +100,14 @@ def test_question_text_is_never_logged():
         def emit(self, record):
             records.append(record.getMessage())
     handler = Keep()
-    logging.getLogger("app.routes").addHandler(handler)
+    logger = logging.getLogger("app.routes")
+    level = logger.level
+    logger.setLevel(logging.INFO)  # pytest keeps the root logger at WARNING
+    logger.addHandler(handler)
     try:
         client_with(FakeAssistant(ANSWER)).post("/ask", data={"question": "سؤال خاص جدا", "as_of": "2026-10-14"})
     finally:
-        logging.getLogger("app.routes").removeHandler(handler)
+        logger.removeHandler(handler)
+        logger.setLevel(level)
     assert any("question received" in r for r in records)
     assert not any("سؤال خاص جدا" in r for r in records)
