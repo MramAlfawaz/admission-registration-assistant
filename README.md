@@ -20,11 +20,11 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** all 13 phases built; the public demo runs at https://huggingface.co/spaces/m11ram/admission-registration-assistant.
-> Remaining before handover, all with people rather than code: the Experiment 5 team rating, the user
-> evaluation (students and staff), a test by someone outside the team, and a Windows run
-> (`docs/handover-memo.md`, section 1). The block at the top of this file is read by Hugging Face
-> Spaces, not by GitHub.
+> **Status:** complete (2026-10-31). All 13 phases built and evaluated; the public demo runs at https://huggingface.co/spaces/m11ram/admission-registration-assistant.
+> Not done, and stated as limitations: rating by Deanship specialists (an AI-drafted review stands in,
+> Experiment 5), a recorded user evaluation with staff, an install test by someone outside the team, and a
+> Windows run (`docs/handover-memo.md`, section 1). The block at the top of this file is read by Hugging
+> Face Spaces, not by GitHub.
 > The assistant answers end to end from the command line: it classifies the question,
 > asks for clarification when needed, retrieves passages in force on the question's
 > date, validates them, applies the rule library, writes the answer with fixed rule
@@ -62,7 +62,7 @@ Standards document.
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
 | Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
 | response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
-| automated tests | 216 passing |
+| automated tests | 219 passing |
 | public demo | https://huggingface.co/spaces/m11ram/admission-registration-assistant (Hugging Face Space, CPU) |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
@@ -128,7 +128,7 @@ The same steps by hand: `cp .env.example .env`, `python cli.py fetch`, `python c
 ```bash
 python -m pytest -q
 ```
-Check: `216 passed`.
+Check: `219 passed`.
 
 **7. ask one question from the command line**
 ```bash
@@ -264,7 +264,7 @@ evaluation/
 docs/          handover-memo, architecture, environment/, troubleshooting/, authority-hierarchy,
                data-handling, intent-taxonomy, retrieval-failures, evidence-validation, rules,
                verification-and-escalation, evaluation, e2e-v1-failures, data-dictionary
-tests/         216 tests with fixtures from the real documents; conftest.py
+tests/         219 tests with fixtures from the real documents; conftest.py
 docker/        Dockerfile and docker-compose.yml (local two-service run), start.sh
 Dockerfile     the public demo image (Hugging Face Space: app and Ollama in one container)
 scripts/       clean_install_check.sh
@@ -698,12 +698,12 @@ out-of-scope questions and decision requests instead of referring them, and 85% 
 have no support in the approved documents.
 
 ### Experiment 5: team review and efficiency (`evaluation/experiment5/`)
-- **Answer quality**: specialists were not available, so a documented team review rates a fixed sample
-  of 20 real answers (14 answered, 6 refusals, clarifications and escalations), sampled from the
-  final runs `e2e_v5` and `holdout_v5`, from 1 to 5 for
-  correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
+- **Answer quality**: specialists were not available. A fixed sample of 20 real answers (14 answered, 6
+  refusals, clarifications and escalations) from the final runs `e2e_v5` and `holdout_v5` was rated 1 to 5
+  for correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
+  Ratings drafted by the AI assistant that helped build the system; **not reviewed by a person**: correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (of 5; 20 answers). Answered: correctness 3.93; refusals, clarifications and escalations: correctness 5. Answers scored 2 or lower: H016, E031, E020, H022, H010. Not a specialist rating.
 - **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
-  agreement with the automatic labels (`score-claims`).
+  agreement with the automatic labels (`score-claims`). Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: None (0 labelled); agreement with the automatic labels on 0 Arabic claims: None.
 - **Efficiency** (`efficiency-report`): measured on the first, uncached run of the held-out set: median
   32.4 s for any response, 34.8 s for an answer, 1.8 s for a refusal or clarification (Intel Core i5,
   8 GB RAM, CPU only). Self-service rate: 0.35 on the held-out set after 11b, 0.53 on `e2e_v2`.
@@ -711,7 +711,8 @@ have no support in the approved documents.
   recorded as unknown rather than estimated.
 - **User evaluation** (`evaluation/user_evaluation/`): five tasks on the public demo, rated 1 to 5 for ease,
   clarity, usefulness of sources and trust (staff also: could they defend the answer), students and staff
-  reported separately with mean, standard deviation and n (`score-feedback`). **Not yet run.**
+  reported separately with mean, standard deviation and n (`score-feedback`). Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. Individual ratings were not recorded per person and no staff took part, so no means are reported.
+- **Response time on the public demo**: on the public demo (2 shared CPU cores): model load 6 s at start-up; reading 12–17 tokens/s, writing 1.3–2.0 tokens/s; a new question took 186 s, the model's draft was cut at the 180 s limit and the answer came from the rule sentence (measured 2026-10-31).
 
 ---
 
@@ -812,7 +813,17 @@ it; the page gave no sign that anything was happening. Fixes:
 - the container log now shows Ollama's own log, each request (without the client address), a line when a
   question arrives (never its text), and at start-up the model load time and this machine's speed in tokens
   per second (`docker/warmup.py`)
-Response time on the Space's shared CPU is still **not measured**; the start-up speed line gives it.
+Measured after the fix: on the public demo (2 shared CPU cores): model load 6 s at start-up; reading 12–17 tokens/s, writing 1.3–2.0 tokens/s; a new question took 186 s, the model's draft was cut at the 180 s limit and the answer came from the rule sentence (measured 2026-10-31).
+
+### part E: user feedback and completion (`tests/test_source_links.py`)
+- **User feedback** on the public demo: Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. Individual ratings were not recorded per person and no staff took part, so no means are reported.
+- **Change made from that feedback**: one comment said the sources give only the document's name. Each source
+  title now links to the official document on nauss.edu.sa (at the first cited page for a PDF), from the URLs
+  already recorded in `data/sources.json`.
+- **Experiment 5 rating and claim review** scored (section "Experiment 5" above).
+- **Not done**: an install test by someone outside the team, and a Windows run. The automated clean-install
+  check (part C) is the evidence for reproducibility on a fresh clone; it does not replace a stranger
+  following the README.
 
 ---
 
@@ -834,10 +845,10 @@ fixes informed by the same set; the honest held-out figure is `holdout_after`.
 | citation | citation accuracy | honest held-out 1.0; final 1.0 and 0.978 | same |
 | safe failure | correct refusal / false refusal rate | honest held-out 0.857 / 0.154; final 1.0 / 0.077 (held-out), 1.0 / 0.057 (100) | same |
 | status | status assignment accuracy | honest held-out 0.825; final 0.95 and 0.95 | same |
-| answer quality | specialist 1 to 5 rating | **not yet rated**; documented team review substitutes specialists | `evaluation/experiment5/` |
-| efficiency | response time reduction | median 32.4 s per response on the development Mac; **no reduction claimed: the Deanship's current response time is unknown** | `exp5_efficiency.md` |
+| answer quality | specialist 1 to 5 rating | correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (20 answers; drafted by the AI assistant that helped build the system); not by specialists | `exp5_ratings.md` |
+| efficiency | response time reduction | median 32.4 s per response on the development Mac; 186 s for a new question on the public demo; **no reduction claimed: the Deanship's current response time is unknown** | `exp5_efficiency.md` |
 | efficiency | self-service rate | 0.35 honest held-out; 0.425 and 0.53 final | same |
-| satisfaction | students and staff, separately | **not yet run** (`evaluation/user_evaluation/`) | `user_feedback.md` |
+| satisfaction | students and staff, separately | Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. | `evaluation/user_evaluation/` |
 | reproducibility | identical output for identical query and date | 1.00 on every run (each inquiry answered twice) | every results file |
 | reliability | test pass rate from clean install | 211/211 on a fresh clone (2026-10-31, before the 5 tests of part D), and the held-out results reproduced 40 of 40 | `scripts/clean_install_check.sh` |
 
@@ -897,7 +908,9 @@ Pre-handover checklist (1.10):
 - **Fixes shaped by the evaluation set**: the step 11b fixes improved the inquiries they were written from but not a held-out set; the step 11c fixes were informed by the held-out set, so no fully unseen measurement exists after step 11b.
 - **Programs guide not yet chunked at program boundaries**: left as a limitation because it renumbers passages and requires gold set v2.
 - **Quotes damaged by extraction** can still appear in answers that have no rule sentence (one in the final runs, E042); escalations show no quotes and rule-backed answers quote only calendar rows.
-- **Not yet tested**: Windows; the local two-service Docker run; response time on the public demo.
+- **Not tested**: Windows; the local two-service Docker run; an install by someone outside the team.
+- **Experiment 5 is not a specialist rating**: the 20 answers and 40 claims were drafted by the AI assistant that helped build the system; not reviewed by a person; this is neither independent nor by Deanship specialists.
+- **User evaluation**: informal, from classmates only; ratings not recorded per person; no staff took part.
 - **The public demo runs on 2 shared CPU cores**: new questions are much slower than on a laptop, and a model
   call over 180 s falls back to the rule sentence (or the keyword classifier for the intent). Questions from the
   evaluation sets, asked with their reference date, come from the cache instantly. A larger Space (paid
@@ -920,6 +933,6 @@ Pre-handover checklist (1.10):
 | 8. grounded generation | done |
 | 9. clarification | done |
 | 10. verification and escalation (10b: per-sentence filter) | done |
-| 11. evaluation and adversarial testing | done; Experiment 5 team rating and user evaluation to run |
+| 11. evaluation and adversarial testing | done (Experiment 5 with the limitations stated) |
 | 12. student interface | done |
-| 13. deployment and handover | done: public demo, bootstrap, Docker, handover documents; outside test and Windows run remain |
+| 13. deployment and handover | done: public demo, bootstrap, Docker, handover documents; outside install test and Windows run not done |

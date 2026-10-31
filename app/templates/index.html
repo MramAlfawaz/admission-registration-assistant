@@ -73,7 +73,7 @@
     {% if result.sources %}
     <h2>{{ result.ui.sources }}</h2>
     <ul class="sources">
-      {% for s in result.sources %}<li><strong>{{ s.title }}</strong>{% if s.where %} <span class="where">({{ s.where }})</span>{% endif %}</li>{% endfor %}
+      {% for s in result.sources %}<li><strong>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener" title="{{ result.ui.open_source }}">{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}</strong>{% if s.where %} <span class="where">({{ s.where }})</span>{% endif %}</li>{% endfor %}
     </ul>
     {% endif %}
 

@@ -5,7 +5,7 @@ the Development Standards and Phase 8 of the project brief. Read `README.md` fir
 this memo covers what the README does not: what is finished, why it is built this way, how to
 debug it, what will break, and how to extend it.
 
-Last updated: 2026-10-31 (step 13c).
+Last updated: 2026-10-31 (step 13e, final).
 
 ---
 
@@ -31,13 +31,13 @@ model through Ollama and a local embedding model; no question leaves the machine
 | bootstrap (`setup.py`) and clean-install check | complete | `scripts/clean_install_check.sh` passed on a fresh clone: 211 tests, held-out results reproduced 40 of 40 |
 | public demo (Hugging Face Space, root `Dockerfile`) | complete | built and running at https://huggingface.co/spaces/m11ram/admission-registration-assistant; answered test questions correctly in Arabic |
 | local two-service Docker run (`docker/docker-compose.yml`) | **written, not yet run** | same base images and bootstrap as the Space image |
-| Experiment 5 team rating | **incomplete** | sheets generated from the final runs (`evaluation/experiment5/`), not yet filled |
-| user evaluation, students and staff separately | **not done yet** | protocol, form and `score-feedback` ready (`evaluation/user_evaluation/`) |
-| test with someone outside the team | **not done yet** | required by the brief and the standards; form in `evaluation/user_evaluation/README.md` |
+| Experiment 5 answer rating and claim review | **done, with a limitation** | correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25; drafted by the AI assistant that helped build the system; **not reviewed by a person** |
+| user evaluation, students and staff separately | **partial** | Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. Individual ratings were not recorded per person and no staff took part, so no means are reported. |
+| test with someone outside the team | **not done** | the automated clean-install check passed instead; a stranger following the README is still untested |
 | Windows | **untested** | developed and measured on macOS only |
-| response time on the public demo | **not measured** | the start-up `speed on this machine` line and the `answered:` lines in the Space's container log give it |
+| response time on the public demo | measured | 186 s for a new question; reading 12–17 tokens/s, writing 1.3–2.0 tokens/s on 2 shared CPU cores |
 
-Why the incomplete items are incomplete: they need people (reviewers, students, staff, an outsider) or a
+Why the incomplete items are incomplete: they need people (Deanship specialists, staff, an outsider) or a
 Windows machine. None of them is blocked by code.
 
 ---
@@ -139,7 +139,8 @@ Everything known to be wrong, untested or handled badly, most serious first.
 12. **Adding an intent touches several files** (section 6), more than the "small fixed number of edits" the
     standards ask for. Prompt versions are chosen by constructor defaults (`classify_intent_v1`, `answer_v2`)
     rather than by configuration.
-13. **Untested**: Windows; the local two-service Docker run; the outside-user test and the user evaluation.
+13. **Untested**: Windows; the local two-service Docker run; an install by someone outside the team. The user
+    evaluation was informal and without staff, and Experiment 5 was rated from an AI draft (section 7).
 
 ---
 
@@ -236,8 +237,10 @@ first-pass labels; English claims need human review.
 | adversarial (17) | 12/17 first run → **17/17** (every run since step 11b) | `adversarial_v6.json` |
 | 4. model alone, no retrieval (100) | 14/100 correct and 79 wrong answers, against 82/100 and 13 for the assistant | `exp4_no_retrieval.md` |
 | 5. efficiency (held-out, uncached) | median 32.4 s per response; 34.8 s answered; 1.8 s refusal or clarification; Deanship baseline **unknown** | `exp5_efficiency.md` |
-| 5. team rating | not yet filled | `evaluation/experiment5/` |
-| 5. user evaluation | not yet run | `evaluation/user_evaluation/` |
+| 5. answer rating (20 answers) | correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25; drafted by the AI assistant that helped build the system; **not reviewed by a person** | `exp5_ratings.md` |
+| 5. claim review (40 claims) | Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: None (0 labelled); agreement with the automatic labels on 0 Arabic claims: None. | `exp5_claims.md` |
+| 5. user evaluation | Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. Individual ratings were not recorded per person and no staff took part, so no means are reported. | `evaluation/user_evaluation/` |
+| 5. response time on the public demo | 186 s for a new question (2 shared CPU cores; the model's draft cut at 180 s, answer from the rule sentence) | Space container log, 2026-10-31 |
 | reproducibility | 1.00 on every run (each inquiry answered twice) | every results file |
 
 The step 13 runs (`*_v3` to `*_v5`) changed only what answers quote and what escalations show; statuses,

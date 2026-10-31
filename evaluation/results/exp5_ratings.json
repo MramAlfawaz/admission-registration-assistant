@@ -1,0 +1,319 @@
+{
+  "rows": 20,
+  "rated": 20,
+  "raters": [
+    "AI-draft"
+  ],
+  "overall": {
+    "n": 20,
+    "correctness": {
+      "mean": 4.25,
+      "distribution": {
+        "1": 3,
+        "2": 0,
+        "3": 1,
+        "4": 1,
+        "5": 15
+      }
+    },
+    "completeness": {
+      "mean": 3.95,
+      "distribution": {
+        "1": 0,
+        "2": 3,
+        "3": 2,
+        "4": 8,
+        "5": 7
+      }
+    },
+    "relevance": {
+      "mean": 4.65,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 5,
+        "5": 14
+      }
+    },
+    "clarity": {
+      "mean": 4.15,
+      "distribution": {
+        "1": 0,
+        "2": 2,
+        "3": 3,
+        "4": 5,
+        "5": 10
+      }
+    },
+    "source_appropriateness": {
+      "mean": 4.25,
+      "distribution": {
+        "1": 0,
+        "2": 2,
+        "3": 3,
+        "4": 3,
+        "5": 12
+      }
+    }
+  },
+  "ar": {
+    "n": 14,
+    "correctness": {
+      "mean": 4.21,
+      "distribution": {
+        "1": 2,
+        "2": 0,
+        "3": 1,
+        "4": 1,
+        "5": 10
+      }
+    },
+    "completeness": {
+      "mean": 3.93,
+      "distribution": {
+        "1": 0,
+        "2": 2,
+        "3": 2,
+        "4": 5,
+        "5": 5
+      }
+    },
+    "relevance": {
+      "mean": 4.57,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 4,
+        "5": 9
+      }
+    },
+    "clarity": {
+      "mean": 4,
+      "distribution": {
+        "1": 0,
+        "2": 2,
+        "3": 2,
+        "4": 4,
+        "5": 6
+      }
+    },
+    "source_appropriateness": {
+      "mean": 4.29,
+      "distribution": {
+        "1": 0,
+        "2": 1,
+        "3": 3,
+        "4": 1,
+        "5": 9
+      }
+    }
+  },
+  "en": {
+    "n": 6,
+    "correctness": {
+      "mean": 4.33,
+      "distribution": {
+        "1": 1,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 5
+      }
+    },
+    "completeness": {
+      "mean": 4,
+      "distribution": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 3,
+        "5": 2
+      }
+    },
+    "relevance": {
+      "mean": 4.83,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 5
+      }
+    },
+    "clarity": {
+      "mean": 4.5,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 1,
+        "5": 4
+      }
+    },
+    "source_appropriateness": {
+      "mean": 4.17,
+      "distribution": {
+        "1": 0,
+        "2": 1,
+        "3": 0,
+        "4": 2,
+        "5": 3
+      }
+    }
+  },
+  "answered": {
+    "n": 14,
+    "correctness": {
+      "mean": 3.93,
+      "distribution": {
+        "1": 3,
+        "2": 0,
+        "3": 1,
+        "4": 1,
+        "5": 9
+      }
+    },
+    "completeness": {
+      "mean": 3.79,
+      "distribution": {
+        "1": 0,
+        "2": 3,
+        "3": 2,
+        "4": 4,
+        "5": 5
+      }
+    },
+    "relevance": {
+      "mean": 4.5,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 1,
+        "4": 5,
+        "5": 8
+      }
+    },
+    "clarity": {
+      "mean": 3.79,
+      "distribution": {
+        "1": 0,
+        "2": 2,
+        "3": 3,
+        "4": 5,
+        "5": 4
+      }
+    },
+    "source_appropriateness": {
+      "mean": 4.07,
+      "distribution": {
+        "1": 0,
+        "2": 2,
+        "3": 3,
+        "4": 1,
+        "5": 8
+      }
+    }
+  },
+  "non_answers": {
+    "n": 6,
+    "correctness": {
+      "mean": 5,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 6
+      }
+    },
+    "completeness": {
+      "mean": 4.33,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 4,
+        "5": 2
+      }
+    },
+    "relevance": {
+      "mean": 5,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 6
+      }
+    },
+    "clarity": {
+      "mean": 5,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 6
+      }
+    },
+    "source_appropriateness": {
+      "mean": 4.67,
+      "distribution": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 2,
+        "5": 4
+      }
+    }
+  },
+  "low_scores": [
+    {
+      "id": "H016",
+      "correctness": "1",
+      "completeness": "2",
+      "relevance": "4",
+      "clarity": "3",
+      "source_appropriateness": "4",
+      "notes": "Wrong number: states 75 for research methods; the handbook gives 25 (75 is the specialisation part). Right section cited."
+    },
+    {
+      "id": "E031",
+      "correctness": "5",
+      "completeness": "3",
+      "relevance": "5",
+      "clarity": "2",
+      "source_appropriateness": "3",
+      "notes": "Fee correct (100,000) but opens with 'as stated in graduation requirements' and the conditions field is extraction debris; section label imprecise."
+    },
+    {
+      "id": "E020",
+      "correctness": "3",
+      "completeness": "3",
+      "relevance": "4",
+      "clarity": "3",
+      "source_appropriateness": "2",
+      "notes": "Hedged ('may require'); the guide lists English proficiency (IELTS or equivalent) as a condition. Cited section label unrelated."
+    },
+    {
+      "id": "H022",
+      "correctness": "1",
+      "completeness": "2",
+      "relevance": "4",
+      "clarity": "3",
+      "source_appropriateness": "2",
+      "notes": "Wrong and contradicts the guide: says taught in English; the programme box says Arabic. Model invented a reason."
+    },
+    {
+      "id": "H010",
+      "correctness": "1",
+      "completeness": "2",
+      "relevance": "3",
+      "clarity": "2",
+      "source_appropriateness": "3",
+      "notes": "Wrong: the handbook requires a 3.5 GPA in supplementary courses for master's; the answer gives '50 marks'."
+    }
+  ]
+}

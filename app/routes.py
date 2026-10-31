@@ -25,7 +25,7 @@ STATUS_LABELS = {
 }
 UI = {
     "ar": {"title": "مساعد القبول والتسجيل", "subtitle": "جامعة نايف العربية للعلوم الأمنية",
-           "question": "سؤالك", "date": "تاريخ السؤال", "ask": "اسأل", "busy": "جارٍ البحث…",
+           "question": "سؤالك", "date": "تاريخ السؤال", "ask": "اسأل", "busy": "جارٍ البحث…", "open_source": "فتح المستند الرسمي",
            "busy_note": "جارٍ البحث في المصادر المعتمدة. قد يستغرق ذلك بضع دقائق؛ يرجى عدم إعادة الإرسال.", "sources": "المصادر",
            "conditions": "الشروط", "action": "المطلوب منك", "confirmed": "ما يمكن تأكيده",
            "next_step": "الخطوة التالية", "generated": "أنشئت الإجابة في", "page": "صفحة",
@@ -34,7 +34,7 @@ UI = {
            "empty": "اكتب سؤالك أولاً.", "too_long": "السؤال طويل جداً؛ اختصره من فضلك.",
            "placeholder": "مثال: متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟"},
     "en": {"title": "Admission and Registration Assistant", "subtitle": "Naif Arab University for Security Sciences",
-           "question": "Your question", "date": "Date the question is about", "ask": "Ask", "busy": "Searching…",
+           "question": "Your question", "date": "Date the question is about", "ask": "Ask", "busy": "Searching…", "open_source": "Open the official document",
            "busy_note": "Searching the approved sources. This can take a few minutes; please do not send again.", "sources": "Sources",
            "conditions": "Conditions", "action": "What you need to do", "confirmed": "What can be confirmed",
            "next_step": "Next step", "generated": "Answer generated on", "page": "page",
@@ -65,8 +65,13 @@ def _source_view(assistant, sources, language):
     by_id = getattr(assistant, "sources_by_id", {}) or {}
     grouped = {}
     for s in sources:
-        entry = grouped.setdefault(s["source_id"], {"title": by_id.get(s["source_id"], {}).get("title", s["source_id"]),
-                                                   "id": s["source_id"], "places": []})
+        meta = by_id.get(s["source_id"], {})
+        entry = grouped.setdefault(s["source_id"], {"title": meta.get("title", s["source_id"]), "id": s["source_id"],
+                                                   "url": meta.get("url"), "places": []})
+        # User feedback (step 13e): "the sources give only the document name". The title links to the
+        # official document, at the first cited page for a PDF.
+        if entry["url"] and s.get("page") and entry["url"].lower().endswith(".pdf") and "#" not in entry["url"]:
+            entry["url"] = f"{entry['url']}#page={s['page']}"
         where = []
         if s.get("page"):
             where.append(f"{UI[language]['page']} {s['page']}")
@@ -76,7 +81,7 @@ def _source_view(assistant, sources, language):
         if place and place not in entry["places"]:
             entry["places"].append(place)
     sep = "، " if language == "ar" else "; "
-    return [{"title": e["title"], "id": e["id"], "where": sep.join(e["places"])} for e in grouped.values()]
+    return [{"title": e["title"], "id": e["id"], "url": e["url"], "where": sep.join(e["places"])} for e in grouped.values()]
 
 
 def _section(section, language):
