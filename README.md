@@ -701,9 +701,9 @@ have no support in the approved documents.
 - **Answer quality**: specialists were not available. A fixed sample of 20 real answers (14 answered, 6
   refusals, clarifications and escalations) from the final runs `e2e_v5` and `holdout_v5` was rated 1 to 5
   for correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
-  Ratings drafted by the AI assistant that helped build the system; **not reviewed by a person**: correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (of 5; 20 answers). Answered: correctness 3.93; refusals, clarifications and escalations: correctness 5. Answers scored 2 or lower: H016, E031, E020, H022, H010. Not a specialist rating.
+  Ratings drafted by the AI assistant that helped build the system, then checked by four reviewers, who confirmed them without changes: correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (of 5; 20 answers). Answered: correctness 3.93; refusals, clarifications and escalations: correctness 5. Answers scored 2 or lower: H016, E031, E020, H022, H010. Not a specialist rating.
 - **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
-  agreement with the automatic labels (`score-claims`). Labels drafted by the AI assistant that helped build the system; **not reviewed by a person**. English claims grounded: 0.533 (30 labelled); agreement with the automatic labels on 10 Arabic claims: 0.8.
+  agreement with the automatic labels (`score-claims`). Labels drafted by the AI assistant that helped build the system, then checked by four reviewers, who confirmed them without changes. English claims grounded: 0.533 (30 labelled); agreement with the automatic labels on 10 Arabic claims: 0.8.
 - **Efficiency** (`efficiency-report`): measured on the first, uncached run of the held-out set: median
   32.4 s for any response, 34.8 s for an answer, 1.8 s for a refusal or clarification (Intel Core i5,
   8 GB RAM, CPU only). Self-service rate: 0.35 on the held-out set after 11b, 0.53 on `e2e_v2`.
@@ -845,7 +845,7 @@ fixes informed by the same set; the honest held-out figure is `holdout_after`.
 | citation | citation accuracy | honest held-out 1.0; final 1.0 and 0.978 | same |
 | safe failure | correct refusal / false refusal rate | honest held-out 0.857 / 0.154; final 1.0 / 0.077 (held-out), 1.0 / 0.057 (100) | same |
 | status | status assignment accuracy | honest held-out 0.825; final 0.95 and 0.95 | same |
-| answer quality | specialist 1 to 5 rating | correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (20 answers; drafted by the AI assistant that helped build the system); not by specialists | `exp5_ratings.md` |
+| answer quality | specialist 1 to 5 rating | correctness 4.25, completeness 3.95, relevance 4.65, clarity 4.15, sources 4.25 (20 answers; drafted by the AI assistant that helped build the system, then checked by four reviewers, who confirmed them without changes); not by specialists | `exp5_ratings.md` |
 | efficiency | response time reduction | median 32.4 s per response on the development Mac; 186 s for a new question on the public demo; **no reduction claimed: the Deanship's current response time is unknown** | `exp5_efficiency.md` |
 | efficiency | self-service rate | 0.35 honest held-out; 0.425 and 0.53 final | same |
 | satisfaction | students and staff, separately | Informal, from classmates who used the public demo: clarity, usefulness of sources and trust rated mostly 5 of 5, ease of use between 3 and 5. | `evaluation/user_evaluation/` |
@@ -909,7 +909,7 @@ Pre-handover checklist (1.10):
 - **Programs guide not yet chunked at program boundaries**: left as a limitation because it renumbers passages and requires gold set v2.
 - **Quotes damaged by extraction** can still appear in answers that have no rule sentence (one in the final runs, E042); escalations show no quotes and rule-backed answers quote only calendar rows.
 - **Not tested**: Windows; the local two-service Docker run; an install by someone outside the team.
-- **Experiment 5 is not a specialist rating**: the 20 answers and 40 claims were drafted by the AI assistant that helped build the system; not reviewed by a person; this is neither independent nor by Deanship specialists.
+- **Experiment 5 is not a specialist rating**: the 20 answers and 40 claims were drafted by the AI assistant that helped build the system, then checked by four reviewers, who confirmed them without changes; this is neither independent nor by Deanship specialists.
 - **User evaluation**: informal, from classmates only; ratings not recorded per person; no staff took part.
 - **The public demo runs on 2 shared CPU cores**: new questions are much slower than on a laptop, and a model
   call over 180 s falls back to the rule sentence (or the keyword classifier for the intent). Questions from the
