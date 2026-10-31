@@ -22,8 +22,10 @@ reproduced. The prompt contains the question. Decisions:
 - the **committed** cache contains only calls made for the synthetic evaluation sets and development;
   it holds no real student question
 - a **deployed** instance must set `CACHE_DIR` to a location outside the repository that is never
-  committed, and delete entries older than 30 days; on the public demo the cache lives in the
-  container and is lost on restart
+  committed, and delete entries older than 30 days. Both Docker images do this (`docker/start.sh`):
+  the cache lives in a runtime folder of the container (`/home/user/runtime/cache` on the Space),
+  starts from the committed evaluation cache, has entries older than 30 days deleted daily, and is
+  lost when the container restarts
 - no IP addresses, names or identifiers are stored anywhere by the application
 
 ## retention

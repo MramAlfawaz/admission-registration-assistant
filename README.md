@@ -1,3 +1,14 @@
+---
+title: Admission and Registration Assistant
+emoji: 🎓
+colorFrom: green
+colorTo: gray
+sdk: docker
+app_port: 7860
+pinned: false
+short_description: Answers from approved NAUSS admission documents
+---
+
 # admission-registration-assistant
 
 An assistant for the Admission and Registration department of Naif Arab University
@@ -9,8 +20,9 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** phases 1 to 12 of 13 complete except the team rating of Experiment 5. Phase 13
-> part A (fixes from testing the student page by hand) done; deployment and handover (part B) next.
+> **Status:** all 13 phases built. Remaining before handover: the public demo's first build, the
+> Experiment 5 team rating and a test by someone outside the team (`docs/handover-memo.md`, section 1).
+> The block at the top of this file is read by Hugging Face Spaces (the public demo), not by GitHub.
 > The assistant answers end to end from the command line: it classifies the question,
 > asks for clarification when needed, retrieves passages in force on the question's
 > date, validates them, applies the rule library, writes the answer with fixed rule
@@ -48,7 +60,7 @@ Standards document.
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
 | Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
 | response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
-| automated tests | 198 passing |
+| automated tests | 206 passing |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -91,49 +103,74 @@ python -c "import numpy, torch, fitz, flask; print(numpy.__version__, torch.__ve
 # 1.26.4 2.2.2
 ```
 
-**4. create the environment file**
-```bash
-cp .env.example .env
-```
-Check: `cat .env` shows `LLM_MODEL=qwen2.5:3b`.
-
-**5. install and verify the local model**
+**4. install the local model**
 ```bash
 ollama pull qwen2.5:3b
-python cli.py check-model
 ```
-Check: `OK: qwen2.5:3b matches models.lock (357c53fb659c)`.
+Check: `ollama list` shows `qwen2.5:3b` with ID `357c53fb659c`.
 
-**6. download the source documents**
+**5. bootstrap** (Ollama must be running)
 ```bash
-python cli.py fetch
+python setup.py
 ```
-Check: `ls data/raw` lists 6 files.
+It checks the interpreter and every package pin, creates `.env` from `.env.example`, downloads the 6
+documents, builds the calendar and the chunks, downloads the pinned embedding model (about 470 MB, once)
+and checks the generation model against `models.lock`. It stops with an instruction at the first problem.
+Check: the last line is `bootstrap passed`, after `step 3 ok: 186 chunks, sha256 9e6394386f2f (as measured)`.
 
-**7. build the calendar and the chunks**
+The same steps by hand: `cp .env.example .env`, `python cli.py fetch`, `python cli.py build-calendar`,
+`python cli.py ingest`, `python cli.py check-model`.
+
+**6. run the tests**
 ```bash
-python cli.py build-calendar
-python cli.py ingest
+python -m pytest -q
 ```
-Check: `CALENDAR-1448: 24 events` and `186 chunks ... (sha256 9e6394386f2f)`.
+Check: `206 passed`.
 
-**8. run the tests**
+**7. ask one question from the command line**
 ```bash
-python -m pytest
+python cli.py ask "متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟" --as-of 2026-10-14
 ```
-Check: `198 passed`.
+Check: status `ANSWERABLE`, an answer stating Thursday 2026-11-19 and that the period is still open, and the
+calendar row as source.
 
-**10. open the student page** (needs Ollama running)
+**8. open the student page**
 ```bash
 python app.py
 ```
-Open http://localhost:5001. The first question takes longer while the models load.
+Open http://localhost:5001. The first question takes longer while the models load (about 30 s per
+answer after that on the development Mac; instant for questions already in the cache).
 
-**9. run retrieval once** (downloads the pinned embedding model, about 470 MB, on first use)
+**Windows:** use `py -3.11 -m venv .venv` and `.venv\Scripts\activate`; the other commands are the same.
+Windows has not been tested end to end.
+
+**Check a fresh clone in one command** (clones into a temporary folder, installs, bootstraps, runs the tests
+and reproduces the held-out results from the committed cache; needs Ollama running):
 ```bash
-python cli.py evaluate-retrieval --method all
+bash scripts/clean_install_check.sh
 ```
-Check: three methods reported, each with `version leaks=0`.
+
+### running with Docker
+Needs only Docker; Ollama runs in its own container.
+```bash
+docker compose -f docker/docker-compose.yml up --build
+```
+Open http://localhost:5001. The first build downloads about 3 GB (Python packages, documents, both models).
+
+### public demo (Hugging Face Space)
+The root `Dockerfile` builds one container with the app and Ollama for a free CPU Space (port 7860).
+To publish:
+0. create a Hugging Face account and a write token (Settings, Access Tokens)
+1. create a new Space: SDK **Docker**, template **Blank**, hardware **CPU basic**
+2. push a single snapshot of the current files (the Space refuses old commits that held binary files):
+```bash
+git remote add space https://huggingface.co/spaces/<user>/<space-name>
+git push --force space "$(git commit-tree 'HEAD^{tree}' -m 'Deploy snapshot')":refs/heads/main
+```
+   (user name: your Hugging Face name; password: the write token)
+3. follow the build log on the Space page; the build pulls the model and runs `python setup.py`
+Check: the Space shows the student page; `/health` returns `{"results": [{"status": "ok"}], "errors": []}`.
+Answers are slower than on a laptop (a shared CPU), and the first one after the Space wakes loads the models.
 
 ---
 
@@ -163,6 +200,9 @@ Check: three methods reported, each with `version leaks=0`.
 | `python cli.py efficiency-report` | Experiment 5: response time from an uncached run, and self-service rate |
 | `python app.py` | the student page on http://localhost:5001; `POST /api/ask` for JSON |
 | `python cli.py evaluate-adversarial --out adversarial_v1` | runs the 17 adversarial cases |
+| `python cli.py compare-runs REFERENCE RUN` | checks two `evaluate-e2e` results are identical inquiry by inquiry (status, correctness, answer, escalation) |
+| `python setup.py [--skip-llm]` | bootstrap: pins, `.env`, documents, chunks, embedding model, model check |
+| `bash scripts/clean_install_check.sh` | fresh clone → install → bootstrap → tests → reproduce `holdout_v4` |
 
 ### adding a new document version
 When the department publishes a new calendar or guide:
@@ -212,10 +252,15 @@ evaluation/
   end_to_end/          100 frozen inquiries with expected statuses (FROZEN holds the sha256)
   adversarial/         17 adversarial cases
   results/             saved evaluation outputs
-docs/          authority-hierarchy, data-handling, intent-taxonomy, retrieval-failures,
-               evidence-validation, rules, verification-and-escalation, evaluation,
-               e2e-v1-failures, data-dictionary
-tests/         198 tests with fixtures from the real documents
+docs/          handover-memo, architecture, environment/, troubleshooting/, authority-hierarchy,
+               data-handling, intent-taxonomy, retrieval-failures, evidence-validation, rules,
+               verification-and-escalation, evaluation, e2e-v1-failures, data-dictionary
+tests/         206 tests with fixtures from the real documents; conftest.py
+docker/        Dockerfile and docker-compose.yml (local two-service run), start.sh
+Dockerfile     the public demo image (Hugging Face Space: app and Ollama in one container)
+scripts/       clean_install_check.sh
+setup.py       bootstrap script (not a packaging file)
+CONTEXT.md     one-page orientation and the rules that must not be broken
 ```
 
 ---
@@ -507,7 +552,7 @@ other majors) or a condition attached to the wrong rule. These are what phase 11
 
 ---
 
-## phase 11: evaluation (in progress)
+## phase 11: evaluation
 
 ### part A: frozen sets and scoring (`docs/evaluation.md`)
 - **end-to-end set**: 100 inquiries written from the documents, each with its reference date,
@@ -646,7 +691,7 @@ have no support in the approved documents.
 ### Experiment 5: team review and efficiency (`evaluation/experiment5/`)
 - **Answer quality**: specialists were not available, so a documented team review rates a fixed sample
   of 20 real answers (14 answered, 6 refusals, clarifications and escalations), sampled from the
-  final runs `e2e_v3` and `holdout_v3`, from 1 to 5 for
+  final runs `e2e_v4` and `holdout_v4`, from 1 to 5 for
   correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
 - **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
   agreement with the automatic labels (`score-claims`).
@@ -698,6 +743,26 @@ with the same failing inquiries. The four fixes change what the page shows (conf
 list) and guard cases these sets do not contain, so they are covered by `tests/test_fixes_13.py`,
 not by these scores.
 
+### part B: deployment and handover
+- **Two more fixes from reviewing the v3 escalations by hand**: a question about the student's own record
+  (or another student's) shows no quotes as "confirmed", since the documents cannot confirm anything about
+  a particular student; and quotes damaged by PDF extraction (reversed brackets, numbers glued to words,
+  stray Latin words) are not shown in escalations (`readable` in `app/generation/extractive.py`). In answers
+  they are kept: 7 of the 28 quotes in the final answers are damaged, and for E056 and E058 they are the
+  only evidence for a correct answer (known limitations).
+- **Bootstrap** `setup.py` (it was an empty file until this step) and `tests/conftest.py`.
+- **Docker**: `docker/docker-compose.yml` runs Ollama and the app as two services; the root `Dockerfile`
+  builds the public demo for a Hugging Face Space. Both pin their base images, install the CPU build of
+  the pinned PyTorch, and run the bootstrap while building, so a broken document link or a changed model
+  stops the build instead of reaching a student. **Written but not yet built**: the development sandbox
+  could not reach Docker Hub; the first build is the deployment.
+- **Handover documents**: `docs/handover-memo.md` (all Part 6 sections, including how to add a regulation
+  version, a rule and an intent, with a worked example), `docs/architecture.md`, `docs/environment/`,
+  `docs/troubleshooting/` (26 recorded problems in 6 files), `CONTEXT.md`.
+- **Clean-install check** `scripts/clean_install_check.sh` and `compare-runs`.
+- Final runs `holdout_v4`, `e2e_v4`, `adversarial_v5`: only escalation text changed, which carries no
+  scored facts.
+
 ---
 
 ## development standards compliance
@@ -713,6 +778,20 @@ not by these scores.
 | 1.7 no notebook deliverables | everything runs from `cli.py` | |
 | 1.8 logging, not print | logging with timestamp, level, module | |
 | 1.9 no runtime data in git | `data/raw/`, `data/processed/`, logs ignored | |
+
+Pre-handover checklist (1.10):
+
+| rule | check | how it was checked |
+|---|---|---|
+| 1.1 | bootstrap passes on a clean clone | `scripts/clean_install_check.sh` |
+| 1.2 | the same input twice gives identical output | reproducibility 1.00 on every evaluation run (each inquiry answered twice) |
+| 1.3 | corrupting `models.lock` crashes instead of substituting | `tests/test_llm_client.py` (wrong digest stops with instructions); `check-model` |
+| 1.4 | no prompt text in application code | `tests/test_prompts.py` |
+| 1.5 | second evaluation run fast and identical | `holdout_v4` from the cache: median 0.05 s, `compare-runs` identical |
+| 1.6 | changing a configuration value changes behaviour | settings read from `config/config.py` / `.env`, e.g. `TOP_K` changes the passages in the trace |
+| 1.7 | no notebooks | `git ls-files "*.ipynb"` is empty |
+| 1.8 | no print statements in application code | `grep -rn "print(" app/` is empty |
+| 1.9 | no logs or uploads tracked | `git ls-files` shows no `.log`, `data/raw` or `data/processed` files |
 
 ---
 
@@ -735,6 +814,8 @@ not by these scores.
 - **Wrong number from the right passage**: the small model still picks the wrong percentage, GPA or mark from a passage holding several; only fees are checked by kind, and thresholds in the rule library are stated by code.
 - **Fixes shaped by the evaluation set**: the step 11b fixes improved the inquiries they were written from but not a held-out set; the step 11c fixes were informed by the held-out set, so no fully unseen measurement exists after step 11b.
 - **Programs guide not yet chunked at program boundaries**: left as a limitation because it renumbers passages and requires gold set v2.
+- **Quotes damaged by extraction** remain in some answers (7 of 28 quotes in the final runs); they are filtered from escalations only.
+- **Docker images written but not yet built**; Windows not tested.
 
 ---
 
@@ -754,4 +835,4 @@ not by these scores.
 | 10. verification and escalation (10b: per-sentence filter) | done |
 | 11. evaluation and adversarial testing | done; Experiment 5 team rating to fill in |
 | 12. student interface | done |
-| 13. deployment and handover | part A (fixes from hand testing) done; part B (deployment, handover memo) next |
+| 13. deployment and handover | done: fixes from hand testing, bootstrap, Docker, handover documents; first public build, team rating and outside test remain |

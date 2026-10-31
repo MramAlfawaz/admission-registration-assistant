@@ -73,3 +73,34 @@ def test_quote_about_the_other_term_is_not_used():
     question = "متى يبدأ تسجيل المقررات للفصل الدراسي الأول؟"
     quotes = [q for q, _ in a._quotes(question, [HB_TERMS], [], "T1")]
     assert quotes and all("الثاني" not in q for q in quotes)
+
+
+# ---- step 13b: review of the escalations in holdout_v3 and e2e_v3 ----
+
+from app.generation.extractive import readable  # noqa: E402
+
+HB_TABLE = {"chunk_id": "HANDBOOK-1446#025", "source_id": "HANDBOOK-1446", "page": 25, "section": "التقديرات",
+            "text": "00ح محروم معادلة-مع معادلة الدرجات والتقديرات 25 Value Grade Points Mark Exceptional A+ 5. "
+                    "يحصل الطالب على تقدير ممتاز مرتفع إذا كانت درجته في المقرر من خمس وتسعين إلى مائة."}
+
+
+def test_damaged_extraction_text_is_not_readable():
+    # Real sentences from the v3 escalations (H031, H033, E081, E083).
+    assert not readable("يحرم الطالب من دخول الاختبار النهائي إذا قلت نسبة حضوره عن 1 ) من المحاضرات الفصل75%( الدراسي")
+    assert not readable("00ح محروم معادلة-مع معادلة الدرجات والتقديرات 25 Value Grade Points Mark")
+    assert not readable("وفكرية، وغيرها ماجستير الأمن الوطني48 ماجستير الأمن الوطني أهداف البرنامج")
+    assert not readable("75( ) وأقل من4:50( الحاصل على معدل تراكمي أعلى من أو يساوي ) عند التخرج")
+
+
+def test_clean_text_is_readable():
+    assert readable("بداية الاختبارات النهائية للفصل الدراسي الأول: الأحد 2026-12-06م (1448-06-26هـ)")
+    assert readable("يتم التواصل مع عمادة القبول والتسجيل عبر البريد admission@nauss.edu.sa في أوقات الدوام")
+    assert readable("Final exams for the first semester begin on Sunday (6 December 2026).")
+
+
+def test_personal_record_escalation_shows_no_quotes():
+    r = assistant("GRADING_AND_STANDING", [HB_TABLE], {"answer": "حصلت على تقدير جيد.", "used_evidence": ["E1"]}).answer(
+        "وش درجاتي في الترم الماضي؟", "2026-10-14")
+    assert r["status"] == "STAFF_REVIEW_REQUIRED" and r["escalation"]["reason_code"] == "personal_record"
+    assert not any(c.startswith("«") for c in r["escalation"]["confirmed"])
+    assert "حصلت على تقدير جيد." not in r["escalation"]["confirmed"]

@@ -153,3 +153,28 @@ def mentions_other_term(sentence, term):
     other = "T2" if term == "T1" else "T1"
     text = normalize_for_search(sentence)
     return bool(TERM_PATTERNS[other].search(text)) and not TERM_PATTERNS[term].search(text)
+
+
+# Signs of text damaged by PDF extraction of mixed-direction lines (README, known limitations).
+LATIN_WORD = re.compile(r"[A-Za-z]{2,}")
+EMAIL_OR_URL = re.compile(r"\S+@\S+|https?://\S+|www\.\S+")
+GLUED = re.compile(r"[\u0621-\u064A]\d|\d[\u0621-\u0644\u0646\u0648-\u064A]")  # word48, 00ح (not 2026م, 1448هـ)
+ARABIC_LETTER = re.compile(r"[\u0621-\u064A]")
+
+
+def readable(sentence):
+    """False when a sentence shows extraction damage: reversed or empty brackets, numbers glued to
+    words, a leading number or bracket, or Latin words inside Arabic text (emails and links allowed)."""
+    text = sentence.strip()
+    if not text or text[0].isdigit() or text[0] in ")(]":
+        return False
+    depth = 0
+    for ch in text:
+        depth += {"(": 1, ")": -1}.get(ch, 0)
+        if depth < 0:
+            return False
+    if depth != 0 or re.search(r"\(\s*\)", text) or GLUED.search(text):
+        return False
+    if len(ARABIC_LETTER.findall(text)) > len(re.findall(r"[A-Za-z]", text)):
+        return len(LATIN_WORD.findall(EMAIL_OR_URL.sub(" ", text))) < 2
+    return True

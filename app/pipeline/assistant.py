@@ -11,8 +11,8 @@ import logging
 
 from app.evidence.validator import validate_evidence
 from app.generation.answer_generator import base_response, non_answer
-from app.generation.extractive import (evidence_fits, mentions_other_term, overlap_scorer, relevance_filter,
-                                       select_sentences)
+from app.generation.extractive import (evidence_fits, mentions_other_term, overlap_scorer, readable,
+                                       relevance_filter, select_sentences)
 from app.generation.rule_sentences import event_sentence, rule_sentence, statement_sentences
 from app.generation.templates import QUOTE_INTRO
 from app.intent.ambiguity import SCOPE_TO_INTENT, apply_clarification, clarified_query, detect_missing
@@ -157,7 +157,7 @@ class Assistant:
         if reason:
             # Only code-written text is shown as confirmed: rule sentences and quotes from the documents.
             # A model sentence can imply the conditions are met (step 12 test), so it is never shown here.
-            confirmed, sources = self._confirmable(question, report["evidence"], rules, rule_texts, trace, term)
+            confirmed, sources = self._confirmable(question, report["evidence"], rules, rule_texts, trace, term, reason)
             return self._escalate(reason, intent, language, as_of, confirmed, sources, trace,
                                   rule_outputs=response["rule_outputs"])
         return self._finish(response, trace, trace["mode"])
@@ -190,9 +190,16 @@ class Assistant:
                                 qualifies=lambda s: relevant(s) and not contradicts_rules(s, rules)
                                 and not mentions_other_term(s, term))
 
-    def _confirmable(self, question, evidence, rules, rule_texts, trace, term):
-        """Return (texts, sources) safe to show as confirmed in an escalation: rule sentences and quotes."""
-        quotes = self._quotes(question, evidence, rules, term)
+    def _confirmable(self, question, evidence, rules, rule_texts, trace, term, reason=None):
+        """Return (texts, sources) safe to show as confirmed in an escalation: rule sentences and quotes.
+
+        A question about a student's own record, or another student's, has nothing the documents can
+        confirm, so no quote is shown. Quotes damaged by PDF extraction (reversed brackets, numbers
+        glued to words, stray Latin) are skipped: here they are supplementary (step 13a review: H033, E083).
+        """
+        quotes = []
+        if reason not in ("personal_record", "third_party"):
+            quotes = [(q, c) for q, c in self._quotes(question, evidence, rules, term) if readable(q)]
         trace["confirmed_quotes"] = [{"text": q, "chunk_id": c["chunk_id"]} for q, c in quotes]
         texts = list(rule_texts) + [f"«{q}»" for q, _ in quotes]
         sources = [dict(src) for x in rules if x["output"] not in ("unknown", "not_applicable") for src in x["sources"]]

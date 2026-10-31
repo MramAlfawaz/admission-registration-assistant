@@ -1,0 +1,11 @@
+.git
+.venv
+venv
+.env
+**/__pycache__
+**/.DS_Store
+*.log
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep

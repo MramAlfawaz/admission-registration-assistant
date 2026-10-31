@@ -94,3 +94,13 @@ a particular student meets them.
 ## quotes about the other term (step 13)
 When the question names a term, or a calendar rule resolved one, an evidence sentence that names only
 the other term is not quoted (`mentions_other_term` in `app/generation/extractive.py`).
+
+## what an escalation may show (step 13b)
+Reviewing the escalations of the final runs by hand showed two more problems, now fixed:
+- a question about the student's own record ("وش درجاتي؟") or another student's showed quotes from the
+  grading table; the documents cannot confirm anything about a particular student, so these escalations
+  show only the reason and the next step
+- some quotes were damaged by PDF extraction (reversed brackets, numbers glued to words, stray Latin
+  words, for example "75( ) وأقل من4:50("); `readable()` in `app/generation/extractive.py` keeps them out of
+  escalations. They are **not** filtered from answers, where for two correct answers (E056, E058) they are
+  the only evidence (known limitation).

@@ -640,6 +640,41 @@ def efficiency_report(cfg, args):
     log.info("median %ss (answered %ss); self-service %s", e["all"]["median"], e["answered"]["median"], e["self_service"])
 
 
+def compare_runs(cfg, args):
+    """Compare two evaluate-e2e results inquiry by inquiry: status, correctness and answer text.
+
+    Used by scripts/clean_install_check.sh to show a fresh clone reproduces the committed results.
+    Exits with status 1 when any inquiry differs.
+    """
+    results = Path(cfg.EVAL_DIR) / "results"
+    runs = []
+    for name in (args.reference, args.run):
+        path = results / f"{name}.json"
+        if not path.exists():
+            log.error("%s not found", path)
+            raise SystemExit(1)
+        runs.append({r["id"]: r for r in json.loads(path.read_text(encoding="utf-8"))["rows"]})
+    ref, run = runs
+    diffs = []
+    for key in sorted(set(ref) | set(run)):
+        a, b = ref.get(key), run.get(key)
+        if a is None or b is None:
+            diffs.append(f"{key}: present in only one run")
+            continue
+        for field, x, y in (("status", a["response"].get("status"), b["response"].get("status")),
+                            ("correct", a.get("correct"), b.get("correct")),
+                            ("answer", a["response"].get("answer"), b["response"].get("answer")),
+                            ("escalation", a["response"].get("escalation"), b["response"].get("escalation"))):
+            if x != y:
+                diffs.append(f"{key}: {field} differs")
+    for d in diffs:
+        log.warning("%s", d)
+    log.info("%d of %d inquiries identical (%s vs %s)", len(ref) - len({d.split(':')[0] for d in diffs}),
+             len(ref), args.reference, args.run)
+    if diffs:
+        raise SystemExit(1)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -696,6 +731,9 @@ def build_parser():
     ef = sub.add_parser("efficiency-report", help="Experiment 5: response time and self-service rate")
     ef.add_argument("--uncached", default="holdout_before", help="a results file from a run with no cached calls")
     ef.add_argument("--self-service", nargs="+", default=["holdout_after", "e2e_v2"])
+    cmp_ = sub.add_parser("compare-runs", help="check two evaluate-e2e results are identical")
+    cmp_.add_argument("reference", help="results name, e.g. holdout_v3")
+    cmp_.add_argument("run", help="results name to check, e.g. clean_check")
     adv = sub.add_parser("evaluate-adversarial", help="run the adversarial cases")
     adv.add_argument("--out", default="adversarial_v1", help="results name in evaluation/results/")
     add = sub.add_parser("add-source", help="register a new document version")
@@ -724,7 +762,7 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "evaluate-e2e": evaluate_e2e, "evaluate-adversarial": evaluate_adversarial,
             "evaluate-no-retrieval": evaluate_no_retrieval, "make-exp5": make_exp5,
             "score-ratings": score_ratings_cmd, "score-claims": score_claims_cmd,
-            "efficiency-report": efficiency_report}
+            "efficiency-report": efficiency_report, "compare-runs": compare_runs}
 
 
 def main():
