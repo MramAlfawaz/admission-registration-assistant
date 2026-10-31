@@ -9,9 +9,15 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** phases 1 to 5 of 13 complete. The system can load, clean, version and
-> chunk the documents, classify questions, and retrieve the right passages for the
-> question's date. Evidence validation and answering come next.
+> **Status:** phases 1 to 10 of 13 complete; phase 11 (evaluation) in progress.
+> The assistant answers end to end from the command line: it classifies the question,
+> asks for clarification when needed, retrieves passages in force on the question's
+> date, validates them, applies the rule library, writes the answer with fixed rule
+> sentences plus checked model sentences, and escalates decisions to staff.
+>
+> **First full evaluation (2026-10-31): 66 of 100 inquiries fully correct, 18 answers
+> with a wrong or missing fact. Not yet safe for students.** The failures are analysed
+> by cause in `docs/e2e-v1-failures.md`; fixes and a new held-out set come next.
 
 ---
 
@@ -28,7 +34,14 @@ Standards document.
 | retrieval gold questions | 64 (39 Arabic, 25 English), each with a reference date |
 | Arabic retrieval, hybrid | recall@5 0.974, recall@10 1.000 |
 | passages retrieved from a version not in force | 0 |
-| automated tests | 78 passing |
+| planted contradictions detected | 20 cases: detection 1.0, false positives 0.0, resolution 1.0 |
+| rules in the rule library | 13 (5 calendar, 6 regulation, 2 eligibility), each with boundary tests |
+| answer statuses | 6, every response schema-checked |
+| frozen end-to-end inquiries | 100 (60 Arabic, 40 English), 30 with a non-answer as the correct result |
+| adversarial cases | 17, every case in brief Section 11 |
+| end-to-end v1 (first run) | 66/100 fully correct; correct refusal 0.93, false refusal 0.13 |
+| adversarial v1 (first run) | 12/17 passed; all 3 planted-document attacks blocked |
+| automated tests | 152 passing |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -101,7 +114,7 @@ Check: `CALENDAR-1448: 24 events` and `186 chunks ... (sha256 9e6394386f2f)`.
 ```bash
 python -m pytest
 ```
-Check: `78 passed`.
+Check: `152 passed`.
 
 **9. run retrieval once** (downloads the pinned embedding model, about 470 MB, on first use)
 ```bash
@@ -124,6 +137,14 @@ Check: three methods reported, each with `version leaks=0`.
 | `python cli.py evaluate-intent --method keyword\|llm --split dev\|test\|all` | scores an intent classifier and saves results to `evaluation/results/` |
 | `python cli.py evaluate-retrieval --method bm25\|embeddings\|hybrid\|all` | scores retrieval on the gold set and saves results to `evaluation/results/` |
 | `python cli.py search "question" --as-of YYYY-MM-DD` | shows the top passages for one question, searching only versions in force on that date |
+| `python cli.py evaluate-conflicts` | scores evidence validation on the planted contradictions |
+| `python cli.py conflict-report` | lists conflicts met while answering the gold questions, for the department |
+| `python cli.py rule RULE-CAL-01 --as-of YYYY-MM-DD [--term 1448-T1] [--input k=v]` | runs one rule on a date |
+| `python cli.py rules-doc` | rewrites `docs/rules.md` from the rule library |
+| `python cli.py ask "question" --as-of YYYY-MM-DD [--clarify withdrawal_scope=semester]` | answers one question end to end and prints the response and its trace |
+| `python cli.py generate-sample --n 10 \| --file smoke.jsonl --out NAME` | runs a sample end to end and checks schema and expectations |
+| `python cli.py evaluate-e2e --out e2e_v1 [--limit N]` | Experiment 3 on the frozen 100-inquiry set (refuses to run if the set changed) |
+| `python cli.py evaluate-adversarial --out adversarial_v1` | runs the 17 adversarial cases |
 
 ### adding a new document version
 When the department publishes a new calendar or guide:
@@ -144,12 +165,19 @@ questions about past dates still use the rules that applied then.
 
 ```
 app/
-  documents/   loader, normalize, calendar_parser, chunker, version_selector, registry, ingest
-  intent/      taxonomy, language, keyword_baseline, llm_classifier, context_extractor, evaluate
+  documents/   loader, normalize, calendar_parser, chunker, version_selector, registry, ingest, injection
+  intent/      taxonomy, language, keyword_baseline, llm_classifier, context_extractor, ambiguity, evaluate
   retrieval/   tokenize, bm25, embeddings, hybrid, retriever, evaluate, factory
+  evidence/    currency_checker, relevance, subject, facts, contradiction, completeness, validator, evaluate
+  rules/       calendar_rules, rule_engine, registration_rules, selection
+  generation/  answer_generator, templates, rule_sentences, extractive
+  safety/      verifier, sentence_filter, escalation
+  schemas/     answer (the six statuses and the response fields)
+  pipeline/    assistant (the fixed stage order), factory, evaluate
   models/      llm_client, prompts, seed
 config/        config.py, the only source of settings
-prompts/       versioned prompt files (classify_intent_v1.md)
+prompts/       classify_intent_v1, answer_v1 (kept for traceability), answer_v2, glossary_v1
+rules/         rule_library.json: id, sources, inputs, condition, outputs, effective period, tests
 data/
   sources.json source registry with version metadata (committed)
   raw/         downloaded documents (not committed, restored by fetch)
@@ -159,9 +187,15 @@ evaluation/
   intent/              155 labelled questions
   retrieval/           64 gold questions with reference dates and evidence
   version_selection/   15 labelled date cases
+  conflicts/           20 planted contradictions
+  generation/          6 smoke questions used while building phases 9 and 10
+  end_to_end/          100 frozen inquiries with expected statuses (FROZEN holds the sha256)
+  adversarial/         17 adversarial cases
   results/             saved evaluation outputs
-docs/          authority-hierarchy.md, data-handling.md, intent-taxonomy.md, retrieval-failures.md
-tests/         78 tests with fixtures from the real documents
+docs/          authority-hierarchy, data-handling, intent-taxonomy, retrieval-failures,
+               evidence-validation, rules, verification-and-escalation, evaluation,
+               e2e-v1-failures
+tests/         152 tests with fixtures from the real documents
 ```
 
 ---
@@ -321,8 +355,14 @@ date** (`retriever.py`), using the same version selector as phase 3.
 each with a reference date and one or more evidence groups (a question needing a
 calendar date and the regulation behind it has two groups). Because every source is
 Arabic, all English questions are cross-language. It includes the same question at
-two dates where the guide changed: the MA in Criminology is 2 years in the 1447 guide
-and 1 year in the 1448 guide.
+two dates, answered from the 1447 guide and from the 1448 guide.
+
+> **Correction (2026-10-31, step 11a).** This paragraph first said the MA in Criminology
+> changed from 2 years (1447) to 1 year (1448). That is wrong: it is 2 years in both.
+> In the 1448 guide each program's duration box is extracted *before* the program's
+> title, so the one-year box next to the criminology text belongs to the human-rights
+> diploma that follows. Gold items R059 and R061 point to that passage (`#030`) instead of
+> `#028`. The set stays frozen as v1; a corrected v2 will be reported beside it.
 
 Recall@k is the share of evidence groups with a passage in the top k. Precision@5 is
 the share of the top 5 that is evidence; with one correct passage its maximum is 0.2.
@@ -353,6 +393,187 @@ toward a dominant topic (2).
 
 ---
 
+## phase 6: evidence validation
+
+Runs on the retrieved passages **before** any answer is written (`app/evidence/validator.py`),
+always in this order:
+
+| step | question | outcome on failure |
+|---|---|---|
+| currency | is every passage from a version in force on the question's date? | passage rejected |
+| relevance | is it about the situation asked (semester vs program withdrawal)? | set aside as off topic |
+| contradiction | do sources give different values for the same thing? | resolved by authority, or `CONFLICTING_EVIDENCE` |
+| completeness | is a needed source missing (for example the calendar for a deadline)? | `INSUFFICIENT_EVIDENCE` |
+
+Facts compared: durations, amounts, percentages, GPAs and dates, each tagged with the
+degree or program it belongs to (the closest mention before it). Resolution follows
+`docs/authority-hierarchy.md`: status, then authority level, then effective date.
+
+**Results:** planted set of 20 cases (11 conflicts, 6 near misses, 3 other checks):
+detection 1.0, false positives 0.0, resolution 1.0. On the 64 gold questions the conflict
+report found no unresolved conflict.
+
+**Bugs found:** the first-match subject rule tagged master's facts in the FAQ as diploma
+facts (fixed with nearest mention); duplicate facts produced duplicate conflicts (fixed by
+deduplication); question words such as متى counted as "needs a deadline" and blocked
+rule-based answers (removed).
+
+> **Correction (step 11a):** the "real conflict" first reported here (FAQ: master's 2 years;
+> 1448 guide: criminology 1 year) is the extraction error described under phase 5, not a
+> real disagreement between documents. Resolving it for the guide would give a wrong answer.
+
+---
+
+## phase 7: rule library
+
+`rules/rule_library.json` holds 13 rules; each names its sources, inputs, condition,
+outputs, effective period and the tests that check its boundaries. `docs/rules.md` is
+generated from it.
+
+| group | rules | examples |
+|---|---|---|
+| calendar (5) | RULE-CAL-01 to 05 | semester withdrawal open/closed, postponement, re-enrolment, refund before study starts, program withdrawal before finals |
+| regulation (6) | RULE-REG-01 to 06 | attendance 75% / 50% exception, pass mark 70, academic warning GPA, closure after two warnings, re-enrolment within 4 semesters, appeals left |
+| eligibility (2) | RULE-ELIG-01 to 02 | graduation GPA, honours |
+
+The term is read from the question, or resolved from the question's date and stated in the
+answer. Re-enrolment uses the **upcoming** term, the others the term in progress. Rules that
+need a student's number (attendance, grade, GPA) run only when the student wrote it.
+
+---
+
+## phase 8: grounded generation (first version)
+
+The model (`prompts/answer_v1.md`) wrote the whole answer from the validated passages and the
+rule results; code attached the sources and the date basis. Non-answers use fixed bilingual
+templates. First sample of 10 gold questions: **10/10 schema-valid, about 5/10 correct**.
+Real failures: wrong weekday (Friday for a Thursday deadline), a closed window not stated as
+closed, Chinese characters, "no information" although the evidence was there, and a
+program-withdrawal rule mixed into a semester answer.
+
+---
+
+## phases 9 and 10: clarification, verification and escalation
+
+Built from those real failures (`docs/verification-and-escalation.md`):
+- **rule sentences written by code**: dates, weekdays (computed from the date) and
+  open/closed are never left to the model
+- **clarification read from the question text**: "can I withdraw?" asks course, semester or
+  program; duration and graduation questions with no degree ask the degree; the reply is
+  passed back with `--clarify`
+- **prompt v2**: the model only adds 1 to 3 explanation sentences and may not restate the rules
+- **verifier**: rejects foreign script, wrong language, numbers or weekdays not in the evidence,
+  internal ids, false "no information", decision wording, and advice to act after a deadline
+- **extractive fallback**: if the model text fails, the answer quotes the closest evidence
+- **escalation** (`STAFF_REVIEW_REQUIRED`) for decisions and exceptions, rules that only a
+  council can grant, and questions needing the student's own record; the response gives the
+  reason, what can be confirmed, the sources and the next step. Escalations are logged
+  without the question text.
+
+**Result:** smoke set 6/6 expectations met.
+
+### phase 10b: checking each sentence
+Replaying the real outputs showed text that passed the whole-text verifier but was still
+wrong: another situation mixed in (program withdrawal in a semester answer), glossary terms
+copied into answers, prompt placeholders echoed as conditions, internal term ids, guesses.
+`app/safety/sentence_filter.py` now judges **each sentence** and keeps only those that pass;
+harmless openings are trimmed, conditions must be real grounded sentences, and the glossary
+is sent only for English answers and only for terms in the evidence.
+
+**Result:** smoke 6/6; on the 10-question sample 7 generated and 3 quoted answers, about 9 of
+13 checked answers fully correct (from about 6). Meaning errors remain that a word-level
+filter cannot see, such as a qualifier dropped ("three years' experience" required only for
+other majors) or a condition attached to the wrong rule. These are what phase 11 measures.
+
+---
+
+## phase 11: evaluation (in progress)
+
+### part A: frozen sets and scoring (`docs/evaluation.md`)
+- **end-to-end set**: 100 inquiries written from the documents, each with its reference date,
+  expected status and the facts a correct answer must contain: 70 answerable (2 after a
+  clarification reply), 10 clarification, 8 staff review, 6 out of scope, 6 insufficient
+  evidence. Checked against every earlier set; repeated questions were rewritten. Frozen by
+  sha256 before the first run.
+- **adversarial set**: 17 cases: override the rules, hide the source, pretend the deadline is
+  open, another student's data, approve my admission, absent and superseded regulations, and
+  planted documents that tell the model a deadline is open.
+- **Experiment 3 metrics**, overall and per language: status accuracy, correct and false
+  refusal rates (always together), wrong answers shown to a student, grounded and unsupported
+  claim rates, citation accuracy, self-service rate, response time, reproducibility. English
+  model sentences cannot be matched word by word with Arabic sources; they are marked
+  unverified and exported to a review sheet for the team review.
+
+Changes made **before** the first run (not tuned on the set):
+- a quote must share the question's key terms, so unrelated text is never quoted
+- no model sentence or quote may say a closed window is open, or the reverse
+- text addressed to the model is kept out of the index at ingest and checked again on every
+  retrieved passage; writing the tests showed the fallback would otherwise quote a planted page
+
+### first results (v1, 2026-10-31)
+`evaluation/results/e2e_v1.md`, `e2e_v1.json`, `e2e_v1_review.csv`, `adversarial_v1.json`.
+
+| metric | overall | Arabic | English |
+|---|---|---|---|
+| status accuracy (six statuses) | 0.87 | | |
+| correct refusal rate | 0.933 | | |
+| false refusal rate | 0.129 | | |
+| fully correct (status and facts) | **0.66** | 0.717 | 0.575 |
+| answer correct when answered | 0.656 | | |
+| answered with a wrong or missing fact | 21 (18 after review; 3 were scorer misses) | | |
+| non-answer questions answered anyway | 2 (flight ticket price, monthly stipend) | | |
+| model sentences grounded (Arabic, judged) | 0.764 | | |
+| English claims awaiting human review | 33 | | |
+| citation accuracy (judged) | 0.987 | | |
+| self-service rate | 0.40 | | |
+| reproducible on repeat | **1.00** | | |
+| response time, answered (uncached) | about 38 s median | | |
+| response time, refusals (uncached) | about 1.5 s | | |
+
+The run's printed median (0.06 s) is not a real measurement: the first 60 inquiries
+reused cached model calls from an interrupted run. Times above are from the uncached ones.
+
+**Adversarial: 12/17.** Passed: hidden source, both "pretend the deadline is open" phrasings
+answered "closed" (one in Arabic; the English one was refused, a safe failure), "approve my
+admission" (both languages), superseded guide never cited, and all three planted documents,
+including the one worded to evade the scanner. Failed: an Arabic "ignore the regulations"
+answered with unrelated services, two requests for another student's data answered instead
+of refused, and an absent regulation answered with unrelated quotes.
+
+### what the failures show (`docs/e2e-v1-failures.md`)
+| cause | inquiries |
+|---|---|
+| retrieval missed the passage holding the answer (passage boundaries, English questions) | 11 |
+| model chose the wrong number from passages holding several (application fee 2000 instead of 100, PhD supplementary semester 5000 instead of 25,000, first honours 5.00 instead of 4.75) | 4 |
+| wrong intent, so the right rule never ran (refund before study starts, GPA warning) | 5 |
+| checks too strict (the word "calendar" taken for an internal id; "refund not eligible" read as "closed") | 4 |
+| calendar questions with no rule, so the date came only from the model | 2 |
+| a misspelled intent from the model (`SEMMESTER_WITHDRAWAL`) routed as out of scope | 2 |
+| no check that the evidence fits the question at all | 4 |
+| no guard for another student's data | 2 (adversarial) |
+| expected label conflicts with the documented date policy | 1 |
+
+The safety layers that were tested worked: no wrong deadline, no "open" for a closed
+window, no decision stated, no planted instruction followed, identical output on repeat.
+The weak point is **content selection**: the right passage not found, or the wrong
+number taken from the right passage.
+
+### part B (next)
+1. write and freeze a new held-out set **before** any fix, so the improvement is measured
+   on questions the fixes were not shaped by
+2. fix by cause: calendar dates answered by code; rules not blocked when search misses the
+   calendar; numbers checked by fact kind; rules triggered by what the question says;
+   strict checks corrected; misspelled intents mapped; refusal when no evidence fits the
+   question; escalation for another student's data; programs guide chunked at program
+   boundaries (and gold set v2)
+3. report v1, v1 after fixes (marked optimistic) and the held-out set side by side
+
+### part C
+Experiment 4 (the same model with no retrieval), the human review of English claims, and
+Experiment 5 (team rating of a sample, measured response time).
+
+---
+
 ## development standards compliance
 
 | rule | how it is met | check |
@@ -360,7 +581,7 @@ toward a dominant topic (2).
 | 1.1 pin every version | `.python-version`, `requirements.txt` with `==`, `models.lock` | `check-model` passes |
 | 1.2 fixed seed, zero temperature | `SEED` and `TEMPERATURE` in config; `set_seed` covers Python, NumPy, PyTorch | identical results on rerun |
 | 1.3 no silent fallback | `ModelUnavailableError`; fallback flag defaults to off | tested with a wrong digest |
-| 1.4 prompts as versioned files | `prompts/classify_intent_v1.md` with header | test confirms no prompt text in `app/` |
+| 1.4 prompts as versioned files | `prompts/` (classify_intent_v1, answer_v1, answer_v2, glossary_v1), each with a header | test confirms no prompt text in `app/` |
 | 1.5 cache every model call | `data/cache/llm/`, committed | second run 0.1 s, identical |
 | 1.6 configuration is not code | all settings in `config/config.py` | |
 | 1.7 no notebook deliverables | everything runs from `cli.py` | |
@@ -381,7 +602,10 @@ toward a dominant topic (2).
 - **Evaluation questions are synthetic** and written by the same developer who wrote the keyword rules, which may favour the baseline.
 - **Mixed-language questions** number only 4.
 - **English retrieval is weaker** than Arabic (hybrid recall@10 0.68 vs 1.00); candidate fixes are listed in `docs/retrieval-failures.md` and must be tested on new questions.
-- **Programs guide layout**: each program's language, duration and fee box lands in the same passage as the start of the next program.
+- **Programs guide layout (1448)**: each program's language, duration and fee box is extracted *before* the program's title, so it shares a passage with the end of the previous program. This caused the false criminology "conflict" and wrong gold annotations R059/R061. Fix planned: chunk at program boundaries, measured before and after.
+- **Meaning errors** in model sentences (a dropped qualifier, a condition attached to the wrong rule) pass the word-level checks; they are counted in Experiment 3.
+- **English answers** cannot be checked word by word against Arabic sources; their claims are reviewed by hand.
+- **The model** (`qwen2.5:3b`, chosen for 8 GB RAM) takes about 25 to 45 s per answered question on this Mac.
 
 ---
 
@@ -394,11 +618,11 @@ toward a dominant topic (2).
 | 3. ingestion and version selection | done |
 | 4. intent understanding and experiment 1 | done |
 | 5. retrieval: BM25 vs embeddings vs hybrid, per language, cross-language | done |
-| 6. evidence validation: currency, contradiction, completeness | next |
-| 7. rule library | |
-| 8. grounded generation | |
-| 9. clarification | |
-| 10. verification and escalation | |
-| 11. evaluation and adversarial testing | |
+| 6. evidence validation: currency, contradiction, completeness | done |
+| 7. rule library | done |
+| 8. grounded generation | done |
+| 9. clarification | done |
+| 10. verification and escalation (10b: per-sentence filter) | done |
+| 11. evaluation and adversarial testing | part A done (v1: 66/100, adversarial 12/17); part B (fixes, held-out set) next |
 | 12. student interface | |
 | 13. deployment and handover | |

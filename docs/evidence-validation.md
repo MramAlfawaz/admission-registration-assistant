@@ -40,9 +40,14 @@ department review.
 - Planted set (`evaluation/conflicts/planted.jsonl`, 20 cases: 11 conflicts, 6 near
   misses, 3 currency/relevance/completeness cases): detection rate 1.0, false-positive
   rate 0.0, resolution accuracy 1.0.
-- Real documents: the FAQ says every master's takes 2 years; the 1448 guide says the MA
-  in Criminology takes 1 year. Detected, resolved for the guide by authority, FAQ flagged
+- Real documents: the FAQ says every master's takes 2 years; the 1448 guide appeared to say
+  the MA in Criminology takes 1 year. Detected and resolved for the guide by authority
   (`tests/test_evidence.py::test_known_real_conflict_criminology_duration`).
+  **Correction (2026-10-31):** this is not a real conflict. In the 1448 guide each program's
+  duration box is extracted before the program's title; the one-year box belongs to the
+  human-rights diploma that follows. The 1447 guide, where the box follows the title, gives
+  the criminology master's 2 years. The test still shows that detection and resolution work,
+  but the resolved answer (1 year) would be wrong. Fix: chunk the guide at program boundaries.
 - `python cli.py conflict-report` writes `evaluation/results/conflict_report.md`, the list
   of conflicts met while answering the gold questions, for the department.
 
