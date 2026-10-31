@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n- آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08-27 (1448-03-14هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ.\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-08-24\nQuestion: عندي ظرف وأبغى أأجل الترم الأول، هل لحقت؟\n\nRule results (already stated above):\n- RULE-CAL-02: result = open, date 2026-08-27 (1448-03-14 AH), term 1448-T1; details = {\"term_id\": \"1448-T1\", \"term_basis\": \"stated\", \"event\": \"آخر موعد لتأجيل الفصل الدراسي الأول\", \"date\": \"2026-08-27\", \"hijri\": \"1448-03-14\", \"calendar\": \"CALENDAR-1448\", \"calendar_row\": 4}\n\nEvidence:\n[E1] (page 1, row 4):\nآخر موعد لتأجيل الفصل الدراسي الأول: الخميس 2026-08-27م (1448-03-14هـ)\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "بما أن آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08-27 (1448-03-14هـ)، فإن لديك الوقت الكافي لطلب تأجيل الترم الأول، حيث أنه لا يزال المهلة مفتوحة حتى ذلك التاريخ.",
+    "conditions": [
+      "آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08-27م (1448-03-14هـ)"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 27.77
+}

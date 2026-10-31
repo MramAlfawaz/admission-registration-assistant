@@ -17,9 +17,25 @@ STATUSES = {"ANSWERABLE", "CLARIFICATION_REQUIRED", "INSUFFICIENT_EVIDENCE", "CO
 
 # ---- frozen sets ----
 
+def _frozen():
+    lines = [l.split() for l in (E2E / "FROZEN").read_text().splitlines()]
+    return {p[1]: p[0] for p in lines if len(p) == 2 and p[1].endswith(".jsonl")}
+
+
+def test_holdout_set_is_frozen_new_and_well_formed():
+    body = (E2E / "holdout.jsonl").read_bytes()
+    assert hashlib.sha256(body).hexdigest() == _frozen()["holdout.jsonl"]
+    rows = [json.loads(l) for l in body.decode("utf-8").splitlines() if l]
+    assert len(rows) == 40 and len({r["id"] for r in rows}) == 40
+    earlier = {json.loads(l)["question"] for l in (E2E / "inquiries.jsonl").read_text(encoding="utf-8").splitlines() if l}
+    assert not earlier & {r["question"] for r in rows}
+    for r in rows:
+        assert r["expected_status"] in STATUSES and (r["expected_status"] != "ANSWERABLE" or r["must_contain"])
+
+
 def test_end_to_end_set_is_frozen_and_well_formed():
     body = (E2E / "inquiries.jsonl").read_bytes()
-    assert hashlib.sha256(body).hexdigest() == (E2E / "FROZEN").read_text().split()[0]
+    assert hashlib.sha256(body).hexdigest() == _frozen()["inquiries.jsonl"]
     rows = [json.loads(l) for l in body.decode("utf-8").splitlines() if l]
     assert len(rows) == 100 and len({r["id"] for r in rows}) == 100
     for r in rows:

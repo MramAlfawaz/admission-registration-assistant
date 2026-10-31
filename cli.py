@@ -380,7 +380,7 @@ def generate_sample(cfg, args):
         log.info("expectation checks passed %d/%d", len(passed), len(rows))
 
 
-def _report_md(title, summary, rows, frozen):
+def _report_md(title, summary, rows, frozen, set_path="evaluation/end_to_end/inquiries.jsonl"):
     """Write the human-readable Experiment 3 report."""
     o, ar, en = summary["overall"], summary["ar"], summary["en"]
     keys = [("status_accuracy", "status accuracy (all six)"), ("correct_refusal_rate", "correct refusal rate"),
@@ -390,7 +390,7 @@ def _report_md(title, summary, rows, frozen):
             ("unsupported_claim_rate", "unsupported claim rate (judged claims)"),
             ("model_claim_grounded_rate", "grounded rate, model sentences only"), ("claims_unverified", "claims needing human review"),
             ("citation_accuracy", "citation accuracy (judged citations)"), ("self_service_rate", "self-service rate")]
-    lines = [f"# {title}", "", f"Set: `evaluation/end_to_end/inquiries.jsonl`, sha256 `{frozen}`, {o['n']} inquiries.",
+    lines = [f"# {title}", "", f"Set: `{set_path}`, sha256 `{frozen}`, {o['n']} inquiries.",
              "Automatic first-pass labels; see `docs/evaluation.md` for definitions and limits.", "",
              "| metric | overall | Arabic | English |", "|---|---|---|---|"]
     lines += [f"| {label} | {o[k]} | {ar[k]} | {en[k]} |" for k, label in keys]
@@ -424,11 +424,17 @@ def evaluate_e2e(cfg, args):
     from app.pipeline.evaluate import load_jsonl, review_sheet, run_set, score_row, summarize
     from app.pipeline.factory import build_assistant
 
-    path = Path(cfg.EVAL_DIR) / "end_to_end" / "inquiries.jsonl"
+    path = Path(cfg.EVAL_DIR) / "end_to_end" / f"{args.set}.jsonl"
     frozen = hashlib.sha256(path.read_bytes()).hexdigest()
-    expected = (Path(cfg.EVAL_DIR) / "end_to_end" / "FROZEN").read_text().split()[0]
+    hashes = {}
+    for line in (Path(cfg.EVAL_DIR) / "end_to_end" / "FROZEN").read_text().splitlines():
+        parts = line.split()
+        if len(parts) == 2 and parts[1].endswith(".jsonl"):
+            hashes[parts[1]] = parts[0]
+    expected = hashes.get(path.name)
     if frozen != expected:
-        log.error("inquiries.jsonl changed after it was frozen (sha256 %s, frozen %s); refusing to score", frozen[:12], expected[:12])
+        log.error("%s is not frozen or changed after freezing (sha256 %s, frozen %s); refusing to score",
+                  path.name, frozen[:12], (expected or "none")[:12])
         return
     items = load_jsonl(path)[: args.limit or None]
     assistant = build_assistant(cfg)
@@ -451,7 +457,8 @@ def evaluate_e2e(cfg, args):
                "trace": r["response"].get("_trace", {})} for r in rows]
     (results / f"{args.out}.json").write_text(json.dumps({"set_sha256": frozen, "summary": summary, "rows": stored},
                                                          ensure_ascii=False, indent=2), encoding="utf-8")
-    (results / f"{args.out}.md").write_text(_report_md(f"Experiment 3: {args.out}", summary, rows, frozen[:12]),
+    (results / f"{args.out}.md").write_text(_report_md(f"Experiment 3: {args.out}", summary, rows, frozen[:12],
+                                                       f"evaluation/end_to_end/{path.name}"),
                                             encoding="utf-8")
     sheet = review_sheet(rows)
     with (results / f"{args.out}_review.csv").open("w", encoding="utf-8-sig", newline="") as f:
@@ -539,6 +546,8 @@ def build_parser():
     gs.add_argument("--out", default="generation_sample", help="results file name in evaluation/results/")
     e2e = sub.add_parser("evaluate-e2e", help="Experiment 3 on the frozen end-to-end set")
     e2e.add_argument("--out", default="e2e_v1", help="results name in evaluation/results/")
+    e2e.add_argument("--set", default="inquiries", choices=["inquiries", "holdout"],
+                     help="inquiries: the 100-inquiry set; holdout: 40 inquiries frozen before the step 11b fixes")
     e2e.add_argument("--limit", type=int, default=0, help="run only the first N inquiries (smoke run)")
     e2e.add_argument("--no-repeat", action="store_true", help="skip the reproducibility re-run")
     adv = sub.add_parser("evaluate-adversarial", help="run the adversarial cases")

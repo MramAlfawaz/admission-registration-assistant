@@ -1,0 +1,3667 @@
+{
+  "set_sha256": "3ee21c4c6cff95d8a5396f45d51ae9afe5005cb404837c155995a405c9cabb05",
+  "summary": {
+    "overall": {
+      "n": 40,
+      "status_accuracy": 0.85,
+      "correct_refusal_rate": 0.857,
+      "correct_refusal_exact_status": 0.786,
+      "false_refusal_rate": 0.115,
+      "answer_correct_when_answered": 0.652,
+      "end_to_end_correct": 0.65,
+      "wrong_answers_shown": 10,
+      "claims": 55,
+      "claims_unverified": 15,
+      "grounded_claim_rate": 0.8,
+      "unsupported_claim_rate": 0.2,
+      "model_claims_judged": 36,
+      "model_claim_grounded_rate": 0.778,
+      "citations": 32,
+      "citations_unverified": 7,
+      "citation_accuracy": 1.0,
+      "self_service_rate": 0.375
+    },
+    "ar": {
+      "n": 24,
+      "status_accuracy": 0.875,
+      "correct_refusal_rate": 0.75,
+      "correct_refusal_exact_status": 0.75,
+      "false_refusal_rate": 0.062,
+      "answer_correct_when_answered": 0.667,
+      "end_to_end_correct": 0.667,
+      "wrong_answers_shown": 7,
+      "claims": 39,
+      "claims_unverified": 0,
+      "grounded_claim_rate": 0.795,
+      "unsupported_claim_rate": 0.205,
+      "model_claims_judged": 36,
+      "model_claim_grounded_rate": 0.778,
+      "citations": 23,
+      "citations_unverified": 0,
+      "citation_accuracy": 1.0,
+      "self_service_rate": 0.417
+    },
+    "en": {
+      "n": 16,
+      "status_accuracy": 0.812,
+      "correct_refusal_rate": 1.0,
+      "correct_refusal_exact_status": 0.833,
+      "false_refusal_rate": 0.2,
+      "answer_correct_when_answered": 0.625,
+      "end_to_end_correct": 0.625,
+      "wrong_answers_shown": 3,
+      "claims": 16,
+      "claims_unverified": 15,
+      "grounded_claim_rate": 1.0,
+      "unsupported_claim_rate": 0.0,
+      "model_claims_judged": 0,
+      "model_claim_grounded_rate": null,
+      "citations": 9,
+      "citations_unverified": 7,
+      "citation_accuracy": 1.0,
+      "self_service_rate": 0.312
+    },
+    "confusion": {
+      "ANSWERABLE": {
+        "ANSWERABLE": 23,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 2,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 1
+      },
+      "CLARIFICATION_REQUIRED": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 4,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "ANSWERABLE": 1,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 2,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "CONFLICTING_EVIDENCE": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "OUT_OF_SCOPE": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 3,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "STAFF_REVIEW_REQUIRED": {
+        "ANSWERABLE": 1,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 1,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 2
+      }
+    },
+    "seconds": {
+      "median": 32.41,
+      "p90": 42.88,
+      "max": 68.02
+    },
+    "reproducible_rate": 1.0,
+    "modes": {
+      "generated": 22,
+      "extractive": 3,
+      "escalated": 3,
+      "templated": 12
+    }
+  },
+  "rows": [
+    {
+      "id": "H001",
+      "item": {
+        "id": "H001",
+        "question": "كم اختبار نهائي ممكن يكون عندي في نفس اليوم؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "exams",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "اختبارين",
+            "اثنين",
+            "2"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#015"
+      },
+      "seconds": 68.02,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "في نفس اليوم يمكنك إجراء اختبارين نهائيين إذا كان لديك أكثر من مقرر دراسي، وفقًا للجدول المعتمد من الكلية.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يحدد زمن الاختبار النهائي وفقًاً لعدد الوحدات الدراسية لكل مقرر",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يجوز أن يؤدي الطالب اختبارين اثنين لمقررين دراسيين في اليوم الواحد كحد أقصى",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#015",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "في نفس اليوم يمكنك إجراء اختبارين نهائيين إذا كان لديك أكثر من مقرر دراسي، وفقًا للجدول المعتمد من الكلية.",
+        "conditions": [
+          "يحدد زمن الاختبار النهائي وفقًاً لعدد الوحدات الدراسية لكل مقرر",
+          "يجوز أن يؤدي الطالب اختبارين اثنين لمقررين دراسيين في اليوم الواحد كحد أقصى"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#015",
+            "page": 22,
+            "section": ".تاريخ طي القيد"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#006",
+          "HANDBOOK-1446#015",
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#020",
+          "HANDBOOK-1446#017"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "في نفس اليوم يمكنك إجراء اختبارين نهائيين إذا كان لديك أكثر من مقرر دراسي، وفقًا للجدول المعتمد من الكلية."
+        ]
+      }
+    },
+    {
+      "id": "H002",
+      "item": {
+        "id": "H002",
+        "question": "إذا تأخرت عن الاختبار النهائي، متى يسمح لي بالدخول؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "exams",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "نصف ساعه"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#015"
+      },
+      "seconds": 38.86,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "إذا تأخر الطالب عن الاختبار النهائي ولم يتجاوز نسبة حضوره 75% من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل الدراسي، يُحرم من دخول الاختبار النهائي ويُعد راسبًا في المقرر، ويرصد له تقدير محروم (ح).",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يُحرم الطالب من دخول الاختبار النهائي إذا قلت نسبة حضوره عن 1 من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل 75%",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#016",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "إذا تأخر الطالب عن الاختبار النهائي ولم يتجاوز نسبة حضوره 75% من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل الدراسي، يُحرم من دخول الاختبار النهائي ويُعد راسبًا في المقرر، ويرصد له تقدير محروم (ح).",
+        "conditions": [
+          "يُحرم الطالب من دخول الاختبار النهائي إذا قلت نسبة حضوره عن 1 من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل 75%"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#016",
+            "page": 23,
+            "section": "أداء الاختبارات"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#016",
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#015",
+          "HANDBOOK-1446#006",
+          "HANDBOOK-1446#033"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "إذا تأخر الطالب عن الاختبار النهائي ولم يتجاوز نسبة حضوره 75% من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل الدراسي، يُحرم من دخول الاختبار النهائي ويُعد راسبًا في المقرر، ويرصد له تقدير محروم (ح)."
+        ]
+      }
+    },
+    {
+      "id": "H003",
+      "item": {
+        "id": "H003",
+        "question": "متى تنتهي اختبارات الفصل الدراسي الأول؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2026-12-17",
+            "1448-07-08"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "row 8"
+      },
+      "seconds": 20.98,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "اختبارات الفصل الدراسي الأول تنتهي في الخميس 2026-12-17م (1448-07-08هـ)، وهو آخر يوم للتقدم للامتحانات.",
+          "label": "unsupported"
+        },
+        {
+          "type": "condition",
+          "text": "اختبارات الفصل الدراسي الأول تنتهي في الخميس 2026-12-17م (1448-07-08هـ)",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448#008",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "اختبارات الفصل الدراسي الأول تنتهي في الخميس 2026-12-17م (1448-07-08هـ)، وهو آخر يوم للتقدم للامتحانات.",
+        "conditions": [
+          "اختبارات الفصل الدراسي الأول تنتهي في الخميس 2026-12-17م (1448-07-08هـ)"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#008",
+            "page": 1,
+            "section": "row 8"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ACADEMIC_CALENDAR",
+        "intent": "ACADEMIC_CALENDAR",
+        "retrieved": [
+          "CALENDAR-1448#007",
+          "CALENDAR-1448#008",
+          "CALENDAR-1448#004",
+          "CALENDAR-1448#019",
+          "CALENDAR-1448#003"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "CALENDAR-1448#004"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "اختبارات الفصل الدراسي الأول تنتهي في الخميس 2026-12-17م (1448-07-08هـ)، وهو آخر يوم للتقدم للامتحانات."
+        ]
+      }
+    },
+    {
+      "id": "H004",
+      "item": {
+        "id": "H004",
+        "question": "متى إجازة يوم التأسيس؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2027-02-21",
+            "2027-02-22",
+            "1448-09-14"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "row 14"
+      },
+      "seconds": 31.86,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "extractive",
+      "claims": [
+        {
+          "type": "quote",
+          "text": "يوم التأسيس: الأحد والإثنين 2027-02-21 إلى 2027-02-22م (1448-09-14 إلى 1448-09-15هـ)",
+          "label": "grounded"
+        },
+        {
+          "type": "quote",
+          "text": "بداية إجازة عيد الأضحى: نهاية دوام الخميس 2027-05-06م (1448-11-29هـ)",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448#014",
+          "label": "accurate"
+        },
+        {
+          "source": "CALENDAR-1448#016",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "ورد في المصدر المعتمد: «يوم التأسيس: الأحد والإثنين 2027-02-21 إلى 2027-02-22م (1448-09-14 إلى 1448-09-15هـ)» «بداية إجازة عيد الأضحى: نهاية دوام الخميس 2027-05-06م (1448-11-29هـ)»",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#014",
+            "page": 1,
+            "section": "row 14"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#016",
+            "page": 1,
+            "section": "row 16"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ACADEMIC_CALENDAR",
+        "intent": "ACADEMIC_CALENDAR",
+        "retrieved": [
+          "CALENDAR-1448#014",
+          "CALENDAR-1448#005",
+          "CALENDAR-1448#013",
+          "CALENDAR-1448#016",
+          "CALENDAR-1448#009"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "إجازة يوم التأسيس تبدأ في 2027-02-21 (1448-09-14هـ) وتشمل يو... -> numbers not in evidence: 10"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [],
+        "mode": "extractive",
+        "quotes": [
+          {
+            "text": "يوم التأسيس: الأحد والإثنين 2027-02-21 إلى 2027-02-22م (1448-09-14 إلى 1448-09-15هـ)",
+            "chunk_id": "CALENDAR-1448#014"
+          },
+          {
+            "text": "بداية إجازة عيد الأضحى: نهاية دوام الخميس 2027-05-06م (1448-11-29هـ)",
+            "chunk_id": "CALENDAR-1448#016"
+          }
+        ]
+      }
+    },
+    {
+      "id": "H005",
+      "item": {
+        "id": "H005",
+        "question": "إذا غبت عن الاختبار النهائي بعذر مقبول، متى أختبر؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "exams",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "الفصل التالي"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#017"
+      },
+      "seconds": 36.0,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "في حال غبت عن الاختبار النهائي بعذر مقبول، يجب عليك إعادة الاختبار قبل نهاية الفصل الذي يليه، حيث يتم تقييمك بناءً على الأحكام المذكورة في النص، والتي تشمل إعادة الاختبار إذا تم قبول عذرك من مجلسي القسم والكلية.",
+          "label": "unsupported"
+        },
+        {
+          "type": "condition",
+          "text": "الطالب يُعّدّ الطالب الذي حرم من دخول الاختبار بسبب الغياب في ذلك المقرر، ويرصد له تقدير محروم (ح) أو",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#016",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "في حال غبت عن الاختبار النهائي بعذر مقبول، يجب عليك إعادة الاختبار قبل نهاية الفصل الذي يليه، حيث يتم تقييمك بناءً على الأحكام المذكورة في النص، والتي تشمل إعادة الاختبار إذا تم قبول عذرك من مجلسي القسم والكلية.",
+        "conditions": [
+          "الطالب يُعّدّ الطالب الذي حرم من دخول الاختبار بسبب الغياب في ذلك المقرر، ويرصد له تقدير محروم (ح) أو"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#016",
+            "page": 23,
+            "section": "أداء الاختبارات"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#016",
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#017",
+          "HANDBOOK-1446#033",
+          "HANDBOOK-1446#019"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "في حال غبت عن الاختبار النهائي بعذر مقبول، يجب عليك إعادة الاختبار قبل نهاية الفصل الذي يليه، حيث يتم تقييمك بناءً على الأحكام المذكورة في النص، والتي تشمل إعادة الاختبار إذا تم قبول عذرك من مجلسي القسم والكلية."
+        ]
+      }
+    },
+    {
+      "id": "H006",
+      "item": {
+        "id": "H006",
+        "question": "كم الحد الأدنى لتقدير المقررات التي أريد معادلتها؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "equivalency",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "جيد جدا"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#013 item 4"
+      },
+      "seconds": 34.84,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "يجب أن يكون عدد المقررات التي تم معادلتها أقل من 30% من عدد المقررات في البرنامج الأصلي، وذلك وفقًا للنسبة المحددة في النص.",
+          "label": "unsupported"
+        },
+        {
+          "type": "condition",
+          "text": "يجب أن يكون عدد المقررات التي تم معادلتها أقل من 30% من عدد المقررات في البرنامج الأصلي",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#013",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "يجب أن يكون عدد المقررات التي تم معادلتها أقل من 30% من عدد المقررات في البرنامج الأصلي، وذلك وفقًا للنسبة المحددة في النص.",
+        "conditions": [
+          "يجب أن يكون عدد المقررات التي تم معادلتها أقل من 30% من عدد المقررات في البرنامج الأصلي"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#013",
+            "page": 20,
+            "section": "معادلة المقررات الدراسية*"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#013",
+          "HANDBOOK-1446#010",
+          "HANDBOOK-1446#009",
+          "HANDBOOK-1446#011",
+          "HANDBOOK-1446#007"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "يجب أن يكون عدد المقررات التي تم معادلتها أقل من 30% من عدد المقررات في البرنامج الأصلي، وذلك وفقًا للنسبة المحددة في النص."
+        ]
+      }
+    },
+    {
+      "id": "H007",
+      "item": {
+        "id": "H007",
+        "question": "كم أقصى نسبة من مقررات البرنامج يمكن معادلتها؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "equivalency",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "30"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#013 item 3"
+      },
+      "seconds": 40.29,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "وفقًا للآداب المذكورة في النص، لا يمكن أن تتعدى نسبة المقررات المعادلة ثلثي المقررات المتقدمة إليه، أي 30% من مجموع المقررات المتقدمة إليه.",
+          "label": "unsupported"
+        },
+        {
+          "type": "model",
+          "text": "هذا يعني أن الطالب يمكنه معادلة ما لا يتجاوز 30% من مجموع المقررات المتقدمة إليه، مع احترام للضوابط المذكورة في النص.",
+          "label": "unsupported"
+        },
+        {
+          "type": "condition",
+          "text": "ألا تتعدى نسبة هذه المقررات ثلاثين بالمائة",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#013",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "وفقًا للآداب المذكورة في النص، لا يمكن أن تتعدى نسبة المقررات المعادلة ثلثي المقررات المتقدمة إليه، أي 30% من مجموع المقررات المتقدمة إليه. هذا يعني أن الطالب يمكنه معادلة ما لا يتجاوز 30% من مجموع المقررات المتقدمة إليه، مع احترام للضوابط المذكورة في النص.",
+        "conditions": [
+          "ألا تتعدى نسبة هذه المقررات ثلاثين بالمائة"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#013",
+            "page": 20,
+            "section": "معادلة المقررات الدراسية*"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#013",
+          "HANDBOOK-1446#007",
+          "HANDBOOK-1446#009",
+          "PROGRAMS-GUIDE-1448#011",
+          "PROGRAMS-GUIDE-1448#008"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "وفقًا للآداب المذكورة في النص، لا يمكن أن تتعدى نسبة المقررات المعادلة ثلثي المقررات المتقدمة إليه، أي 30% من مجموع المقررات المتقدمة إليه.",
+          "هذا يعني أن الطالب يمكنه معادلة ما لا يتجاوز 30% من مجموع المقررات المتقدمة إليه، مع احترام للضوابط المذكورة في النص."
+        ]
+      }
+    },
+    {
+      "id": "H008",
+      "item": {
+        "id": "H008",
+        "question": "لو ما داومت بعد ما انقبلت، بعد كم أسبوع ينطوي قيدي؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "closure",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "اربعه اسابيع"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#014 item 1"
+      },
+      "seconds": 37.37,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "بعد تجاوز المدة المحددة للبرنامج بـ 4 أسابيع، ينطوي قيد الطالب على الإغلاق بناءً على المادة 13 من وثيقة طي القيد.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يُطوى قيد الطالب في الحالات الآتية: إذا لم ينتظم في دراسته لأربعة أسابيع متتالية بعد قبوله للدراسة",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#014",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "بعد تجاوز المدة المحددة للبرنامج بـ 4 أسابيع، ينطوي قيد الطالب على الإغلاق بناءً على المادة 13 من وثيقة طي القيد.",
+        "conditions": [
+          "يُطوى قيد الطالب في الحالات الآتية: إذا لم ينتظم في دراسته لأربعة أسابيع متتالية بعد قبوله للدراسة"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#014",
+            "page": 21,
+            "section": "طي القيد"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#009",
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#022",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#002"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "بعد تجاوز المدة المحددة للبرنامج بـ 4 أسابيع، ينطوي قيد الطالب على الإغلاق بناءً على المادة 13 من وثيقة طي القيد."
+        ]
+      }
+    },
+    {
+      "id": "H009",
+      "item": {
+        "id": "H009",
+        "question": "كم أقصى مدة للفرصة الاستثنائية لإكمال متطلبات الدرجة؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "extra_chances",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "فصلان",
+            "فصلين"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#009"
+      },
+      "seconds": 45.65,
+      "reproducible": true,
+      "status_ok": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "mode": "escalated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "STAFF_REVIEW_REQUIRED",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "يتعلق هذا الطلب بقرار رسمي أو استثناء من الجهة المختصة، ولا يمكنني اتخاذ هذا القرار أو توقعه.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#009",
+            "page": 17,
+            "section": ".على الدرجة العلمية"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": {
+          "reason": "يتعلق هذا الطلب بقرار رسمي أو استثناء من الجهة المختصة، ولا يمكنني اتخاذ هذا القرار أو توقعه.",
+          "reason_code": "decision",
+          "confirmed": [
+            "أقصى مدة للفرصة الاستثنائية لإكمال متطلبات الدرجة هي فصلان دراسيان، حيث يمكن لمجلس عمادة القبول والتسجيل منح الطالب هذه الفرصة بحد أقصى إذا تم تقديم توصية من مجلسي القسم والكلية. من أجل تمكينه من استكمال متطلبات الحصول على الدرجة العلمية."
+          ],
+          "evidence": [
+            {
+              "source_id": "HANDBOOK-1446",
+              "section": ".على الدرجة العلمية"
+            }
+          ],
+          "next_step": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك."
+        },
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#009",
+          "HANDBOOK-1446#011",
+          "HANDBOOK-1446#010",
+          "PROGRAMS-GUIDE-1448#036",
+          "PROGRAMS-GUIDE-1448#008"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "escalated",
+        "claims_generated": [
+          "أقصى مدة للفرصة الاستثنائية لإكمال متطلبات الدرجة هي فصلان دراسيان، حيث يمكن لمجلس عمادة القبول والتسجيل منح الطالب هذه الفرصة بحد أقصى إذا تم تقديم توصية من مجلسي القسم والكلية.",
+          "من أجل تمكينه من استكمال متطلبات الحصول على الدرجة العلمية."
+        ]
+      }
+    },
+    {
+      "id": "H010",
+      "item": {
+        "id": "H010",
+        "question": "ما المعدل المطلوب في المقررات التكميلية لطالب الماجستير؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "supplementary",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "3.5",
+            "3,5"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#008"
+      },
+      "seconds": 37.76,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "المعدل المطلوب في المقررات التكميلية هو 50 درجة على أن تكون الأعمال الفصلية تخصص لكل مقرر دراسي، وفقًا لما يقرره مجلس القسم الذي يقدم المقرر واعتماد مجلس الكلية المعنية.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يجب على الطالب اجتياز عدد من المقررات الدراسية التكميلية الموزعة على فصل دراسي أو أكثر",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#008",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADUATION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "المعدل المطلوب في المقررات التكميلية هو 50 درجة على أن تكون الأعمال الفصلية تخصص لكل مقرر دراسي، وفقًا لما يقرره مجلس القسم الذي يقدم المقرر واعتماد مجلس الكلية المعنية.",
+        "conditions": [
+          "يجب على الطالب اجتياز عدد من المقررات الدراسية التكميلية الموزعة على فصل دراسي أو أكثر"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#008",
+            "page": 16,
+            "section": "نظام الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADUATION_REQUIREMENTS",
+        "intent": "GRADUATION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#008",
+          "PROGRAMS-GUIDE-1448#008",
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#009",
+          "HANDBOOK-1446#013"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [
+          "PROGRAMS-GUIDE-1448#008"
+        ],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "المعدل المطلوب في المقررات التكميلية هو 50 درجة على أن تكون الأعمال الفصلية تخصص لكل مقرر دراسي، وفقًا لما يقرره مجلس القسم الذي يقدم المقرر واعتماد مجلس الكلية المعنية."
+        ]
+      }
+    },
+    {
+      "id": "H011",
+      "item": {
+        "id": "H011",
+        "question": "كم رسوم الدبلوم العالي في حوكمة وأمن الحدود؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "fees",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "50000"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "PROGRAMS-GUIDE-1448#037/040"
+      },
+      "seconds": 33.62,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "كما ذكر في إستراتيجيات مكافحة المخدرات، فإن رسوم الدبلوم العالي في هذا البرنامج تبلغ 50,000 ريال، بالإضافة إلى رسوم إدارية أخرى.",
+          "label": "grounded"
+        },
+        {
+          "type": "model",
+          "text": "يُقدم البرنامج باللغة العربية ويستمر عام دراسي بفصلين دراسيين منتظمين.",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "PROGRAMS-GUIDE-1448#037",
+          "label": "accurate"
+        },
+        {
+          "source": "PROGRAMS-GUIDE-1448#040",
+          "label": "accurate"
+        },
+        {
+          "source": "PROGRAMS-GUIDE-1448#042",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "FEES",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "كما ذكر في إستراتيجيات مكافحة المخدرات، فإن رسوم الدبلوم العالي في هذا البرنامج تبلغ 50,000 ريال، بالإضافة إلى رسوم إدارية أخرى. يُقدم البرنامج باللغة العربية ويستمر عام دراسي بفصلين دراسيين منتظمين.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#037",
+            "page": 61,
+            "section": "وزارة الموارد البشرية.- التصنيف السعودي الموحد للمهن"
+          },
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#040",
+            "page": 66,
+            "section": ".)مدة الدراسة: عام دراسي (فصلان دراسيان منتظمان"
+          },
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#042",
+            "page": 70,
+            "section": ".يقدم البرنامج باللغة العربية"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "FEES",
+        "intent": "FEES",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#038",
+          "PROGRAMS-GUIDE-1448#037",
+          "HANDBOOK-1446#005",
+          "PROGRAMS-GUIDE-1448#040",
+          "PROGRAMS-GUIDE-1448#042"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "PROGRAMS-GUIDE-1448#038",
+          "HANDBOOK-1446#005"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "كما ذكر في إستراتيجيات مكافحة المخدرات، فإن رسوم الدبلوم العالي في هذا البرنامج تبلغ 50,000 ريال، بالإضافة إلى رسوم إدارية أخرى.",
+          "يُقدم البرنامج باللغة العربية ويستمر عام دراسي بفصلين دراسيين منتظمين."
+        ]
+      }
+    },
+    {
+      "id": "H012",
+      "item": {
+        "id": "H012",
+        "question": "ما لغة الدراسة في الدكتوراه في القانون الجنائي؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "programs",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "العربيه"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "PROGRAMS-GUIDE-1448#006"
+      },
+      "seconds": 26.87,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "في الدكتوراه في القانون الجنائي، يقدم البرنامج باللغة العربية، وهو برنامج نوعي يهدف إلى إعداد كوادر متخصصة في مجال القانون الجنائي.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يقدم البرنامج باللغة العربية",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يهدف إلى إعداد كوادر متخصصة",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "PROGRAMS-GUIDE-1448#006",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "PROGRAM_INFORMATION",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "في الدكتوراه في القانون الجنائي، يقدم البرنامج باللغة العربية، وهو برنامج نوعي يهدف إلى إعداد كوادر متخصصة في مجال القانون الجنائي.",
+        "conditions": [
+          "يقدم البرنامج باللغة العربية",
+          "يهدف إلى إعداد كوادر متخصصة"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#006",
+            "page": 15,
+            "section": "الهوية الوطنية / الإقامة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "PROGRAM_INFORMATION",
+        "intent": "PROGRAM_INFORMATION",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#006",
+          "PROGRAMS-GUIDE-1448#009",
+          "FAQ-NAUSS#011",
+          "PROGRAMS-GUIDE-1448#017",
+          "HANDBOOK-1446#005"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "في الدكتوراه في القانون الجنائي، يقدم البرنامج باللغة العربية، وهو برنامج نوعي يهدف إلى إعداد كوادر متخصصة في مجال القانون الجنائي."
+        ]
+      }
+    },
+    {
+      "id": "H013",
+      "item": {
+        "id": "H013",
+        "question": "هل تقبل الجامعة المتقدمين العسكريين؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "admission",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "عسكريين",
+            "العسكريين"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "FAQ-NAUSS#008"
+      },
+      "seconds": 19.83,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "وفقًا للمرجع الأول، تقبل الجامعة المتقدمين العسكريين والمعيدين، لذا يمكننا القول إن الجامعة تقبل المتقدمين العسكريين.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "المرجع الأول يذكر أن الجامعة تقبل المتقدمين العسكريين والمدنيين",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "FAQ-NAUSS#008",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "وفقًا للمرجع الأول، تقبل الجامعة المتقدمين العسكريين والمعيدين، لذا يمكننا القول إن الجامعة تقبل المتقدمين العسكريين.",
+        "conditions": [
+          "المرجع الأول يذكر أن الجامعة تقبل المتقدمين العسكريين والمدنيين"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "FAQ-NAUSS",
+            "chunk_id": "FAQ-NAUSS#008",
+            "page": 1,
+            "section": "هل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "FAQ-NAUSS#008",
+          "FAQ-NAUSS#007",
+          "ADMISSION-PAGE-2025#001",
+          "PROGRAMS-GUIDE-1448#004",
+          "HANDBOOK-1446#038"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "وفقًا للمرجع الأول، تقبل الجامعة المتقدمين العسكريين والمعيدين، لذا يمكننا القول إن الجامعة تقبل المتقدمين العسكريين."
+        ]
+      }
+    },
+    {
+      "id": "H014",
+      "item": {
+        "id": "H014",
+        "question": "ما البريد الإلكتروني لعمادة القبول والتسجيل؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "contact",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "admission@nauss.edu.sa"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "PROGRAMS-GUIDE-1448#045"
+      },
+      "seconds": 25.16,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "البريد الإلكتروني لعمادة القبول والتسجيل هو admission@nauss.edu.sa ويمكن الوصول إليه من خلال الرقم +966112463444 أو زيارة الموقع الإلكتروني للجامعة على الرابط https://admission.nauss.edu.sa.",
+          "label": "unsupported"
+        },
+        {
+          "type": "condition",
+          "text": "عمادة القبول والتسجيل جامعة نايف العربية للعلوم الأمنية",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "PROGRAMS-GUIDE-1448#045",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_DOCUMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "البريد الإلكتروني لعمادة القبول والتسجيل هو admission@nauss.edu.sa ويمكن الوصول إليه من خلال الرقم +966112463444 أو زيارة الموقع الإلكتروني للجامعة على الرابط https://admission.nauss.edu.sa.",
+        "conditions": [
+          "عمادة القبول والتسجيل جامعة نايف العربية للعلوم الأمنية"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#045",
+            "page": 74,
+            "section": "جامعة نايف العربية للعلوم الأمنية"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_DOCUMENTS",
+        "intent": "ADMISSION_DOCUMENTS",
+        "retrieved": [
+          "FAQ-NAUSS#002",
+          "ADMISSION-PAGE-2025#001",
+          "PROGRAMS-GUIDE-1448#045",
+          "HANDBOOK-1446#042",
+          "FAQ-NAUSS#003"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "البريد الإلكتروني لعمادة القبول والتسجيل هو admission@nauss.edu.sa ويمكن الوصول إليه من خلال الرقم +966112463444 أو زيارة الموقع الإلكتروني للجامعة على الرابط https://admission.nauss.edu.sa."
+        ]
+      }
+    },
+    {
+      "id": "H015",
+      "item": {
+        "id": "H015",
+        "question": "عندي ظرف وأبغى أأجل الترم الأول، هل لحقت؟",
+        "language": "ar",
+        "as_of": "2026-08-24",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2026-08-27"
+          ],
+          [
+            "مفتوحه"
+          ]
+        ],
+        "must_not_contain": [
+          [
+            "انتهت"
+          ]
+        ],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "row 4, RULE-CAL-02 open"
+      },
+      "seconds": 29.97,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "extractive",
+      "claims": [
+        {
+          "type": "rule",
+          "text": "آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08-27 (1448-03-14هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ.",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448",
+          "label": "accurate"
+        },
+        {
+          "source": "HANDBOOK-1446",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "POSTPONEMENT",
+        "language": "ar",
+        "as_of": "2026-08-24",
+        "answer": "آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08-27 (1448-03-14هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-02",
+            "output": "open",
+            "details": {
+              "term_id": "1448-T1",
+              "term_basis": "stated",
+              "event": "آخر موعد لتأجيل الفصل الدراسي الأول",
+              "date": "2026-08-27",
+              "hijri": "1448-03-14",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 4
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 4 and 12"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p17 تأجيل الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-08-24.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "POSTPONEMENT",
+        "intent": "POSTPONEMENT",
+        "retrieved": [
+          "CALENDAR-1448#004",
+          "CALENDAR-1448#003",
+          "CALENDAR-1448#002",
+          "CALENDAR-1448#006",
+          "CALENDAR-1448#007"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "CALENDAR-1448#003",
+          "CALENDAR-1448#002",
+          "CALENDAR-1448#006",
+          "CALENDAR-1448#007"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-02",
+            "open"
+          ]
+        ],
+        "verification_issues": [
+          "بما أن آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08... -> repeats the fixed sentence"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [
+          "آخر موعد لتأجيل الفصل الدراسي الأول هو الخميس 2026-08-27 (1448-03-14هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ."
+        ],
+        "mode": "extractive",
+        "quotes": []
+      }
+    },
+    {
+      "id": "H016",
+      "item": {
+        "id": "H016",
+        "question": "كم درجة اختبار مناهج البحث في الاختبار الشامل؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "graduation",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "25"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#022"
+      },
+      "seconds": 45.75,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "درجة اختبار مناهج البحث في الاختبار الشامل هي 75 درجة، حيث يتم توزيع هذه الدرجة على 75% من درجة الاختبار الشامل، وتحدد هذه الدرجة ما يتعلق باختبار التخصص الرئيس للطالب وما يتعلق به من مجالات فرعية، مثل اختبار مناهج البحث العلمي.",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#022",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "درجة اختبار مناهج البحث في الاختبار الشامل هي 75 درجة، حيث يتم توزيع هذه الدرجة على 75% من درجة الاختبار الشامل، وتحدد هذه الدرجة ما يتعلق باختبار التخصص الرئيس للطالب وما يتعلق به من مجالات فرعية، مثل اختبار مناهج البحث العلمي.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#022",
+            "page": 28,
+            "section": "الاختبار الشامل"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#022",
+          "HANDBOOK-1446#021",
+          "HANDBOOK-1446#006",
+          "PROGRAMS-GUIDE-1448#008",
+          "HANDBOOK-1446#019"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "درجة اختبار مناهج البحث في الاختبار الشامل هي 75 درجة، حيث يتم توزيع هذه الدرجة على 75% من درجة الاختبار الشامل، وتحدد هذه الدرجة ما يتعلق باختبار التخصص الرئيس للطالب وما يتعلق به من مجالات فرعية، مثل اختبار مناهج البحث العلمي."
+        ]
+      }
+    },
+    {
+      "id": "H017",
+      "item": {
+        "id": "H017",
+        "question": "On what date do classes of the 1449 academic year begin?",
+        "language": "en",
+        "as_of": "2027-03-01",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2027-08-22",
+            "August 22",
+            "22 August",
+            "1449-03-20"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "row 24"
+      },
+      "seconds": 22.88,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "The classes of the 1449 academic year begin on August 22, 2027, as stated in the evidence.",
+          "label": "unverified"
+        },
+        {
+          "type": "model",
+          "text": "Classes for the 1450 academic year will start in August 2028.",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448#024",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "en",
+        "as_of": "2027-03-01",
+        "answer": "The classes of the 1449 academic year begin on August 22, 2027, as stated in the evidence. Classes for the 1450 academic year will start in August 2028.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#024",
+            "page": 1,
+            "section": "row 24"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2027-03-01.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ACADEMIC_CALENDAR",
+        "intent": "ACADEMIC_CALENDAR",
+        "retrieved": [
+          "CALENDAR-1448#024",
+          "CALENDAR-1448#019",
+          "CALENDAR-1448#022",
+          "PROGRAMS-GUIDE-1448#001",
+          "PROGRAMS-GUIDE-1448#030"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "PROGRAMS-GUIDE-1448#001",
+          "PROGRAMS-GUIDE-1448#030"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "The classes of the 1449 academic year begin on August 22, 2027, as stated in the evidence.",
+          "Classes for the 1450 academic year will start in August 2028."
+        ]
+      }
+    },
+    {
+      "id": "H018",
+      "item": {
+        "id": "H018",
+        "question": "What happens if I get an incomplete grade and don't finish the work?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "grading",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "fail"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#016"
+      },
+      "seconds": 30.35,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "If you receive an incomplete grade and do not complete the required work, your grade will be recorded as an incomplete (IC) and will be considered as part of your cumulative GPA until you complete the work.",
+          "label": "unverified"
+        },
+        {
+          "type": "model",
+          "text": "This will affect your honors ranking if your cumulative GPA falls below the required threshold for receiving an honors ranking.",
+          "label": "unverified"
+        },
+        {
+          "type": "condition",
+          "text": "the grade is recorded as an incomplete (IC) and considered part of the cumulative GPA until completed",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#018",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "If you receive an incomplete grade and do not complete the required work, your grade will be recorded as an incomplete (IC) and will be considered as part of your cumulative GPA until you complete the work. This will affect your honors ranking if your cumulative GPA falls below the required threshold for receiving an honors ranking.",
+        "conditions": [
+          "the grade is recorded as an incomplete (IC) and considered part of the cumulative GPA until completed"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#018",
+            "page": 25,
+            "section": "Fail"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#018",
+          "HANDBOOK-1446#017",
+          "FAQ-NAUSS#022",
+          "FAQ-NAUSS#017",
+          "FAQ-NAUSS#001"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "FAQ-NAUSS#022",
+          "FAQ-NAUSS#017",
+          "FAQ-NAUSS#001"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "If you receive an incomplete grade and do not complete the required work, your grade will be recorded as an incomplete (IC) and will be considered as part of your cumulative GPA until you complete the work.",
+          "This will affect your honors ranking if your cumulative GPA falls below the required threshold for receiving an honors ranking."
+        ]
+      }
+    },
+    {
+      "id": "H019",
+      "item": {
+        "id": "H019",
+        "question": "Within how long is a new student assigned an academic advisor?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "advising",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "four weeks",
+            "4 weeks"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#021"
+      },
+      "seconds": 36.49,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "A new student at Naif Arab University for Security Sciences is expected to be assigned an academic advisor within the academic programs guidelines, which emphasize the importance of effective teamwork and responsibility in crime studies programs.",
+          "label": "unverified"
+        },
+        {
+          "type": "model",
+          "text": "This ensures timely academic support and guidance for all students.",
+          "label": "unverified"
+        },
+        {
+          "type": "condition",
+          "text": "effective teamwork and responsibility in crime studies programs",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "PROGRAMS-GUIDE-1448#030",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "A new student at Naif Arab University for Security Sciences is expected to be assigned an academic advisor within the academic programs guidelines, which emphasize the importance of effective teamwork and responsibility in crime studies programs. This ensures timely academic support and guidance for all students.",
+        "conditions": [
+          "effective teamwork and responsibility in crime studies programs"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#030",
+            "page": 52,
+            "section": ".على الأدلة"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#030",
+          "PROGRAMS-GUIDE-1448#044",
+          "PROGRAMS-GUIDE-1448#036",
+          "PROGRAMS-GUIDE-1448#033",
+          "PROGRAMS-GUIDE-1448#017"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "A new student at Naif Arab University for Security Sciences is expected to be assigned an academic advisor within the academic programs guidelines, which emphasize the importance of effective teamwork and responsibility in crime studies programs.",
+          "This ensures timely academic support and guidance for all students."
+        ]
+      }
+    },
+    {
+      "id": "H020",
+      "item": {
+        "id": "H020",
+        "question": "When must a master's student submit the thesis research plan?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "thesis",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "third"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#023"
+      },
+      "seconds": 23.98,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "Master's students must submit their thesis research plans during the third semester, as specified in the evidence, and these plans are reviewed and approved by the relevant committees before the end of the third semester.",
+          "label": "unverified"
+        },
+        {
+          "type": "condition",
+          "text": "plans are reviewed and approved by the relevant committees before the end of the third semester",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#023",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "Master's students must submit their thesis research plans during the third semester, as specified in the evidence, and these plans are reviewed and approved by the relevant committees before the end of the third semester.",
+        "conditions": [
+          "plans are reviewed and approved by the relevant committees before the end of the third semester"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#023",
+            "page": 29,
+            "section": "الإشراف العلمي"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "FAQ-NAUSS#013",
+          "HANDBOOK-1446#023",
+          "CALENDAR-1448#015",
+          "HANDBOOK-1446#021",
+          "FAQ-NAUSS#004"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "Master's students must submit their thesis research plans during the third semester, as specified in the evidence, and these plans are reviewed and approved by the relevant committees before the end of the third semester."
+        ]
+      }
+    },
+    {
+      "id": "H021",
+      "item": {
+        "id": "H021",
+        "question": "How are the marks of the comprehensive exam divided?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "graduation",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "75"
+          ],
+          [
+            "25"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#022"
+      },
+      "seconds": 41.81,
+      "reproducible": true,
+      "status_ok": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "I could not find approved information that answers this question reliably.",
+        "conditions": [],
+        "required_action": "Please contact the Deanship of Admission and Registration.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#017",
+          "HANDBOOK-1446#006",
+          "FAQ-NAUSS#022",
+          "HANDBOOK-1446#018",
+          "HANDBOOK-1446#007"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "FAQ-NAUSS#022"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "The marks of the comprehensive exam are divided into grades ... -> term not in evidence: الاختبار الشامل",
+          "The comprehensive exam marks are used to calculate the cumul... -> term not in evidence: الاختبار الشامل"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [],
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H022",
+      "item": {
+        "id": "H022",
+        "question": "Is the Higher Diploma in Human Rights and Criminal Justice taught in Arabic?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "programs",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "arabic"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "PROGRAMS-GUIDE-1448#030 box"
+      },
+      "seconds": 35.7,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "The Higher Diploma in Human Rights and Criminal Justice is part of the academic programs offered by the Deanship of Admission and Registration, which includes criminal justice studies.",
+          "label": "unverified"
+        },
+        {
+          "type": "model",
+          "text": "Therefore, it is taught in English, not Arabic.",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "PROGRAMS-GUIDE-1448#030",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "PROGRAM_INFORMATION",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "The Higher Diploma in Human Rights and Criminal Justice is part of the academic programs offered by the Deanship of Admission and Registration, which includes criminal justice studies. Therefore, it is taught in English, not Arabic.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#030",
+            "page": 52,
+            "section": ".على الأدلة"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "PROGRAM_INFORMATION",
+        "intent": "PROGRAM_INFORMATION",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#030",
+          "HANDBOOK-1446#044",
+          "PROGRAMS-GUIDE-1448#033",
+          "PROGRAMS-GUIDE-1448#031",
+          "PROGRAMS-GUIDE-1448#038"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "The Higher Diploma in Human Rights and Criminal Justice is part of the academic programs offered by the Deanship of Admission and Registration, which includes criminal justice studies.",
+          "Therefore, it is taught in English, not Arabic."
+        ]
+      }
+    },
+    {
+      "id": "H023",
+      "item": {
+        "id": "H023",
+        "question": "What cumulative GPA does a PhD student need to graduate?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "graduation",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "3.75"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#025"
+      },
+      "seconds": 39.5,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "A PhD student needs to have a cumulative GPA that is calculated from the total points earned in all courses they have taken since enrolling at the university.",
+          "label": "unverified"
+        },
+        {
+          "type": "model",
+          "text": "This GPA is based on the weighted average of the grades received in each course, as per the university's academic standards.",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#007",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADUATION_REQUIREMENTS",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "A PhD student needs to have a cumulative GPA that is calculated from the total points earned in all courses they have taken since enrolling at the university. This GPA is based on the weighted average of the grades received in each course, as per the university's academic standards.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#007",
+            "page": 15,
+            "section": "أواًل ا: مصطلحات أكاديمية"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "GRADUATION_REQUIREMENTS",
+        "intent": "GRADUATION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#007",
+          "FAQ-NAUSS#012",
+          "FAQ-NAUSS#011",
+          "HANDBOOK-1446#019",
+          "HANDBOOK-1446#008"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "FAQ-NAUSS#012",
+          "FAQ-NAUSS#011"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "A PhD student needs to have a cumulative GPA that is calculated from the total points earned in all courses they have taken since enrolling at the university.",
+          "This GPA is based on the weighted average of the grades received in each course, as per the university's academic standards."
+        ]
+      }
+    },
+    {
+      "id": "H024",
+      "item": {
+        "id": "H024",
+        "question": "Can my enrolment be closed if I stop attending for a semester without an accepted excuse?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "closure",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "closed",
+            "closure",
+            "yes"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "HANDBOOK-1446#014 item 3"
+      },
+      "seconds": 1.76,
+      "reproducible": true,
+      "status_ok": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "intent": "ATTENDANCE",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "I could not find approved information that answers this question reliably.",
+        "conditions": [],
+        "required_action": "Please contact the Deanship of Admission and Registration.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ATTENDANCE",
+        "intent": "ATTENDANCE",
+        "retrieved": [
+          "FAQ-NAUSS#017",
+          "FAQ-NAUSS#001",
+          "FAQ-NAUSS#022",
+          "FAQ-NAUSS#019",
+          "FAQ-NAUSS#015"
+        ],
+        "quarantined": [],
+        "evidence_status": "INSUFFICIENT_EVIDENCE",
+        "off_topic": [
+          "FAQ-NAUSS#017",
+          "FAQ-NAUSS#001",
+          "FAQ-NAUSS#022",
+          "FAQ-NAUSS#019",
+          "FAQ-NAUSS#015"
+        ],
+        "overridden": [],
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H025",
+      "item": {
+        "id": "H025",
+        "question": "Does my bachelor's certificate need to be issued by a certain date to apply?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "admission",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "no",
+            "not",
+            "no specific"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "FAQ-NAUSS#015"
+      },
+      "seconds": 21.17,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "Therefore, you do not need to have your bachelor's certificate issued by a specific date to apply.",
+          "label": "unverified"
+        }
+      ],
+      "citations": [
+        {
+          "source": "FAQ-NAUSS#015",
+          "label": "unverified"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "Therefore, you do not need to have your bachelor's certificate issued by a specific date to apply.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "FAQ-NAUSS",
+            "chunk_id": "FAQ-NAUSS#015",
+            "page": 1,
+            "section": "هل تشترط ُالجامعة تاريخًا محددًا للحصول على شهادة البكالوريوس عند التقديم على برامجها الأكاديمية؟"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "FAQ-NAUSS#015",
+          "FAQ-NAUSS#022",
+          "FAQ-NAUSS#006",
+          "FAQ-NAUSS#017",
+          "FAQ-NAUSS#013"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "The Deanship of Admission and Registration does not specify ... -> claims there is no information although evidence was found"
+        ],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "Therefore, you do not need to have your bachelor's certificate issued by a specific date to apply."
+        ]
+      }
+    },
+    {
+      "id": "H026",
+      "item": {
+        "id": "H026",
+        "question": "What was the deadline to withdraw from the second semester?",
+        "language": "en",
+        "as_of": "2027-05-30",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2027-05-24"
+          ],
+          [
+            "closed"
+          ]
+        ],
+        "must_not_contain": [
+          [
+            "still open"
+          ]
+        ],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "row 18, RULE-CAL-01 closed"
+      },
+      "seconds": 21.48,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "extractive",
+      "claims": [
+        {
+          "type": "rule",
+          "text": "The deadline to withdraw from the second semester was Monday 2027-05-24 (1448-12-18 AH); this withdrawal period has closed.",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448",
+          "label": "accurate"
+        },
+        {
+          "source": "HANDBOOK-1446",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "en",
+        "as_of": "2027-05-30",
+        "answer": "The deadline to withdraw from the second semester was Monday 2027-05-24 (1448-12-18 AH); this withdrawal period has closed.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-01",
+            "output": "closed",
+            "details": {
+              "term_id": "1448-T2",
+              "term_basis": "stated",
+              "event": "آخر موعد للاعتذار عن الفصل الدراسي الثاني",
+              "date": "2027-05-24",
+              "hijri": "1448-12-18",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 18
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 6 and 18"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p18 الاعتذار عن الدراسة"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2027-05-30.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "SEMESTER_WITHDRAWAL",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "retrieved": [
+          "HANDBOOK-1446#018",
+          "CALENDAR-1448#018",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#012",
+          "CALENDAR-1448#002"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#018",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#012",
+          "CALENDAR-1448#002"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-01",
+            "closed"
+          ]
+        ],
+        "verification_issues": [
+          "The deadline to withdraw from the second semester was Monday... -> numbers not in evidence: 30"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [
+          "The deadline to withdraw from the second semester was Monday 2027-05-24 (1448-12-18 AH); this withdrawal period has closed."
+        ],
+        "mode": "extractive",
+        "quotes": []
+      }
+    },
+    {
+      "id": "H027",
+      "item": {
+        "id": "H027",
+        "question": "أبي أنسحب من الحين",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "clarification",
+        "expected_status": "CLARIFICATION_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "withdrawal scope"
+      },
+      "seconds": 1.62,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "CLARIFICATION_REQUIRED",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "هل تقصد الانسحاب من مقرر واحد، أم الاعتذار عن الفصل الدراسي كاملاً، أم الانسحاب من البرنامج؟",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": {
+          "missing": "withdrawal_scope",
+          "question": "هل تقصد الانسحاب من مقرر واحد، أم الاعتذار عن الفصل الدراسي كاملاً، أم الانسحاب من البرنامج؟",
+          "options": [
+            {
+              "value": "course",
+              "label": "مقرر واحد"
+            },
+            {
+              "value": "semester",
+              "label": "الفصل الدراسي كاملاً"
+            },
+            {
+              "value": "program",
+              "label": "البرنامج"
+            }
+          ]
+        },
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "SEMESTER_WITHDRAWAL",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H028",
+      "item": {
+        "id": "H028",
+        "question": "I want to withdraw. What should I do?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "clarification",
+        "expected_status": "CLARIFICATION_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "withdrawal scope"
+      },
+      "seconds": 1.57,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "CLARIFICATION_REQUIRED",
+        "intent": "WITHDRAWAL_UNSPECIFIED",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "Do you mean dropping one course, withdrawing from the whole semester, or withdrawing from the program?",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": {
+          "missing": "withdrawal_scope",
+          "question": "Do you mean dropping one course, withdrawing from the whole semester, or withdrawing from the program?",
+          "options": [
+            {
+              "value": "course",
+              "label": "One course"
+            },
+            {
+              "value": "semester",
+              "label": "The whole semester"
+            },
+            {
+              "value": "program",
+              "label": "The program"
+            }
+          ]
+        },
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "WITHDRAWAL_UNSPECIFIED",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H029",
+      "item": {
+        "id": "H029",
+        "question": "قديش مدة الدراسة لو سجلت عندكم؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "clarification",
+        "expected_status": "CLARIFICATION_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "degree level"
+      },
+      "seconds": 1.5,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "CLARIFICATION_REQUIRED",
+        "intent": "STUDY_DURATION",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "هل سؤالك عن الدكتوراه، أم الماجستير، أم الدبلوم العالي؟",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": {
+          "missing": "degree_level",
+          "question": "هل سؤالك عن الدكتوراه، أم الماجستير، أم الدبلوم العالي؟",
+          "options": [
+            {
+              "value": "phd",
+              "label": "الدكتوراه"
+            },
+            {
+              "value": "master",
+              "label": "الماجستير"
+            },
+            {
+              "value": "diploma",
+              "label": "الدبلوم العالي"
+            }
+          ]
+        },
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "STUDY_DURATION",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H030",
+      "item": {
+        "id": "H030",
+        "question": "How many years does the program take?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "clarification",
+        "expected_status": "CLARIFICATION_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "degree level"
+      },
+      "seconds": 1.36,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "CLARIFICATION_REQUIRED",
+        "intent": "STUDY_DURATION",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "Is your question about the PhD, a master's degree, or a higher diploma?",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": {
+          "missing": "degree_level",
+          "question": "Is your question about the PhD, a master's degree, or a higher diploma?",
+          "options": [
+            {
+              "value": "phd",
+              "label": "PhD"
+            },
+            {
+              "value": "master",
+              "label": "Master's"
+            },
+            {
+              "value": "diploma",
+              "label": "Higher diploma"
+            }
+          ]
+        },
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "STUDY_DURATION",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H031",
+      "item": {
+        "id": "H031",
+        "question": "نسبة حضوري 55% وعندي عذر طبي، هل أقدر أدخل النهائي؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "staff",
+        "expected_status": "STAFF_REVIEW_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "RULE-REG-01 exception only"
+      },
+      "seconds": 41.88,
+      "reproducible": true,
+      "status_ok": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "لا يمكنك دخول النهائي حيث يُمنع الطالب من دخول الاختبار النهائي إذا قلت نسبة حضوره عن 1 من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل 75% كما هو موضح في النص.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "بناءً على النسبة الحضورية 55% وعذر الطبي المقدم، لا يمكنك دخول النهائي",
+          "label": "unsupported"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#016",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "لا يمكنك دخول النهائي حيث يُمنع الطالب من دخول الاختبار النهائي إذا قلت نسبة حضوره عن 1 من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل 75% كما هو موضح في النص.",
+        "conditions": [
+          "بناءً على النسبة الحضورية 55% وعذر الطبي المقدم، لا يمكنك دخول النهائي"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#016",
+            "page": 23,
+            "section": "أداء الاختبارات"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#016",
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#017",
+          "HANDBOOK-1446#028",
+          "HANDBOOK-1446#019"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#028"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "لا يمكنك دخول النهائي حيث يُمنع الطالب من دخول الاختبار النهائي إذا قلت نسبة حضوره عن 1 من المحاضرات والدروس العملية المحددة لكل مقرر خلال الفصل 75% كما هو موضح في النص."
+        ]
+      }
+    },
+    {
+      "id": "H032",
+      "item": {
+        "id": "H032",
+        "question": "Please approve my transfer to the cybercrime master's.",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "staff",
+        "expected_status": "STAFF_REVIEW_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "decision"
+      },
+      "seconds": 32.97,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "escalated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "STAFF_REVIEW_REQUIRED",
+        "intent": "ADMISSION_PROCEDURE",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "This request concerns an official decision or an exception, which I cannot make or predict.",
+        "conditions": [],
+        "required_action": "Please contact the Deanship of Admission and Registration for a decision or a review of your case.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "PROGRAMS-GUIDE-1448",
+            "chunk_id": "PROGRAMS-GUIDE-1448#021",
+            "page": 39,
+            "section": ".الخسائر الناتجة عنها"
+          }
+        ],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": {
+          "reason": "This request concerns an official decision or an exception, which I cannot make or predict.",
+          "reason_code": "decision",
+          "confirmed": [
+            "The cybercrime master's program focuses on equipping graduates with the skills to contribute to cybersecurity and justice, and to reduce cybercrimes. It emphasizes understanding and applying legal principles and theories related to cybercrime investigations and evidence analysis."
+          ],
+          "evidence": [
+            {
+              "source_id": "PROGRAMS-GUIDE-1448",
+              "section": ".الخسائر الناتجة عنها"
+            }
+          ],
+          "next_step": "Please contact the Deanship of Admission and Registration for a decision or a review of your case."
+        },
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ADMISSION_PROCEDURE",
+        "intent": "ADMISSION_PROCEDURE",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#021",
+          "PROGRAMS-GUIDE-1448#010",
+          "PROGRAMS-GUIDE-1448#022",
+          "PROGRAMS-GUIDE-1448#024",
+          "PROGRAMS-GUIDE-1448#014"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "escalated",
+        "claims_generated": [
+          "The cybercrime master's program focuses on equipping graduates with the skills to contribute to cybersecurity and justice, and to reduce cybercrimes.",
+          "It emphasizes understanding and applying legal principles and theories related to cybercrime investigations and evidence analysis."
+        ]
+      }
+    },
+    {
+      "id": "H033",
+      "item": {
+        "id": "H033",
+        "question": "وش درجاتي في الترم الماضي؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "staff",
+        "expected_status": "STAFF_REVIEW_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "personal record"
+      },
+      "seconds": 47.38,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "escalated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "STAFF_REVIEW_REQUIRED",
+        "intent": "GRADING_AND_STANDING",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "يحتاج هذا السؤال إلى سجلك الأكاديمي الشخصي، ولا أستطيع الاطلاع عليه.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك.",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#022",
+            "page": 28,
+            "section": "الاختبار الشامل"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": {
+          "reason": "يحتاج هذا السؤال إلى سجلك الأكاديمي الشخصي، ولا أستطيع الاطلاع عليه.",
+          "reason_code": "personal_record",
+          "confirmed": [
+            "في تقييمك، حصلت على درجة جيدة 5 من 3.75، والتي تعني أنك حصلت على معدل تراكمي لا يقل عن جيد. الدرجة الكلية للاختبار الشامل هي 75% من درجة اختبار التخصص الرئيس، و25% من درجة اختبار مناهج البحث العلمي."
+          ],
+          "evidence": [
+            {
+              "source_id": "HANDBOOK-1446",
+              "section": "الاختبار الشامل"
+            }
+          ],
+          "next_step": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك."
+        },
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "GRADING_AND_STANDING",
+        "intent": "GRADING_AND_STANDING",
+        "retrieved": [
+          "HANDBOOK-1446#022",
+          "HANDBOOK-1446#015",
+          "HANDBOOK-1446#017",
+          "PROGRAMS-GUIDE-1448#011",
+          "HANDBOOK-1446#028"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "HANDBOOK-1446#028"
+        ],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "escalated",
+        "claims_generated": [
+          "في تقييمك، حصلت على درجة جيدة 5 من 3.75، والتي تعني أنك حصلت على معدل تراكمي لا يقل عن جيد.",
+          "الدرجة الكلية للاختبار الشامل هي 75% من درجة اختبار التخصص الرئيس، و25% من درجة اختبار مناهج البحث العلمي."
+        ]
+      }
+    },
+    {
+      "id": "H034",
+      "item": {
+        "id": "H034",
+        "question": "Can you grant me an exception to register late?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "staff",
+        "expected_status": "STAFF_REVIEW_REQUIRED",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "decision"
+      },
+      "seconds": 15.89,
+      "reproducible": true,
+      "status_ok": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "intent": "ADMISSION_PROCEDURE",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "I could not find approved information that answers this question reliably.",
+        "conditions": [],
+        "required_action": "Please contact the Deanship of Admission and Registration.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "ADMISSION_PROCEDURE",
+        "intent": "ADMISSION_PROCEDURE",
+        "retrieved": [
+          "FAQ-NAUSS#018",
+          "FAQ-NAUSS#017",
+          "FAQ-NAUSS#001",
+          "FAQ-NAUSS#011",
+          "FAQ-NAUSS#019"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "Since there is no mention of a late registration option in t... -> claims there is no information although evidence was found"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [],
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H035",
+      "item": {
+        "id": "H035",
+        "question": "اقترح لي مطعم قريب من الجامعة",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": ""
+      },
+      "seconds": 1.39,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "OUT_OF_SCOPE",
+        "intent": "OUT_OF_SCOPE",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "هذا السؤال خارج نطاق شؤون القبول والتسجيل التي أستطيع الإجابة عنها.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع الجهة المختصة في الجامعة.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "OUT_OF_SCOPE",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H036",
+      "item": {
+        "id": "H036",
+        "question": "Translate this paragraph into French for me.",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": ""
+      },
+      "seconds": 1.38,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "OUT_OF_SCOPE",
+        "intent": "OUT_OF_SCOPE",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "This question is outside the admission and registration matters I can answer.",
+        "conditions": [],
+        "required_action": "Please contact the relevant university office.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "OUT_OF_SCOPE",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H037",
+      "item": {
+        "id": "H037",
+        "question": "كيف أجدد رخصة القيادة؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "out_of_scope",
+        "expected_status": "OUT_OF_SCOPE",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": ""
+      },
+      "seconds": 1.31,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "OUT_OF_SCOPE",
+        "intent": "OUT_OF_SCOPE",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "هذا السؤال خارج نطاق شؤون القبول والتسجيل التي أستطيع الإجابة عنها.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع الجهة المختصة في الجامعة.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "OUT_OF_SCOPE",
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H038",
+      "item": {
+        "id": "H038",
+        "question": "كم مكافأة التفوق للطلاب المتميزين؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "insufficient",
+        "expected_status": "INSUFFICIENT_EVIDENCE",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "not stated"
+      },
+      "seconds": 40.68,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "لا تتوفر لديّ معلومات معتمدة كافية للإجابة عن هذا السؤال بدقة.",
+        "conditions": [],
+        "required_action": "يرجى التواصل مع عمادة القبول والتسجيل.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ADMISSION_REQUIREMENTS",
+        "intent": "ADMISSION_REQUIREMENTS",
+        "retrieved": [
+          "HANDBOOK-1446#027",
+          "HANDBOOK-1446#043",
+          "HANDBOOK-1446#031",
+          "HANDBOOK-1446#008",
+          "HANDBOOK-1446#041"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "وفقاً للمرفق E1، فإن مكافأة التفوق للطلاب المتميزين ليست مذك... -> numbers not in evidence: 1",
+          "لذا، من المهم متابعة المعلومات المقدمة من الجهات المختصة للح... -> mostly words not in evidence"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [],
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H039",
+      "item": {
+        "id": "H039",
+        "question": "How many credit hours is the National Security master's?",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "category": "insufficient",
+        "expected_status": "INSUFFICIENT_EVIDENCE",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "credit hours not stated in the guide"
+      },
+      "seconds": 33.99,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "templated",
+      "claims": [],
+      "citations": [],
+      "response": {
+        "status": "INSUFFICIENT_EVIDENCE",
+        "intent": "PROGRAM_INFORMATION",
+        "language": "en",
+        "as_of": "2026-10-14",
+        "answer": "I could not find approved information that answers this question reliably.",
+        "conditions": [],
+        "required_action": "Please contact the Deanship of Admission and Registration.",
+        "rule_outputs": [],
+        "sources": [],
+        "date_basis": "Based on approved information as of 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "en",
+        "clarification": {},
+        "intent_classified": "PROGRAM_INFORMATION",
+        "intent": "PROGRAM_INFORMATION",
+        "retrieved": [
+          "PROGRAMS-GUIDE-1448#025",
+          "PROGRAMS-GUIDE-1448#036",
+          "PROGRAMS-GUIDE-1448#034",
+          "PROGRAMS-GUIDE-1448#044",
+          "PROGRAMS-GUIDE-1448#014"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "The National Security master's program requires the completi... -> numbers not in evidence: 4, 5.75",
+          "This totals to 22.5 academic years, which includes tuition f... -> numbers not in evidence: 22, 22.5"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [],
+        "mode": "templated"
+      }
+    },
+    {
+      "id": "H040",
+      "item": {
+        "id": "H040",
+        "question": "هل لا يزال بإمكاني الاعتذار عن الفصل الأول؟",
+        "language": "ar",
+        "as_of": "2025-10-15",
+        "category": "insufficient",
+        "expected_status": "INSUFFICIENT_EVIDENCE",
+        "must_contain": [],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents before the step 11b fixes",
+        "note": "no calendar in force on this date"
+      },
+      "seconds": 42.88,
+      "reproducible": true,
+      "status_ok": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "لا يزال بإمكان الطالب الاعتذار عن الفصل الأول إذا طُرحت المقررات الدراسية المتعلقة بالفصل الذي تم اعتذاره عنه في الفصل الذي يليه، وفقًا للنظام المعمول به.",
+          "label": "grounded"
+        },
+        {
+          "type": "model",
+          "text": "لا تحتسب مدة الاعتذار ضمن الحد الأقصى للحصول على الدرجة العلمية وفقًا للنص.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "لا يُحسب الاعتذار عن الدراسة ضمن الفرص الإضافية",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "لا يُحتسب الاعتذار عن الدراسة ضمن الحد الأقصى للحصول على الدرجة العلمية",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "يُحظر استرداد الرسوم الدراسية للمعتذر",
+          "label": "unsupported"
+        },
+        {
+          "type": "action",
+          "text": "يجب على الطالب تقديم طلب اعتذار إلى رئيس القسم المعني قبل بدء الاختبارات النهائية",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "HANDBOOK-1446#010",
+          "label": "accurate"
+        },
+        {
+          "source": "CALENDAR-1448",
+          "label": "accurate"
+        },
+        {
+          "source": "HANDBOOK-1446",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "language": "ar",
+        "as_of": "2025-10-15",
+        "answer": "لا يزال بإمكان الطالب الاعتذار عن الفصل الأول إذا طُرحت المقررات الدراسية المتعلقة بالفصل الذي تم اعتذاره عنه في الفصل الذي يليه، وفقًا للنظام المعمول به. لا تحتسب مدة الاعتذار ضمن الحد الأقصى للحصول على الدرجة العلمية وفقًا للنص.",
+        "conditions": [
+          "لا يُحسب الاعتذار عن الدراسة ضمن الفرص الإضافية",
+          "لا يُحتسب الاعتذار عن الدراسة ضمن الحد الأقصى للحصول على الدرجة العلمية",
+          "يُحظر استرداد الرسوم الدراسية للمعتذر"
+        ],
+        "required_action": "يجب على الطالب تقديم طلب اعتذار إلى رئيس القسم المعني قبل بدء الاختبارات النهائية",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-01",
+            "output": "unknown",
+            "details": {
+              "reason": "no academic calendar in force on 2025-10-15"
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#010",
+            "page": 18,
+            "section": "تأجيل الدراسة"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 6 and 18"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p18 الاعتذار عن الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2025-10-15.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "SEMESTER_WITHDRAWAL",
+        "intent": "SEMESTER_WITHDRAWAL",
+        "retrieved": [
+          "HANDBOOK-1446#010",
+          "HANDBOOK-1446#011",
+          "FAQ-NAUSS#019",
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#016"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "FAQ-NAUSS#019",
+          "HANDBOOK-1446#014",
+          "HANDBOOK-1446#016"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-01",
+            "unknown"
+          ]
+        ],
+        "verification_issues": [],
+        "sentences_kept": 2,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "لا يزال بإمكان الطالب الاعتذار عن الفصل الأول إذا طُرحت المقررات الدراسية المتعلقة بالفصل الذي تم اعتذاره عنه في الفصل الذي يليه، وفقًا للنظام المعمول به.",
+          "لا تحتسب مدة الاعتذار ضمن الحد الأقصى للحصول على الدرجة العلمية وفقًا للنص."
+        ]
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@ Step 11 (part A). Sets were written and frozen on 2026-10-31, **before** the fir
 |---|---|---|---|
 | end-to-end | `evaluation/end_to_end/inquiries.jsonl` | 100 inquiries (60 Arabic, 40 English) | sha256 in `evaluation/end_to_end/FROZEN` |
 | adversarial | `evaluation/adversarial/cases.jsonl` | 17 cases covering every case in brief Section 11 | |
+| held-out | `evaluation/end_to_end/holdout.jsonl` | 40 inquiries (24 Arabic, 16 English) | written and frozen after the v1 run, **before** the step 11b fixes |
 
 End-to-end expected statuses: 70 `ANSWERABLE` (2 of them after a clarification reply),
 10 `CLARIFICATION_REQUIRED`, 8 `STAFF_REVIEW_REQUIRED`, 6 `OUT_OF_SCOPE`, 6 `INSUFFICIENT_EVIDENCE`.
@@ -87,3 +88,11 @@ as a before/after.
 ## evaluation logs
 Escalations during evaluation go to `evaluation/results/<out>_escalations.jsonl` (same fields
 as the real log, no question text), so test runs never mix with real escalations.
+
+## held-out set (step 11b)
+The v1 failures were read case by case, so fixes shaped by them would look better on the
+same 100 inquiries partly because they were seen. The held-out set was therefore written
+and frozen before any fix: 26 answerable, 4 clarification, 4 staff review, 3 out of scope,
+3 insufficient evidence; no question repeats any earlier set. It is run twice: on the code
+as it was at v1 (`holdout_before`) and after the fixes (`holdout_after`). Results on the
+100-inquiry set after the fixes are reported too, marked as optimistic.

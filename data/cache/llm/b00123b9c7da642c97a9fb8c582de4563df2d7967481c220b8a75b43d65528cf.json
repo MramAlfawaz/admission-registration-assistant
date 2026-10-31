@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: هل تقبل الجامعة المتقدمين العسكريين؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 1, هل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟):\nهل تقبل الجامعة مُتقدمين مدنيين وعسكريين؟ تقبل الجامعة كافة الطلبة من العسكريين والمدنيين وفقاً لشروط القبول العامة والخاصة.\n\n[E2] (page 1, هل تقبل الجامعة طلاباً غير سعوديين؟):\nهل تقبل الجامعة طلاباً غير سعوديين؟ تقبل الجامعة الدارسين من كافة الدول العربية؛ كونها مؤسسة إقليمية وجهازًا علميًا لمجلس وزراء الداخلية العرب.\n\n[E3] (page 1, ):\nالتقديم على الدراسة الدراسة فى الجامعة الشروط العامة للقبول في الجامعة استيفاء جميع الشروط الخاصة للقبول في البرنامج. موافقة جهة العمل. في حال القبول النهائي سداد رسوم إدارية غير مستردة خاصة بالتقديم، مبلغا وقدره ألفا (2000) ريال سعودي لبرامج الماجستير، والدكتوراة و الدبلوم العالي. الحصول على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن جيد لبرامج الماجيستر والدبلوم العالي. الحصول على درجة الماجستير للمتقدمين على برنامج الدكتوراه تنبيهات هامة يجب تقديم بيانات صحيحة ودقيقة للدارس، وفي حال ثبوت غير ذلك فإنه يحق للجامعة إلغاء طلب القبول دون الالتزام بإشعار المتقدم بذلك. يتم تعبئة طلب القبول إلكترونيا من خلال بوابة القبول الإلكتروني إجراءات القبول استكمال نموذج القبول إلكترونيا من خلال \n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "وفقًا للمرجع الأول، تقبل الجامعة المتقدمين العسكريين والمعيدين، لذا يمكننا القول إن الجامعة تقبل المتقدمين العسكريين. ",
+    "conditions": [
+      "المرجع الأول يذكر أن الجامعة تقبل المتقدمين العسكريين والمدنيين"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 18.33
+}

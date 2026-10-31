@@ -1,2 +1,4 @@
 1d187245c0164ad3227625d3d5cf69db3af57734ad5caf2ef18996dc4c28d1ac  inquiries.jsonl
-frozen 2026-10-31 before the first end-to-end run; any change needs a new version (v2) and both results reported
+3ee21c4c6cff95d8a5396f45d51ae9afe5005cb404837c155995a405c9cabb05  holdout.jsonl
+inquiries.jsonl frozen 2026-10-31 before the first end-to-end run; holdout.jsonl frozen 2026-10-31 after the v1 run and before the step 11b fixes.
+Any change needs a new version and both results reported.

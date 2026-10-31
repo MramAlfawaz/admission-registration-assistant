@@ -1,0 +1,21 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in English. Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\nالاختبار الشامل = comprehensive exam\nعمادة القبول والتسجيل = Deanship of Admission and Registration\n\nDate the question is about: 2026-10-14\nQuestion: When must a master's student submit the thesis research plan?\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 1, هل الدراسة مسائية؟):\nهل الدراسة مسائية؟ هناك برامج تقدم خلال الفترة الصباحية وبرامج تقدم خلال الفترة المسائية ويمكنكم الاطلاع على دليل البرامج الأكاديمية\n\n[E2] (page 29, الإشراف العلمي):\nلا تتجاوز الأسبوعين من بداية المستوى الدراسي الثالث لطلبة برامج الماجستير التي تقدم بنظام المقررات والرسالة. . يقدم طلبة برامج الماجستير بنظام المقررات الدراسية والرسالة خططهم 2 البحثية خلال الفصل الدراسي الثالث على أن تعتمد من المجالس المختصة قبل نهايته، أما طلبة الدكتوراه فلا تعتمد خططهم البحثية إلا بعد اجتياز الاختبار الشامل. . يقوم مجلس القسم بتحديد عضوين من أعضاء هيئة التدريس الأقرب 3 تخصصًاً لموضوع الرسالة، بالإضافة إلى المشرف العلمي لمناقشة الخطة البحثية لطلبة الماجستير، وثلاثة أعضاء بالإضافة إلى المشرف لخطط الدكتوراه، وتكون المناقشة خلال أسبوعين من تاريخ تعيين المناقشين. . يقوم الطالب بإجراء التعديلات التي قدمها أعضاء لجنة مناقشة الخطة 4 30 البحثية وفق النموذج المعد لهذا الغرض خلال أ\n\n[E3] (page 1, row 15):\nبداية الدراسة بعد إجازة عيد الفطر: الأحد 2027-03-14م (1448-10-06هـ)\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "Master's students must submit their thesis research plans during the third semester, as specified in the evidence, and these plans are reviewed and approved by the relevant committees before the end of the third semester.",
+    "conditions": [
+      "the third semester",
+      "plans are reviewed and approved by the relevant committees before the end of the third semester"
+    ],
+    "used_evidence": [
+      "E2"
+    ]
+  },
+  "seconds": 22.4
+}
