@@ -157,7 +157,7 @@ class Assistant:
         if reason:
             # Only code-written text is shown as confirmed: rule sentences and quotes from the documents.
             # A model sentence can imply the conditions are met (step 12 test), so it is never shown here.
-            confirmed, sources = self._confirmable(question, report["evidence"], rules, rule_texts, trace, term, reason)
+            confirmed, sources = self._confirmable(rules, rule_texts, trace)
             return self._escalate(reason, intent, language, as_of, confirmed, sources, trace,
                                   rule_outputs=response["rule_outputs"])
         return self._finish(response, trace, trace["mode"])
@@ -183,30 +183,25 @@ class Assistant:
         held = {c["chunk_id"] for c in have}
         return [c for c in self._all_chunks() if (c["source_id"], c.get("section")) in wanted and c["chunk_id"] not in held]
 
-    def _quotes(self, question, evidence, rules, term):
-        """Evidence sentences closest to the question that are relevant, agree with the rules and are about the asked term."""
+    def _quotes(self, question, evidence, rules, term, also=None):
+        """Evidence sentences closest to the question that are relevant, agree with the rules, are about the
+        asked term and pass `also` when given."""
         relevant = relevance_filter(question, self.glossary)
         return select_sentences(question, evidence, self.scorer, k=2,
                                 qualifies=lambda s: relevant(s) and not contradicts_rules(s, rules)
-                                and not mentions_other_term(s, term))
+                                and not mentions_other_term(s, term) and (also is None or also(s)))
 
-    def _confirmable(self, question, evidence, rules, rule_texts, trace, term, reason=None):
-        """Return (texts, sources) safe to show as confirmed in an escalation: rule sentences and quotes.
+    def _confirmable(self, rules, rule_texts, trace):
+        """Return (texts, sources) safe to show as confirmed in an escalation: the rule sentences only.
 
-        A question about a student's own record, or another student's, has nothing the documents can
-        confirm, so no quote is shown. Quotes damaged by PDF extraction (reversed brackets, numbers
-        glued to words, stray Latin) are skipped: here they are supplementary (step 13a review: H033, E083).
+        Quotes were tried and removed: reviewing the escalations by hand showed grading-table fragments
+        for a personal-record question (H033), damaged text (H031, E083), programme outcomes for an
+        admission request (E081) and, after the attendance rule, a sentence about re-sitting a missed
+        exam that a student could read as permission (H031, E085, run v5).
         """
-        quotes = []
-        if reason not in ("personal_record", "third_party"):
-            quotes = [(q, c) for q, c in self._quotes(question, evidence, rules, term) if readable(q)]
-        trace["confirmed_quotes"] = [{"text": q, "chunk_id": c["chunk_id"]} for q, c in quotes]
-        texts = list(rule_texts) + [f"«{q}»" for q, _ in quotes]
+        trace["confirmed_quotes"] = []
         sources = [dict(src) for x in rules if x["output"] not in ("unknown", "not_applicable") for src in x["sources"]]
-        for ref in _source_refs([c for _, c in quotes]):
-            if ref not in sources:
-                sources.append(ref)
-        return texts, sources
+        return list(rule_texts), sources
 
     def _compose(self, question, intent, language, as_of, evidence, rules, rule_texts, trace, term=None):
         """Fixed rule sentences, then model sentences that pass every check, else quoted evidence."""
@@ -240,7 +235,16 @@ class Assistant:
             r["sources"] = _source_refs(draft["used"])
             trace["claims_generated"] = list(kept)
         else:
-            quotes = self._quotes(question, evidence, rules, term)
+            if rule_texts:
+                # The rule sentence already answers; a quote may only support it. Only readable calendar rows
+                # cited by the rules: handbook sentences drifted to other topics (live demo, step 13b: a quote
+                # about extra-chance fees after a correct deadline; v5 review: "absent from the final exam
+                # with an excuse" after the attendance rule). Regulation thresholds stand alone.
+                cited = {src["source_id"] for x in rules for src in x["sources"]}
+                rows = [c for c in evidence if c["source_id"] in cited and c.get("document_type") == "calendar"]
+                quotes = self._quotes(question, rows, rules, term, readable)
+            else:
+                quotes = self._quotes(question, evidence, rules, term)
             if not quotes and not rule_texts:
                 return non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of)
             trace["mode"] = "extractive"

@@ -72,7 +72,8 @@ tested alone. The web page (`app/routes.py`) and the CLI (`cli.py ask`) call the
 | deadlines, weekdays and thresholds written by code | phase 8: the model wrote Friday for a Thursday deadline and failed to say a window had closed |
 | per-sentence filter, not whole-answer accept/reject | phase 10b: one bad sentence used to sink a good answer, or a good-looking answer hid one bad sentence |
 | extractive fallback (verbatim quotes) | when the model text fails, a quote is still grounded and cited; better than nothing, worse than a sentence (quotes can be awkward where extraction damaged the text) |
-| escalation shows only code-written text as "confirmed" | a model sentence implied the student met the conditions (found by hand, step 12) |
+| escalation shows only the rule sentences as "confirmed" | a model sentence implied the student met the conditions (step 12); quotes were then tried and removed: damaged text, grading-table fragments, and an off-topic sentence a student could read as permission (step 13) |
+| after a rule sentence, quote only the calendar row the rule cites | handbook quotes chosen by relevance drifted to neighbouring topics on the public demo (step 13c); thresholds are already in the rule sentence |
 | clarification checked before out-of-scope | "I want to withdraw" was classified out of scope (v1: E071, E072) |
 | committed model cache (SHA-256 of model, digest, parameters, prompt) | reported numbers reproduce exactly and fast (Development Standards 1.5) |
 | temperature 0, seed 42 | identical output for identical input (reproducibility 1.00 on every run) |
@@ -91,3 +92,29 @@ tested alone. The web page (`app/routes.py`) and the CLI (`cli.py ask`) call the
 | checks | `app/safety/verifier.py` (whole text), `sentence_filter.py` (each sentence), `escalation.py` |
 | evaluation | `app/pipeline/evaluate.py`, `baseline.py`, `ratings.py`; `cli.py evaluate-*` |
 | deployment | `Dockerfile` (Hugging Face Space), `docker/` (local two-service run), `setup.py` (bootstrap) |
+
+## brief Section 12: module names
+
+The brief lists module names inside `app/`; the repository follows its structure with these differences.
+
+| brief | here | note |
+|---|---|---|
+| `documents/` loader, parser, chunker, metadata, version_selector | loader, normalize, calendar_parser, chunker, registry, version_selector, ingest, injection | `parser` is `calendar_parser`; `metadata` is `registry` (reads and writes `data/sources.json`); `injection` added for planted instructions |
+| `intent/` classifier, taxonomy, context_extractor, ambiguity | llm_classifier, keyword_baseline, taxonomy, language, context_extractor, ambiguity | two classifiers, for Experiment 1 |
+| `retrieval/` bm25, embeddings, hybrid, reranker | bm25, embeddings, hybrid, retriever, tokenize | **no reranker**: not built; hybrid retrieval already reaches Arabic recall@10 1.00, and the weakness (English) is cross-language, which a reranker on the same model would not fix without measurement |
+| `evidence/` currency_checker, contradiction, completeness | the same, plus relevance, subject, facts, validator | |
+| `rules/` rule_engine, calendar_rules, registration_rules, eligibility_rules | rule_engine, calendar_rules, registration_rules, event_lookup, selection | eligibility rules (graduation GPA, honours) live in `registration_rules.py` |
+| `generation/` answer_generator, clarification | answer_generator, templates, rule_sentences, extractive | clarification is detected in `intent/ambiguity.py`; its fixed wording is in `generation/templates.py` |
+| `safety/` answerability, escalation, verifier | verifier, sentence_filter, escalation | answerability (the six statuses) is decided in `pipeline/assistant.py` from the evidence report |
+| `models/` llm_client, embedding_client | llm_client, prompts, seed | the embedding client is `retrieval/embeddings.py` |
+| `schemas/` query, evidence, answer, status | answer | the statuses and response fields are in `schemas/answer.py`; queries and evidence are plain dictionaries described in `docs/data-dictionary.md` |
+| `pipeline/` assistant | assistant, factory, evaluate, baseline, ratings | |
+
+## brief Section 13: shared identifiers for Project 5B
+
+Used now: `term_id` (`1448-T1`), document identifiers (`source_id`, for example `CALENDAR-1448`,
+`HANDBOOK-1446`), calendar rows (`row N`), rule identifiers (`RULE-CAL-01`) and passage identifiers
+(`chunk_id`). Not used: `student_id`, `course_id` and `program_id`. The system never handles a
+particular student or course record (such questions are escalated), and programmes are identified only
+by the passage that describes them. A later project that adds them should key programmes by the
+programs-guide entry and keep `term_id` in its current form.

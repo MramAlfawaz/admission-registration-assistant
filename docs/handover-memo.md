@@ -5,7 +5,7 @@ the Development Standards and Phase 8 of the project brief. Read `README.md` fir
 this memo covers what the README does not: what is finished, why it is built this way, how to
 debug it, what will break, and how to extend it.
 
-Last updated: 2026-10-31 (step 13b).
+Last updated: 2026-10-31 (step 13c).
 
 ---
 
@@ -29,13 +29,16 @@ model through Ollama and a local embedding model; no question leaves the machine
 | clarification and escalation | complete | 17/17 adversarial cases |
 | student page and JSON API | complete | `tests/test_app.py`; tested by hand in Arabic and English (step 12) |
 | bootstrap (`setup.py`) and clean-install check | complete | `scripts/clean_install_check.sh` |
-| Docker: local two-service run and a Hugging Face Space image | **written, not yet run end to end** | the development sandbox could not reach Docker Hub; first real build is the deployment step |
-| Experiment 5 team rating | **incomplete** | sheets generated (`evaluation/experiment5/`), not yet filled |
-| test with someone outside the team | **not done yet** | required by the brief before handover |
+| public demo (Hugging Face Space, root `Dockerfile`) | complete | built and running at https://huggingface.co/spaces/m11ram/admission-registration-assistant; answered test questions correctly in Arabic |
+| local two-service Docker run (`docker/docker-compose.yml`) | **written, not yet run** | same base images and bootstrap as the Space image |
+| Experiment 5 team rating | **incomplete** | sheets generated from the final runs (`evaluation/experiment5/`), not yet filled |
+| user evaluation, students and staff separately | **not done yet** | protocol, form and `score-feedback` ready (`evaluation/user_evaluation/`) |
+| test with someone outside the team | **not done yet** | required by the brief and the standards; form in `evaluation/user_evaluation/README.md` |
 | Windows | **untested** | developed and measured on macOS only |
+| response time on the public demo | **not measured** | the `answered:` lines in the Space's container log give it |
 
-Why the incomplete items are incomplete: the rating needs reviewers' time; the outside test needs the
-public demo, which needs the Docker image; Windows has no test machine. None of them is blocked by code.
+Why the incomplete items are incomplete: they need people (reviewers, students, staff, an outsider) or a
+Windows machine. None of them is blocked by code.
 
 ---
 
@@ -113,9 +116,10 @@ Everything known to be wrong, untested or handled badly, most serious first.
    and wrong gold items R059/R061. Fix (chunk at program boundaries) renumbers passages and needs gold set v2;
    not done.
 4. **Quotes damaged by extraction.** Some verbatim quotes show reversed brackets or numbers glued to words
-   (for example "الفصل75%("). In the final 100-inquiry and held-out runs, 7 of 28 quotes used in answers have
-   such damage (E005, E042, E053, E056, E058). They are filtered out of escalations, where they are
-   supplementary, but **kept in answers**: for E056 and E058 they are the only evidence for a correct answer.
+   (for example "الفصل75%("). Since step 13c escalations show no quotes, and an answer with a rule sentence
+   quotes only the calendar row the rule cites; an answer without a rule sentence can still show a damaged
+   quote (one in the final runs, E042). Quotes chosen by relevance can also drift to a neighbouring topic of
+   the same handbook page (seen on the public demo; why rule-backed answers no longer quote the handbook).
 5. **Meaning errors pass the word-level checks**: a dropped qualifier, or a condition attached to the wrong
    rule. The checks compare words, numbers, weekdays and open/closed; they do not understand meaning.
 6. **Fixes shaped by the evaluation sets.** The honest held-out figure is `holdout_after` (status accuracy
@@ -127,11 +131,13 @@ Everything known to be wrong, untested or handled badly, most serious first.
    conflicts with the assumed calendar start date.
 9. **The handbook is a 1446 summary**; the full regulations with article numbers are not public.
 10. **Add/drop and single-course withdrawal** are not in any source: always `INSUFFICIENT_EVIDENCE`.
-11. **Response time**: about 32 s median per question on the development Mac (CPU), longer on a small cloud CPU.
+11. **Response time**: about 32 s median per question on the development Mac (CPU); not yet measured on the
+    public demo's shared CPU. The demo depends on a paid Hugging Face plan (Docker Spaces need PRO as of
+    October 2026).
 12. **Adding an intent touches several files** (section 6), more than the "small fixed number of edits" the
     standards ask for. Prompt versions are chosen by constructor defaults (`classify_intent_v1`, `answer_v2`)
     rather than by configuration.
-13. **Untested**: Windows; the Docker images (written, not yet built); the outside-user test.
+13. **Untested**: Windows; the local two-service Docker run; the outside-user test and the user evaluation.
 
 ---
 
@@ -222,13 +228,15 @@ first-pass labels; English claims need human review.
 | evidence validation (20 planted) | detection 1.0, false positives 0.0, resolution 1.0 | `evaluate-conflicts` |
 | 3. first end-to-end run (`e2e_v1`, 100) | status 0.87, 66/100 fully correct, 23 wrong answers | `e2e_v1.md` |
 | 3. **held-out, honest** (`holdout_before` → `holdout_after`, 40) | status 0.85 → **0.825**; 10 wrong answers both times. **The step 11b fixes did not generalise** | `holdout_after.md` |
-| 3. final runs (`e2e_v3`, 100, optimistic) | status 0.95; correct refusal 1.0; false refusal 0.057; 13 wrong answers; grounded 0.77; citation accuracy 0.98 | `e2e_v3.md` |
-| 3. final runs (`holdout_v3`, 40, optimistic) | status 0.95; correct refusal 1.0; false refusal 0.077; 7 wrong answers; grounded 0.86 | `holdout_v3.md` |
-| adversarial (17) | 12/17 first run → **17/17** | `adversarial_v4.json` |
+| 3. final runs (`e2e_v5`, 100, optimistic) | status 0.95; correct refusal 1.0; false refusal 0.057; 13 wrong answers; grounded 0.807; citation accuracy 0.978 | `e2e_v5.md` |
+| 3. final runs (`holdout_v5`, 40, optimistic) | status 0.95; correct refusal 1.0; false refusal 0.077; 7 wrong answers; grounded 0.857; citation accuracy 1.0 | `holdout_v5.md` |
+| adversarial (17) | 12/17 first run → **17/17** (every run since step 11b) | `adversarial_v6.json` |
 | 4. model alone, no retrieval (100) | 14/100 correct and 79 wrong answers, against 82/100 and 13 for the assistant | `exp4_no_retrieval.md` |
 | 5. efficiency (held-out, uncached) | median 32.4 s per response; 34.8 s answered; 1.8 s refusal or clarification; Deanship baseline **unknown** | `exp5_efficiency.md` |
 | 5. team rating | not yet filled | `evaluation/experiment5/` |
+| 5. user evaluation | not yet run | `evaluation/user_evaluation/` |
 | reproducibility | 1.00 on every run (each inquiry answered twice) | every results file |
 
-The step 13 runs (`*_v4`) change only escalation text, which carries no scored facts; their statuses and
-scores are in their own files.
+The step 13 runs (`*_v3` to `*_v5`) changed only what answers quote and what escalations show; statuses,
+correctness and the number of wrong answers stayed the same throughout. `README.md` ("required metrics")
+lists every metric the brief requires with its value and file.

@@ -640,6 +640,32 @@ def efficiency_report(cfg, args):
     log.info("median %ss (answered %ss); self-service %s", e["all"]["median"], e["answered"]["median"], e["self_service"])
 
 
+def score_feedback_cmd(cfg, args):
+    """Summarise the user evaluation, students and staff reported separately."""
+    from app.pipeline.ratings import FEEDBACK_CRITERIA, score_feedback
+
+    path = Path(cfg.EVAL_DIR) / "user_evaluation" / "feedback.csv"
+    s = score_feedback(path)
+    lines = ["# user evaluation", "",
+             f"{s['participants']} participants: {s['student']['n']} students, {s['staff']['n']} staff. "
+             "Ratings 1 to 5, mean (standard deviation, n). Small convenience sample; see "
+             "`evaluation/user_evaluation/README.md`.", "",
+             "| | students | staff |", "|---|---|---|",
+             f"| tasks completed | {s['student']['task_completion']} | {s['staff']['task_completion']} |"]
+    for c in FEEDBACK_CRITERIA:
+        cells = []
+        for g in ("student", "staff"):
+            v = s[g][c]
+            cells.append("-" if v["mean"] is None else f"{v['mean']} ({v['sd']}, {v['n']})")
+        lines.append(f"| {c} | " + " | ".join(cells) + " |")
+    lines += ["", "## comments", ""] + [f"- ({c['group']}) {c['comment']}" for c in s["comments"]]
+    res = Path(cfg.EVAL_DIR) / "results"
+    (res / "user_feedback.json").write_text(json.dumps(s, ensure_ascii=False, indent=2), encoding="utf-8")
+    (res / "user_feedback.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log.info("user feedback: %d students, %d staff -> evaluation/results/user_feedback.md",
+             s["student"]["n"], s["staff"]["n"])
+
+
 def compare_runs(cfg, args):
     """Compare two evaluate-e2e results inquiry by inquiry: status, correctness and answer text.
 
@@ -728,6 +754,7 @@ def build_parser():
     m5.add_argument("--force", action="store_true", help="overwrite existing sheets")
     sub.add_parser("score-ratings", help="Experiment 5: summarise the filled rating sheet")
     sub.add_parser("score-claims", help="Experiment 5: summarise the filled claim-review sheet")
+    sub.add_parser("score-feedback", help="Experiment 5: summarise the user evaluation (students and staff)")
     ef = sub.add_parser("efficiency-report", help="Experiment 5: response time and self-service rate")
     ef.add_argument("--uncached", default="holdout_before", help="a results file from a run with no cached calls")
     ef.add_argument("--self-service", nargs="+", default=["holdout_after", "e2e_v2"])
@@ -762,7 +789,8 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "evaluate-e2e": evaluate_e2e, "evaluate-adversarial": evaluate_adversarial,
             "evaluate-no-retrieval": evaluate_no_retrieval, "make-exp5": make_exp5,
             "score-ratings": score_ratings_cmd, "score-claims": score_claims_cmd,
-            "efficiency-report": efficiency_report, "compare-runs": compare_runs}
+            "efficiency-report": efficiency_report, "compare-runs": compare_runs,
+            "score-feedback": score_feedback_cmd}
 
 
 def main():

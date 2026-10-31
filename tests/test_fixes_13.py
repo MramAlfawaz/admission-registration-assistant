@@ -104,3 +104,43 @@ def test_personal_record_escalation_shows_no_quotes():
     assert r["status"] == "STAFF_REVIEW_REQUIRED" and r["escalation"]["reason_code"] == "personal_record"
     assert not any(c.startswith("«") for c in r["escalation"]["confirmed"])
     assert "حصلت على تقدير جيد." not in r["escalation"]["confirmed"]
+
+
+# ---- step 13c: live demo and v5 review, quotes after a rule sentence and in escalations ----
+
+from tests.test_generation import CAL6, G17  # noqa: E402
+
+CAL6_ROW = {**CAL6, "document_type": "calendar"}
+HB10_DAMAGED = {"chunk_id": "HANDBOOK-1446#010", "source_id": "HANDBOOK-1446", "page": 18, "section": "الاعتذار عن الدراسة",
+                "document_type": "regulation",
+                "text": "4 الاعتذار عن الدراسة يجوز للطالب الاعتذار عن مواصلة دراسته لمدة فصل دراسي ) كالتالي: تكون الرسوم "
+                        "الدراسية للفرصة الإضافية خمسة آلاف4( ريال عن كل فصل دراسي إضافي للموعد الأخير للاعتذار."}
+HB17_EXAM = {"chunk_id": "HANDBOOK-1446#017", "source_id": "HANDBOOK-1446", "page": 23, "section": "الغياب عن الاختبار النهائي",
+             "document_type": "regulation",
+             "text": "في حال تغيب الطالب عن الاختبار النهائي وقبل عذره من مجلسي القسم والكلية، يعاد اختباره قبل نهاية الفصل التالي."}
+
+
+def test_rule_backed_answer_quotes_only_the_calendar_row():
+    r = assistant("SEMESTER_WITHDRAWAL", [CAL6_ROW, HB10_DAMAGED, G17], error=ValueError("bad json")).answer(
+        "متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟", "2026-10-14")
+    assert r["status"] == "ANSWERABLE" and r["_trace"]["mode"] == "extractive"
+    assert r["answer"].startswith("آخر موعد للاعتذار عن الفصل الدراسي الأول هو الخميس 2026-11-19")
+    assert "خمسة آلاف" not in r["answer"]
+    assert [q["chunk_id"] for q in r["_trace"]["quotes"]] == ["CALENDAR-1448#006"]
+
+
+def test_rule_sentence_alone_when_no_calendar_row_qualifies():
+    r = assistant("SEMESTER_WITHDRAWAL", [HB10_DAMAGED], error=ValueError("bad json")).answer(
+        "متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟", "2026-10-14")
+    assert r["status"] == "ANSWERABLE" and r["_trace"]["quotes"] == []
+    assert "«" not in r["answer"] and "2026-11-19" in r["answer"]
+
+
+def test_escalation_shows_rule_sentence_but_no_quote_on_another_topic():
+    # v5: after the attendance rule, a sentence on re-sitting a missed exam could read as permission.
+    r = assistant("ATTENDANCE", [HB16, HB17_EXAM], {"answer": "x", "used_evidence": []}).answer(
+        "نسبة حضوري 55% وعندي عذر طبي، هل أقدر أدخل النهائي؟", "2026-10-14")
+    assert r["status"] == "STAFF_REVIEW_REQUIRED"
+    confirmed = r["escalation"]["confirmed"]
+    assert confirmed and confirmed == r["_trace"]["rule_texts"]
+    assert not any("يعاد اختباره" in c for c in confirmed)

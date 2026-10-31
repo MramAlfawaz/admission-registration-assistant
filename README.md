@@ -20,9 +20,11 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** all 13 phases built. Remaining before handover: the public demo's first build, the
-> Experiment 5 team rating and a test by someone outside the team (`docs/handover-memo.md`, section 1).
-> The block at the top of this file is read by Hugging Face Spaces (the public demo), not by GitHub.
+> **Status:** all 13 phases built; the public demo runs at https://huggingface.co/spaces/m11ram/admission-registration-assistant.
+> Remaining before handover, all with people rather than code: the Experiment 5 team rating, the user
+> evaluation (students and staff), a test by someone outside the team, and a Windows run
+> (`docs/handover-memo.md`, section 1). The block at the top of this file is read by Hugging Face
+> Spaces, not by GitHub.
 > The assistant answers end to end from the command line: it classifies the question,
 > asks for clarification when needed, retrieves passages in force on the question's
 > date, validates them, applies the rule library, writes the answer with fixed rule
@@ -60,7 +62,8 @@ Standards document.
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
 | Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
 | response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
-| automated tests | 206 passing |
+| automated tests | 211 passing |
+| public demo | https://huggingface.co/spaces/m11ram/admission-registration-assistant (Hugging Face Space, CPU) |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -125,7 +128,7 @@ The same steps by hand: `cp .env.example .env`, `python cli.py fetch`, `python c
 ```bash
 python -m pytest -q
 ```
-Check: `206 passed`.
+Check: `211 passed`.
 
 **7. ask one question from the command line**
 ```bash
@@ -158,9 +161,13 @@ docker compose -f docker/docker-compose.yml up --build
 Open http://localhost:5001. The first build downloads about 3 GB (Python packages, documents, both models).
 
 ### public demo (Hugging Face Space)
-The root `Dockerfile` builds one container with the app and Ollama for a free CPU Space (port 7860).
-To publish:
-0. create a Hugging Face account and a write token (Settings, Access Tokens)
+Running at **https://huggingface.co/spaces/m11ram/admission-registration-assistant**, built from the root `Dockerfile`: one container with the app and Ollama, CPU only,
+port 7860. The first build finished in a few minutes; it runs the bootstrap, so every step passed.
+
+As of October 2026, Hugging Face requires a paid plan (PRO) to run Docker Spaces on CPU hardware;
+the demo runs on the author's PRO subscription and stops if it is cancelled. The local Docker run below
+is the free alternative. To publish your own copy:
+0. create a Hugging Face account (PRO, see above) and a write token (Settings, Access Tokens)
 1. create a new Space: SDK **Docker**, template **Blank**, hardware **CPU basic**
 2. push a single snapshot of the current files (the Space refuses old commits that held binary files):
 ```bash
@@ -203,6 +210,7 @@ Answers are slower than on a laptop (a shared CPU), and the first one after the 
 | `python cli.py compare-runs REFERENCE RUN` | checks two `evaluate-e2e` results are identical inquiry by inquiry (status, correctness, answer, escalation) |
 | `python setup.py [--skip-llm]` | bootstrap: pins, `.env`, documents, chunks, embedding model, model check |
 | `bash scripts/clean_install_check.sh` | fresh clone → install → bootstrap → tests → reproduce `holdout_v4` |
+| `python cli.py score-feedback` | user evaluation: summarises `evaluation/user_evaluation/feedback.csv`, students and staff separately |
 
 ### adding a new document version
 When the department publishes a new calendar or guide:
@@ -251,11 +259,12 @@ evaluation/
   generation/          6 smoke questions used while building phases 9 and 10
   end_to_end/          100 frozen inquiries with expected statuses (FROZEN holds the sha256)
   adversarial/         17 adversarial cases
+  user_evaluation/     protocol and form for the user evaluation and the outside install test
   results/             saved evaluation outputs
 docs/          handover-memo, architecture, environment/, troubleshooting/, authority-hierarchy,
                data-handling, intent-taxonomy, retrieval-failures, evidence-validation, rules,
                verification-and-escalation, evaluation, e2e-v1-failures, data-dictionary
-tests/         206 tests with fixtures from the real documents; conftest.py
+tests/         211 tests with fixtures from the real documents; conftest.py
 docker/        Dockerfile and docker-compose.yml (local two-service run), start.sh
 Dockerfile     the public demo image (Hugging Face Space: app and Ollama in one container)
 scripts/       clean_install_check.sh
@@ -691,7 +700,7 @@ have no support in the approved documents.
 ### Experiment 5: team review and efficiency (`evaluation/experiment5/`)
 - **Answer quality**: specialists were not available, so a documented team review rates a fixed sample
   of 20 real answers (14 answered, 6 refusals, clarifications and escalations), sampled from the
-  final runs `e2e_v4` and `holdout_v4`, from 1 to 5 for
+  final runs `e2e_v5` and `holdout_v5`, from 1 to 5 for
   correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
 - **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
   agreement with the automatic labels (`score-claims`).
@@ -700,6 +709,9 @@ have no support in the approved documents.
   8 GB RAM, CPU only). Self-service rate: 0.35 on the held-out set after 11b, 0.53 on `e2e_v2`.
   **The Deanship's current response time could not be obtained, so no reduction is claimed**; it is
   recorded as unknown rather than estimated.
+- **User evaluation** (`evaluation/user_evaluation/`): five tasks on the public demo, rated 1 to 5 for ease,
+  clarity, usefulness of sources and trust (staff also: could they defend the answer), students and staff
+  reported separately with mean, standard deviation and n (`score-feedback`). **Not yet run.**
 
 ---
 
@@ -730,7 +742,7 @@ Asking the running page real questions (step 12) showed four problems the evalua
 
 | problem seen on the page | cause | fix |
 |---|---|---|
-| an escalated answer showed, under "what can be confirmed", a model sentence implying the student met the conditions | the escalation reused the whole composed answer, model sentences included | "confirmed" is now only code-written text: rule sentences and verbatim quotes; sources follow them |
+| an escalated answer showed, under "what can be confirmed", a model sentence implying the student met the conditions | the escalation reused the whole composed answer, model sentences included | "confirmed" is now only code-written text: rule sentences and verbatim quotes (quotes removed in part C); sources follow them |
 | sentences such as "استوفيت جميع الشروط" / "you are eligible" were not caught | the decision list held only explicit decisions ("you are accepted") | phrases saying a condition is met are dropped unless the sentence is conditional ("if you meet...") |
 | the same document listed once per passage | sources were de-duplicated by passage, not by document | one line per document, pages and sections joined |
 | a second-term sentence quoted for a first-term question | quotes were chosen by relevance only | a quote naming only the other term is skipped |
@@ -747,21 +759,73 @@ not by these scores.
 - **Two more fixes from reviewing the v3 escalations by hand**: a question about the student's own record
   (or another student's) shows no quotes as "confirmed", since the documents cannot confirm anything about
   a particular student; and quotes damaged by PDF extraction (reversed brackets, numbers glued to words,
-  stray Latin words) are not shown in escalations (`readable` in `app/generation/extractive.py`). In answers
-  they are kept: 7 of the 28 quotes in the final answers are damaged, and for E056 and E058 they are the
-  only evidence for a correct answer (known limitations).
+  stray Latin words) are not shown in escalations (`readable` in `app/generation/extractive.py`). 7 of the
+  28 quotes in the v4 answers were damaged; part C deals with them. (A first version of this note said
+  that for E056 and E058 the damaged quotes were the only evidence for a correct answer. That was wrong:
+  the rule sentence holds both facts, 75% and 50%.)
 - **Bootstrap** `setup.py` (it was an empty file until this step) and `tests/conftest.py`.
 - **Docker**: `docker/docker-compose.yml` runs Ollama and the app as two services; the root `Dockerfile`
   builds the public demo for a Hugging Face Space. Both pin their base images, install the CPU build of
   the pinned PyTorch, and run the bootstrap while building, so a broken document link or a changed model
-  stops the build instead of reaching a student. **Written but not yet built**: the development sandbox
-  could not reach Docker Hub; the first build is the deployment.
+  stops the build instead of reaching a student. The Space image was built and runs (part C); the local
+  two-service compose file has not been run yet.
 - **Handover documents**: `docs/handover-memo.md` (all Part 6 sections, including how to add a regulation
   version, a rule and an intent, with a worked example), `docs/architecture.md`, `docs/environment/`,
   `docs/troubleshooting/` (26 recorded problems in 6 files), `CONTEXT.md`.
 - **Clean-install check** `scripts/clean_install_check.sh` and `compare-runs`.
-- Final runs `holdout_v4`, `e2e_v4`, `adversarial_v5`: only escalation text changed, which carries no
-  scored facts.
+- Runs `holdout_v4`, `e2e_v4`, `adversarial_v5`: only escalation text changed, which carries no scored facts.
+
+### part C: public demo, and what it showed (`tests/test_fixes_13.py`, `tests/test_user_feedback.py`)
+- **Published** at https://huggingface.co/spaces/m11ram/admission-registration-assistant. Both test questions on the live page got the correct code-written first
+  sentence, sources and date basis. Response time on the Space has not been measured yet.
+- **What the live page showed**: the model's sentences were dropped, so quotes followed the correct rule
+  sentence, and they were poor: a damaged attendance sentence, an article about appeals, and a sentence on
+  extra-chance fees ("خمسة آلاف… 5000") after the withdrawal deadline, which a student could read as a fee.
+- **First fix** (only readable quotes from the documents the rules cite) was checked on the evaluation sets
+  before being kept. Reviewing the changed escalations showed a new problem: after the attendance rule,
+  "في حال تغيب الطالب عن الاختبار النهائي وقبل عذره… يعاد اختباره" (re-sitting a missed exam), which a student
+  with 55% attendance could read as permission (H031, E085). The fix was narrowed before anything was committed:
+  - **an escalation shows only the rule sentences** as what can be confirmed, never quotes
+  - **after a rule sentence, an answer may quote only the calendar row the rule cites**; regulation
+    thresholds stand alone. Answers without a rule sentence quote as before.
+- **Result** (`holdout_v5`, `e2e_v5`, `adversarial_v6`): scores unchanged (held-out 0.95 status accuracy,
+  7 wrong answers shown; 100-inquiry set 0.95, 13; adversarial 17/17); grounded claim rate on the 100-inquiry
+  set 0.772 → 0.807, citation accuracy 0.98 → 0.978. `compare-runs`: held-out 40 of 40 identical; 100-inquiry
+  set 95 of 100, the differences exactly the four answers that lost damaged quotes (E005, E053, E056, E058,
+  all still correct) and one escalation that lost an irrelevant quote (E081), as predicted before the run.
+  One damaged quote remains in an answer without a rule sentence (E042).
+- **User evaluation kit**: `evaluation/user_evaluation/` (tasks, form, outside install test) and `score-feedback`.
+
+---
+
+## required metrics (brief, Section 10)
+
+Every metric the brief requires, where it was measured, and its value. "Optimistic" marks runs after
+fixes informed by the same set; the honest held-out figure is `holdout_after`.
+
+| area | metric | value | file |
+|---|---|---|---|
+| intent | macro-F1 per language (model / keyword baseline) | Arabic 0.815 / 0.823; English 0.841 / 0.875; mixed (3 questions) 0.50 / 1.00 | `intent_llm_test.json`, `intent_keyword_test.json` |
+| intent | out-of-scope F1 (model / baseline) | 0.941 / 0.518 (Arabic 1.0, English 0.889) | same |
+| retrieval | Recall@5, Recall@10, Precision@5, Arabic (hybrid / BM25 / embeddings) | 0.974, 1.000, 0.251 / 0.936, 1.000, 0.221 / 0.923, 0.949, 0.246 | `retrieval_*.json` |
+| retrieval | same, English | 0.520, 0.680, 0.112 / 0.080, 0.080, 0.016 / 0.560, 0.760, 0.112 | same |
+| version selection | correct version rate by query date | 1.0 (15/15); 0 retrieved passages from versions not in force | `evaluation/version_selection/` |
+| contradiction | detection rate on planted conflicts | 1.0 (20 cases; false positives 0.0; resolution 1.0) | `conflicts_planted.json` |
+| grounding | grounded claim rate | honest held-out 0.867; final 0.857 (held-out) and 0.807 (100 inquiries), optimistic | `holdout_after.md`, `holdout_v5.md`, `e2e_v5.md` |
+| hallucination | unsupported claim rate | honest held-out 0.133; final 0.143 and 0.193; model alone 0.85 | same, `exp4_no_retrieval.md` |
+| citation | citation accuracy | honest held-out 1.0; final 1.0 and 0.978 | same |
+| safe failure | correct refusal / false refusal rate | honest held-out 0.857 / 0.154; final 1.0 / 0.077 (held-out), 1.0 / 0.057 (100) | same |
+| status | status assignment accuracy | honest held-out 0.825; final 0.95 and 0.95 | same |
+| answer quality | specialist 1 to 5 rating | **not yet rated**; documented team review substitutes specialists | `evaluation/experiment5/` |
+| efficiency | response time reduction | median 32.4 s per response on the development Mac; **no reduction claimed: the Deanship's current response time is unknown** | `exp5_efficiency.md` |
+| efficiency | self-service rate | 0.35 honest held-out; 0.425 and 0.53 final | same |
+| satisfaction | students and staff, separately | **not yet run** (`evaluation/user_evaluation/`) | `user_feedback.md` |
+| reproducibility | identical output for identical query and date | 1.00 on every run (each inquiry answered twice) | every results file |
+| reliability | test pass rate from clean install | 211/211 on the development machine; clean-clone run **not yet recorded** (`scripts/clean_install_check.sh`) | |
+
+Negative results: the model does not beat the keyword baseline on macro-F1 (it is used for out-of-scope
+detection); hybrid retrieval is below embeddings alone on English; the step 11b fixes did not improve the
+held-out set.
 
 ---
 
@@ -787,7 +851,7 @@ Pre-handover checklist (1.10):
 | 1.2 | the same input twice gives identical output | reproducibility 1.00 on every evaluation run (each inquiry answered twice) |
 | 1.3 | corrupting `models.lock` crashes instead of substituting | `tests/test_llm_client.py` (wrong digest stops with instructions); `check-model` |
 | 1.4 | no prompt text in application code | `tests/test_prompts.py` |
-| 1.5 | second evaluation run fast and identical | `holdout_v4` from the cache: median 0.05 s, `compare-runs` identical |
+| 1.5 | second evaluation run fast and identical | cached runs take a median 0.05 s per inquiry; every inquiry is answered twice in each run and reproducibility is 1.00 |
 | 1.6 | changing a configuration value changes behaviour | settings read from `config/config.py` / `.env`, e.g. `TOP_K` changes the passages in the trace |
 | 1.7 | no notebooks | `git ls-files "*.ipynb"` is empty |
 | 1.8 | no print statements in application code | `grep -rn "print(" app/` is empty |
@@ -814,8 +878,9 @@ Pre-handover checklist (1.10):
 - **Wrong number from the right passage**: the small model still picks the wrong percentage, GPA or mark from a passage holding several; only fees are checked by kind, and thresholds in the rule library are stated by code.
 - **Fixes shaped by the evaluation set**: the step 11b fixes improved the inquiries they were written from but not a held-out set; the step 11c fixes were informed by the held-out set, so no fully unseen measurement exists after step 11b.
 - **Programs guide not yet chunked at program boundaries**: left as a limitation because it renumbers passages and requires gold set v2.
-- **Quotes damaged by extraction** remain in some answers (7 of 28 quotes in the final runs); they are filtered from escalations only.
-- **Docker images written but not yet built**; Windows not tested.
+- **Quotes damaged by extraction** can still appear in answers that have no rule sentence (one in the final runs, E042); escalations show no quotes and rule-backed answers quote only calendar rows.
+- **Not yet tested**: Windows; the local two-service Docker run; response time on the public demo.
+- **Hugging Face Docker Spaces need a paid plan**; the public demo depends on the author's subscription.
 
 ---
 
@@ -833,6 +898,6 @@ Pre-handover checklist (1.10):
 | 8. grounded generation | done |
 | 9. clarification | done |
 | 10. verification and escalation (10b: per-sentence filter) | done |
-| 11. evaluation and adversarial testing | done; Experiment 5 team rating to fill in |
+| 11. evaluation and adversarial testing | done; Experiment 5 team rating and user evaluation to run |
 | 12. student interface | done |
-| 13. deployment and handover | done: fixes from hand testing, bootstrap, Docker, handover documents; first public build, team rating and outside test remain |
+| 13. deployment and handover | done: public demo, bootstrap, Docker, handover documents; outside test and Windows run remain |

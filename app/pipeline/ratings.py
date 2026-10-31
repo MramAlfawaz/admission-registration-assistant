@@ -129,3 +129,32 @@ def efficiency(uncached_file, self_service_files):
         out["self_service"][Path(f).name] = round(sum(r["correct"] and r["response"]["status"] == "ANSWERABLE"
                                                       for r in rs) / len(rs), 3)
     return out
+
+
+FEEDBACK_FIELDS = ["participant", "group", "date", "tasks_completed", "tasks_given", "ease", "clarity", "sources",
+                   "trust", "defensible", "comment"]
+FEEDBACK_CRITERIA = ["ease", "clarity", "sources", "trust", "defensible"]
+
+
+def score_feedback(path):
+    """Summarise user feedback, students and staff separately (brief, Experiment 5).
+
+    Each criterion is reported as mean, standard deviation and n; "defensible" is asked of staff only.
+    Rows with an empty criterion are skipped for that criterion only.
+    """
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        rows = [r for r in csv.DictReader(f) if (r.get("participant") or "").strip()]
+
+    def block(rs):
+        out = {"n": len(rs)}
+        done = sum(int(r["tasks_completed"]) for r in rs if (r.get("tasks_completed") or "").strip())
+        given = sum(int(r["tasks_given"]) for r in rs if (r.get("tasks_given") or "").strip())
+        out["task_completion"] = round(done / given, 2) if given else None
+        for c in FEEDBACK_CRITERIA:
+            vals = [int(r[c]) for r in rs if (r.get(c) or "").strip()]
+            out[c] = {"n": len(vals), "mean": round(statistics.mean(vals), 2) if vals else None,
+                      "sd": round(statistics.stdev(vals), 2) if len(vals) > 1 else None}
+        return out
+    groups = {g: block([r for r in rows if r["group"].strip().lower() == g]) for g in ("student", "staff")}
+    return {"participants": len(rows), **groups,
+            "comments": [{"group": r["group"], "comment": r["comment"]} for r in rows if (r.get("comment") or "").strip()]}

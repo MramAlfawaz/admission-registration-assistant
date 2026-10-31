@@ -31,7 +31,6 @@ python cli.py efficiency-report
 ```
 Results go to `evaluation/results/exp5_*.md`.
 
-## 4. optional: user feedback
-If you can, ask two or three students and one staff member to try the page and rate 1 to 5: ease of
-use, clarity, usefulness of sources, trust. Record them separately (students and staff) in
-`user_feedback.csv` with columns `group, ease, clarity, sources, trust, comment`.
+## 4. user evaluation (required)
+Students and staff try the public demo and rate it; reported separately. Protocol, tasks and form:
+`evaluation/user_evaluation/README.md`; summary: `python cli.py score-feedback`.

@@ -95,12 +95,23 @@ a particular student meets them.
 When the question names a term, or a calendar rule resolved one, an evidence sentence that names only
 the other term is not quoted (`mentions_other_term` in `app/generation/extractive.py`).
 
-## what an escalation may show (step 13b)
-Reviewing the escalations of the final runs by hand showed two more problems, now fixed:
-- a question about the student's own record ("وش درجاتي؟") or another student's showed quotes from the
-  grading table; the documents cannot confirm anything about a particular student, so these escalations
-  show only the reason and the next step
-- some quotes were damaged by PDF extraction (reversed brackets, numbers glued to words, stray Latin
-  words, for example "75( ) وأقل من4:50("); `readable()` in `app/generation/extractive.py` keeps them out of
-  escalations. They are **not** filtered from answers, where for two correct answers (E056, E058) they are
-  the only evidence (known limitation).
+## what an escalation may show (steps 13b and 13c)
+Reviewing escalations by hand, run by run, showed that quotes did not belong there:
+- a question about the student's own record ("وش درجاتي؟") showed fragments of the grading table (H033)
+- quotes damaged by PDF extraction, for example "75( ) وأقل من4:50(" (H031, E083)
+- programme learning outcomes for an admission request (E081)
+- after the attendance rule, "في حال تغيب الطالب عن الاختبار النهائي وقبل عذره… يعاد اختباره" (re-sitting a
+  missed exam), which a student with 55% attendance could read as permission (H031, E085)
+
+**An escalation now shows only the rule sentences as what can be confirmed**, with the rules' sources, or
+nothing beyond the reason and the next step when no rule applies.
+
+## quotes after a rule sentence (step 13c)
+On the public demo, the model's sentences were dropped and the quotes that followed a correct rule sentence
+were damaged or about something else (extra-chance fees after the withdrawal deadline). When an answer has a
+rule sentence, it now quotes only readable calendar rows cited by the rules; regulation thresholds (attendance,
+GPA, re-enrolment) stand alone in the rule sentence, which already holds the facts. Answers without a rule
+sentence quote as before.
+
+(An earlier version of this file said the damaged quotes were the only evidence for two correct answers,
+E056 and E058. That was wrong: the rule sentence holds both facts.)
