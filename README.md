@@ -9,7 +9,8 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** phases 1 to 10 of 13 complete; phase 11 (evaluation) in progress.
+> **Status:** phases 1 to 11 of 13 complete except the team rating of Experiment 5; phase 12
+> (student interface) built. Deployment and handover (phase 13) come next.
 > The assistant answers end to end from the command line: it classifies the question,
 > asks for clarification when needed, retrieves passages in force on the question's
 > date, validates them, applies the rule library, writes the answer with fixed rule
@@ -45,7 +46,9 @@ Standards document.
 | end-to-end v1 (first run) | 66/100 fully correct; correct refusal 0.93, false refusal 0.13 |
 | adversarial v1 (first run) | 12/17 passed; all 3 planted-document attacks blocked |
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
-| automated tests | 181 passing |
+| Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
+| response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
+| automated tests | 191 passing |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -118,7 +121,13 @@ Check: `CALENDAR-1448: 24 events` and `186 chunks ... (sha256 9e6394386f2f)`.
 ```bash
 python -m pytest
 ```
-Check: `181 passed`.
+Check: `191 passed`.
+
+**10. open the student page** (needs Ollama running)
+```bash
+python app.py
+```
+Open http://localhost:5001. The first question takes longer while the models load.
 
 **9. run retrieval once** (downloads the pinned embedding model, about 470 MB, on first use)
 ```bash
@@ -149,6 +158,10 @@ Check: three methods reported, each with `version leaks=0`.
 | `python cli.py generate-sample --n 10 \| --file smoke.jsonl --out NAME` | runs a sample end to end and checks schema and expectations |
 | `python cli.py evaluate-e2e --out NAME [--set inquiries\|holdout] [--limit N]` | Experiment 3 on a frozen set (refuses to run if the set changed) |
 | `python cli.py evaluate-no-retrieval --out NAME --compare E2E_RESULTS` | Experiment 4: the same model with no retrieval, compared with the assistant |
+| `python cli.py make-exp5` | Experiment 5: writes `evaluation/experiment5/rating_sheet.csv` and `claim_review.csv` to fill in |
+| `python cli.py score-ratings` / `score-claims` | Experiment 5: summarises the filled sheets |
+| `python cli.py efficiency-report` | Experiment 5: response time from an uncached run, and self-service rate |
+| `python app.py` | the student page on http://localhost:5001; `POST /api/ask` for JSON |
 | `python cli.py evaluate-adversarial --out adversarial_v1` | runs the 17 adversarial cases |
 
 ### adding a new document version
@@ -178,7 +191,8 @@ app/
   generation/  answer_generator, templates, rule_sentences, extractive
   safety/      verifier, sentence_filter, escalation
   schemas/     answer (the six statuses and the response fields)
-  pipeline/    assistant (the fixed stage order), factory, evaluate, baseline (Experiment 4)
+  pipeline/    assistant (the fixed stage order), factory, evaluate, baseline (Experiment 4), ratings (Experiment 5)
+  routes.py    student page, JSON API, health check; templates/index.html, static/style.css
   models/      llm_client, prompts, seed
 config/        config.py, the only source of settings
 prompts/       classify_intent_v1, answer_v1 (kept for traceability), answer_v2, glossary_v1,
@@ -201,7 +215,7 @@ evaluation/
 docs/          authority-hierarchy, data-handling, intent-taxonomy, retrieval-failures,
                evidence-validation, rules, verification-and-escalation, evaluation,
                e2e-v1-failures, data-dictionary
-tests/         181 tests with fixtures from the real documents
+tests/         191 tests with fixtures from the real documents
 ```
 
 ---
@@ -607,6 +621,60 @@ honest held-out figure stays `holdout_after`.
 - Experiment 4 added (`evaluate-no-retrieval`); required documents added:
   `docs/authority-hierarchy.md`, `docs/data-handling.md`, `docs/data-dictionary.md`
 
+| run after step 11c | status accuracy | correct / false refusal | wrong answers shown | grounded |
+|---|---|---|---|---|
+| v1, 100 inquiries (`e2e_v2`, optimistic) | 0.95 | 1.0 / 0.057 | 13 | 0.77 |
+| held-out (`holdout_v2`, optimistic: fixes informed by it) | 0.95 | 1.0 / 0.077 | 7 | 0.86 |
+| adversarial (`adversarial_v3`) | 17/17 | | | |
+
+### Experiment 4: grounded assistant against the same model with no retrieval
+`evaluation/results/exp4_no_retrieval.md`. Condition A is the same `qwen2.5:3b` with a plain prompt
+(`prompts/no_retrieval_v1.md`): no retrieval, no rules, no checks. It is never shown to a student.
+
+| 100 inquiries | A: model alone | B: assistant (`e2e_v2`) |
+|---|---|---|
+| fully correct | 0.14 | **0.82** |
+| non-answer inquiries refused or escalated | 0.27 | **1.0** |
+| wrong answers shown | 79 | **13** |
+| grounded claim rate (judged) | 0.15 | **0.77** |
+| unsupported claim rate (judged) | 0.85 | 0.23 |
+
+As the brief expected: fluent, plausible and wrong about this university. Alone, the model answers
+out-of-scope questions and decision requests instead of referring them, and 85% of its judged claims
+have no support in the approved documents.
+
+### Experiment 5: team review and efficiency (`evaluation/experiment5/`)
+- **Answer quality**: specialists were not available, so a documented team review rates a fixed sample
+  of 20 real answers (14 answered, 6 refusals, clarifications and escalations) from 1 to 5 for
+  correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
+- **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
+  agreement with the automatic labels (`score-claims`).
+- **Efficiency** (`efficiency-report`): measured on the first, uncached run of the held-out set: median
+  32.4 s for any response, 34.8 s for an answer, 1.8 s for a refusal or clarification (Intel Core i5,
+  8 GB RAM, CPU only). Self-service rate: 0.35 on the held-out set after 11b, 0.53 on `e2e_v2`.
+  **The Deanship's current response time could not be obtained, so no reduction is claimed**; it is
+  recorded as unknown rather than estimated.
+
+---
+
+## phase 12: student interface
+
+`python app.py`, then http://localhost:5001 (`app/routes.py`, `app/templates/index.html`).
+- **Arabic right to left, English left to right**: the page and each answer take the direction of the
+  answer's language; the question box uses `dir="auto"`.
+- **Status always visible in words**, not by colour alone: "إجابة من المصادر المعتمدة", "نحتاج توضيحاً
+  منك", "يحتاج إلى مراجعة الموظف المختص" and so on.
+- **Sources visible without clicking**: document title, page and section (calendar rows as "الصف 6 في التقويم").
+- **Date basis** under every answer, with the date the answer was generated, so a forwarded or cached
+  answer shows its age.
+- **Clarification as buttons**; the reply is sent back with the question.
+- **Escalation**: what can be confirmed and the next step.
+- **Readable errors**: if the model is unavailable the student sees a short message (HTTP 503); details
+  go to the log, never to the page.
+- The date defaults to today; the interface is the only place that reads the clock, and the question
+  text is never logged.
+- `POST /api/ask` returns the same response as JSON (`{"results": [...], "errors": []}`), without the internal trace.
+
 ---
 
 ## development standards compliance
@@ -661,6 +729,6 @@ honest held-out figure stays `holdout_after`.
 | 8. grounded generation | done |
 | 9. clarification | done |
 | 10. verification and escalation (10b: per-sentence filter) | done |
-| 11. evaluation and adversarial testing | parts A and B done (held-out did not improve; adversarial 17/17); part C (safety gaps, Experiment 4) running; Experiment 5 next |
-| 12. student interface | |
+| 11. evaluation and adversarial testing | done; Experiment 5 team rating to fill in |
+| 12. student interface | done |
 | 13. deployment and handover | |

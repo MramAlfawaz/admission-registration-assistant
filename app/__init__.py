@@ -10,6 +10,9 @@ def create_app(config_name="default"):
     """Build and configure the application."""
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
+    app.config["JSON_AS_ASCII"] = False
+    app.json.ensure_ascii = False
+    app.extensions["config_class"] = config_by_name[config_name]
     logging.basicConfig(
         level=app.config["LOG_LEVEL"],
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",

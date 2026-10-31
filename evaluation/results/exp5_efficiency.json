@@ -1,0 +1,22 @@
+{
+  "timing_source": "holdout_before.json",
+  "all": {
+    "n": 40,
+    "median": 32.4,
+    "p90": 42.88
+  },
+  "answered": {
+    "n": 25,
+    "median": 34.8,
+    "p90": 41.88
+  },
+  "non_answers": {
+    "n": 15,
+    "median": 1.8,
+    "p90": 41.81
+  },
+  "self_service": {
+    "holdout_after.json": 0.35,
+    "e2e_v2.json": 0.53
+  }
+}

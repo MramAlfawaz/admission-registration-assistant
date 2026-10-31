@@ -568,6 +568,78 @@ def evaluate_no_retrieval(cfg, args):
     log.info("-> %s.json, %s.md", args.out, args.out)
 
 
+def make_exp5(cfg, args):
+    """Experiment 5: write the rating sheet and the claim-review sheet for the team review."""
+    from app.pipeline.ratings import sample_answers, write_claim_review, write_rating_sheet
+    from app.retrieval.factory import load_chunks
+
+    res, out = Path(cfg.EVAL_DIR) / "results", Path(cfg.EVAL_DIR) / "experiment5"
+    sheet, claims = out / "rating_sheet.csv", out / "claim_review.csv"
+    if (sheet.exists() or claims.exists()) and not args.force:
+        log.error("sheets already exist (they may hold ratings); use --force to overwrite")
+        return
+    sources = {s["source_id"]: s for s in load_sources(cfg)}
+    rows = sample_answers([res / f"{name}.json" for name in args.sources])
+    write_rating_sheet(rows, sources, sheet)
+    chunk_text = {c["chunk_id"]: c["text"] for c in load_chunks(cfg)}
+    english, arabic = write_claim_review(res / f"{args.sources[0]}.json", chunk_text, claims)
+    log.info("%d answers -> %s", len(rows), sheet)
+    log.info("%d English claims + %d Arabic claims for agreement -> %s", english, arabic, claims)
+
+
+def score_ratings_cmd(cfg, args):
+    """Summarise the filled rating sheet."""
+    from app.pipeline.ratings import CRITERIA, score_ratings
+
+    s = score_ratings(Path(cfg.EVAL_DIR) / "experiment5" / "rating_sheet.csv")
+    lines = ["# Experiment 5: team rating of answers", "",
+             f"Documented team review in place of specialists (limitation). Rated {s['rated']} of {s['rows']} sampled answers; "
+             f"raters: {', '.join(s['raters']) or 'not recorded'}.", "",
+             "| criterion | overall | Arabic | English | answered | non-answers |", "|---|---|---|---|---|---|"]
+    for c in CRITERIA:
+        lines.append(f"| {c} | " + " | ".join(str(s[g][c]["mean"]) for g in ("overall", "ar", "en", "answered", "non_answers")) + " |")
+    lines += ["", "## answers scored 2 or lower", ""] + [f"- {r['id']}: {r}" for r in s["low_scores"]]
+    res = Path(cfg.EVAL_DIR) / "results"
+    (res / "exp5_ratings.json").write_text(json.dumps(s, ensure_ascii=False, indent=2), encoding="utf-8")
+    (res / "exp5_ratings.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log.info("rated %d/%d; overall means: %s", s["rated"], s["rows"],
+             {c: s["overall"][c]["mean"] for c in CRITERIA})
+
+
+def score_claims_cmd(cfg, args):
+    """Human-verified grounding for English claims and agreement with the automatic labels."""
+    from app.pipeline.ratings import score_claim_review
+
+    s = score_claim_review(Path(cfg.EVAL_DIR) / "experiment5" / "claim_review.csv")
+    res = Path(cfg.EVAL_DIR) / "results"
+    (res / "exp5_claims.json").write_text(json.dumps(s, ensure_ascii=False, indent=2), encoding="utf-8")
+    (res / "exp5_claims.md").write_text("# Experiment 5: human claim review\n\n" + "\n".join(
+        f"- {k}: {v}" for k, v in s.items()) + "\n", encoding="utf-8")
+    log.info("%s", s)
+
+
+def efficiency_report(cfg, args):
+    """Response time from a run with no cached model calls, and self-service rates."""
+    from app.pipeline.ratings import efficiency
+
+    res = Path(cfg.EVAL_DIR) / "results"
+    e = efficiency(res / f"{args.uncached}.json", [res / f"{n}.json" for n in args.self_service])
+    lines = ["# Experiment 5: efficiency", "",
+             f"Timing from `{e['timing_source']}`: its first run, with no model call cached, on a MacBook Pro "
+             "(Intel Core i5, 8 GB RAM, CPU only, `qwen2.5:3b`). Cached reruns are not timed.", "",
+             "| responses | n | median (s) | p90 (s) |", "|---|---|---|---|"]
+    for k in ("all", "answered", "non_answers"):
+        lines.append(f"| {k} | {e[k]['n']} | {e[k]['median']} | {e[k]['p90']} |")
+    lines += ["", "**Baseline (current process): not available.** The Deanship's current response time to an "
+              "inquiry could not be obtained, so no reduction is claimed. It is recorded as unknown, as the brief "
+              "requires measuring rather than estimating.", "", "## self-service rate",
+              "Correct answers given with no staff involvement, over all inquiries:", ""]
+    lines += [f"- `{k}`: {v}" for k, v in e["self_service"].items()]
+    (res / "exp5_efficiency.json").write_text(json.dumps(e, ensure_ascii=False, indent=2), encoding="utf-8")
+    (res / "exp5_efficiency.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log.info("median %ss (answered %ss); self-service %s", e["all"]["median"], e["answered"]["median"], e["self_service"])
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -616,6 +688,14 @@ def build_parser():
     nr.add_argument("--out", default="exp4_no_retrieval")
     nr.add_argument("--compare", default="e2e_v2", help="evaluate-e2e results to compare with (condition B)")
     nr.add_argument("--limit", type=int, default=0)
+    m5 = sub.add_parser("make-exp5", help="Experiment 5: write the rating and claim-review sheets")
+    m5.add_argument("--sources", nargs="+", default=["e2e_v2", "holdout_v2"], help="results files to sample from")
+    m5.add_argument("--force", action="store_true", help="overwrite existing sheets")
+    sub.add_parser("score-ratings", help="Experiment 5: summarise the filled rating sheet")
+    sub.add_parser("score-claims", help="Experiment 5: summarise the filled claim-review sheet")
+    ef = sub.add_parser("efficiency-report", help="Experiment 5: response time and self-service rate")
+    ef.add_argument("--uncached", default="holdout_before", help="a results file from a run with no cached calls")
+    ef.add_argument("--self-service", nargs="+", default=["holdout_after", "e2e_v2"])
     adv = sub.add_parser("evaluate-adversarial", help="run the adversarial cases")
     adv.add_argument("--out", default="adversarial_v1", help="results name in evaluation/results/")
     add = sub.add_parser("add-source", help="register a new document version")
@@ -642,7 +722,9 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "rule": run_rule, "rules-doc": rules_doc,
             "ask": ask, "generate-sample": generate_sample,
             "evaluate-e2e": evaluate_e2e, "evaluate-adversarial": evaluate_adversarial,
-            "evaluate-no-retrieval": evaluate_no_retrieval}
+            "evaluate-no-retrieval": evaluate_no_retrieval, "make-exp5": make_exp5,
+            "score-ratings": score_ratings_cmd, "score-claims": score_claims_cmd,
+            "efficiency-report": efficiency_report}
 
 
 def main():

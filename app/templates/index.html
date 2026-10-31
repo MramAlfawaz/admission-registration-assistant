@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="{{ lang }}" dir="{{ 'rtl' if lang == 'ar' else 'ltr' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ ui.title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>{{ ui.title }}</h1>
+    <p class="sub">{{ ui.subtitle }}</p>
+    <nav class="lang"><a href="/?lang=ar" lang="ar">العربية</a> · <a href="/?lang=en" lang="en">English</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <form class="ask" method="post" action="/ask">
+    <label for="question">{{ ui.question }}</label>
+    <textarea id="question" name="question" dir="auto" rows="3" maxlength="1000"
+              placeholder="{{ ui.placeholder }}" required>{{ question }}</textarea>
+    <div class="row">
+      <label for="as_of">{{ ui.date }}</label>
+      <input id="as_of" name="as_of" type="date" value="{{ as_of }}">
+      <button type="submit">{{ ui.ask }}</button>
+    </div>
+  </form>
+
+  {% if error %}
+  <section class="card error" role="alert">{{ error }}</section>
+  {% endif %}
+
+  {% if result %}
+  {% set r = result.r %}
+  <section class="card result" lang="{{ result.rl }}" dir="{{ 'rtl' if result.rl == 'ar' else 'ltr' }}">
+    <p class="status status-{{ r.status | lower }}"><span class="dot" aria-hidden="true"></span>{{ result.status_label }}</p>
+
+    <div class="answer">{{ r.answer }}</div>
+
+    {% if r.clarification %}
+    <form method="post" action="/ask" class="options">
+      <input type="hidden" name="question" value="{{ question }}">
+      <input type="hidden" name="as_of" value="{{ as_of }}">
+      {% for k, v in result.clarify.items() %}<input type="hidden" name="clarify_{{ k }}" value="{{ v }}">{% endfor %}
+      {% for opt in r.clarification.options %}
+      <button type="submit" name="clarify_{{ r.clarification.missing }}" value="{{ opt.value }}">{{ opt.label }}</button>
+      {% endfor %}
+    </form>
+    {% endif %}
+
+    {% if r.conditions %}
+    <h2>{{ result.ui.conditions }}</h2>
+    <ul>{% for c in r.conditions %}<li>{{ c }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    {% if r.escalation %}
+    <div class="escalation">
+      {% if r.escalation.confirmed %}
+      <h2>{{ result.ui.confirmed }}</h2>
+      <ul>{% for c in r.escalation.confirmed %}<li>{{ c }}</li>{% endfor %}</ul>
+      {% endif %}
+      <h2>{{ result.ui.next_step }}</h2>
+      <p>{{ r.escalation.next_step }}</p>
+    </div>
+    {% elif r.required_action %}
+    <h2>{{ result.ui.action }}</h2>
+    <p>{{ r.required_action }}</p>
+    {% endif %}
+
+    {% if result.sources %}
+    <h2>{{ result.ui.sources }}</h2>
+    <ul class="sources">
+      {% for s in result.sources %}<li><strong>{{ s.title }}</strong>{% if s.where %} <span class="where">({{ s.where }})</span>{% endif %}</li>{% endfor %}
+    </ul>
+    {% endif %}
+
+    <p class="basis">{{ r.date_basis }} {{ result.ui.generated }} {{ today }}.</p>
+  </section>
+  {% endif %}
+
+  <p class="notice">{{ ui.notice }}</p>
+</main>
+</body>
+</html>
