@@ -1,6 +1,6 @@
 # Experiment 5: team rating of answers
 
-Documented team review in place of specialists (limitation). Rated 20 of 20 sampled answers; raters: AI draft, checked by 4 reviewers.
+Documented team review in place of specialists (limitation). Rated 20 of 20 sampled answers; raters: AI draft, checked by 3 students.
 
 | criterion | overall | Arabic | English | answered | non-answers |
 |---|---|---|---|---|---|
