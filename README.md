@@ -9,8 +9,8 @@ or the question needs an official decision.
 Project 5A, Data Science course. Built to the project brief and the Development
 Standards document.
 
-> **Status:** phases 1 to 11 of 13 complete except the team rating of Experiment 5; phase 12
-> (student interface) built. Deployment and handover (phase 13) come next.
+> **Status:** phases 1 to 12 of 13 complete except the team rating of Experiment 5. Phase 13
+> part A (fixes from testing the student page by hand) done; deployment and handover (part B) next.
 > The assistant answers end to end from the command line: it classifies the question,
 > asks for clarification when needed, retrieves passages in force on the question's
 > date, validates them, applies the rule library, writes the answer with fixed rule
@@ -48,7 +48,7 @@ Standards document.
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
 | Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
 | response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
-| automated tests | 191 passing |
+| automated tests | 198 passing |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -121,7 +121,7 @@ Check: `CALENDAR-1448: 24 events` and `186 chunks ... (sha256 9e6394386f2f)`.
 ```bash
 python -m pytest
 ```
-Check: `191 passed`.
+Check: `198 passed`.
 
 **10. open the student page** (needs Ollama running)
 ```bash
@@ -215,7 +215,7 @@ evaluation/
 docs/          authority-hierarchy, data-handling, intent-taxonomy, retrieval-failures,
                evidence-validation, rules, verification-and-escalation, evaluation,
                e2e-v1-failures, data-dictionary
-tests/         191 tests with fixtures from the real documents
+tests/         198 tests with fixtures from the real documents
 ```
 
 ---
@@ -645,7 +645,8 @@ have no support in the approved documents.
 
 ### Experiment 5: team review and efficiency (`evaluation/experiment5/`)
 - **Answer quality**: specialists were not available, so a documented team review rates a fixed sample
-  of 20 real answers (14 answered, 6 refusals, clarifications and escalations) from 1 to 5 for
+  of 20 real answers (14 answered, 6 refusals, clarifications and escalations), sampled from the
+  final runs `e2e_v3` and `holdout_v3`, from 1 to 5 for
   correctness, completeness, relevance, clarity and source appropriateness (`make-exp5`, `score-ratings`).
 - **Claim review**: the 30 English claims the scorer could not judge, plus 10 Arabic claims to check
   agreement with the automatic labels (`score-claims`).
@@ -674,6 +675,28 @@ have no support in the approved documents.
 - The date defaults to today; the interface is the only place that reads the clock, and the question
   text is never logged.
 - `POST /api/ask` returns the same response as JSON (`{"results": [...], "errors": []}`), without the internal trace.
+
+---
+
+## phase 13: deployment and handover
+
+### part A: fixes from testing the student page by hand (`tests/test_fixes_13.py`)
+Asking the running page real questions (step 12) showed four problems the evaluation sets had not:
+
+| problem seen on the page | cause | fix |
+|---|---|---|
+| an escalated answer showed, under "what can be confirmed", a model sentence implying the student met the conditions | the escalation reused the whole composed answer, model sentences included | "confirmed" is now only code-written text: rule sentences and verbatim quotes; sources follow them |
+| sentences such as "استوفيت جميع الشروط" / "you are eligible" were not caught | the decision list held only explicit decisions ("you are accepted") | phrases saying a condition is met are dropped unless the sentence is conditional ("if you meet...") |
+| the same document listed once per passage | sources were de-duplicated by passage, not by document | one line per document, pages and sections joined |
+| a second-term sentence quoted for a first-term question | quotes were chosen by relevance only | a quote naming only the other term is skipped |
+
+The evaluation sets were rerun with the committed cache (the prompts did not change, so the
+model calls are read from the cache): `holdout_v3`, `e2e_v3`, `adversarial_v4`. These runs are **optimistic**,
+like every run after step 11c (`docs/evaluation.md`). Result: identical to `holdout_v2` and `e2e_v2`
+(held-out 0.95 status accuracy, 7 wrong answers shown; 100-inquiry set 0.95, 13; adversarial 17/17),
+with the same failing inquiries. The four fixes change what the page shows (confirmed text, source
+list) and guard cases these sets do not contain, so they are covered by `tests/test_fixes_13.py`,
+not by these scores.
 
 ---
 
@@ -731,4 +754,4 @@ have no support in the approved documents.
 | 10. verification and escalation (10b: per-sentence filter) | done |
 | 11. evaluation and adversarial testing | done; Experiment 5 team rating to fill in |
 | 12. student interface | done |
-| 13. deployment and handover | |
+| 13. deployment and handover | part A (fixes from hand testing) done; part B (deployment, handover memo) next |

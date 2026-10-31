@@ -24,6 +24,13 @@ DECISION = ["تم قبولك", "سيتم قبولك", "انت مقبول", "تم
             "تم اعتماد", "يحق لك الاستثناء", "مؤهل للقبول",
             "you are accepted", "you will be accepted", "you are admitted", "you will be admitted",
             "has been approved", "will be approved", "you qualify for admission", "your request will be"]
+# Phrases that tell the student a condition is met: the system never decides eligibility, so these are
+# dropped unless the sentence is conditional ("if you meet..."). Step 12 test: an escalated answer
+# showed "you have met all the conditions" as confirmed.
+IMPLIED_DECISION = ["تم استيفاء", "استوفيت", "انك تستوفي", "انت تستوفي", "تستوفي جميع", "تنطبق عليك",
+                    "انك مؤهل", "انت مؤهل", "جميع الشروط قد تم", "you meet", "you have met", "meets all",
+                    "you are eligible", "you are qualified", "you qualify"]
+CONDITIONAL = re.compile(r"\b(if|unless|provided|whether)\b|(^|\s)(اذا|إذا|لو|ان كنت|في حال|بشرط|شريطه)(\s|$)")
 SAYS_OPEN = ["ما زال", "ما زالت", "مازال", "مازالت", "لا يزال", "لا تزال", "مفتوح", "لم ينته", "لم تنته",
              "still open", "is open", "remains open", "not passed", "not yet passed", "has not ended", "not closed"]
 SAYS_CLOSED = ["انتهت", "انتهي", "مغلق", "اغلقت", "has closed", "is closed", "has passed", "has ended", "too late"]
@@ -102,7 +109,7 @@ def verify_text(text, language, evidence_texts, rule_outputs, question=""):
             issues.append(f"weekday not in evidence: {en}")
     if any(p in norm for p in NO_INFO):
         issues.append("claims there is no information although evidence was found")
-    if any(p in norm for p in DECISION):
+    if any(p in norm for p in DECISION) or (any(p in norm for p in IMPLIED_DECISION) and not CONDITIONAL.search(norm)):
         issues.append("states or implies an official decision")
     # "Refund not eligible" does not close a window: program withdrawal can still be open (v1: E051).
     closed = any(r["output"] == "closed" for r in rule_outputs) and not any(r["output"] == "open" for r in rule_outputs)

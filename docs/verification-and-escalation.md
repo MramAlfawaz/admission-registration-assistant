@@ -49,6 +49,11 @@ Spelled-out numbers (ثلاث سنوات) are not checked; this is a known limit
 - questions that need the student's own record (كم معدلي, my grades)
 
 The response states the reason, what can be confirmed (with sources), and the next step.
+**What can be confirmed is only code-written text**: the fixed rule sentences and verbatim quotes from
+the documents (relevant to the question, not contradicting a rule, about the term asked). Model
+sentences are never shown there, because a model sentence can imply the student meets the
+conditions while the decision belongs to staff (found by hand testing in step 12; fixed in step 13).
+The sources listed are those of the rules and the quotes.
 Each escalation is appended to `data/processed/escalations.jsonl` with reason, intent and
 sources, never the question text (`docs/data-handling.md`).
 
@@ -79,3 +84,13 @@ Arabic form is in the evidence, because the small model copied every glossary te
 
 Known cost: a correct sentence can be dropped when it also quotes the prompt
 (R043: "النص الأول من الأدلة"). Dropping is the safe side: the answer falls back to quotes.
+
+## sentences that imply a decision (step 13)
+Besides explicit decisions ("you are accepted", "تم قبولك"), a sentence saying the student **meets the
+conditions** ("استوفيت جميع الشروط", "you are eligible", "you have met") is dropped unless it is
+conditional ("إذا كنت تستوفي...", "if you meet..."). The system states conditions; it never says whether
+a particular student meets them.
+
+## quotes about the other term (step 13)
+When the question names a term, or a calendar rule resolved one, an evidence sentence that names only
+the other term is not quoted (`mentions_other_term` in `app/generation/extractive.py`).

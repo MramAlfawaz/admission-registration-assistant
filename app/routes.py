@@ -58,23 +58,23 @@ def _page_language(text):
 
 
 def _source_view(assistant, sources, language):
+    """One line per document, with its pages and sections joined (step 12 test: the same document was
+    listed once per passage)."""
     by_id = getattr(assistant, "sources_by_id", {}) or {}
-    items = []
+    grouped = {}
     for s in sources:
-        title = by_id.get(s["source_id"], {}).get("title", s["source_id"])
+        entry = grouped.setdefault(s["source_id"], {"title": by_id.get(s["source_id"], {}).get("title", s["source_id"]),
+                                                   "id": s["source_id"], "places": []})
         where = []
         if s.get("page"):
             where.append(f"{UI[language]['page']} {s['page']}")
         if s.get("section"):
             where.append(_section(str(s["section"]), language))
-        items.append({"title": title, "id": s["source_id"], "where": " - ".join(where)})
-    seen, unique = set(), []
-    for i in items:
-        key = (i["id"], i["where"])
-        if key not in seen:
-            seen.add(key)
-            unique.append(i)
-    return unique
+        place = " - ".join(where)
+        if place and place not in entry["places"]:
+            entry["places"].append(place)
+    sep = "، " if language == "ar" else "; "
+    return [{"title": e["title"], "id": e["id"], "where": sep.join(e["places"])} for e in grouped.values()]
 
 
 def _section(section, language):

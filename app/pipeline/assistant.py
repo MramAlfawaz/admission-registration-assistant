@@ -11,7 +11,8 @@ import logging
 
 from app.evidence.validator import validate_evidence
 from app.generation.answer_generator import base_response, non_answer
-from app.generation.extractive import evidence_fits, overlap_scorer, relevance_filter, select_sentences
+from app.generation.extractive import (evidence_fits, mentions_other_term, overlap_scorer, relevance_filter,
+                                       select_sentences)
 from app.generation.rule_sentences import event_sentence, rule_sentence, statement_sentences
 from app.generation.templates import QUOTE_INTRO
 from app.intent.ambiguity import SCOPE_TO_INTENT, apply_clarification, clarified_query, detect_missing
@@ -30,6 +31,17 @@ log = logging.getLogger(__name__)
 def _source_refs(chunks):
     return [{"source_id": c["source_id"], "chunk_id": c["chunk_id"], "page": c.get("page"),
              "section": c.get("section")} for c in chunks]
+
+
+def _asked_term(values, rules):
+    """The term the question is about: named in the question, else the term a calendar rule resolved."""
+    if values.get("term") in ("T1", "T2"):
+        return values["term"]
+    for r in rules:
+        term_id = str(r["details"].get("term_id") or "")
+        if term_id.endswith(("T1", "T2")):
+            return term_id[-2:]
+    return None
 
 
 class Assistant:
@@ -134,7 +146,8 @@ class Assistant:
                 return self._escalate(early_reason, intent, language, as_of, [], [], trace)
             return self._finish(non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of), trace, "templated")
 
-        response = self._compose(question, intent, language, as_of, report["evidence"], rules, rule_texts, trace)
+        term = _asked_term(values, rules)
+        response = self._compose(question, intent, language, as_of, report["evidence"], rules, rule_texts, trace, term)
         if response["status"] != "ANSWERABLE":
             # A request for a decision is escalated even when nothing could be confirmed (held-out: H034).
             if early_reason:
@@ -142,8 +155,10 @@ class Assistant:
             return self._finish(response, trace, "templated")
         reason = escalation_reason(question, rules)
         if reason:
-            confirmed = [response["answer"]]
-            return self._escalate(reason, intent, language, as_of, confirmed, response["sources"], trace,
+            # Only code-written text is shown as confirmed: rule sentences and quotes from the documents.
+            # A model sentence can imply the conditions are met (step 12 test), so it is never shown here.
+            confirmed, sources = self._confirmable(question, report["evidence"], rules, rule_texts, trace, term)
+            return self._escalate(reason, intent, language, as_of, confirmed, sources, trace,
                                   rule_outputs=response["rule_outputs"])
         return self._finish(response, trace, trace["mode"])
 
@@ -168,7 +183,25 @@ class Assistant:
         held = {c["chunk_id"] for c in have}
         return [c for c in self._all_chunks() if (c["source_id"], c.get("section")) in wanted and c["chunk_id"] not in held]
 
-    def _compose(self, question, intent, language, as_of, evidence, rules, rule_texts, trace):
+    def _quotes(self, question, evidence, rules, term):
+        """Evidence sentences closest to the question that are relevant, agree with the rules and are about the asked term."""
+        relevant = relevance_filter(question, self.glossary)
+        return select_sentences(question, evidence, self.scorer, k=2,
+                                qualifies=lambda s: relevant(s) and not contradicts_rules(s, rules)
+                                and not mentions_other_term(s, term))
+
+    def _confirmable(self, question, evidence, rules, rule_texts, trace, term):
+        """Return (texts, sources) safe to show as confirmed in an escalation: rule sentences and quotes."""
+        quotes = self._quotes(question, evidence, rules, term)
+        trace["confirmed_quotes"] = [{"text": q, "chunk_id": c["chunk_id"]} for q, c in quotes]
+        texts = list(rule_texts) + [f"«{q}»" for q, _ in quotes]
+        sources = [dict(src) for x in rules if x["output"] not in ("unknown", "not_applicable") for src in x["sources"]]
+        for ref in _source_refs([c for _, c in quotes]):
+            if ref not in sources:
+                sources.append(ref)
+        return texts, sources
+
+    def _compose(self, question, intent, language, as_of, evidence, rules, rule_texts, trace, term=None):
         """Fixed rule sentences, then model sentences that pass every check, else quoted evidence."""
         r = base_response("ANSWERABLE", intent, language, as_of)
         r["rule_outputs"] = [{k: x[k] for k in ("rule_id", "output", "details")} for x in rules]
@@ -200,9 +233,7 @@ class Assistant:
             r["sources"] = _source_refs(draft["used"])
             trace["claims_generated"] = list(kept)
         else:
-            relevant = relevance_filter(question, self.glossary)
-            quotes = select_sentences(question, evidence, self.scorer, k=2,
-                                      qualifies=lambda s: relevant(s) and not contradicts_rules(s, rules))
+            quotes = self._quotes(question, evidence, rules, term)
             if not quotes and not rule_texts:
                 return non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of)
             trace["mode"] = "extractive"

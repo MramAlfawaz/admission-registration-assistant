@@ -1,6 +1,7 @@
 """Fallback answer: quote the evidence sentences closest to the question."""
 import re
 
+from app.documents.normalize import normalize_for_search
 from app.retrieval.tokenize import tokenize
 
 MIN_QUOTE_TOKENS = 6
@@ -135,3 +136,20 @@ def _bare(token):
 
 def _with_bare(tokens):
     return set(tokens) | {_bare(t) for t in tokens}
+
+
+# A quote about the other term must not answer a question about this one (step 12 test: a question on the
+# first term was answered with a second-term sentence). Patterns are on normalised text.
+TERM_PATTERNS = {
+    "T1": re.compile(r"(فصل|ترم)( الدراسي)? الاول|first (semester|term)|fall semester|(semester|term) 1\b"),
+    "T2": re.compile(r"(فصل|ترم)( الدراسي)? الثاني|second (semester|term)|spring semester|(semester|term) 2\b"),
+}
+
+
+def mentions_other_term(sentence, term):
+    """True when the sentence names the other term and not the one asked about."""
+    if term not in TERM_PATTERNS:
+        return False
+    other = "T2" if term == "T1" else "T1"
+    text = normalize_for_search(sentence)
+    return bool(TERM_PATTERNS[other].search(text)) and not TERM_PATTERNS[term].search(text)
