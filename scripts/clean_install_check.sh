@@ -12,7 +12,7 @@ set -euo pipefail
 
 REPO="${1:-https://github.com/MramAlfawaz/admission-registration-assistant.git}"
 PYTHON="${PYTHON:-python3.11}"
-REFERENCE="${REFERENCE:-holdout_v4}"
+REFERENCE="${REFERENCE:-holdout_v5}"
 WORK="$(mktemp -d)"
 START=$(date +%s)
 stage() { echo "== [$(( $(date +%s) - START ))s] $*"; }

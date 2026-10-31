@@ -24,8 +24,9 @@
     <div class="row">
       <label for="as_of">{{ ui.date }}</label>
       <input id="as_of" name="as_of" type="date" value="{{ as_of }}">
-      <button type="submit">{{ ui.ask }}</button>
+      <button type="submit" data-busy="{{ ui.busy }}">{{ ui.ask }}</button>
     </div>
+    <p id="busy-note" class="busy" role="status" hidden>{{ ui.busy_note }}</p>
   </form>
 
   {% if error %}
@@ -82,5 +83,19 @@
 
   <p class="notice">{{ ui.notice }}</p>
 </main>
+<script>
+  // A slow answer must not look frozen, and a second click must not queue a second question
+  // (public demo: two clicks waited 30 minutes). The clicked button still sends its value.
+  document.querySelectorAll("form").forEach(function (form) {
+    form.addEventListener("submit", function (event) {
+      if (form.dataset.sent) { event.preventDefault(); return; }
+      form.dataset.sent = "1";
+      var button = event.submitter || form.querySelector("button");
+      if (button) { button.setAttribute("aria-busy", "true"); if (button.dataset.busy) { button.textContent = button.dataset.busy; } }
+      var note = document.getElementById("busy-note");
+      if (note) { note.hidden = false; }
+    });
+  });
+</script>
 </body>
 </html>

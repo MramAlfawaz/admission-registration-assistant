@@ -28,14 +28,14 @@ model through Ollama and a local embedding model; no question leaves the machine
 | answer composition and checks | complete; see limitations | Experiment 3 (below) |
 | clarification and escalation | complete | 17/17 adversarial cases |
 | student page and JSON API | complete | `tests/test_app.py`; tested by hand in Arabic and English (step 12) |
-| bootstrap (`setup.py`) and clean-install check | complete | `scripts/clean_install_check.sh` |
+| bootstrap (`setup.py`) and clean-install check | complete | `scripts/clean_install_check.sh` passed on a fresh clone: 211 tests, held-out results reproduced 40 of 40 |
 | public demo (Hugging Face Space, root `Dockerfile`) | complete | built and running at https://huggingface.co/spaces/m11ram/admission-registration-assistant; answered test questions correctly in Arabic |
 | local two-service Docker run (`docker/docker-compose.yml`) | **written, not yet run** | same base images and bootstrap as the Space image |
 | Experiment 5 team rating | **incomplete** | sheets generated from the final runs (`evaluation/experiment5/`), not yet filled |
 | user evaluation, students and staff separately | **not done yet** | protocol, form and `score-feedback` ready (`evaluation/user_evaluation/`) |
 | test with someone outside the team | **not done yet** | required by the brief and the standards; form in `evaluation/user_evaluation/README.md` |
 | Windows | **untested** | developed and measured on macOS only |
-| response time on the public demo | **not measured** | the `answered:` lines in the Space's container log give it |
+| response time on the public demo | **not measured** | the start-up `speed on this machine` line and the `answered:` lines in the Space's container log give it |
 
 Why the incomplete items are incomplete: they need people (reviewers, students, staff, an outsider) or a
 Windows machine. None of them is blocked by code.
@@ -132,7 +132,9 @@ Everything known to be wrong, untested or handled badly, most serious first.
 9. **The handbook is a 1446 summary**; the full regulations with article numbers are not public.
 10. **Add/drop and single-course withdrawal** are not in any source: always `INSUFFICIENT_EVIDENCE`.
 11. **Response time**: about 32 s median per question on the development Mac (CPU); not yet measured on the
-    public demo's shared CPU. The demo depends on a paid Hugging Face plan (Docker Spaces need PRO as of
+    public demo's shared CPU, where a new question froze before step 13d (a 600 s timeout retried twice). Since
+    then a model call waits at most 180 s there and is never retried after a timeout; the intent falls back to the
+    keyword classifier and the answer to the rule sentence. The demo depends on a paid Hugging Face plan (Docker Spaces need PRO as of
     October 2026).
 12. **Adding an intent touches several files** (section 6), more than the "small fixed number of edits" the
     standards ask for. Prompt versions are chosen by constructor defaults (`classify_intent_v1`, `answer_v2`)
@@ -156,6 +158,7 @@ Everything known to be wrong, untested or handled badly, most serious first.
 | **NumPy 2** | import errors in torch or scikit-learn | keep `numpy==1.26.4` |
 | **PyMuPDF** | Arabic words reversed again, or `peek` text differs | keep `PyMuPDF==1.24.10`; the repair in `app/documents/loader.py` depends on how this version orders glyphs |
 | **Hugging Face Spaces** | build log error, or the Space sleeps | rebuild from the Space settings; free Spaces sleep after inactivity and the first question after waking is slow |
+| **Space hardware too slow** | container log: low `speed on this machine` at start-up, `model unavailable ... ReadTimeout`, answers without model sentences | choose larger hardware in the Space settings (paid), or raise `LLM_TIMEOUT` in the root `Dockerfile` and accept longer waits |
 | **Docker Hub images** (`python:3.11.9-slim`, `ollama/ollama:0.35.0`) | build cannot pull an image | pin another existing tag of the same version line |
 
 ---

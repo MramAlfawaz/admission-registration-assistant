@@ -68,6 +68,7 @@ class Assistant:
 
         intent = self.classifier.classify(question)
         trace["intent_classified"] = intent
+        trace["intent_source"] = getattr(self.classifier, "last_source", None) or "model"
         if escalation_reason(question) == "third_party":
             return self._escalate("third_party", intent, language, as_of, [], [], trace)
         if intent == "OUT_OF_SCOPE" and detect_missing(question, "WITHDRAWAL_UNSPECIFIED", supplied):

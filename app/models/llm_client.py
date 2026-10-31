@@ -58,6 +58,10 @@ class HttpTransport:
                 r = requests.request(method, url, json=payload, timeout=self.timeout)
                 r.raise_for_status()
                 return r.json()
+            except requests.Timeout:
+                # The model is still busy with the request that timed out; sending it again only queues
+                # more work behind it (public demo: two clicks and their retries waited 30 minutes).
+                raise
             except requests.RequestException as e:
                 if attempt == self.retries - 1:
                     raise

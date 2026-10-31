@@ -38,3 +38,5 @@ button:focus-visible, a:focus-visible, textarea:focus-visible, input:focus-visib
 .where { color: var(--muted); }
 .basis { margin-top: 16px; font-size: .9rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
 .notice { font-size: .85rem; color: var(--muted); margin: 8px 0 32px; }
+.busy { margin: 10px 0 0; color: var(--warn); font-size: .95rem; }
+button[aria-busy="true"] { opacity: .7; cursor: progress; }

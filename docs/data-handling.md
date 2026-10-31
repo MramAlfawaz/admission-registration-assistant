@@ -11,7 +11,8 @@ escalated (`personal_record`); requests for another student's data are refused a
 ## what is logged
 | log | contents | question text? | where |
 |---|---|---|---|
-| application log | timestamp, level, module, message (statuses, timings, warnings) | **no** | standard error; not written to the repository (`*.log`, `logs/` ignored) |
+| application log | timestamp, level, module, message (statuses, timings, warnings; "question received" with the date and length only) | **no** | standard error; not written to the repository (`*.log`, `logs/` ignored) |
+| web server access log (Docker images) | time, method and path, status, duration; **no client address** | **no** (questions are sent in the request body, never in the path) | container log |
 | escalation log | logged_at, as_of, reason code, intent, source ids | **no** | `data/processed/escalations.jsonl` (ignored by git) |
 | evaluation escalation logs | same fields | **no** | `evaluation/results/*_escalations.jsonl` (synthetic questions only) |
 | model call cache | model, digest, parameters, prompt, response, seconds | **yes, inside the prompt** | `data/cache/llm/` |

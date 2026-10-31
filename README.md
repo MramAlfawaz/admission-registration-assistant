@@ -62,7 +62,7 @@ Standards document.
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
 | Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
 | response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
-| automated tests | 211 passing |
+| automated tests | 216 passing |
 | public demo | https://huggingface.co/spaces/m11ram/admission-registration-assistant (Hugging Face Space, CPU) |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
@@ -128,7 +128,7 @@ The same steps by hand: `cp .env.example .env`, `python cli.py fetch`, `python c
 ```bash
 python -m pytest -q
 ```
-Check: `211 passed`.
+Check: `216 passed`.
 
 **7. ask one question from the command line**
 ```bash
@@ -209,7 +209,7 @@ Answers are slower than on a laptop (a shared CPU), and the first one after the 
 | `python cli.py evaluate-adversarial --out adversarial_v1` | runs the 17 adversarial cases |
 | `python cli.py compare-runs REFERENCE RUN` | checks two `evaluate-e2e` results are identical inquiry by inquiry (status, correctness, answer, escalation) |
 | `python setup.py [--skip-llm]` | bootstrap: pins, `.env`, documents, chunks, embedding model, model check |
-| `bash scripts/clean_install_check.sh` | fresh clone → install → bootstrap → tests → reproduce `holdout_v4` |
+| `bash scripts/clean_install_check.sh` | fresh clone → install → bootstrap → tests → reproduce `holdout_v5` |
 | `python cli.py score-feedback` | user evaluation: summarises `evaluation/user_evaluation/feedback.csv`, students and staff separately |
 
 ### adding a new document version
@@ -264,7 +264,7 @@ evaluation/
 docs/          handover-memo, architecture, environment/, troubleshooting/, authority-hierarchy,
                data-handling, intent-taxonomy, retrieval-failures, evidence-validation, rules,
                verification-and-escalation, evaluation, e2e-v1-failures, data-dictionary
-tests/         211 tests with fixtures from the real documents; conftest.py
+tests/         216 tests with fixtures from the real documents; conftest.py
 docker/        Dockerfile and docker-compose.yml (local two-service run), start.sh
 Dockerfile     the public demo image (Hugging Face Space: app and Ollama in one container)
 scripts/       clean_install_check.sh
@@ -795,6 +795,24 @@ not by these scores.
   all still correct) and one escalation that lost an irrelevant quote (E081), as predicted before the run.
   One damaged quote remains in an answer without a rule sentence (E042).
 - **User evaluation kit**: `evaluation/user_evaluation/` (tasks, form, outside install test) and `score-feedback`.
+- **Clean-install check passed** (2026-10-31): a fresh clone installed, bootstrapped (documents downloaded again,
+  identical chunks `9e6394386f2f`), passed 211 tests and reproduced `holdout_v4` from the committed cache, 40 of 40
+  inquiries identical, in 3.7 minutes on the development Mac (package and model downloads were already cached
+  there; a machine that has never installed the project takes longer).
+
+### part D: the public demo froze on a new question (`tests/test_demo_robustness.py`)
+After the part C rebuild, a new question sat with no response. The container log showed why: the model call
+timed out after 600 s and **was retried twice more**, and a second click had queued a second question behind
+it; the page gave no sign that anything was happening. Fixes:
+- a timed-out model call is **not retried** (the model is still busy with it); an unreachable model still is
+- the intent falls back to the **keyword classifier** (Experiment 1) when the model times out, recorded in the
+  trace as `intent_source: keyword fallback`; the evaluation commands get no fallback and stop instead
+- the Space waits at most **180 s** per model call (`LLM_TIMEOUT`), then answers from rule sentences
+- the page shows «جارٍ البحث…» / "Searching…" with a note after a click, and **ignores a second click**
+- the container log now shows Ollama's own log, each request (without the client address), a line when a
+  question arrives (never its text), and at start-up the model load time and this machine's speed in tokens
+  per second (`docker/warmup.py`)
+Response time on the Space's shared CPU is still **not measured**; the start-up speed line gives it.
 
 ---
 
@@ -821,7 +839,7 @@ fixes informed by the same set; the honest held-out figure is `holdout_after`.
 | efficiency | self-service rate | 0.35 honest held-out; 0.425 and 0.53 final | same |
 | satisfaction | students and staff, separately | **not yet run** (`evaluation/user_evaluation/`) | `user_feedback.md` |
 | reproducibility | identical output for identical query and date | 1.00 on every run (each inquiry answered twice) | every results file |
-| reliability | test pass rate from clean install | 211/211 on the development machine; clean-clone run **not yet recorded** (`scripts/clean_install_check.sh`) | |
+| reliability | test pass rate from clean install | 211/211 on a fresh clone (2026-10-31, before the 5 tests of part D), and the held-out results reproduced 40 of 40 | `scripts/clean_install_check.sh` |
 
 Negative results: the model does not beat the keyword baseline on macro-F1 (it is used for out-of-scope
 detection); hybrid retrieval is below embeddings alone on English; the step 11b fixes did not improve the
@@ -847,7 +865,7 @@ Pre-handover checklist (1.10):
 
 | rule | check | how it was checked |
 |---|---|---|
-| 1.1 | bootstrap passes on a clean clone | `scripts/clean_install_check.sh` |
+| 1.1 | bootstrap passes on a clean clone | `scripts/clean_install_check.sh`: passed 2026-10-31 (part C) |
 | 1.2 | the same input twice gives identical output | reproducibility 1.00 on every evaluation run (each inquiry answered twice) |
 | 1.3 | corrupting `models.lock` crashes instead of substituting | `tests/test_llm_client.py` (wrong digest stops with instructions); `check-model` |
 | 1.4 | no prompt text in application code | `tests/test_prompts.py` |
@@ -880,6 +898,10 @@ Pre-handover checklist (1.10):
 - **Programs guide not yet chunked at program boundaries**: left as a limitation because it renumbers passages and requires gold set v2.
 - **Quotes damaged by extraction** can still appear in answers that have no rule sentence (one in the final runs, E042); escalations show no quotes and rule-backed answers quote only calendar rows.
 - **Not yet tested**: Windows; the local two-service Docker run; response time on the public demo.
+- **The public demo runs on 2 shared CPU cores**: new questions are much slower than on a laptop, and a model
+  call over 180 s falls back to the rule sentence (or the keyword classifier for the intent). Questions from the
+  evaluation sets, asked with their reference date, come from the cache instantly. A larger Space (paid
+  hardware) is the fix if the department keeps the demo.
 - **Hugging Face Docker Spaces need a paid plan**; the public demo depends on the author's subscription.
 
 ---

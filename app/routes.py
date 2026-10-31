@@ -25,7 +25,8 @@ STATUS_LABELS = {
 }
 UI = {
     "ar": {"title": "مساعد القبول والتسجيل", "subtitle": "جامعة نايف العربية للعلوم الأمنية",
-           "question": "سؤالك", "date": "تاريخ السؤال", "ask": "اسأل", "sources": "المصادر",
+           "question": "سؤالك", "date": "تاريخ السؤال", "ask": "اسأل", "busy": "جارٍ البحث…",
+           "busy_note": "جارٍ البحث في المصادر المعتمدة. قد يستغرق ذلك بضع دقائق؛ يرجى عدم إعادة الإرسال.", "sources": "المصادر",
            "conditions": "الشروط", "action": "المطلوب منك", "confirmed": "ما يمكن تأكيده",
            "next_step": "الخطوة التالية", "generated": "أنشئت الإجابة في", "page": "صفحة",
            "notice": "هذه المساعدة لا تتخذ قرارات القبول أو التسجيل. القرار للجهة المختصة.",
@@ -33,7 +34,8 @@ UI = {
            "empty": "اكتب سؤالك أولاً.", "too_long": "السؤال طويل جداً؛ اختصره من فضلك.",
            "placeholder": "مثال: متى آخر موعد للاعتذار عن الفصل الدراسي الأول؟"},
     "en": {"title": "Admission and Registration Assistant", "subtitle": "Naif Arab University for Security Sciences",
-           "question": "Your question", "date": "Date the question is about", "ask": "Ask", "sources": "Sources",
+           "question": "Your question", "date": "Date the question is about", "ask": "Ask", "busy": "Searching…",
+           "busy_note": "Searching the approved sources. This can take a few minutes; please do not send again.", "sources": "Sources",
            "conditions": "Conditions", "action": "What you need to do", "confirmed": "What can be confirmed",
            "next_step": "Next step", "generated": "Answer generated on", "page": "page",
            "notice": "This assistant does not make admission or registration decisions; the responsible office does.",
@@ -88,6 +90,7 @@ def _section(section, language):
 
 
 def _answer(question, as_of, clarify):
+    log.info("question received (as_of=%s, %d characters)", as_of, len(question))
     assistant = get_assistant()
     start = time.perf_counter()
     response = assistant.answer(question, as_of, clarification=clarify or None)

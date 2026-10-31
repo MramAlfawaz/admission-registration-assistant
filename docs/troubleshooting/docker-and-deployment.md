@@ -18,7 +18,11 @@ held `.DS_Store` files, is not sent.
 build machine), or "Pinned model ... is unavailable" (the `qwen2.5:3b` tag changed).
 **Fix:** for the site, retry the build; for the model, see `models.md`.
 
-## Hugging Face: answers take one to three minutes, or the page times out
-**Why:** the free CPU Space is slower than a laptop, and the first question after the Space wakes loads both models.
-**Fix:** ask again after the first answer; questions from the evaluation sets come from the cache instantly.
-`LLM_TIMEOUT` is 600 s in the image.
+## Hugging Face: a new question seems frozen
+**Why:** the Space has 2 shared CPU cores; one model call can take minutes. Before step 13d a timed-out call
+was retried twice (up to 30 minutes) and a second click queued another question.
+**Check:** Logs → Container. You should see `question received`, then `[ollama]` lines, then `answered: ... N s`.
+The start-up line `speed on this machine: prompt X tokens/s, generation Y tokens/s` shows how fast the hardware is.
+**Fix:** click once and wait; the page now says «جارٍ البحث…». A model call over 180 s falls back to the rule
+sentence. For faster answers, choose larger hardware in the Space settings (paid).
+Questions from the evaluation sets asked with their reference date come from the cache instantly.
