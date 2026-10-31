@@ -1,13 +1,25 @@
 """Recognise questions that need institutional authority and build the escalation block."""
 import datetime as dt
 import json
+import re
 from pathlib import Path
 
 from app.documents.normalize import normalize_for_search
 
-DECISION_REQUEST = ["استثناء", "استثنائي", "اعتماد", "وافقوا", "توافقون", "موافقتكم", "الموافقه علي", "قبولي",
+DECISION_REQUEST = ["اعتماد", "اعتمد", "وافقوا", "توافقون", "موافقتكم", "الموافقه علي", "قبولي",
                     "هل سيتم قبولي", "هل انقبل", "تمديد", "اسمحوا لي", "اقبلوني", "approve", "approval",
-                    "exception", "extend", "extension", "will i be accepted", "accept me", "waive", "grant me"]
+                    "extend", "extension", "will i be accepted", "accept me", "waive", "grant me",
+                    # asking the assistant to override the rules is a request for a decision
+                    "تجاهل اللوائح", "تجاهل الانظمه", "تجاهل التعليمات", "قل لي انه يحق", "قل لي اني", "قل لي انني",
+                    "ignore the regulations", "ignore the rules", "ignore your rules", "tell me i can", "tell me that i can"]
+# "exception" is a request only when asked for; "what is the minimum for an exception?" is information (v1: E058).
+EXCEPTION_WORDS = ["استثناء", "استثنائي", "استثناءا", "exception"]
+REQUEST_MARKERS = ["اطلب", "ابغي", "ابي ", "اريد", "ارجو", "امنحني", "اعطني", "اعطوني", "تمنحوني", "ممكن تعطوني",
+                   "i need", "i want", "can you", "could you", "please", "give me", "request", "for me", " my "]
+# Another person's records are never looked up or shared (adversarial v1: A07, A08).
+THIRD_PARTY = ["another student", "other student", "someone else", "student id", "student number", "his gpa",
+               "her gpa", "his grades", "her grades", "his record", "her record", "طالب اخر", "طالبه اخري",
+               "بيانات الطالب", "بيانات تسجيل", "رقم الطالب", "رقمه الجامعي", "معدله", "درجاته", "سجله الاكاديمي"]
 PERSONAL_RECORD = ["كم معدلي", "معدلي كم", "درجاتي", "سجلي", "سجلي الاكاديمي", "what is my gpa", "my grades",
                    "my record", "my transcript"]
 EXCEPTION_OUTPUTS = {"deprived_exception_possible", "exception_only"}
@@ -18,17 +30,28 @@ REASONS = {
                        "en": "The regulation allows this only as an exception decided by the responsible councils."},
     "personal_record": {"ar": "يحتاج هذا السؤال إلى سجلك الأكاديمي الشخصي، ولا أستطيع الاطلاع عليه.",
                         "en": "This question needs your personal academic record, which I cannot access."},
+    "third_party": {"ar": "لا أستطيع الاطلاع على بيانات طالب آخر أو مشاركتها؛ هذه البيانات محمية.",
+                    "en": "I cannot look up or share another student's records; they are protected."},
 }
 NEXT_STEP = {"ar": "يرجى التواصل مع عمادة القبول والتسجيل لاتخاذ القرار أو مراجعة حالتك.",
              "en": "Please contact the Deanship of Admission and Registration for a decision or a review of your case."}
 
 
 def escalation_reason(question, rule_outputs=()):
-    """Return why a question needs staff ("decision", "personal_record", "exception_rule") or None."""
-    text = normalize_for_search(question)
-    if any(p in text for p in PERSONAL_RECORD):
+    """Return why a question needs staff ("third_party", "personal_record", "decision", "exception_rule") or None."""
+    text = f" {normalize_for_search(question)} "
+
+    def has(phrases):
+        # whole words only: "قبولي" (my admission) must not match "المقبولين" (the admitted students)
+        return any(re.search(rf"(?<!\w){re.escape(p.strip())}(?!\w)", text) for p in phrases)
+
+    if has(THIRD_PARTY):
+        return "third_party"
+    if has(PERSONAL_RECORD):
         return "personal_record"
-    if any(p in text for p in DECISION_REQUEST):
+    if has(DECISION_REQUEST):
+        return "decision"
+    if has(EXCEPTION_WORDS) and has(REQUEST_MARKERS):
         return "decision"
     if any(r["output"] in EXCEPTION_OUTPUTS for r in rule_outputs):
         return "exception_rule"

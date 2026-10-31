@@ -224,8 +224,10 @@ def test_regression_echoed_placeholders_dropped():
 
 
 def test_harmless_opening_is_trimmed_not_dropped():
-    good = {"answer": "بناءً على المعلومات المقدمة، تبدأ الدراسة للفصل الدراسي الثاني يوم الأحد 2027-01-03.", "used_evidence": ["E1"]}
-    cal11 = {"chunk_id": "CALENDAR-1448#011", "source_id": "CALENDAR-1448", "page": 1, "section": "row 11",
-             "text": "بداية الدراسة للفصل الدراسي الثاني: الأحد 2027-01-03م (1448-07-25هـ)"}
-    r = assistant("ACADEMIC_CALENDAR", [cal11], good).answer("متى تبدأ الدراسة للفصل الدراسي الثاني؟", "2026-10-14")
-    assert r["_trace"]["mode"] == "generated" and r["answer"].startswith("تبدأ الدراسة")
+    faq12 = {"chunk_id": "FAQ-NAUSS#012", "source_id": "FAQ-NAUSS", "page": 1, "section": "ما التقدير المطلوب للقبول؟",
+             "text": "يجب أن يكون المتقدم حاصلاً على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن جيد "
+                     "لبرامج الماجستير وبرامج الدبلوم العالي، وتقدير جيد جدا لبرنامج الدكتوراة."}
+    good = {"answer": "بناءً على المعلومات المقدمة، يجب أن يكون المتقدم حاصلاً على البكالوريوس بتقدير لا يقل عن جيد لبرامج الماجستير.",
+            "used_evidence": ["E1"]}
+    r = assistant("ADMISSION_REQUIREMENTS", [faq12], good).answer("ما التقدير المطلوب للقبول في الماجستير؟", "2026-10-14")
+    assert r["_trace"]["mode"] == "generated" and r["answer"].startswith("يجب أن يكون")

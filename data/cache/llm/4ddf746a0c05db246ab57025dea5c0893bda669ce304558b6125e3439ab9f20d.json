@@ -1,0 +1,22 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: كم فصل يمكنني تأجيله خلال الدراسة؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 18, تأجيل الدراسة):\n. يدرس الطالب مقررات الفصل الذي أّجّ ل فيه الدراسة في الفصل الذي يليه 3 بشرط أن تكون مطروحة من قبل القسم، وإذا لم تطرح تلك المقررات في الفصل التالي تؤجل دراسته للفصل الذي يتم فيه طرح مقررات الفصل الذي تم تأجيله. . لا تحتسب مدة التأجيل ضمن الحد الأقصى للحصول على الدرجة العلمية*.4 الاعتذار عن الدراسة يجوز للطالب الاعتذار عن مواصلة دراسته لمدة فصل دراسي واحد أو فصلين دراسيين متتاليين خلال المرحلة الدراسية وفقًاً لما يلي: ) كالتالي: تكون الرسوم الدراسية للفرصة الإضافية أو الاستثنائية خمسة آلاف4( *تفسر الفقرة الرابعة ) ريال عن كل فصل دراسي إضافي يمنح للطالب في حال تجاوزه المددة المحددة للبرنامج وفق الخطة 5000( .الدراسية المعتمدة 19 . يتقدم بطلب اعتذار عن مواصلة الدراسة إلى رئيس القسم المعني قبل ب\n\n[E2] (page 17, .على الدرجة العلمية):\n. لا تدخل المقررات التكميلية في احتساب المعدل التراكمي.3 الفرص الإضافية إذا لم يحصل الطالب على الدرجة العلمية بسبب تجاوزه المدة المحددة للبرنامج وفق الخطة الدراسية المعتمدة لكل برنامج: . يجوز منح الطالب فرصة إضافية بحد أقصى فصل دراسي واحد بناًءً على 1 توصية مجلس القسم وموافقة مجلس الكلية لتمكينه من استكمال متطلبات الحصول على الدرجة العلمية. . يجوز لمجلس عمادة القبول والتسجيل منح الطالب فرصة استثنائية 2 18 لتمكينه من استكمال متطلبات الحصول على الدرجة العلمية بحد أقصى فصلان دراسيان، وذلك بناًءً على توصية مجلسي القسم والكلية. . تحتسب مدة الفرص الإضافية والاستثنائية ضمن الحد الأقصى للحصول 3 .على الدرجة العلمية . يلتزم الطالب أو جهة ابتعاثه بسداد الرسوم الدراسية الإضافية المترتبة على 4 .فترة منح \n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "يمكن الطالب تأجيل دراسته للفصل الذي يتم فيه طرح مقررات الفصل الذي تم تأجيله، ولكن يجب أن تكون هذه المقررات مطروحة من قبل القسم، وإذا لم تطرح في الفصل التالي، فيؤجل دراسته للفصل الذي يتم فيه طرح هذه المقررات.",
+    "conditions": [
+      "لا تحتسب مدة التأجيل ضمن الحد الأقصى للحصول على الدرجة العلمية",
+      "يتم منح الطالب فرصة إضافية بحد أقصى فصل دراسي واحد بناًءً على توصية مجلس القسم وموافقة مجلس الكلية لتمكينه من استكمال متطلبات الحصول على الدرجة العلمية",
+      "يمكن لمجلس عمادة القبول والتسجيل منح الطالب فرصة استثنائية بحد أقصى فصلان دراسيان، وذلك بناًءً على توصية مجلسي القسم والكلية"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 41.51
+}

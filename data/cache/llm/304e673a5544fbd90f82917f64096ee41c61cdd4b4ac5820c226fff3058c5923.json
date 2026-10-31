@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in English. Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n- The academic calendar lists “بداية الدراسة بعد إجازة عيد الأضحى” on Sunday 2027-05-23 (1448-12-17 AH).\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2027-04-01\nQuestion: When does study resume after the Eid al-Adha holiday?\n\nRule results (already stated above):\n- CAL-EVENT: result = listed, date 2027-05-23 (1448-12-17 AH), term not term-specific; details = {\"event\": \"بداية الدراسة بعد إجازة عيد الأضحى\", \"date\": \"2027-05-23\", \"date_end\": \"2027-05-23\", \"hijri\": \"1448-12-17\", \"hijri_end\": \"1448-12-17\", \"day\": \"الأحد\", \"calendar\": \"CALENDAR-1448\", \"calendar_row\": 17}\n\nEvidence:\n[E1] (page 1, row 17):\nبداية الدراسة بعد إجازة عيد الأضحى: الأحد 2027-05-23م (1448-12-17هـ)\n\n[E2] (page 1, row 15):\nبداية الدراسة بعد إجازة عيد الفطر: الأحد 2027-03-14م (1448-10-06هـ)\n\n[E3] (page 1, row 1):\nعودة أعضاء هيئة التدريس: الأربعاء 2026-08-12م (1448-02-29هـ)\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "The academic calendar indicates that study will resume on the following Monday, May 24, 2027 (Hijri date: December 18, 1448).",
+    "conditions": [
+      "بداية الدراسة بعد إجازة عيد الأضحى: الأحد 2027-05-23م (1448-12-17هـ)"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 23.01
+}

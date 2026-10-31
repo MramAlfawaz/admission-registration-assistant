@@ -51,7 +51,7 @@ def _rules_text(rule_outputs):
     lines = []
     for r in rule_outputs:
         d = r["details"]
-        extra = f", date {d['date']} ({d['hijri']} AH), term {d['term_id']}" if "date" in d else ""
+        extra = f", date {d['date']} ({d['hijri']} AH), term {d.get('term_id') or 'not term-specific'}" if "date" in d else ""
         lines.append(f"- {r['rule_id']}: result = {r['output']}{extra}; details = {json.dumps(d, ensure_ascii=False)}")
     return "\n".join(lines)
 

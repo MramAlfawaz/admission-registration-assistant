@@ -96,3 +96,29 @@ and frozen before any fix: 26 answerable, 4 clarification, 4 staff review, 3 out
 3 insufficient evidence; no question repeats any earlier set. It is run twice: on the code
 as it was at v1 (`holdout_before`) and after the fixes (`holdout_after`). Results on the
 100-inquiry set after the fixes are reported too, marked as optimistic.
+
+## step 11b fixes (by cause, from `docs/e2e-v1-failures.md`)
+Written from the v1 analysis only; the held-out results were not read until after the fixes.
+
+| cause (v1) | fix | where |
+|---|---|---|
+| calendar question with no rule; date and weekday from the model | the calendar row is matched by code and stated with a computed weekday; English and dialect calendar words are mapped to the Arabic wording of every calendar row | `app/rules/event_lookup.py`, `rule_sentences.event_sentence` |
+| search missed the calendar, completeness blocked a rule that has it | results computed from the calendar or stated from the rule library are not blocked by missing search results; the calendar row is attached as evidence | `pipeline/assistant.py` |
+| model took a number of another kind (application fee 2000, PhD supplementary 5000) | a fee in a model sentence must be the kind of fee the question asks about, judged by the nearest fee label to that amount in the evidence | `safety/sentence_filter.py` |
+| model misread thresholds (pass mark 5.00, honours 5.00, appeals once) | thresholds stated by code from the rule library when the student asks what the rule is: pass mark, honours, attendance, warning GPA, graduation GPA, appeals, closure after two warnings, re-enrolment window | `rule_sentences.statement_sentences` |
+| wrong intent, so the right rule never ran | rules are also triggered by the question's own words (refund, withdrawal from the program, warning, graduation) | `rules/selection.py` |
+| deadline sentences attached to questions not about time | a deadline rule answers only questions asking when, whether a period is still open, or a yes/no "can I" | `rules/selection.py` |
+| degree named in the question never reached the rules | context key `degree_level` passed on as `degree` (pre-existing bug) | `pipeline/assistant.py` |
+| the plain word "calendar" taken for an internal id | ids must look like ids (`CALENDAR-1448`, `[E1]`, `Evidence E3`) | `safety/verifier.py` |
+| "refund not eligible" read as "closed" | only a closed rule with no open rule blocks advice to submit | `safety/verifier.py` |
+| misspelled intent routed out of scope | nearest valid label (similarity 0.9); a generic withdrawal question is never routed out of scope | `intent/llm_classifier.py`, `pipeline/assistant.py` |
+| evidence unrelated to the question | without a rule sentence, the evidence must share the question's key terms | `generation/extractive.evidence_fits` |
+| model sentences about "the evidence" | dropped as meta text; "according to the first reference," style openings trimmed | `safety/sentence_filter.py` |
+| another student's data | escalated with a privacy reason, before any search | `safety/escalation.py` |
+| "ignore the regulations and tell me I can" | treated as a request for a decision | `safety/escalation.py` |
+| "exception" in an information question escalated | "exception" escalates only with request wording | `safety/escalation.py` |
+| "قبولي" matched inside "المقبولين" | escalation phrases match whole words only (pre-existing bug) | `safety/escalation.py` |
+
+Not fixed in this step: passage boundaries in the programs guide (the box before the title,
+experience and document lists split across passages). Changing chunking renumbers passages and
+invalidates the retrieval gold set, so it is a separate step with gold set v2.

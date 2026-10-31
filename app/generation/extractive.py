@@ -7,7 +7,8 @@ MIN_QUOTE_TOKENS = 6
 # Words that appear in almost every passage; sharing only these does not make a quote relevant.
 GENERIC = {"فصل", "دراسي", "دراسيه", "دراسه", "طالب", "طلاب", "طلبه", "جامعه", "برنامج", "برامج", "مقرر",
            "مقررات", "موعد", "اخر", "يمكن", "يمكنني", "ابغي", "اريد", "شروط", "مطلوب", "مطلوبه", "يوجد",
-           "هناك", "عام", "اول", "ثاني", "طلب", "يجب", "ايش", "كيف"}
+           "هناك", "عام", "اول", "ثاني", "طلب", "يجب", "ايش", "كيف", "لائحه", "لوائح", "نظام", "انظمه",
+           "عندكم", "ممكن", "لازم", "عشان", "قديش", "تبغي", "ابي", "اقدر", "يمكنني", "جامعتكم"}
 
 
 def split_sentences(text):
@@ -95,3 +96,37 @@ def select_sentences(question, evidence, scorer=overlap_scorer, k=2, min_score=1
     scores = scorer(question, [s for s, _ in pairs])
     ranked = sorted(zip(scores, range(len(pairs))), key=lambda x: (-x[0], x[1]))
     return [pairs[i] for score, i in ranked[:k] if score > min_score]
+
+
+def evidence_fits(question, texts, glossary=()):
+    """True when the evidence shares the question's key terms; False means do not answer from it.
+
+    Real failures (end-to-end v1): a flight-ticket question answered with supplementary-semester
+    rules, an absent regulation answered with unrelated quotes. A question naming a glossary term
+    needs a passage with that term. An Arabic question needs at least two of its key words (or
+    its only one) in the evidence and a third of them overall. An English question with no
+    glossary term cannot be compared word by word with Arabic text and is let through.
+    """
+    if not texts:
+        return False
+    ev_tokens = _with_bare(tokenize(" ".join(texts)))
+    q_tokens = tokenize(question)
+    lowered = question.lower()
+    terms = [tokenize(ar) for ar, en in glossary
+             if (tokenize(ar) and _has(q_tokens, tokenize(ar))) or en.lower() in lowered]
+    if terms:
+        return any(_has(ev_tokens, term) for term in terms)
+    words = sorted({_bare(t) for t in q_tokens if t not in GENERIC and not t.isascii() and len(t) > 2})
+    if not words:
+        return True
+    shared = sum(1 for w in words if _has(ev_tokens, w))
+    return shared >= 1 and shared / len(words) >= 1 / 3
+
+
+def _bare(token):
+    """Drop a one-letter proclitic (و ب ل ف ك) so بتقدير matches تقدير."""
+    return token[1:] if len(token) >= 5 and token[0] in "وبلفك" else token
+
+
+def _with_bare(tokens):
+    return set(tokens) | {_bare(t) for t in tokens}

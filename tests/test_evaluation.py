@@ -60,8 +60,12 @@ def test_unrelated_quotes_are_never_shown():
     guide = {"chunk_id": "PROGRAMS-GUIDE-1448#044", "source_id": "PROGRAMS-GUIDE-1448", "page": 72, "section": "x",
              "text": "وضع الحلول الاستباقية وفق المنهجية العلمية الحديثة للوقاية من المخدرات في البرامج الأكاديمية."}
     a = assistant("GRADING_AND_STANDING", [guide], {"answer": "The student gets a supplementary semester.", "used_evidence": ["E1"]})
+    r = a.answer("What are the rules for drug-prevention projects?", "2026-10-14")
+    assert r["status"] == "INSUFFICIENT_EVIDENCE" and "supplementary" not in r["answer"]
+    # with the closure rule in the library, the original question is answered by code, not by the model
     r = a.answer("What happens after two consecutive academic warnings?", "2026-10-14")
-    assert r["status"] == "INSUFFICIENT_EVIDENCE"
+    assert r["answer"].startswith("A student's enrolment is closed after two consecutive academic warnings")
+    assert "supplementary" not in r["answer"]
 
 
 def test_relevant_quotes_still_shown():

@@ -13,7 +13,10 @@ ALLOWED = re.compile(r"[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿A-Za-z0-9\s"
                      r".,;:!?%()\[\]{}\-–—/'\"«»“”‘’+*&@#_=<>|~^$ ‌‏‎]")
 WEEKDAYS_AR = ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعه", "السبت"]
 WEEKDAYS_EN = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
-LEAKED_ID = re.compile(r"(calendar|handbook|programs?-guide|faq-nauss|admission-page)[-_ ]?\d*|\[E\d+\]", re.I)
+# Document ids such as CALENDAR-1448 or evidence labels such as [E1], (E2), "Evidence E3"; the plain
+# words "calendar" or "handbook" are ordinary English (v1: E014, E030 dropped for saying "calendar").
+LEAKED_ID = re.compile(r"\b(?:CALENDAR|HANDBOOK|PROGRAMS-GUIDE|FAQ-NAUSS|ADMISSION-PAGE)[-_]\w+|"
+                       r"\b(?:calendar|handbook|programs-guide|faq-nauss|admission-page)-\d+|\[E\d+\]|\(E\d+\)|\bE\d+\b")
 NO_INFO = ["لا يوجد في النص", "لا توجد معلومات", "لا يمكن تحديد", "غير مذكور", "لا تتوفر معلومات", "لا تذكر",
            "no information", "not mentioned", "cannot determine", "does not specify", "not specified",
            "does not mention", "no mention"]
@@ -47,7 +50,7 @@ def contradicts_rules(text, rule_outputs):
     planted passage can reopen a closed deadline.
     """
     norm = normalize_for_search(text)
-    closed = any(r["output"] in ("closed", "refund_not_eligible") for r in rule_outputs)
+    closed = any(r["output"] == "closed" for r in rule_outputs)
     is_open = any(r["output"] == "open" for r in rule_outputs)
     issues = []
     if closed and not is_open and any(p in norm for p in SAYS_OPEN):
@@ -101,7 +104,8 @@ def verify_text(text, language, evidence_texts, rule_outputs, question=""):
         issues.append("claims there is no information although evidence was found")
     if any(p in norm for p in DECISION):
         issues.append("states or implies an official decision")
-    closed = any(r["output"] in ("closed", "refund_not_eligible") for r in rule_outputs)
+    # "Refund not eligible" does not close a window: program withdrawal can still be open (v1: E051).
+    closed = any(r["output"] == "closed" for r in rule_outputs) and not any(r["output"] == "open" for r in rule_outputs)
     if closed and any(p in norm for p in SUBMIT):
         issues.append("advises acting although the period has closed")
     issues += contradicts_rules(text, rule_outputs)

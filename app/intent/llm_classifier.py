@@ -1,4 +1,5 @@
 """Proposed intent classifier: the local model with a structured JSON prompt."""
+import difflib
 import logging
 
 from app.intent.taxonomy import INTENTS
@@ -32,6 +33,11 @@ class LLMIntentClassifier:
             return "OUT_OF_SCOPE"
         intent = str(output.get("intent", "")).strip().upper()
         if intent not in INTENTS:
+            # A misspelled label (v1: SEMMESTER_WITHDRAWAL) is mapped to the nearest valid one.
+            close = difflib.get_close_matches(intent, list(INTENTS), n=1, cutoff=0.9)
+            if close:
+                log.warning("model returned %r, read as %s", intent, close[0])
+                return close[0]
             log.warning("model returned unknown intent %r, routing as OUT_OF_SCOPE", intent)
             return "OUT_OF_SCOPE"
         return intent
