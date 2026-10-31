@@ -507,6 +507,67 @@ def evaluate_adversarial(cfg, args):
     log.info("adversarial passed %d/%d -> %s", sum(r["passed"] for r in rows), len(rows), out)
 
 
+def evaluate_no_retrieval(cfg, args):
+    """Experiment 4: the same local model with no retrieval, compared with the grounded assistant."""
+    from app.models.llm_client import LLMClient
+    from app.pipeline.baseline import (NoRetrievalModel, condition_b_summary, in_force_passages,
+                                       score_condition_a, summarize_condition)
+    from app.pipeline.evaluate import load_jsonl
+    from app.retrieval.factory import load_chunks
+
+    items = load_jsonl(Path(cfg.EVAL_DIR) / "end_to_end" / f"{args.set}.jsonl")[: args.limit or None]
+    model = NoRetrievalModel(LLMClient(cfg), cfg.PROMPTS_DIR)
+    chunks, sources = load_chunks(cfg), load_sources(cfg)
+    rows = []
+    for i, item in enumerate(items, 1):
+        start = time.perf_counter()
+        text = model.answer(item["question"], item["language"], item["as_of"])
+        row = score_condition_a(item, text, in_force_passages(chunks, sources, item["as_of"]))
+        row["seconds"] = round(time.perf_counter() - start, 2)
+        rows.append(row)
+        log.info("%3d/%d %s %-22s %s %5.1fs", i, len(items), item["id"], item["expected_status"],
+                 "refused " if row["refused"] else ("correct " if row["correct"] else "WRONG   "), row["seconds"])
+    a = summarize_condition(rows)
+    out = {"condition_a": a, "rows": rows}
+    b_path = Path(cfg.EVAL_DIR) / "results" / f"{args.compare}.json"
+    lines = [f"# Experiment 4: no retrieval (A) against the grounded assistant (B)", "",
+             f"Set `{args.set}` ({len(rows)} inquiries). A: `prompts/no_retrieval_v1.md`, same model, no evidence, "
+             "no rules, no checks; never shown to a student.", ""]
+    keys = [("correct", "fully correct (all inquiries)"), ("answerable_correct", "answerable inquiries answered correctly"),
+            ("refused_when_it_should", "non-answer inquiries refused or escalated"), ("wrong_answers_shown", "wrong answers shown"),
+            ("grounded_claim_rate", "grounded claim rate (judged)"), ("unsupported_claim_rate", "unsupported claim rate (judged)"),
+            ("claims_unverified", "English claims not judged")]
+    if b_path.exists():
+        import json as _json
+        stored = _json.loads(b_path.read_text(encoding="utf-8"))["rows"]
+        wanted = {it["id"] for it in items}
+        b = condition_b_summary([r for r in stored if r["id"] in wanted])
+        out["condition_b"] = {"file": b_path.name, **b}
+        lines += [f"B: `{b_path.name}`.", "", "| metric | A: no retrieval | B: grounded assistant |", "|---|---|---|"]
+        lines += [f"| {label} | {a['overall'][k]} | {b['overall'][k]} |" for k, label in keys]
+        for lang in ("ar", "en"):
+            lines += ["", f"**{lang}:** A correct {a[lang]['correct']}, wrong shown {a[lang]['wrong_answers_shown']}; "
+                          f"B correct {b[lang]['correct']}, wrong shown {b[lang]['wrong_answers_shown']}"]
+    else:
+        lines += ["| metric | A: no retrieval |", "|---|---|"] + [f"| {label} | {a['overall'][k]} |" for k, label in keys]
+    lines += ["", "## sample of condition A answers", ""]
+    lines += [f"- **{r['id']}** ({r['expected_status']}) {r['question']} → {r['answer'][:200]}" for r in rows[:15]]
+    res = Path(cfg.EVAL_DIR) / "results"
+    res.mkdir(parents=True, exist_ok=True)
+    (res / f"{args.out}.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    (res / f"{args.out}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    o = a["overall"]
+    log.info("A (no retrieval): correct %s | refused when it should %s | wrong answers shown %s | grounded %s | unsupported %s",
+             o["correct"], o["refused_when_it_should"], o["wrong_answers_shown"], o["grounded_claim_rate"],
+             o["unsupported_claim_rate"])
+    if "condition_b" in out:
+        ob = out["condition_b"]["overall"]
+        log.info("B (grounded):     correct %s | refused when it should %s | wrong answers shown %s | grounded %s | unsupported %s",
+                 ob["correct"], ob["refused_when_it_should"], ob["wrong_answers_shown"], ob["grounded_claim_rate"],
+                 ob["unsupported_claim_rate"])
+    log.info("-> %s.json, %s.md", args.out, args.out)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -550,6 +611,11 @@ def build_parser():
                      help="inquiries: the 100-inquiry set; holdout: 40 inquiries frozen before the step 11b fixes")
     e2e.add_argument("--limit", type=int, default=0, help="run only the first N inquiries (smoke run)")
     e2e.add_argument("--no-repeat", action="store_true", help="skip the reproducibility re-run")
+    nr = sub.add_parser("evaluate-no-retrieval", help="Experiment 4: the same model with no retrieval")
+    nr.add_argument("--set", default="inquiries", choices=["inquiries", "holdout"])
+    nr.add_argument("--out", default="exp4_no_retrieval")
+    nr.add_argument("--compare", default="e2e_v2", help="evaluate-e2e results to compare with (condition B)")
+    nr.add_argument("--limit", type=int, default=0)
     adv = sub.add_parser("evaluate-adversarial", help="run the adversarial cases")
     adv.add_argument("--out", default="adversarial_v1", help="results name in evaluation/results/")
     add = sub.add_parser("add-source", help="register a new document version")
@@ -575,7 +641,8 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "evaluate-conflicts": evaluate_conflicts, "conflict-report": conflict_report,
             "rule": run_rule, "rules-doc": rules_doc,
             "ask": ask, "generate-sample": generate_sample,
-            "evaluate-e2e": evaluate_e2e, "evaluate-adversarial": evaluate_adversarial}
+            "evaluate-e2e": evaluate_e2e, "evaluate-adversarial": evaluate_adversarial,
+            "evaluate-no-retrieval": evaluate_no_retrieval}
 
 
 def main():

@@ -122,15 +122,28 @@ def run_set(assistant, items, chunk_text, repeat=True):
     """
     for item in items:
         start = time.perf_counter()
-        response = assistant.answer(item["question"], item["as_of"], clarification=item.get("clarify"))
+        try:
+            response = assistant.answer(item["question"], item["as_of"], clarification=item.get("clarify"))
+        except Exception as e:  # a failed run is recorded as an error and scored as incorrect; the run goes on
+            response = error_response(item, e)
         seconds = time.perf_counter() - start
         row = {"item": item, "response": response, "seconds": round(seconds, 2)}
         if repeat:
             log_path, assistant.escalation_log = assistant.escalation_log, None  # do not log the same case twice
-            again = assistant.answer(item["question"], item["as_of"], clarification=item.get("clarify"))
+            try:
+                again = assistant.answer(item["question"], item["as_of"], clarification=item.get("clarify"))
+            except Exception as e:
+                again = error_response(item, e)
             assistant.escalation_log = log_path
             row["reproducible"] = _public(again) == _public(response)
         yield row
+
+
+def error_response(item, error):
+    """Stand-in response for an inquiry the pipeline could not answer (for example a model timeout)."""
+    return {"status": "ERROR", "intent": None, "language": item["language"], "as_of": item["as_of"], "answer": "",
+            "conditions": [], "required_action": "", "rule_outputs": [], "sources": [], "escalation": None,
+            "_trace": {"mode": "error", "error": f"{type(error).__name__}: {str(error)[:200]}"}}
 
 
 def _public(response):

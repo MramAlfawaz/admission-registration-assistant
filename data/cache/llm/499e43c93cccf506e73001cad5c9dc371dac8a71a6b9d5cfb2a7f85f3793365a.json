@@ -1,0 +1,14 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You answer questions from students about admission and registration at Naif Arab University\nfor Security Sciences (NAUSS) in Riyadh, Saudi Arabia. Write ONLY in English.\nAnswer in 1 to 3 short sentences.\n\nDate the question is about: 2027-01-10\nQuestion: What was the last day to postpone the second semester?\n\nAnswer with JSON only:\n{\"answer\": \"your answer\"}",
+  "response": {
+    "answer": "The last day to postpone the second semester for NAUSS in Riyadh, Saudi Arabia is not provided in the current information and would need to be checked on the official NAUSS website or contacting their admissions office for the 2027-01-10 date."
+  },
+  "seconds": 6.7
+}

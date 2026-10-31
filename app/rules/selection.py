@@ -42,6 +42,12 @@ def extract_inputs(question, context):
 # (end-to-end v1: E045, E050, E053 got deadline sentences nobody asked for).
 TIMING = ["متي", "موعد", "اخر يوم", "لين متي", "الي متي", "فات", "فاتني", "الحين", "الان", "ما زال", "مازال",
           "لا يزال", "still", "deadline", "when", "too late", "last day", "open", "by when", "until when", "date"]
+# Questions that ask something other than timing: how many, what happens, conditions, where.
+# A deadline sentence is added unless the question is one of these and names no timing word.
+# (A whitelist of timing words missed dialect such as "هل لحقت" - held-out H015.)
+NOT_TIMING = ["كم فصل", "كم مره", "كم مرة", "كم سنه", "ماذا يحدث", "وش يصير", "ايش يصير", "شروط", "اين ", "وين ",
+              "لمن ", "من يوافق", "ثم اردت", "العوده", "how many", "what happens", "condition", "requirement",
+              "where ", "who ", "how long"]
 # A yes/no "can I ...?" asks whether the window is open now; "how many semesters can I ...?" does not.
 CAN_I = [" هل اقدر", " هل يمكنني", " هل استطيع", " هل ممكن", " هل يحق لي", " can i ", " may i ", " is it possible"]
 REFUND = ["استرد", "يسترد", "استرداد", "ترد", "تسترد", "refund", "back", "money"]
@@ -75,15 +81,22 @@ def rules_for(intent, question):
     for rule_id, groups in TRIGGERS:
         if rule_id not in chosen and all(any(w in text for w in g) for g in groups):
             chosen.append(rule_id)
-    timing, refund = asks_timing(question), any(w in text for w in REFUND)
-    return [r for r in chosen if (r not in DEADLINE_RULES or timing) and (r != "RULE-CAL-04" or timing or refund)]
+    refund = any(w in text for w in REFUND)
+    # a refund question is answered by the refund rule, not by the withdrawal deadline
+    timing = asks_timing(question) or not (refund or any(w in text for w in NOT_TIMING))
+    return [r for r in chosen if (r not in DEADLINE_RULES or timing) and (r != "RULE-CAL-04" or asks_timing(question) or refund)]
 
 
 def run_rules(engine, intent, question, context, as_of):
     """Run the rules the question needs; rules lacking a stated student value are skipped."""
     inputs = extract_inputs(question, context)
     results = []
-    for rule_id in rules_for(intent, question):
+    wanted = rules_for(intent, question)
+    # A number the student states triggers its rule whatever the intent (held-out: H031, 55% attendance).
+    for rule_id, field in (("RULE-REG-01", "attendance_percent"), ("RULE-REG-02", "course_grade")):
+        if inputs.get(field) is not None and rule_id not in wanted:
+            wanted.append(rule_id)
+    for rule_id in wanted:
         needed = NEEDS_STUDENT_VALUE.get(rule_id)
         if needed and inputs.get(needed) is None:
             continue

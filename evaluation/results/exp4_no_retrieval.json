@@ -1,0 +1,2084 @@
+{
+  "condition_a": {
+    "overall": {
+      "n": 100,
+      "correct": 0.14,
+      "answerable_correct": 0.086,
+      "refused_when_it_should": 0.267,
+      "wrong_answers_shown": 79,
+      "grounded_claim_rate": 0.153,
+      "unsupported_claim_rate": 0.847,
+      "claims_unverified": 47
+    },
+    "ar": {
+      "n": 60,
+      "correct": 0.133,
+      "answerable_correct": 0.093,
+      "refused_when_it_should": 0.235,
+      "wrong_answers_shown": 47,
+      "grounded_claim_rate": 0.164,
+      "unsupported_claim_rate": 0.836,
+      "claims_unverified": 0
+    },
+    "en": {
+      "n": 40,
+      "correct": 0.15,
+      "answerable_correct": 0.074,
+      "refused_when_it_should": 0.308,
+      "wrong_answers_shown": 32,
+      "grounded_claim_rate": 0.0,
+      "unsupported_claim_rate": 1.0,
+      "claims_unverified": 47
+    }
+  },
+  "rows": [
+    {
+      "id": "E001",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "متى تبدأ الاختبارات النهائية للفصل الأول؟",
+      "answer": "لا يمكنني تحديد تاريخ محدد لبدء الاختبارات النهائية للفصل الأول من العام الدراسي 2026-10-14، حيث أن هذا يتطلب معرفة مواعيد الاختبارات النهائية المعلنة رسمياً من قبل NAUSS.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يمكنني تحديد تاريخ محدد لبدء الاختبارات النهائية للفصل الأول من العام الدراسي 2026-10-14، حيث أن هذا يتطلب معرفة مواعيد الاختبارات النهائية المعلنة رسمياً من قبل NAUSS.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#027"
+        }
+      ],
+      "seconds": 8.55
+    },
+    {
+      "id": "E002",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "متى تبدأ إجازة عيد الفطر هذا العام الدراسي؟",
+      "answer": "عذرًا، لا يمكنني تحديد التاريخ الدقيق لإجازة عيد الفطر لهذا العام الدراسي 2026-10-14، حيث أنه لم يتم الإعلان عنه رسمياً حتى الآن.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "عذرًا، لا يمكنني تحديد التاريخ الدقيق لإجازة عيد الفطر لهذا العام الدراسي 2026-10-14، حيث أنه لم يتم الإعلان عنه رسمياً حتى الآن.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#027"
+        }
+      ],
+      "seconds": 5.57
+    },
+    {
+      "id": "E003",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "متى تبدأ إجازة نهاية العام الدراسي؟",
+      "answer": "لا يمكن تحديد تاريخ بدء إجازة نهاية العام الدراسي في 2027، حيث أن هذا التاريخ غير موجود. يرجى الرجوع إلى الموقع الرسمي للجامعة أو التواصل مع مكتب القبول للحصول على المعلومات الأكثر دقة.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 6.46
+    },
+    {
+      "id": "E004",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل أقدر أأجل الترم الثاني الحين؟",
+      "answer": "عذراً، لا يمكن تأجيل ترم الثانوي في الوقت الحالي.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "عذراً، لا يمكن تأجيل ترم الثانوي في الوقت الحالي.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#015"
+        }
+      ],
+      "seconds": 3.33
+    },
+    {
+      "id": "E005",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل ما زال بإمكاني تأجيل الفصل الدراسي الأول؟",
+      "answer": "نعم، ما زال بإمكانك تأجيل الفصل الدراسي الأول، ولكن يجب عليك الاتصال بالجامعة للحصول على التفاصيل المحددة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "نعم، ما زال بإمكانك تأجيل الفصل الدراسي الأول، ولكن يجب عليك الاتصال بالجامعة للحصول على التفاصيل المحددة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#009"
+        }
+      ],
+      "seconds": 5.13
+    },
+    {
+      "id": "E006",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "إلى متى أقدر أعتذر عن الترم الثاني؟",
+      "answer": "أعتذر عن الترم الثاني حتى 31/08/2027",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "أعتذر عن الترم الثاني حتى 31/08/2027",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#011"
+        }
+      ],
+      "seconds": 3.48
+    },
+    {
+      "id": "E007",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "انطوى قيدي، إلى متى أقدر أقدم على إعادة القيد للترم الثاني؟",
+      "answer": "أقدر أقدم على إعادة القيد للترم الثاني حتى نهاية فترة الدراسة في الترم الأول من العام الدراسي نفسه.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "أقدر أقدم على إعادة القيد للترم الثاني حتى نهاية فترة الدراسة في الترم الأول من العام الدراسي نفسه.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#009"
+        }
+      ],
+      "seconds": 4.26
+    },
+    {
+      "id": "E008",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "متى يبدأ الفصل الدراسي الأول؟",
+      "answer": "في 2026-08-01 لا يوجد فصل دراسي في NAUSS في هذا التاريخ.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "في 2026-08-01 لا يوجد فصل دراسي في NAUSS في هذا التاريخ.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#011"
+        }
+      ],
+      "seconds": 4.01
+    },
+    {
+      "id": "E009",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "On which day of the week do first-semester final exams begin?",
+      "answer": "The specific day of the week for the first-semester final exams beginning at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia in 2026 is not provided in the given information and would need to be confirmed from the official university calendar for the 2026-2027 academic year.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The specific day of the week for the first-semester final exams beginning at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia in 2026 is not provided in the given information and would need to be confirmed from the official university calendar for the 2026-2027 academic year.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#007"
+        }
+      ],
+      "seconds": 8.82
+    },
+    {
+      "id": "E010",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "When does the mid-year break begin?",
+      "answer": "The mid-year break schedule for Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia, varies each academic year and is typically announced by the university closer to the start of the break. Please check the official NAUSS website or contact the university directly for the most accurate and up-to-date information for the 2026-2027 academic year.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The mid-year break schedule for Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia, varies each academic year and is typically announced by the university closer to the start of the break.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        },
+        {
+          "text": "Please check the official NAUSS website or contact the university directly for the most accurate and up-to-date information for the 2026-2027 academic year.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#007"
+        }
+      ],
+      "seconds": 8.37
+    },
+    {
+      "id": "E011",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "What was the last day to postpone the second semester?",
+      "answer": "The last day to postpone the second semester for NAUSS in Riyadh, Saudi Arabia is not provided in the current information and would need to be checked on the official NAUSS website or contacting their admissions office for the 2027-01-10 date.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The last day to postpone the second semester for NAUSS in Riyadh, Saudi Arabia is not provided in the current information and would need to be checked on the official NAUSS website or contacting their admissions office for the 2027-01-10 date.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#011"
+        }
+      ],
+      "seconds": 6.74
+    },
+    {
+      "id": "E012",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Is the first-semester withdrawal period still open?",
+      "answer": "The withdrawal period for the first semester typically opens in early October and closes in mid-October. Please check the NAUSS website for the most accurate and up-to-date information for the year 2026.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The withdrawal period for the first semester typically opens in early October and closes in mid-October.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        },
+        {
+          "text": "Please check the NAUSS website for the most accurate and up-to-date information for the year 2026.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 5.52
+    },
+    {
+      "id": "E013",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Is it too late to ask for re-enrolment in the first semester?",
+      "answer": "It is generally not advisable to ask for re-enrollment in the first semester as the university typically has a set application period for each semester. You should check the NAUSS admission and registration guidelines for the most up-to-date information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "It is generally not advisable to ask for re-enrollment in the first semester as the university typically has a set application period for each semester.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        },
+        {
+          "text": "You should check the NAUSS admission and registration guidelines for the most up-to-date information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.97
+    },
+    {
+      "id": "E014",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "When does study resume after the Eid al-Adha holiday?",
+      "answer": "The exact date for the resumption of study after Eid al-Adha varies each year, but typically it is around the second week of April. Please check the NAUSS website or contact their admissions office for the most accurate and up-to-date information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The exact date for the resumption of study after Eid al-Adha varies each year, but typically it is around the second week of April.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        },
+        {
+          "text": "Please check the NAUSS website or contact their admissions office for the most accurate and up-to-date information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 6.26
+    },
+    {
+      "id": "E015",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ما التقدير المطلوب في البكالوريوس للتقديم على الدبلوم العالي؟",
+      "answer": "لا يوجد تقدير مطلوب للبكالوريوس للتقديم على الدبلوم العالي في NAUSS، حيث يتم النظر في عدة عوامل أخرى مثل المؤهلات السابقة والخبرة العملية.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يوجد تقدير مطلوب للبكالوريوس للتقديم على الدبلوم العالي في NAUSS، حيث يتم النظر في عدة عوامل أخرى مثل المؤهلات السابقة والخبرة العملية.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.93
+    },
+    {
+      "id": "E016",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل يشترط موافقة جهة العمل للقبول في الجامعة؟",
+      "answer": "لا، لا يشترط موافقة جهة العمل للقبول في الجامعة.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [
+        {
+          "text": "لا، لا يشترط موافقة جهة العمل للقبول في الجامعة.",
+          "label": "grounded",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.13
+    },
+    {
+      "id": "E017",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ما شروط القبول في الدكتوراه في القانون الجنائي؟",
+      "answer": "يتم النظر في المتقدمين للدكتوراه في القانون الجنائي بناءً على درجاتهم الجامعية وكفاءتهم الأكاديمية وخبراتهم السابقة في مجال القانون الجنائي.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يتم النظر في المتقدمين للدكتوراه في القانون الجنائي بناءً على درجاتهم الجامعية وكفاءتهم الأكاديمية وخبراتهم السابقة في مجال القانون الجنائي.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#006"
+        }
+      ],
+      "seconds": 5.53
+    },
+    {
+      "id": "E018",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم سنة خبرة عملية يطلبها ماجستير الأمن الوطني؟",
+      "answer": "يطلب ماجستير الأمن الوطني سنة خبرة عملية واحدة من الأقلية المعترف بها في المملكة العربية السعودية.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يطلب ماجستير الأمن الوطني سنة خبرة عملية واحدة من الأقلية المعترف بها في المملكة العربية السعودية.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#004"
+        }
+      ],
+      "seconds": 4.02
+    },
+    {
+      "id": "E019",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Is work experience required for the Master of Law Enforcement?",
+      "answer": "Work experience is not a requirement for the Master of Law Enforcement program at Naif Arab University for Security Sciences (NAUSS).",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "Work experience is not a requirement for the Master of Law Enforcement program at Naif Arab University for Security Sciences (NAUSS).",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.49
+    },
+    {
+      "id": "E020",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل يشترط ماجستير الجرائم السيبرانية إجادة اللغة الإنجليزية؟",
+      "answer": "لا، لا يشترط إجادة اللغة الإنجليزية للحصول على درجة الماجستير في الجرائم السيبرانية في جامعة نايف العربية للعلوم الأمنية.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [
+        {
+          "text": "لا، لا يشترط إجادة اللغة الإنجليزية للحصول على درجة الماجستير في الجرائم السيبرانية في جامعة نايف العربية للعلوم الأمنية.",
+          "label": "grounded",
+          "best_passage": "PROGRAMS-GUIDE-1448#020"
+        }
+      ],
+      "seconds": 5.86
+    },
+    {
+      "id": "E021",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Does the security AI master's require a programming background?",
+      "answer": "The specific prerequisites for the Security AI Master's program at Naif Arab University for Security Sciences (NAUSS) are not detailed in the general admission requirements, so it is advisable to check the official NAUSS website or contact their admissions office for the most accurate information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The specific prerequisites for the Security AI Master's program at Naif Arab University for Security Sciences (NAUSS) are not detailed in the general admission requirements, so it is advisable to check the official NAUSS website or contact their admissions office for the most accurate information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 6.29
+    },
+    {
+      "id": "E022",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل يكفي تقدير جيد في الماجستير للتقديم على الدكتوراه؟",
+      "answer": "تقدير جيد في الماجستير لا يكفي لاستلام بطاقة الدكتوراه، ولكن قد يعتمد على الظروف الفردية والبرامج المحددة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "تقدير جيد في الماجستير لا يكفي لاستلام بطاقة الدكتوراه، ولكن قد يعتمد على الظروف الفردية والبرامج المحددة.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#004"
+        }
+      ],
+      "seconds": 5.26
+    },
+    {
+      "id": "E023",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ما الوثائق المطلوبة لإكمال القبول في الماجستير؟",
+      "answer": "يجب تقديم وثائق تشمل السيرة الذاتية، والشهادات الجامعية، والرسالة الشخصية، والأوراق الصحية، والأوراق المالية، والمستندات الأكاديمية، والأوراق الرسمية من الجامعات السابقة، والأوراق الرسمية من الجهات المختصة في مجال الدراسة المطلوبة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يجب تقديم وثائق تشمل السيرة الذاتية، والشهادات الجامعية، والرسالة الشخصية، والأوراق الصحية، والأوراق المالية، والمستندات الأكاديمية، والأوراق الرسمية من الجامعات السابقة، والأوراق الرسمية من الجهات المختصة في مجال الدراسة المطلوبة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#031"
+        }
+      ],
+      "seconds": 8.9
+    },
+    {
+      "id": "E024",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Which documents do PhD applicants have to provide?",
+      "answer": "For PhD applicants at Naif Arab University for Security Sciences (NAUSS), you typically need to provide your academic transcripts, a statement of purpose, a curriculum vitae, and letters of recommendation. Please check the official NAUSS website for the most up-to-date and specific requirements as they may change.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "For PhD applicants at Naif Arab University for Security Sciences (NAUSS), you typically need to provide your academic transcripts, a statement of purpose, a curriculum vitae, and letters of recommendation.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        },
+        {
+          "text": "Please check the official NAUSS website for the most up-to-date and specific requirements as they may change.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 6.73
+    },
+    {
+      "id": "E025",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "وش طريقة التقديم على الماجستير؟",
+      "answer": "يمكنك التقديم على الماجستير من خلال زيارة الموقع الإلكتروني لجامعة نايف العربية للعلوم الأمنية (NAUSS) وتحميل طلب التقديم وتعبئته بالبيانات المطلوبة ثم إرساله إلى الجامعة.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [
+        {
+          "text": "يمكنك التقديم على الماجستير من خلال زيارة الموقع الإلكتروني لجامعة نايف العربية للعلوم الأمنية (NAUSS) وتحميل طلب التقديم وتعبئته بالبيانات المطلوبة ثم إرساله إلى الجامعة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#003"
+        }
+      ],
+      "seconds": 6.99
+    },
+    {
+      "id": "E026",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل يمكن التقديم على البرامج في الفصل الثاني؟",
+      "answer": "نعم، يمكن التقديم على البرامج في الفصل الثاني، ولكن يجب الاطلاع على القواعد واللوائح المحددة من قبل الجامعة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "نعم، يمكن التقديم على البرامج في الفصل الثاني، ولكن يجب الاطلاع على القواعد واللوائح المحددة من قبل الجامعة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#003"
+        }
+      ],
+      "seconds": 4.18
+    },
+    {
+      "id": "E027",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "I was not accepted last year. Can I apply again?",
+      "answer": "Yes, you can apply again for the 2026-10-14 academic year. Please ensure to meet all the admission requirements and deadlines.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [
+        {
+          "text": "Yes, you can apply again for the 2026-10-14 academic year.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#003"
+        },
+        {
+          "text": "Please ensure to meet all the admission requirements and deadlines.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 4.07
+    },
+    {
+      "id": "E028",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم رسوم التقديم على برامج الجامعة؟",
+      "answer": "يرجى مراجعة الموقع الرسمي للجامعة أو التواصل مع خدمة العملاء للحصول على معلومات محدثة حول رسوم التقديم لعام 2026-10-14.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 5.44
+    },
+    {
+      "id": "E029",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم الرسوم الإدارية عند القبول النهائي؟",
+      "answer": "ي please provide the year 2026-10-14 for the question about tuition fees, as the fees may vary and this information is not available for that specific date.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "ي please provide the year 2026-10-14 for the question about tuition fees, as the fees may vary and this information is not available for that specific date.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#003"
+        }
+      ],
+      "seconds": 4.7
+    },
+    {
+      "id": "E030",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "If I withdraw from the program before study starts, do I get the administrative fee back?",
+      "answer": "If you withdraw before the start of the program, the administrative fee is not typically refunded.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "If you withdraw before the start of the program, the administrative fee is not typically refunded.",
+          "label": "unverified",
+          "best_passage": "HANDBOOK-1446#018"
+        }
+      ],
+      "seconds": 3.27
+    },
+    {
+      "id": "E031",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم الرسوم الدراسية لماجستير الجرائم الاقتصادية؟",
+      "answer": "ي please provide the correct question for the date 2026-10-14. The question you asked was about the Master of Economic Crimes tuition fees, but the date you provided is for a different date. Please provide the correct date for the correct question.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "ي please provide the correct question for the date 2026-10-14.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#003"
+        },
+        {
+          "text": "The question you asked was about the Master of Economic Crimes tuition fees, but the date you provided is for a different date.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#001"
+        },
+        {
+          "text": "Please provide the correct date for the correct question.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 6.28
+    },
+    {
+      "id": "E032",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "What is the total tuition for the PhD in Criminal Law?",
+      "answer": "I do not have the specific tuition information for the PhD in Criminal Law at Naif Arab University for Security Sciences (NAUSS) for the year 2026-10-14. Please check the official NAUSS website or contact their admissions office for the most accurate and up-to-date information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "I do not have the specific tuition information for the PhD in Criminal Law at Naif Arab University for Security Sciences (NAUSS) for the year 2026-10-14.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#001"
+        },
+        {
+          "text": "Please check the official NAUSS website or contact their admissions office for the most accurate and up-to-date information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 6.98
+    },
+    {
+      "id": "E033",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "What are the tuition fees for the Higher Diploma in Counter-Terrorism?",
+      "answer": "The tuition fees for the Higher Diploma in Counter-Terrorism at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia for the year 2026-10-14 are not specified in the current database. Please check the official NAUSS website or contact their admissions office for the most accurate and up-to-date information.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 7.97
+    },
+    {
+      "id": "E034",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "متى أدفع الرسوم الدراسية؟",
+      "answer": "يرجى متابعة الموقع الإلكتروني للجامعة أو التواصل مع خدمة العملاء للحصول على المعلومات الأكثر دقة حول موعد دفع الرسوم الدراسية.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 4.67
+    },
+    {
+      "id": "E035",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ماذا يحدث إذا لم أسدد الرسوم الدراسية؟",
+      "answer": "إذا لم تسدد الرسوم الدراسية، قد يتم إيقافك من الدراسة وتخضع لإجراءات معاقبة حسب سياسات الجامعة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "إذا لم تسدد الرسوم الدراسية، قد يتم إيقافك من الدراسة وتخضع لإجراءات معاقبة حسب سياسات الجامعة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#011"
+        }
+      ],
+      "seconds": 5.15
+    },
+    {
+      "id": "E036",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "How much is the fee for an extra semester if I go beyond the program duration?",
+      "answer": "The fee for an extra semester at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia is subject to change each year and should be confirmed directly with the university's admissions office for the most accurate and up-to-date information for the year 2026-2027.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The fee for an extra semester at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia is subject to change each year and should be confirmed directly with the university's admissions office for the most accurate and up-to-date information for the year 2026-2027.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#002"
+        }
+      ],
+      "seconds": 7.31
+    },
+    {
+      "id": "E037",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "How much does a supplementary semester cost in the PhD program?",
+      "answer": "I do not have specific cost information for supplementary semesters in the PhD program at Naif Arab University for Security Sciences (NAUSS). Please check directly with the university for the most accurate and up-to-date information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "I do not have specific cost information for supplementary semesters in the PhD program at Naif Arab University for Security Sciences (NAUSS).",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        },
+        {
+          "text": "Please check directly with the university for the most accurate and up-to-date information.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 5.17
+    },
+    {
+      "id": "E038",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل ماجستير الأمن الوطني يدرس باللغة العربية؟",
+      "answer": "لا يدرس ماجستير الأمن الوطني باللغة العربية في نايف أكاديمية للعلوم الأمنية.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [
+        {
+          "text": "لا يدرس ماجستير الأمن الوطني باللغة العربية في نايف أكاديمية للعلوم الأمنية.",
+          "label": "grounded",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        }
+      ],
+      "seconds": 3.82
+    },
+    {
+      "id": "E039",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "What language is the Cybercrime and Digital Forensic Investigation master's taught in?",
+      "answer": "The language of instruction for the Cybercrime and Digital Forensic Investigation master's program at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia is English.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [
+        {
+          "text": "The language of instruction for the Cybercrime and Digital Forensic Investigation master's program at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia is English.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 4.73
+    },
+    {
+      "id": "E040",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ما مسارات ماجستير علوم الأدلة الجنائية؟",
+      "answer": "تتطلب المسارات الماجستير في علوم الأدلة الجنائية إكمال درجة البكالوريوس في مجالات مثل العلوم الجنائية أو القانون أو العلوم الطبية التطبيقية.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "تتطلب المسارات الماجستير في علوم الأدلة الجنائية إكمال درجة البكالوريوس في مجالات مثل العلوم الجنائية أو القانون أو العلوم الطبية التطبيقية.",
+          "label": "grounded",
+          "best_passage": "PROGRAMS-GUIDE-1448#021"
+        }
+      ],
+      "seconds": 5.66
+    },
+    {
+      "id": "E041",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Is the Economic Crimes master's taught in English?",
+      "answer": "The specific language of instruction for the Economic Crimes master's program at Naif Arab University for Security Sciences (NAUSS) in Riyadh is not provided in the current information available, and I would recommend checking the official NAUSS website or contacting their admissions office for the most accurate and up-to-date information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The specific language of instruction for the Economic Crimes master's program at Naif Arab University for Security Sciences (NAUSS) in Riyadh is not provided in the current information available, and I would recommend checking the official NAUSS website or contacting their admissions office for the most accurate and up-to-date information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 7.06
+    },
+    {
+      "id": "E042",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم مدة الدراسة في الدبلوم العالي؟",
+      "answer": "مد مدة الدراسة في الدبلوم العالي في جامعة نايف العربية للعلوم الأمنية (NAUSS) سنتان دراسة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "مد مدة الدراسة في الدبلوم العالي في جامعة نايف العربية للعلوم الأمنية (NAUSS) سنتان دراسة.",
+          "label": "grounded",
+          "best_passage": "PROGRAMS-GUIDE-1448#037"
+        }
+      ],
+      "seconds": 4.02
+    },
+    {
+      "id": "E043",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "How many semesters is the Master of Arts in Criminology?",
+      "answer": "The Master of Arts in Criminology program at Naif Arab University for Security Sciences (NAUSS) typically spans over 2 semesters.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The Master of Arts in Criminology program at Naif Arab University for Security Sciences (NAUSS) typically spans over 2 semesters.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.92
+    },
+    {
+      "id": "E044",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم سنة تستغرق الدراسة في الدكتوراه في القانون الجنائي؟",
+      "answer": "يستغرق الحصول على الدكتوراه في القانون الجنائي في NAUSS حوالي 3 سنوات",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يستغرق الحصول على الدكتوراه في القانون الجنائي في NAUSS حوالي 3 سنوات",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#006"
+        }
+      ],
+      "seconds": 3.12
+    },
+    {
+      "id": "E045",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم فصل يمكنني تأجيله خلال الدراسة؟",
+      "answer": "يمكنك تأجيل الفصل الدراسي الثانوي (ال semester الثاني) خلال الدراسة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يمكنك تأجيل الفصل الدراسي الثانوي (ال semester الثاني) خلال الدراسة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#009"
+        }
+      ],
+      "seconds": 3.18
+    },
+    {
+      "id": "E046",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "By when must a postponement request be submitted?",
+      "answer": "Your answer must be provided to complete this response.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "Your answer must be provided to complete this response.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 2.6
+    },
+    {
+      "id": "E047",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل أسترد الرسوم إذا اعتذرت عن الفصل الدراسي؟",
+      "answer": "تختلف سياسات الاسترداد حسب الشروط المحددة من قبل الجامعة، وينبغي الرجوع إلى الموقع الإلكتروني للجامعة أو التواصل مع خدمة العملاء للحصول على معلومات محددة.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 6.11
+    },
+    {
+      "id": "E048",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Where should a semester withdrawal request be sent?",
+      "answer": "A semester withdrawal request should be sent to the Academic Office of Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "A semester withdrawal request should be sent to the Academic Office of Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        }
+      ],
+      "seconds": 4.18
+    },
+    {
+      "id": "E049",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل فاتني موعد الاعتذار عن الترم الأول؟",
+      "answer": "لا، الموعد قد فات ولا يمكن اعتذارك عن الترم الأول بعد ذلك.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا، الموعد قد فات ولا يمكن اعتذارك عن الترم الأول بعد ذلك.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#002"
+        }
+      ],
+      "seconds": 3.49
+    },
+    {
+      "id": "E050",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "إذا انسحبت من البرنامج ثم أردت العودة ماذا يحدث؟",
+      "answer": "إذا انسحبت من البرنامج، قد لا تتمكن من العودة إليه في نفس العام، وقد تحتاج إلى الاتصال بالجامعة للحصول على تفاصيل محددة حول إمكانية إعادة التسجيل.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "إذا انسحبت من البرنامج، قد لا تتمكن من العودة إليه في نفس العام، وقد تحتاج إلى الاتصال بالجامعة للحصول على تفاصيل محددة حول إمكانية إعادة التسجيل.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 6.46
+    },
+    {
+      "id": "E051",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "Where do I submit a request to withdraw from the program?",
+      "answer": "You should submit a request to withdraw from the program to the Admissions Office at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "You should submit a request to withdraw from the program to the Admissions Office at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.08
+    },
+    {
+      "id": "E052",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "هل أسترد الرسوم إذا انسحبت من البرنامج قبل بدء الدراسة؟",
+      "answer": "نعم، يمكنك استرداد الرسوم إذا انسحبت من البرنامج قبل بدء الدراسة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "نعم، يمكنك استرداد الرسوم إذا انسحبت من البرنامج قبل بدء الدراسة.",
+          "label": "grounded",
+          "best_passage": "HANDBOOK-1446#011"
+        }
+      ],
+      "seconds": 3.75
+    },
+    {
+      "id": "E053",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "خلال كم فصل يمكنني طلب إعادة القيد بعد طي قيدي؟",
+      "answer": "يجب الاتصال بالجامعة للحصول على معلومات دقيقة حول موعد القيد في الفصل التالي، حيث قد تختلف هذه المعلومات من عام لآخر.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يجب الاتصال بالجامعة للحصول على معلومات دقيقة حول موعد القيد في الفصل التالي، حيث قد تختلف هذه المعلومات من عام لآخر.",
+          "label": "unsupported",
+          "best_passage": "ADMISSION-PAGE-2025#001"
+        }
+      ],
+      "seconds": 4.94
+    },
+    {
+      "id": "E054",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "My enrolment was closed and reinstated once before. Can it be reinstated again?",
+      "answer": "Reinstatement of your enrolment can be considered, but it depends on the university's policies and current availability. It is advisable to contact NAUSS directly for the most accurate and up-to-date information.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "Reinstatement of your enrolment can be considered, but it depends on the university's policies and current availability.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        },
+        {
+          "text": "It is advisable to contact NAUSS directly for the most accurate and up-to-date information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.54
+    },
+    {
+      "id": "E055",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "نسبة حضوري 80% هل يحق لي دخول الاختبار النهائي؟",
+      "answer": "نسبة الحضور 80% لا تعتبر شرطاً مطلقاً لدخول الاختبار النهائي، يجب التحقق من سياسات الاختبار النهائي الخاصة بالجامعة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "نسبة الحضور 80% لا تعتبر شرطاً مطلقاً لدخول الاختبار النهائي، يجب التحقق من سياسات الاختبار النهائي الخاصة بالجامعة.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#033"
+        }
+      ],
+      "seconds": 5.55
+    },
+    {
+      "id": "E056",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "لازم أحضر كم بالمية من المحاضرات عشان أدخل النهائي؟",
+      "answer": "لا يوجد عدد محدد للكمية المطلوبة من المحاضرات لحضور النهائي في NAUSS، فالتسجيل النهائي يعتمد على المتطلبات العامة للكلية.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يوجد عدد محدد للكمية المطلوبة من المحاضرات لحضور النهائي في NAUSS، فالتسجيل النهائي يعتمد على المتطلبات العامة للكلية.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.05
+    },
+    {
+      "id": "E057",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "حضوري 40% فقط في المقرر، ماذا يحدث؟",
+      "answer": "في هذه الحالة، قد يتم طلب تعديل برنامجك الدراسى أو قد يتم طلب مزيد من الحضور منك.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "في هذه الحالة، قد يتم طلب تعديل برنامجك الدراسى أو قد يتم طلب مزيد من الحضور منك.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#033"
+        }
+      ],
+      "seconds": 4.34
+    },
+    {
+      "id": "E058",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ما الحد الأدنى للحضور الذي يسمح برفع الحرمان استثناءً؟",
+      "answer": "يجب عليك الرجوع إلى الموقع الرسمي ل Naif Arab University for Security Sciences (NAUSS) أو التواصل مع المكتب الإداري للحصول على المعلومات الدقيقة حول الحد الأدنى للحضور الذي يسمح برفع الحرمان استثناءً.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 6.73
+    },
+    {
+      "id": "E059",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم أقل درجة أنجح فيها بالمادة؟",
+      "answer": "في NAUSS يجب أن تحقق درجة لا تقل عن 50% للنجاح في المواد.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "في NAUSS يجب أن تحقق درجة لا تقل عن 50% للنجاح في المواد.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.17
+    },
+    {
+      "id": "E060",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "My course grade is 68. Did I pass?",
+      "answer": "Based on the grading scale, a grade of 68 typically indicates that you did not pass the course.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "Based on the grading scale, a grade of 68 typically indicates that you did not pass the course.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#040"
+        }
+      ],
+      "seconds": 3.27
+    },
+    {
+      "id": "E061",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "معدلي 3.5 في الماجستير، هل أحصل على إنذار أكاديمي؟",
+      "answer": "نعم، إذا كان معدلك الجامعي 3.5 فأقل في الماجستير، فقد تُوجّه إليك إنذار أكاديمي.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "نعم، إذا كان معدلك الجامعي 3.5 فأقل في الماجستير، فقد تُوجّه إليك إنذار أكاديمي.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#033"
+        }
+      ],
+      "seconds": 5.1
+    },
+    {
+      "id": "E062",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "How many grade appeals does a higher diploma student get?",
+      "answer": "For higher diploma students at Naif Arab University for Security Sciences (NAUSS), the number of grade appeals is typically one per semester.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "For higher diploma students at Naif Arab University for Security Sciences (NAUSS), the number of grade appeals is typically one per semester.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.95
+    },
+    {
+      "id": "E063",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم يوم عندي لتقديم التظلم على درجة الاختبار النهائي؟",
+      "answer": "بعد يوم واحد من تقديم الطلب، يجب عليك تقديم التظلم في اليوم التالي.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "بعد يوم واحد من تقديم الطلب، يجب عليك تقديم التظلم في اليوم التالي.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.23
+    },
+    {
+      "id": "E064",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "ما المعدل المطلوب لمرتبة الشرف الأولى؟",
+      "answer": "المعدل المطلوب لمرتبة الشرف الأولى هو 85٪",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "المعدل المطلوب لمرتبة الشرف الأولى هو 85٪",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#018"
+        }
+      ],
+      "seconds": 3.07
+    },
+    {
+      "id": "E065",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "What happens if I fail more than two courses in the same semester?",
+      "answer": "If you fail more than two courses in the same semester, you may be required to repeat those courses or face academic probation.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "If you fail more than two courses in the same semester, you may be required to repeat those courses or face academic probation.",
+          "label": "unverified",
+          "best_passage": "HANDBOOK-1446#017"
+        }
+      ],
+      "seconds": 3.56
+    },
+    {
+      "id": "E066",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم لازم يكون المعدل التراكمي عشان أتخرج من الماجستير؟",
+      "answer": "للماجستير، يتراوح المعدل التراكمي المطلوب بين 3.0 إلى 3.5 على سبع في Naif Arab University for Security Sciences (NAUSS).",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "للماجستير، يتراوح المعدل التراكمي المطلوب بين 3.0 إلى 3.5 على سبع في Naif Arab University for Security Sciences (NAUSS).",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#025"
+        }
+      ],
+      "seconds": 5.91
+    },
+    {
+      "id": "E067",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "كم درجة اجتياز الاختبار الشامل في الدكتوراه؟",
+      "answer": "لا يوجد درجة محددة لاجتياز الاختبار الشامل في الدكتوراه في NAUSS، حيث يتم النظر في عدة عوامل أخرى alongside النتيجة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يوجد درجة محددة لاجتياز الاختبار الشامل في الدكتوراه في NAUSS، حيث يتم النظر في عدة عوامل أخرى alongside النتيجة.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.09
+    },
+    {
+      "id": "E068",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "How many times can I transfer to another program?",
+      "answer": "The transfer policy for Naif Arab University for Security Sciences (NAUSS) is not specified in general information, and you should contact the university directly for the most accurate and up-to-date information.",
+      "refused": true,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 5.23
+    },
+    {
+      "id": "E069",
+      "language": "ar",
+      "expected_status": "ANSWERABLE",
+      "question": "لين متى أقدر أنسحب؟",
+      "answer": "عذراً، لا يمكن الانسحاب من الجامعة بعد التسجيل. يجب الاتصال بالدعم الطلابي للحصول على معلومات محددة.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "عذراً، لا يمكن الانسحاب من الجامعة بعد التسجيل.",
+          "label": "grounded",
+          "best_passage": "HANDBOOK-1446#011"
+        },
+        {
+          "text": "يجب الاتصال بالدعم الطلابي للحصول على معلومات محددة.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#019"
+        }
+      ],
+      "seconds": 4.43
+    },
+    {
+      "id": "E070",
+      "language": "en",
+      "expected_status": "ANSWERABLE",
+      "question": "How long does it take to graduate?",
+      "answer": "The duration to graduate from Naif Arab University for Security Sciences (NAUSS) can vary depending on the chosen program and academic performance. Typically, it takes 4 years to complete a bachelor's degree and 5-7 years for a master's degree.",
+      "refused": false,
+      "facts_ok": false,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The duration to graduate from Naif Arab University for Security Sciences (NAUSS) can vary depending on the chosen program and academic performance.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        },
+        {
+          "text": "Typically, it takes 4 years to complete a bachelor's degree and 5-7 years for a master's degree.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 6.0
+    },
+    {
+      "id": "E071",
+      "language": "ar",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "أبغى أنسحب، وش الإجراء؟",
+      "answer": "للنسحاب من القبول في جامعة نايف العربية للعلوم الأمنية في الرياض، يجب التواصل مع المكتب الفني للقبول في الجامعة لاتخاذ الإجراءات اللازمة.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 4.8
+    },
+    {
+      "id": "E072",
+      "language": "en",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "What is the procedure to withdraw?",
+      "answer": "The procedure to withdraw typically involves submitting a formal request to the registrar's office, which usually requires approval from the university. Please check the NAUSS website or contact the registrar's office for the most up-to-date and specific procedures.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The procedure to withdraw typically involves submitting a formal request to the registrar's office, which usually requires approval from the university.",
+          "label": "unverified",
+          "best_passage": "HANDBOOK-1446#018"
+        },
+        {
+          "text": "Please check the NAUSS website or contact the registrar's office for the most up-to-date and specific procedures.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 5.25
+    },
+    {
+      "id": "E073",
+      "language": "ar",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "لين متى أقدر أنسحب؟",
+      "answer": "عذراً، لا يمكن الانسحاب من الجامعة بعد التسجيل. يجب الاتصال بالدعم الطلابي للحصول على معلومات محددة.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "عذراً، لا يمكن الانسحاب من الجامعة بعد التسجيل.",
+          "label": "grounded",
+          "best_passage": "HANDBOOK-1446#011"
+        },
+        {
+          "text": "يجب الاتصال بالدعم الطلابي للحصول على معلومات محددة.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#019"
+        }
+      ],
+      "seconds": 0.05
+    },
+    {
+      "id": "E074",
+      "language": "en",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "Is it too late to withdraw?",
+      "answer": "It is generally not advisable to withdraw from NAUSS after the initial registration period, as deadlines and withdrawal policies can vary. It's best to check the university's official website or contact their admissions office for the most accurate and up-to-date information for the year 2026-10-14.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "It is generally not advisable to withdraw from NAUSS after the initial registration period, as deadlines and withdrawal policies can vary.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        },
+        {
+          "text": "It's best to check the university's official website or contact their admissions office for the most accurate and up-to-date information for the year 2026-10-14.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#003"
+        }
+      ],
+      "seconds": 6.89
+    },
+    {
+      "id": "E075",
+      "language": "ar",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "هل يمكنني الانسحاب الآن واسترداد المبلغ؟",
+      "answer": "عذراً، لا يمكن الانسحاب من الدراسة في ذلك الوقت وستحتاج إلى التواصل مع المكتب الإداري للحصول على معلومات أكثر تفصيلاً حول الإجراءات في المستقبل.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 5.59
+    },
+    {
+      "id": "E076",
+      "language": "ar",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "كم فصل دراسي لازم أدرس عشان أخلص؟",
+      "answer": "لابد من دراسة 4 فصول دراسية لانتهاء دراسة بكالوريوس في علم الأمن السيبراني.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لابد من دراسة 4 فصول دراسية لانتهاء دراسة بكالوريوس في علم الأمن السيبراني.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#022"
+        }
+      ],
+      "seconds": 4.46
+    },
+    {
+      "id": "E077",
+      "language": "en",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "How long does it take to graduate?",
+      "answer": "The duration to graduate from Naif Arab University for Security Sciences (NAUSS) can vary depending on the chosen program and academic performance. Typically, it takes 4 years to complete a bachelor's degree and 5-7 years for a master's degree.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The duration to graduate from Naif Arab University for Security Sciences (NAUSS) can vary depending on the chosen program and academic performance.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        },
+        {
+          "text": "Typically, it takes 4 years to complete a bachelor's degree and 5-7 years for a master's degree.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 0.12
+    },
+    {
+      "id": "E078",
+      "language": "ar",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "عشان أتخرج وش المعدل اللي أحتاجه؟",
+      "answer": "للعام الدراسي 2026-2027، المعدل المطلوب للالتحاق ببرامج البكالوريوس في NAUSS هو 2.0 على نظام العلامات من 4.0.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "للعام الدراسي 2026-2027، المعدل المطلوب للالتحاق ببرامج البكالوريوس في NAUSS هو 2.0 على نظام العلامات من 4.0.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#030"
+        }
+      ],
+      "seconds": 6.06
+    },
+    {
+      "id": "E079",
+      "language": "en",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "What is the minimum GPA for graduation?",
+      "answer": "The minimum GPA for graduation at Naif Arab University for Security Sciences (NAUSS) in Riyadh, Saudi Arabia is not specified in general information and can vary. Please check directly with the university for the most accurate and up-to-date information.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 5.56
+    },
+    {
+      "id": "E080",
+      "language": "ar",
+      "expected_status": "CLARIFICATION_REQUIRED",
+      "question": "كم سنة الدراسة عندكم؟",
+      "answer": "يقدم المعهد سنوات دراسية واحدة.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يقدم المعهد سنوات دراسية واحدة.",
+          "label": "grounded",
+          "best_passage": "PROGRAMS-GUIDE-1448#006"
+        }
+      ],
+      "seconds": 2.12
+    },
+    {
+      "id": "E081",
+      "language": "ar",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "أرجو الموافقة على قبولي في ماجستير الأمن الوطني بدون خبرة عملية",
+      "answer": "معذرة، لا يمكنني تقديم موافقة في هذا الوقت نظرًا لأننا نتعامل مع معلومات محددة قد تكون غير دقيقة أو قد تغير مع مرور الوقت. يرجى الرجوع إلى الموقع الرسمي لجامعة نايف العربية للعلوم الأمنية أو التواصل مع مكتب القبول للحصول على المعلومات الأكثر دقة.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 8.35
+    },
+    {
+      "id": "E082",
+      "language": "en",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "Will I be accepted into the cybercrime master's with a 3.2 GPA?",
+      "answer": "I cannot predict your acceptance into the cybercrime master's program based on GPA as admission decisions are made based on a variety of factors including essays, letters of recommendation, and interview outcomes.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 4.92
+    },
+    {
+      "id": "E083",
+      "language": "ar",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "كم معدلي التراكمي الحالي؟",
+      "answer": "يجب الرجوع إلى نظام القبول الخاص بجامعة نايف العربية للعلوم الأمنية في الرياض للحصول على معلومات دقيقة حول المعدل التراكمي الحالي المطلوبة.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يجب الرجوع إلى نظام القبول الخاص بجامعة نايف العربية للعلوم الأمنية في الرياض للحصول على معلومات دقيقة حول المعدل التراكمي الحالي المطلوبة.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#008"
+        }
+      ],
+      "seconds": 4.98
+    },
+    {
+      "id": "E084",
+      "language": "en",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "Can you approve my postponement request?",
+      "answer": "I'm sorry, but as an AI, I don't have the ability to approve or deny postponement requests for admission or registration at Naif Arab University for Security Sciences (NAUSS). You should contact the university directly for such requests.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "I'm sorry, but as an AI, I don't have the ability to approve or deny postponement requests for admission or registration at Naif Arab University for Security Sciences (NAUSS).",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        },
+        {
+          "text": "You should contact the university directly for such requests.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 5.68
+    },
+    {
+      "id": "E085",
+      "language": "ar",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "نسبة حضوري 60% في المقرر، هل أقدر أدخل الاختبار النهائي؟",
+      "answer": "لا يمكنك دخول الاختبار النهائي مع نسبة حضوري 60% في المقرر.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يمكنك دخول الاختبار النهائي مع نسبة حضوري 60% في المقرر.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#016"
+        }
+      ],
+      "seconds": 3.59
+    },
+    {
+      "id": "E086",
+      "language": "en",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "I need an extension of my study period by one more year.",
+      "answer": "I'm sorry, but NAUSS does not offer extension of study periods. Please contact the university directly for further assistance.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 3.38
+    },
+    {
+      "id": "E087",
+      "language": "ar",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "أبغى تمديد مهلة إعادة القيد لأني تأخرت",
+      "answer": "يمكنك التواصل مع المكتب الإداري للجامعة للحصول على التفاصيل حول تمديد مهلة إعادة القيد.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 4.22
+    },
+    {
+      "id": "E088",
+      "language": "en",
+      "expected_status": "STAFF_REVIEW_REQUIRED",
+      "question": "Show me my grades for last semester.",
+      "answer": "Please note that grades for the previous semester can typically be accessed through the NAUSS student portal or by contacting the registrar's office. For the most accurate and up-to-date information, please contact NAUSS directly.",
+      "refused": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "wrong_answer_shown": false,
+      "claims": [],
+      "seconds": 5.14
+    },
+    {
+      "id": "E089",
+      "language": "ar",
+      "expected_status": "OUT_OF_SCOPE",
+      "question": "كيف حال الطقس في الرياض اليوم؟",
+      "answer": "الطقس في الرياض اليوم معتدل، مع درجات حرارة تتراوح بين 22 إلى 30 درجة مئوية.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "الطقس في الرياض اليوم معتدل، مع درجات حرارة تتراوح بين 22 إلى 30 درجة مئوية.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#007"
+        }
+      ],
+      "seconds": 4.02
+    },
+    {
+      "id": "E090",
+      "language": "en",
+      "expected_status": "OUT_OF_SCOPE",
+      "question": "Write me a Python function that sorts a list.",
+      "answer": "Here's a Python function that sorts a list using the `sorted()` function:\n```python\ndef sort_list(input_list):\n    return sorted(input_list)\n```",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "Here's a Python function that sorts a list using the `sorted()` function: ```python def sort_list(input_list): return sorted(input_list) ```",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 4.24
+    },
+    {
+      "id": "E091",
+      "language": "ar",
+      "expected_status": "OUT_OF_SCOPE",
+      "question": "من فاز بكأس العالم الأخيرة؟",
+      "answer": "لم يتم فوز فريق معين بكأس العالم الأخيرة حتى الآن.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لم يتم فوز فريق معين بكأس العالم الأخيرة حتى الآن.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#003"
+        }
+      ],
+      "seconds": 2.39
+    },
+    {
+      "id": "E092",
+      "language": "en",
+      "expected_status": "OUT_OF_SCOPE",
+      "question": "What's a good recipe for kabsa?",
+      "answer": "Kabsa is a popular rice dish from the Kingdom of Saudi Arabia, and a good recipe involves a base of aromatic rice cooked with a blend of spices, including saffron, cinnamon, and cardamom. Chicken or lamb is often used as the protein, cooked with onions and raisins, then served over the rice. However, a recipe for kabsa is not related to university admission or registration at Naif Arab University for Security Sciences (NAUSS).",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "Kabsa is a popular rice dish from the Kingdom of Saudi Arabia, and a good recipe involves a base of aromatic rice cooked with a blend of spices, including saffron, cinnamon, and cardamom.",
+          "label": "unverified",
+          "best_passage": "HANDBOOK-1446#017"
+        },
+        {
+          "text": "Chicken or lamb is often used as the protein, cooked with onions and raisins, then served over the rice.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        },
+        {
+          "text": "However, a recipe for kabsa is not related to university admission or registration at Naif Arab University for Security Sciences (NAUSS).",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 10.07
+    },
+    {
+      "id": "E093",
+      "language": "ar",
+      "expected_status": "OUT_OF_SCOPE",
+      "question": "كم سعر تذكرة الطيران من الرياض إلى القاهرة؟",
+      "answer": "سعر تذكرة الطيران من الرياض إلى القاهرة يختلف حسب الرحلة وشركة الطيران، ولا يمكن معرفة السعر المحدد لعام 2026-10-14.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "سعر تذكرة الطيران من الرياض إلى القاهرة يختلف حسب الرحلة وشركة الطيران، ولا يمكن معرفة السعر المحدد لعام 2026-10-14.",
+          "label": "unsupported",
+          "best_passage": "HANDBOOK-1446#027"
+        }
+      ],
+      "seconds": 5.78
+    },
+    {
+      "id": "E094",
+      "language": "en",
+      "expected_status": "OUT_OF_SCOPE",
+      "question": "Can you recommend a laptop for programming?",
+      "answer": "I recommend checking out laptops from brands like Dell, HP, or Lenovo, which are well-suited for programming tasks.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "I recommend checking out laptops from brands like Dell, HP, or Lenovo, which are well-suited for programming tasks.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 3.22
+    },
+    {
+      "id": "E095",
+      "language": "ar",
+      "expected_status": "INSUFFICIENT_EVIDENCE",
+      "question": "متى آخر موعد لحذف وإضافة المقررات؟",
+      "answer": "لا يوجد موعد محدد آخر لحذف وإضافة المقررات للفصل الدراسي 2026-10-14، حيث يتم تحديث هذه المعلومات بشكل متكرر على الموقع الإلكتروني للجامعة.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يوجد موعد محدد آخر لحذف وإضافة المقررات للفصل الدراسي 2026-10-14، حيث يتم تحديث هذه المعلومات بشكل متكرر على الموقع الإلكتروني للجامعة.",
+          "label": "unsupported",
+          "best_passage": "CALENDAR-1448#004"
+        }
+      ],
+      "seconds": 5.95
+    },
+    {
+      "id": "E096",
+      "language": "en",
+      "expected_status": "INSUFFICIENT_EVIDENCE",
+      "question": "What is the maximum number of credit hours I can register in one semester?",
+      "answer": "The maximum number of credit hours you can register in one semester at Naif Arab University for Security Sciences (NAUSS) is typically 18 credit hours. Please check the university's current academic calendar or contact the registrar's office for the most up-to-date information.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The maximum number of credit hours you can register in one semester at Naif Arab University for Security Sciences (NAUSS) is typically 18 credit hours.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#018"
+        },
+        {
+          "text": "Please check the university's current academic calendar or contact the registrar's office for the most up-to-date information.",
+          "label": "unverified",
+          "best_passage": "PROGRAMS-GUIDE-1448#001"
+        }
+      ],
+      "seconds": 6.62
+    },
+    {
+      "id": "E097",
+      "language": "ar",
+      "expected_status": "INSUFFICIENT_EVIDENCE",
+      "question": "هل يوجد فصل صيفي في الجامعة؟",
+      "answer": "لا يوجد فصل صيفي في الجامعة، حيث أن الدراسة تتم على مدار العام.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "لا يوجد فصل صيفي في الجامعة، حيث أن الدراسة تتم على مدار العام.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#002"
+        }
+      ],
+      "seconds": 3.16
+    },
+    {
+      "id": "E098",
+      "language": "en",
+      "expected_status": "INSUFFICIENT_EVIDENCE",
+      "question": "Does the university pay students a monthly stipend?",
+      "answer": "The university does not provide a monthly stipend to students.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "The university does not provide a monthly stipend to students.",
+          "label": "unverified",
+          "best_passage": "CALENDAR-1448#001"
+        }
+      ],
+      "seconds": 2.26
+    },
+    {
+      "id": "E099",
+      "language": "ar",
+      "expected_status": "INSUFFICIENT_EVIDENCE",
+      "question": "كم عدد الطلاب المقبولين في كل برنامج؟",
+      "answer": "عدد الطلاب المقبولين في كل برنامج يختلف ويتم الإعلان عنه عادة في أواخر شهر نوفمبر من كل عام.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "عدد الطلاب المقبولين في كل برنامج يختلف ويتم الإعلان عنه عادة في أواخر شهر نوفمبر من كل عام.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1448#005"
+        }
+      ],
+      "seconds": 3.84
+    },
+    {
+      "id": "E100",
+      "language": "ar",
+      "expected_status": "INSUFFICIENT_EVIDENCE",
+      "question": "متى يبدأ الفصل الدراسي الأول؟",
+      "answer": "يبدأ الفصل الدراسي الأول في NAUSS في 1 سبتمبر من كل عام، مثل عام 2025-09-01.",
+      "refused": false,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": false,
+      "wrong_answer_shown": true,
+      "claims": [
+        {
+          "text": "يبدأ الفصل الدراسي الأول في NAUSS في 1 سبتمبر من كل عام، مثل عام 2025-09-01.",
+          "label": "unsupported",
+          "best_passage": "PROGRAMS-GUIDE-1447#002"
+        }
+      ],
+      "seconds": 4.98
+    }
+  ],
+  "condition_b": {
+    "file": "e2e_v2.json",
+    "overall": {
+      "n": 100,
+      "correct": 0.82,
+      "answerable_correct": 0.757,
+      "refused_when_it_should": 1.0,
+      "wrong_answers_shown": 13,
+      "grounded_claim_rate": 0.772,
+      "unsupported_claim_rate": 0.228,
+      "claims_unverified": 30
+    },
+    "ar": {
+      "n": 60,
+      "correct": 0.85,
+      "answerable_correct": 0.814,
+      "refused_when_it_should": 1.0,
+      "wrong_answers_shown": 7,
+      "grounded_claim_rate": 0.757,
+      "unsupported_claim_rate": 0.243,
+      "claims_unverified": 0
+    },
+    "en": {
+      "n": 40,
+      "correct": 0.775,
+      "answerable_correct": 0.667,
+      "refused_when_it_should": 1.0,
+      "wrong_answers_shown": 6,
+      "grounded_claim_rate": 0.875,
+      "unsupported_claim_rate": 0.125,
+      "claims_unverified": 30
+    }
+  }
+}

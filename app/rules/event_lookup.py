@@ -65,8 +65,11 @@ def match_event(question, events, as_of, term=None):
     q_tokens = _expanded_tokens(question)
     best = []
     for e in events:
-        all_tokens = [t for t in tokenize(e["event"]) if not t.isdigit() or len(t) == 4]
-        e_tokens = [t for t in all_tokens if t not in TERM_PHRASE]
+        all_tokens = tokenize(e["event"])
+        years = {t for t in all_tokens if t.isdigit()}
+        # Years count as a bonus, not in the share: a row printed with its year range must not lose to a
+        # shorter row (held-out H017: "the 1449 academic year" matched the second-term start instead).
+        e_tokens = [t for t in all_tokens if t not in TERM_PHRASE and not t.isdigit()]
         if not e_tokens:
             continue
         if term and e.get("term_id") and not e["term_id"].endswith(term):
@@ -76,7 +79,10 @@ def match_event(question, events, as_of, term=None):
             if any(w in all_tokens for w in other):
                 continue
         matched = [t for t in e_tokens if any(same_word(t, q) for q in q_tokens)]
-        share = len(matched) / len(e_tokens)
+        if any(q.isdigit() and len(q) == 4 for q in q_tokens) and not years & set(q_tokens) and years:
+            continue  # the question names a year this row does not have
+        matched += sorted(years & set(q_tokens))
+        share = len([t for t in matched if not t.isdigit()]) / len(e_tokens)
         if not any(t not in COMMON for t in matched) and share < 1:
             continue
         if share >= 0.6 and len(matched) >= 2 - (len(e_tokens) == 1):

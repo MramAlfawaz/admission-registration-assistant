@@ -1,0 +1,6 @@
+{"logged_at": "2026-10-31T13:18:55", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_PROCEDURE", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T13:19:24", "as_of": "2026-12-01", "reason": "decision", "intent": "ADMISSION_REQUIREMENTS", "sources": ["CALENDAR-1448", "HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T13:19:24", "as_of": "2026-10-14", "reason": "third_party", "intent": "ADMISSION_DOCUMENTS", "sources": []}
+{"logged_at": "2026-10-31T13:19:24", "as_of": "2026-10-14", "reason": "third_party", "intent": "ADMISSION_DOCUMENTS", "sources": []}
+{"logged_at": "2026-10-31T13:19:24", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_PROCEDURE", "sources": ["PROGRAMS-GUIDE-1448"]}
+{"logged_at": "2026-10-31T13:19:25", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_REQUIREMENTS", "sources": ["PROGRAMS-GUIDE-1448"]}

@@ -1,0 +1,14 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You answer questions from students about admission and registration at Naif Arab University\nfor Security Sciences (NAUSS) in Riyadh, Saudi Arabia. Write ONLY in Arabic (العربية).\nAnswer in 1 to 3 short sentences.\n\nDate the question is about: 2026-10-14\nQuestion: ما التقدير المطلوب في البكالوريوس للتقديم على الدبلوم العالي؟\n\nAnswer with JSON only:\n{\"answer\": \"your answer\"}",
+  "response": {
+    "answer": "لا يوجد تقدير مطلوب للبكالوريوس للتقديم على الدبلوم العالي في NAUSS، حيث يتم النظر في عدة عوامل أخرى مثل المؤهلات السابقة والخبرة العملية."
+  },
+  "seconds": 5.88
+}

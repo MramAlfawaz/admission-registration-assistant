@@ -17,7 +17,10 @@ Standards document.
 >
 > **First full evaluation (2026-10-31): 66 of 100 inquiries fully correct, 18 answers
 > with a wrong or missing fact. Not yet safe for students.** The failures are analysed
-> by cause in `docs/e2e-v1-failures.md`; fixes and a new held-out set come next.
+> by cause in `docs/e2e-v1-failures.md`. Fixes by cause raised the same 100 inquiries to
+> 0.95 status accuracy (optimistic: the fixes were written after seeing them) but did **not**
+> improve a held-out set frozen before the fixes (status accuracy 0.85 before, 0.825 after,
+> 10 wrong answers both times). Adversarial cases: 17/17 after the fixes.
 
 ---
 
@@ -41,7 +44,8 @@ Standards document.
 | adversarial cases | 17, every case in brief Section 11 |
 | end-to-end v1 (first run) | 66/100 fully correct; correct refusal 0.93, false refusal 0.13 |
 | adversarial v1 (first run) | 12/17 passed; all 3 planted-document attacks blocked |
-| automated tests | 152 passing |
+| held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
+| automated tests | 181 passing |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
 ---
@@ -114,7 +118,7 @@ Check: `CALENDAR-1448: 24 events` and `186 chunks ... (sha256 9e6394386f2f)`.
 ```bash
 python -m pytest
 ```
-Check: `152 passed`.
+Check: `181 passed`.
 
 **9. run retrieval once** (downloads the pinned embedding model, about 470 MB, on first use)
 ```bash
@@ -143,7 +147,8 @@ Check: three methods reported, each with `version leaks=0`.
 | `python cli.py rules-doc` | rewrites `docs/rules.md` from the rule library |
 | `python cli.py ask "question" --as-of YYYY-MM-DD [--clarify withdrawal_scope=semester]` | answers one question end to end and prints the response and its trace |
 | `python cli.py generate-sample --n 10 \| --file smoke.jsonl --out NAME` | runs a sample end to end and checks schema and expectations |
-| `python cli.py evaluate-e2e --out e2e_v1 [--limit N]` | Experiment 3 on the frozen 100-inquiry set (refuses to run if the set changed) |
+| `python cli.py evaluate-e2e --out NAME [--set inquiries\|holdout] [--limit N]` | Experiment 3 on a frozen set (refuses to run if the set changed) |
+| `python cli.py evaluate-no-retrieval --out NAME --compare E2E_RESULTS` | Experiment 4: the same model with no retrieval, compared with the assistant |
 | `python cli.py evaluate-adversarial --out adversarial_v1` | runs the 17 adversarial cases |
 
 ### adding a new document version
@@ -169,14 +174,15 @@ app/
   intent/      taxonomy, language, keyword_baseline, llm_classifier, context_extractor, ambiguity, evaluate
   retrieval/   tokenize, bm25, embeddings, hybrid, retriever, evaluate, factory
   evidence/    currency_checker, relevance, subject, facts, contradiction, completeness, validator, evaluate
-  rules/       calendar_rules, rule_engine, registration_rules, selection
+  rules/       calendar_rules, event_lookup, rule_engine, registration_rules, selection
   generation/  answer_generator, templates, rule_sentences, extractive
   safety/      verifier, sentence_filter, escalation
   schemas/     answer (the six statuses and the response fields)
-  pipeline/    assistant (the fixed stage order), factory, evaluate
+  pipeline/    assistant (the fixed stage order), factory, evaluate, baseline (Experiment 4)
   models/      llm_client, prompts, seed
 config/        config.py, the only source of settings
-prompts/       classify_intent_v1, answer_v1 (kept for traceability), answer_v2, glossary_v1
+prompts/       classify_intent_v1, answer_v1 (kept for traceability), answer_v2, glossary_v1,
+               no_retrieval_v1 (Experiment 4 only)
 rules/         rule_library.json: id, sources, inputs, condition, outputs, effective period, tests
 data/
   sources.json source registry with version metadata (committed)
@@ -194,8 +200,8 @@ evaluation/
   results/             saved evaluation outputs
 docs/          authority-hierarchy, data-handling, intent-taxonomy, retrieval-failures,
                evidence-validation, rules, verification-and-escalation, evaluation,
-               e2e-v1-failures
-tests/         152 tests with fixtures from the real documents
+               e2e-v1-failures, data-dictionary
+tests/         181 tests with fixtures from the real documents
 ```
 
 ---
@@ -558,19 +564,48 @@ window, no decision stated, no planted instruction followed, identical output on
 The weak point is **content selection**: the right passage not found, or the wrong
 number taken from the right passage.
 
-### part B (next)
-1. write and freeze a new held-out set **before** any fix, so the improvement is measured
-   on questions the fixes were not shaped by
-2. fix by cause: calendar dates answered by code; rules not blocked when search misses the
-   calendar; numbers checked by fact kind; rules triggered by what the question says;
-   strict checks corrected; misspelled intents mapped; refusal when no evidence fits the
-   question; escalation for another student's data; programs guide chunked at program
-   boundaries (and gold set v2)
-3. report v1, v1 after fixes (marked optimistic) and the held-out set side by side
+### part B: fixes by cause, measured on a held-out set (step 11b)
+1. A **held-out set** of 40 new inquiries was written and frozen after v1 and **before** any fix,
+   and run on the v1 code (`holdout_before`).
+2. Fixes by cause, from the v1 analysis only (full table in `docs/evaluation.md`): calendar rows
+   answered by code with computed weekdays; calendar rules not blocked by missing search results;
+   a fee in a model sentence must be the kind of fee asked; thresholds (pass mark, honours,
+   attendance, warning and graduation GPA, appeals, closure, re-enrolment window) stated by code
+   from the rule library; rules triggered by the question's own words; deadline sentences only for
+   timing questions; over-strict checks corrected; misspelled intents mapped; an evidence-fits-the-
+   question gate; escalation for another student's data and for "ignore the rules" requests. Two
+   pre-existing bugs were found: a degree named in the question never reached the rules, and
+   "قبولي" matched inside "المقبولين".
 
-### part C
-Experiment 4 (the same model with no retrieval), the human review of English claims, and
-Experiment 5 (team rating of a sample, measured response time).
+| set | before | after |
+|---|---|---|
+| v1, 100 inquiries (**optimistic**: fixes written after seeing them) | status 0.87, correct refusal 0.933, false refusal 0.129, 23 wrong answers | status **0.95**, correct refusal **1.0**, false refusal **0.057**, **13** wrong answers |
+| held-out, 40 inquiries (**honest**) | status 0.85, false refusal 0.115, 10 wrong answers, grounded 0.78 | status **0.825**, false refusal 0.154, **10** wrong answers, grounded 0.83 |
+| adversarial, 17 cases | 12/17 | **17/17** |
+
+**Negative result.** The fixes did not generalise. On the held-out set, 2 inquiries improved, 3
+became worse because of the new mechanisms (a timing-word list that missed dialect, an evidence
+gate defeated by Arabic word forms, a calendar row chosen wrongly with full confidence), and 13
+were wrong both times. The remaining causes are general: the model picks the wrong number from the
+right passage (percentages, GPAs, marks; the fee check covered fees only), and English questions
+miss the right passage. Three held-out cases exposed safety gaps (below).
+
+### part C: safety gaps and regressions from the held-out set (step 11c)
+Informed by the held-out results, so any held-out run after this step is **optimistic**; the
+honest held-out figure stays `holdout_after`.
+- a deadline question on a date with no calendar in force is never answered (the model had said
+  "you can still withdraw")
+- a decision request is escalated even when nothing could be confirmed
+- a number the student states (attendance, grade) triggers its rule under any intent, and a
+  computed rule result is not blocked by missing search results
+- deadline rules are kept unless the question is clearly about something else (how many, what
+  happens, conditions), instead of requiring a timing word
+- calendar rows printed with a year are not beaten by shorter rows; a year in the question must match
+- the evidence gate tolerates possessive endings (قيدي ~ قيد)
+- a model timeout falls back to rule sentences and quoted evidence; an evaluation run records an
+  error and continues instead of crashing
+- Experiment 4 added (`evaluate-no-retrieval`); required documents added:
+  `docs/authority-hierarchy.md`, `docs/data-handling.md`, `docs/data-dictionary.md`
 
 ---
 
@@ -581,7 +616,7 @@ Experiment 5 (team rating of a sample, measured response time).
 | 1.1 pin every version | `.python-version`, `requirements.txt` with `==`, `models.lock` | `check-model` passes |
 | 1.2 fixed seed, zero temperature | `SEED` and `TEMPERATURE` in config; `set_seed` covers Python, NumPy, PyTorch | identical results on rerun |
 | 1.3 no silent fallback | `ModelUnavailableError`; fallback flag defaults to off | tested with a wrong digest |
-| 1.4 prompts as versioned files | `prompts/` (classify_intent_v1, answer_v1, answer_v2, glossary_v1), each with a header | test confirms no prompt text in `app/` |
+| 1.4 prompts as versioned files | `prompts/` (classify_intent_v1, answer_v1, answer_v2, glossary_v1, no_retrieval_v1), each with a header | test confirms no prompt text in `app/` |
 | 1.5 cache every model call | `data/cache/llm/`, committed | second run 0.1 s, identical |
 | 1.6 configuration is not code | all settings in `config/config.py` | |
 | 1.7 no notebook deliverables | everything runs from `cli.py` | |
@@ -606,6 +641,9 @@ Experiment 5 (team rating of a sample, measured response time).
 - **Meaning errors** in model sentences (a dropped qualifier, a condition attached to the wrong rule) pass the word-level checks; they are counted in Experiment 3.
 - **English answers** cannot be checked word by word against Arabic sources; their claims are reviewed by hand.
 - **The model** (`qwen2.5:3b`, chosen for 8 GB RAM) takes about 25 to 45 s per answered question on this Mac.
+- **Wrong number from the right passage**: the small model still picks the wrong percentage, GPA or mark from a passage holding several; only fees are checked by kind, and thresholds in the rule library are stated by code.
+- **Fixes shaped by the evaluation set**: the step 11b fixes improved the inquiries they were written from but not a held-out set; the step 11c fixes were informed by the held-out set, so no fully unseen measurement exists after step 11b.
+- **Programs guide not yet chunked at program boundaries**: left as a limitation because it renumbers passages and requires gold set v2.
 
 ---
 
@@ -623,6 +661,6 @@ Experiment 5 (team rating of a sample, measured response time).
 | 8. grounded generation | done |
 | 9. clarification | done |
 | 10. verification and escalation (10b: per-sentence filter) | done |
-| 11. evaluation and adversarial testing | part A done (v1: 66/100, adversarial 12/17); part B (fixes, held-out set) next |
+| 11. evaluation and adversarial testing | parts A and B done (held-out did not improve; adversarial 17/17); part C (safety gaps, Experiment 4) running; Experiment 5 next |
 | 12. student interface | |
 | 13. deployment and handover | |

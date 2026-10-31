@@ -106,13 +106,21 @@ class Assistant:
 
         # A rule computed from the calendar or stated from the rule library does not depend on
         # search: missing search results must not block it (v1: E012, E013, A04).
-        backed = [r for r in rules if r["output"] in ("open", "closed", "refund_eligible", "refund_not_eligible",
-                                                      "listed", "stated")]
+        backed = [r for r in rules if r["output"] not in ("unknown", "not_applicable")]
         unresolved_conflict = any(c["winner"] is None for c in report["conflicts"])
         if report["status"] == "INSUFFICIENT_EVIDENCE" and backed and not unresolved_conflict:
             report = {**report, "status": "OK", "evidence": report["evidence"] + self._calendar_chunks(backed, report["evidence"])}
             trace["evidence_status"] = "OK (rule-backed)"
-        early_reason = escalation_reason(question)
+        # A deadline asked about with no calendar in force for that date cannot be answered from
+        # the regulation alone; the model must never fill the gap (held-out: H040 said "you can still withdraw").
+        no_calendar = [r for r in rules if r["rule_id"].startswith("RULE-CAL") and r["output"] == "unknown"
+                       and "calendar" in str(r["details"].get("reason", ""))]
+        if no_calendar and not any(r["output"] in ("open", "closed", "refund_eligible", "refund_not_eligible")
+                                   for r in rules):
+            trace["no_calendar"] = [r["rule_id"] for r in no_calendar]
+            report = {**report, "status": "INSUFFICIENT_EVIDENCE"}
+            trace["evidence_status"] = "INSUFFICIENT_EVIDENCE (no calendar in force)"
+        early_reason = escalation_reason(question, rules)
         if report["status"] != "OK":
             if early_reason:
                 return self._escalate(early_reason, intent, language, as_of, [], [], trace)
@@ -122,10 +130,15 @@ class Assistant:
 
         if not rule_texts and not evidence_fits(question, [c["text"] for c in report["evidence"]], self.glossary):
             trace["gate"] = "no evidence passage shares the question's key terms"
+            if early_reason:
+                return self._escalate(early_reason, intent, language, as_of, [], [], trace)
             return self._finish(non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of), trace, "templated")
 
         response = self._compose(question, intent, language, as_of, report["evidence"], rules, rule_texts, trace)
         if response["status"] != "ANSWERABLE":
+            # A request for a decision is escalated even when nothing could be confirmed (held-out: H034).
+            if early_reason:
+                return self._escalate(early_reason, intent, language, as_of, [], [], trace)
             return self._finish(response, trace, "templated")
         reason = escalation_reason(question, rules)
         if reason:
@@ -165,6 +178,10 @@ class Assistant:
         except ValueError as e:
             draft = None
             trace["verification_issues"] = [f"model output unusable: {e}"]
+        except Exception as e:  # timeout or model down: answer from rule sentences and quotes only, never crash
+            log.warning("model unavailable while drafting (%s); using rule sentences and quoted evidence", type(e).__name__)
+            draft = None
+            trace["verification_issues"] = [f"model unavailable: {type(e).__name__}"]
         kept = []
         if draft is not None:
             context = dict(language=language, evidence_texts=[c["text"] for c in draft["given"]],

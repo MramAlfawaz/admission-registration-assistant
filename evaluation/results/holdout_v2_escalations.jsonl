@@ -1,0 +1,4 @@
+{"logged_at": "2026-10-31T13:18:39", "as_of": "2026-10-14", "reason": "exception_rule", "intent": "GRADING_AND_STANDING", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T13:18:39", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_PROCEDURE", "sources": ["PROGRAMS-GUIDE-1448"]}
+{"logged_at": "2026-10-31T13:18:39", "as_of": "2026-10-14", "reason": "personal_record", "intent": "GRADING_AND_STANDING", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T13:18:39", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_PROCEDURE", "sources": []}

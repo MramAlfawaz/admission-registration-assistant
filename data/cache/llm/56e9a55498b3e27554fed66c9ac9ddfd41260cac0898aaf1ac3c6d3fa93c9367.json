@@ -1,0 +1,14 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You answer questions from students about admission and registration at Naif Arab University\nfor Security Sciences (NAUSS) in Riyadh, Saudi Arabia. Write ONLY in English.\nAnswer in 1 to 3 short sentences.\n\nDate the question is about: 2026-10-14\nQuestion: What is the maximum number of credit hours I can register in one semester?\n\nAnswer with JSON only:\n{\"answer\": \"your answer\"}",
+  "response": {
+    "answer": "The maximum number of credit hours you can register in one semester at Naif Arab University for Security Sciences (NAUSS) is typically 18 credit hours. Please check the university's current academic calendar or contact the registrar's office for the most up-to-date information."
+  },
+  "seconds": 6.57
+}

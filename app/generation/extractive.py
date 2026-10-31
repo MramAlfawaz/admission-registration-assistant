@@ -124,8 +124,13 @@ def evidence_fits(question, texts, glossary=()):
 
 
 def _bare(token):
-    """Drop a one-letter proclitic (و ب ل ف ك) so بتقدير matches تقدير."""
-    return token[1:] if len(token) >= 5 and token[0] in "وبلفك" else token
+    """Drop a one-letter proclitic (و ب ل ف ك) and a possessive ending, so بتقدير ~ تقدير and قيدي ~ قيد."""
+    if len(token) >= 5 and token[0] in "وبلفك":
+        token = token[1:]
+    for ending in ("هم", "ها", "نا", "ي", "ه", "ك"):
+        if len(token) - len(ending) >= 3 and token.endswith(ending):
+            return token[: -len(ending)]
+    return token
 
 
 def _with_bare(tokens):
