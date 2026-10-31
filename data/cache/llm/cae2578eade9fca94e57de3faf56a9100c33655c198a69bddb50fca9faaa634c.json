@@ -1,0 +1,21 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in English. Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: Does the security AI master's require a programming background?\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 36, أهداف البرنامج):\n،يهدف البرنامج إلى تطوير كفاءات متخصصة في الذكاء الاصطناعي لتلبية احتياجات القطاعات الأمنية وإنفاذ القانون وتعزيز القدرات في التنبؤ بالجرائم المستحدثة واكتشافها والاستجابة لها، وتدريب الدارسين على تطوير حلول تطبيقية مبتكرة .باستخدام تقنيات الذكاء الاصطناعي، إضافة إلى تنمية مهارات البحث العلمي والابتكار :أبرز نواتج التعلم .بناء أساس معرفي وتقني قوي في الذكاء الاصطناعي الموجه للأمن .توظيف تقنيات الذكاء الاصطناعي في دعم العمل الأمني والوقاية الاستباقية من الجريمة .تحليل البيانات الأمنية الضخمة واستخلاص مؤشرات داعمة لاتخاذ القرار .تقييم المخاطر المرتبطة بتطبيقات الذكاء الاصطناعي في المجال الأمني وإدارتها .الالتزام بالمعايير الأخلاقية والقانونية في استخدام الذكاء الاصطناعي :شروط القبول الخاصة الح\n\n[E2] (page 1, هل يوجد برامج متاحة للطالبات؟):\nهل يوجد برامج متاحة للطالبات؟ جميع البرامج المطروحة عبر بوابة القبول متاحة للطالبات\n\n[E3] (page 1, هل الدراسة مسائية؟):\nهل الدراسة مسائية؟ هناك برامج تقدم خلال الفترة الصباحية وبرامج تقدم خلال الفترة المسائية ويمكنكم الاطلاع على دليل البرامج الأكاديمية\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "The evidence indicates that the program aims to develop specialized AI competencies for security and law enforcement sectors. While it mentions the use of programming techniques, it does not explicitly state a programming background requirement. Therefore, we cannot conclude that a programming background is required for the security AI master's program.",
+    "conditions": [
+      "conditions written in the evidence"
+    ],
+    "required_action": "The student should review the specific admission requirements provided by the Admission and Registration Deanship for the security AI master's program.",
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 24.86
+}

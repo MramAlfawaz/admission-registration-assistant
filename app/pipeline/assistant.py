@@ -11,7 +11,7 @@ import logging
 
 from app.evidence.validator import validate_evidence
 from app.generation.answer_generator import base_response, non_answer
-from app.generation.extractive import overlap_scorer, select_sentences
+from app.generation.extractive import overlap_scorer, relevance_filter, select_sentences
 from app.generation.rule_sentences import rule_sentence
 from app.generation.templates import QUOTE_INTRO
 from app.intent.ambiguity import SCOPE_TO_INTENT, apply_clarification, clarified_query, detect_missing
@@ -19,7 +19,9 @@ from app.intent.context_extractor import extract_context
 from app.intent.language import answer_language, detect_language
 from app.rules.selection import extract_inputs, run_rules
 from app.safety.escalation import NEXT_STEP, escalation_block, escalation_reason, record_escalation
+from app.documents.injection import injection_signals
 from app.safety.sentence_filter import filter_items, filter_sentences
+from app.safety.verifier import contradicts_rules
 
 log = logging.getLogger(__name__)
 
@@ -73,6 +75,9 @@ class Assistant:
         query = clarified_query(question, supplied)
         chunks = self.retriever.search(query, as_of, "hybrid", self.top_k)
         trace["retrieved"] = [c["chunk_id"] for c in chunks]
+        # Second line of defence after the ingest scanner: text addressed to the model never becomes evidence.
+        trace["quarantined"] = [c["chunk_id"] for c in chunks if injection_signals(c["text"])]
+        chunks = [c for c in chunks if c["chunk_id"] not in trace["quarantined"]]
         report = validate_evidence(intent, query, chunks, self.sources_by_id, as_of)
         trace.update(evidence_status=report["status"], off_topic=[o["chunk_id"] for o in report["off_topic"]],
                      overridden=report["overridden_chunks"])
@@ -121,12 +126,16 @@ class Assistant:
             r["required_action"] = " ".join(action)
             trace["verification_issues"] = [f"{s[:60]}... -> {', '.join(i)}" for s, i in dropped]
             trace["sentences_kept"] = len(kept)
+        trace["rule_texts"] = list(rule_texts)
         if kept:
             trace["mode"] = "generated"
             r["answer"] = " ".join(rule_texts + kept)
             r["sources"] = _source_refs(draft["used"])
+            trace["claims_generated"] = list(kept)
         else:
-            quotes = select_sentences(question, evidence, self.scorer, k=2)
+            relevant = relevance_filter(question, self.glossary)
+            quotes = select_sentences(question, evidence, self.scorer, k=2,
+                                      qualifies=lambda s: relevant(s) and not contradicts_rules(s, rules))
             if not quotes and not rule_texts:
                 return non_answer("INSUFFICIENT_EVIDENCE", intent, language, as_of)
             trace["mode"] = "extractive"
@@ -134,6 +143,7 @@ class Assistant:
             r["answer"] = " ".join(rule_texts + ([f"{QUOTE_INTRO[language]} {quoted}"] if quotes else []))
             r["sources"] = _source_refs([c for _, c in quotes])
             r["conditions"], r["required_action"] = [], ""
+            trace["quotes"] = [{"text": q, "chunk_id": c["chunk_id"]} for q, c in quotes]
         for s in rule_sources:
             if s not in r["sources"]:
                 r["sources"].append(s)

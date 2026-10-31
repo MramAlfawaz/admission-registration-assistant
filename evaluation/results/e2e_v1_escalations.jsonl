@@ -1,0 +1,9 @@
+{"logged_at": "2026-10-31T02:14:52", "as_of": "2026-10-14", "reason": "decision", "intent": "ATTENDANCE", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T02:21:50", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_REQUIREMENTS", "sources": ["PROGRAMS-GUIDE-1448"]}
+{"logged_at": "2026-10-31T02:22:15", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_REQUIREMENTS", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T02:22:54", "as_of": "2026-10-14", "reason": "personal_record", "intent": "GRADING_AND_STANDING", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T02:23:14", "as_of": "2026-10-14", "reason": "decision", "intent": "POSTPONEMENT", "sources": ["CALENDAR-1448", "FAQ-NAUSS", "HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T02:24:05", "as_of": "2026-10-14", "reason": "exception_rule", "intent": "ATTENDANCE", "sources": ["HANDBOOK-1446"]}
+{"logged_at": "2026-10-31T02:24:25", "as_of": "2026-10-14", "reason": "decision", "intent": "ADMISSION_REQUIREMENTS", "sources": ["FAQ-NAUSS"]}
+{"logged_at": "2026-10-31T02:24:27", "as_of": "2026-10-14", "reason": "decision", "intent": "POSTPONEMENT", "sources": []}
+{"logged_at": "2026-10-31T02:24:47", "as_of": "2026-10-14", "reason": "personal_record", "intent": "GRADING_AND_STANDING", "sources": ["HANDBOOK-1446"]}

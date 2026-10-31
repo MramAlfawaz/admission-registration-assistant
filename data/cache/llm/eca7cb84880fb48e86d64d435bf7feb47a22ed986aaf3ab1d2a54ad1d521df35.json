@@ -1,0 +1,21 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in English. Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\nالرسوم الدراسية = tuition fees\nالرسوم الإدارية = administrative fees\n\nDate the question is about: 2026-10-14\nQuestion: How many semesters is the Master of Arts in Criminology?\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 52, .على الأدلة):\n.العمل بفاعلية مع الفريق والالتزام بالمسؤولية في دراسة قضايا الجريمة دليل البرامج الأكاديمية 53 Academic Programs 2027 - 2026 :شروط القبول الخاصة - الخدمة الاجتماعية- علم النفس- الحصول على درجة البكالوريوس في إحدى التخصصات التالية: علم الاجتماع التخصصات- العدالة الجنائية- علم الجريمة- الدراسات الأمنية- العلوم- الإعلام- الأنظمة- الحقوق- القانون .أو التخصصات ذات العلاقة التي ترى لجنة القبول مناسبتها ،الإنسانية .) اختبار القدرات العامة للجامعيين (عنصر مفاضلة اختياري .المقابلة الشخصية متطلبات التخرج ، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في البرنامج بنجاح بمعدل تراكمي لا يقل عن .متطلبات الحصول على الدرجة العلمية :مزايا البرنامج وزارة الموارد البشرية.- التصنيف ا\n\n[E2] (page 22, .يقدم البرنامج باللغة العربية):\n.على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية مقدمة َنَى القانون الجنائي بمكافحة الظاهرة الإجرامية والحد منها، لما تمثله من أضرار متنوعة وخطيرة على المجتمع، واستجابةْْعُُي لذلك يأتي تقديم برنامج ماجستير القانون الجنائي والعلوم الجنائية في جامعة نايف العربية لإعداد كوادر متخصصة لتحقيق .ذلك، سواء تعلق الأمر بالتعامل مع هذه الظاهرة من الناحية القانونية أو الاجتماعية ماجستير الآداب في القانون الجنائي والعلوم الجنائية24 ماجستير الآداب في القانون الجنائي والعلوم الجنائية أهداف البرنامج يهدف البرنامج إلى إعداد خبرات وكوادر مؤهلة في مجال القانون الجنائي من خلال تنمية قدراتهم القانونية، وتعميق معرفتهم بالظواهر الإجرامية وأساليب مكافحتها، بما يضمن تحقيق العدالة. واستيعابهم للمبادئ والأسس الإ\n\n[E3] (page 49, :شروط القبول الخاصة):\nأو التخصصات ذات ، علم الحاسب وفروعه- الحقوق- الأنظمة- القانون- العلاقات الدولية- العلوم السياسية- .العلاقة التي ترى لجنة القبول مناسبتها خبرة عملية لا تقل عن ثلاث سنوات. . المقابلة الشخصية متطلبات التخرج ، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في البرنامج بنجاح بمعدل تراكمي لا يقل عن .متطلبات الحصول على الدرجة العلمية :مزايا البرنامج وزارة الموارد البشرية.- التصنيف السعودي الموحد للمهن . وزارة التعليم-التصنيف السعودي الموحد للمستويات والتخصصات التعليمية .يقدم البرنامج باللغة العربية .)مدة الدراسة: عامان دراسيان (أربعة فصول دراسية منتظمة ريال مقسمة بالتساوي100,000 :الرسوم الدراسية للبرنامج .على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية ماجستير الآداب\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "The Master of Arts in Criminology program at Naif Arab University for Security Sciences is a two-year program (four semesters) offered in Arabic. Tuition fees for the program are provided.",
+    "conditions": [
+      "الرسوم الدراسية للبرنامج مقدمة باللغة العربية",
+      "مدة الدراسة: عامان دراسيان (أربعة فصول دراسية منتظمة"
+    ],
+    "used_evidence": [
+      "E2"
+    ]
+  },
+  "seconds": 34.64
+}

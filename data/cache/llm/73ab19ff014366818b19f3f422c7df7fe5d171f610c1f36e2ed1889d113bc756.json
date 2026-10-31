@@ -1,0 +1,22 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: هل ماجستير الأمن الوطني يدرس باللغة العربية؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 45, متطلبات التخرج):\n، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في البرنامج بنجاح بمعدل تراكمي لا يقل عن .متطلبات الحصول على الدرجة العلمية :مزايا البرنامج وزارة الموارد البشرية.- التصنيف السعودي الموحد للمهن . وزارة التعليم-التصنيف السعودي الموحد للمستويات والتخصصات التعليمية .)مصنف مهنيًاً من الهيئة السعودية للتخصصات الصحية (أخصائي مختبرات جنائية .يقدم البرنامج باللغة العربية .)مدة الدراسة: عامان دراسيان (أربعة فصول دراسية منتظمة ريال مقسمة بالتساوي100,000 :الرسوم الدراسية للبرنامج .على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية ماجستير الأمن الوطني مقدمة ، يمثل الأمن الوطني محور السياسات الداخلية والخارجية للدول وهدفها الأول، إذ يتعلق بوجود الدولة، واستمراريتها ،وصيانة ح\n\n[E2] (page 47, مقدمة):\nالبرنامج إلى تخريج كوادر عالية التأهيل قادرة على البحث، والتحليل، والابتكار، وتقديم الرؤى بما يدعم المؤسسات وصناع .القرار على الصعيد الأمني ويتضمن البرنامج العديد من المقررات المعنية بمفهوم الأمن على المستويات الوطنية والإقليمية والدولية، وتعالج هذه المقررات موضوع الأمن بمفهومه الشامل الذي يتضمن إلى جانب الأمن التقليدي أو العسكري؛ محور الأمن الإنساني بأبعاده ،المختلفة من سياسية، وتقنية، واقتصادية، وشخصية وصحية، وبيئية، ومجتمعية. كما يشتمل البرنامج على مشروع تخرج ينصب في الموضوعات المتعلقة بالدراسات الأمنية والأمن الوطني وما يتعلق به من قضايا وتحديات عسكرية، وتقنيات ،ناشئة، وسيبرانية، وبيئية .وفكرية، وغيرها ماجستير الأمن الوطني48 ماجستير الأمن الوطني أهداف البرنامج يهدف البرنامج إلى تطوير وإع\n\n[E3] (page 59, والتقنيات الحديثة والتطبيقية، وتقييم المخاطر):\nوالتقنيات الحديثة والتطبيقية، وتقييم المخاطر والحفاظ على الأمن الوطني بمفهومه الشامل؛ لذا يأتي إنشاء هذا البرنامج من منطلق رؤية الجامعة ودورها في الإسهام بإعداد كوادر وخبرات متخصصة في مجال .دراسات الأمن الوطني الدبلوم العالي في الأمن الوطني60 الدبلوم العالي في الأمن الوطني أهداف البرنامج يهدف البرنامج إلى إعداد كوادر مزودة بالجوانب المعرفية والمهارية في مجال دراسات الأمن الوطني وطرق مواجهة التحديات والمخاطر الإستراتيجية المرتبطة بما يتطلبه ذلك من أدوات وآليات لحماية الأمن الوطني، وتمكينهم من توظيف المنهجيات العلمية لدعم عملية اتخاذ القرار، وكذلك تعزيز قيم التفاني في العمل والأمانة العلمية والسرية المتصلة بمهام .الأمن الوطني أبرز نواتج التعلم: . تفسير مرتكزات دراسات الأمن الوطني شرح المفاهيم \n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "ماجستير الأمن الوطني يقدم باللغة العربية، وهو برنامج يهدف إلى تطوير المهارات والمعارف في مجال الأمن الوطني، وهو يتناول الموضوعات المتعلقة بالدراسات الأمنية والأمن الوطني وما يتعلق به من قضايا وتحديات عسكرية، وتقنية، واقتصادية، وشخصية وبيئية، واجتماعية.",
+    "conditions": [
+      "يقدم البرنامج باللغة العربية",
+      "يتضمن البرنامج العديد من المقررات المعنية بمفهوم الأمن على المستويات الوطنية والإقليمية والدولية",
+      "يشتمل البرنامج على مشروع تخرج ينصب في الموضوعات المتعلقة بالدراسات الأمنية والأمن الوطني وما يتعلق به من قضايا وتحديات عسكرية، وتقنية، وبيئية"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 36.87
+}

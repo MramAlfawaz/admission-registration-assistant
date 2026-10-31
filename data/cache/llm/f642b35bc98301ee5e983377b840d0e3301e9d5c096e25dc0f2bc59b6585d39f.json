@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: كم مدة الدراسة في الدبلوم العالي؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 1, كم مدة الدراسة لمرحلتي الماجستير والدبلوم العالي؟):\nكم مدة الدراسة لمرحلتي الماجستير والدبلوم العالي؟ مدة الدراسة في برامج الماجستير: سنتان دراسيتان \"أربعة فصول دراسية\" مدة الدراسة في برامج الدبلوم العالي: سنة دراسية واحدة \"فصلان دراسيان\"\n\n[E2] (page 66, .)مدة الدراسة: عام دراسي (فصلان دراسيان منتظمان):\n.)مدة الدراسة: عام دراسي (فصلان دراسيان منتظمان ريال مقسمة بالتساوي50,000 :الرسوم الدراسية للبرنامج .على فصلين دراسيين، بالإضافة إلى سداد الرسوم الإدارية الدبلوم العالي في مكافحة الإرهاب مقدمة تتنامى التهديدات الإرهابية حول العالم بشكل ملحوظ، وتتنوع أساليب التنظيمات الإرهابية في تنفيذ عملياتها النوعية واستحداث إستراتيجيات التجنيد والاستقطاب؛ لذا كان لزامًاً على الأجهزة الأمنية تطوير قدراتها في مكافحة الإرهاب والتطرف بجميع صوره وإعداد الكوادر البشرية المتخصصة، لاستيعاب حجم الخطر وآليات التنظيمات المتطرفة المستحدثة، والقدرة على رصد تلك التهديدات واستخدام الأدوات التقنية الحديثة والمنهج العلمي لتفكيك تلك التنظيمات، وشل قدرتها على .تجديد دمائها، وتجفيف منابع تمويلها 68الدبلوم العالي في مكافحة ال\n\n[E3] (page 12, الدور الريادي للجامعة في مجال العلوم الأمنية):\nوالتطبيق العملي في مختبرات متخصصة ومجهزة بأحدث التقنيات للبرامج العلمية التطبيقية. 13 الكليات والأقسام والبرامج الأكاديمية الكلية القسم البرنامج الأكاديمي العدالة الجنائية العلوم الشرطية الدبلوم العالي في مكافحة الإرهاب الأدلة الجنائية ماجستير العلوم في الأدلة الجنائية مسار الوراثة الجنائية والأحياء الجزيئية)-(مسار الكيمياء الجنائية والسموم ماجستير العلوم في الجرائم السيبرانية والتحقيق الجنائي الرقمي مسار الأجهزة المحمولة)-(مسار الشبكات ماجستير العلوم في الذكاء الاصطناعي الأمني الدبلوم العالي في الجرائم السيبرانية والتحقيق الجنائي الرقمي القانون الجنائي الدكتوراه في القانون الجنائي ماجستير الآداب في القانون الجنائي والعلوم الجنائية ماجستير الآداب في إنفاذ القانون ماجستير الجرائم الاقتصادية ا\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "مدة الدراسة في الدبلوم العالي سنة دراسية واحدة تحتوي على فصلان دراسيان، كما ذكر في النص المذكور (E1).",
+    "conditions": [
+      "مدة الدراسة في برامج الدبلوم العالي: سنة دراسية واحدة \"فصلان دراسيان\""
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 28.42
+}

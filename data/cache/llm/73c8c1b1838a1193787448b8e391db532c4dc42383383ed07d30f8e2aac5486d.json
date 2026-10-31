@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: هل يشترط موافقة جهة العمل للقبول في الجامعة؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 12, :الشروط العامة للقبول في الجامعة):\n.بتقدير عام لا يقل عن جيد جداً أو ما يعادله للمتقدمين على برامج الدكتوراه • الحصول عى درجة بكالوريوس معرف بها من الجهة المخولة من الدولة التي صدرت .منها بتقدير عام لا يقل عن جيد لبرامج الماجستير والدبلوم العالي .موافقة جهة العمل .استيفاء الشروط الخاصة بالبرنامج :الرسوم المالية غير المستردة لجميع البرامج الأكاديمية . ريال سعودي رسوم طلب التقديم100 . ريال سعودي رسوم إدارية عند القبول النهائي2000 :تنبيهات مهمة • على المتقدم التأكد من صحة ودقة بياناته، وفي حال تقديم معلومات غير صحيحة يحق للجامعة .إلغاء طلب القبول دون الالتزام بإشعار المتقدم بذلك • يتم تعبئة طلب القبول إلكترونيًاً من خلال بوابة القبول الإلكترونية https://admission.nauss.edu.sa. 1 3 2 4 .تعبئة طلب القبول على بوابة القبول الإلكترون\n\n[E2] (page 37, .الجامعة أو تمثيلهم لها رسمًّيًا):\nداخل الجامعة. . إقامة أو تنظيم أي أنشطة أو فعاليات غير مرخص لها من جهة الاختصاص 7 ،داخل الجامعة بأي وسيلة كانت إلكترونية أو غيرها أو المشاركة فيها أو إصدار المطبوعات أو النشرات أو الملصقات، أو المشاركة في توزيعها، أو جمع الأموال أو التبرعات أو التوقيعات، دون موافقة الجهات ذات العلاقة. . الابتزاز أو الاعتداء اللفظي أو الجسدي على أي كان داخل الحرم الجامعي 8 ،وجميع المرافق المرتبطة بها سواًءً تجاه العمال، أو الموظفين، أو الطلاب أو أعضاء هيئة التدريس، أو زوار الجامعة. . الامتناع عن تقديم الأوراق الثبوتية لجهات الاختصاص في حال طلبها.9 . انتحال شخصية الغير في أي أمر من الأمور التي لها علاقة بالجامعة10 وشؤونها وإعطاء وثائق جامعية بقصد استعمالها بطريقة غير مشروعة أو التحدث باسم الجامعة دون صفة رسمية\n\n[E3] (page 1, ):\nالتقديم على الدراسة الدراسة فى الجامعة الشروط العامة للقبول في الجامعة استيفاء جميع الشروط الخاصة للقبول في البرنامج. موافقة جهة العمل. في حال القبول النهائي سداد رسوم إدارية غير مستردة خاصة بالتقديم، مبلغا وقدره ألفا (2000) ريال سعودي لبرامج الماجستير، والدكتوراة و الدبلوم العالي. الحصول على درجة البكالوريوس من جامعة معتمدة بتقدير عام لا يقل عن جيد لبرامج الماجيستر والدبلوم العالي. الحصول على درجة الماجستير للمتقدمين على برنامج الدكتوراه تنبيهات هامة يجب تقديم بيانات صحيحة ودقيقة للدارس، وفي حال ثبوت غير ذلك فإنه يحق للجامعة إلغاء طلب القبول دون الالتزام بإشعار المتقدم بذلك. يتم تعبئة طلب القبول إلكترونيا من خلال بوابة القبول الإلكتروني إجراءات القبول استكمال نموذج القبول إلكترونيا من خلال \n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "وفقًا للشروط العامة للقبول في الجامعة، يجب الحصول على موافقة جهة العمل للقبول في الجامعة، كما هو موضح في الشروط الخاصة بالبرنامج التي تنص على موافقة جهة العمل.",
+    "conditions": [
+      "موافقة جهة العمل"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 28.81
+}

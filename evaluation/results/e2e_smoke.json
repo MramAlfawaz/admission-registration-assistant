@@ -1,0 +1,703 @@
+{
+  "set_sha256": "1d187245c0164ad3227625d3d5cf69db3af57734ad5caf2ef18996dc4c28d1ac",
+  "summary": {
+    "overall": {
+      "n": 5,
+      "status_accuracy": 1.0,
+      "correct_refusal_rate": null,
+      "correct_refusal_exact_status": null,
+      "false_refusal_rate": 0.0,
+      "answer_correct_when_answered": 1.0,
+      "end_to_end_correct": 1.0,
+      "wrong_answers_shown": 0,
+      "claims": 10,
+      "claims_unverified": 0,
+      "grounded_claim_rate": 0.7,
+      "unsupported_claim_rate": 0.3,
+      "model_claims_judged": 6,
+      "model_claim_grounded_rate": 0.833,
+      "citations": 9,
+      "citations_unverified": 0,
+      "citation_accuracy": 1.0,
+      "self_service_rate": 1.0
+    },
+    "ar": {
+      "n": 5,
+      "status_accuracy": 1.0,
+      "correct_refusal_rate": null,
+      "correct_refusal_exact_status": null,
+      "false_refusal_rate": 0.0,
+      "answer_correct_when_answered": 1.0,
+      "end_to_end_correct": 1.0,
+      "wrong_answers_shown": 0,
+      "claims": 10,
+      "claims_unverified": 0,
+      "grounded_claim_rate": 0.7,
+      "unsupported_claim_rate": 0.3,
+      "model_claims_judged": 6,
+      "model_claim_grounded_rate": 0.833,
+      "citations": 9,
+      "citations_unverified": 0,
+      "citation_accuracy": 1.0,
+      "self_service_rate": 1.0
+    },
+    "en": {
+      "n": 0,
+      "status_accuracy": null,
+      "correct_refusal_rate": null,
+      "correct_refusal_exact_status": null,
+      "false_refusal_rate": null,
+      "answer_correct_when_answered": null,
+      "end_to_end_correct": null,
+      "wrong_answers_shown": 0,
+      "claims": 0,
+      "claims_unverified": 0,
+      "grounded_claim_rate": null,
+      "unsupported_claim_rate": null,
+      "model_claims_judged": 0,
+      "model_claim_grounded_rate": null,
+      "citations": 0,
+      "citations_unverified": 0,
+      "citation_accuracy": null,
+      "self_service_rate": null
+    },
+    "confusion": {
+      "ANSWERABLE": {
+        "ANSWERABLE": 5,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "CLARIFICATION_REQUIRED": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "CONFLICTING_EVIDENCE": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "OUT_OF_SCOPE": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      },
+      "STAFF_REVIEW_REQUIRED": {
+        "ANSWERABLE": 0,
+        "CLARIFICATION_REQUIRED": 0,
+        "INSUFFICIENT_EVIDENCE": 0,
+        "CONFLICTING_EVIDENCE": 0,
+        "OUT_OF_SCOPE": 0,
+        "STAFF_REVIEW_REQUIRED": 0
+      }
+    },
+    "seconds": {
+      "median": 24.8,
+      "p90": 36.84,
+      "max": 55.06
+    },
+    "reproducible_rate": 1.0,
+    "modes": {
+      "generated": 3,
+      "extractive": 2
+    }
+  },
+  "rows": [
+    {
+      "id": "E001",
+      "item": {
+        "id": "E001",
+        "question": "متى تبدأ الاختبارات النهائية للفصل الأول؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2026-12-06",
+            "1448-06-26"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents",
+        "note": "row 7"
+      },
+      "seconds": 55.06,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "الاختبارات النهائية للفصل الدراسي الأول ستبدأ في 6 ديسمبر 2026 (1448/06/26هـ).",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "بداية الاختبارات النهائية للفصل الدراسي الأول: الأحد 2026-12-06م (1448-06-26هـ)",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448#007",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "الاختبارات النهائية للفصل الدراسي الأول ستبدأ في 6 ديسمبر 2026 (1448/06/26هـ).",
+        "conditions": [
+          "بداية الاختبارات النهائية للفصل الدراسي الأول: الأحد 2026-12-06م (1448-06-26هـ)"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#007",
+            "page": 1,
+            "section": "row 7"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ACADEMIC_CALENDAR",
+        "intent": "ACADEMIC_CALENDAR",
+        "retrieved": [
+          "CALENDAR-1448#007",
+          "CALENDAR-1448#008",
+          "CALENDAR-1448#019",
+          "CALENDAR-1448#020",
+          "CALENDAR-1448#003"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "الاختبارات النهائية للفصل الدراسي الأول ستبدأ في 6 ديسمبر 2026 (1448/06/26هـ)."
+        ]
+      }
+    },
+    {
+      "id": "E002",
+      "item": {
+        "id": "E002",
+        "question": "متى تبدأ إجازة عيد الفطر هذا العام الدراسي؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2027-02-07",
+            "1448-08-30"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents",
+        "note": "row 13"
+      },
+      "seconds": 18.12,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "تبدأ إجازة عيد الفطر هذا العام الدراسي في 7 فبراير 2027 (1448-08-30هـ).",
+          "label": "unsupported"
+        },
+        {
+          "type": "condition",
+          "text": "بداية إجازة عيد الفطر: الأحد 2027-02-07م (1448-08-30هـ)",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448#013",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "تبدأ إجازة عيد الفطر هذا العام الدراسي في 7 فبراير 2027 (1448-08-30هـ).",
+        "conditions": [
+          "بداية إجازة عيد الفطر: الأحد 2027-02-07م (1448-08-30هـ)"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#013",
+            "page": 1,
+            "section": "row 13"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ACADEMIC_CALENDAR",
+        "intent": "ACADEMIC_CALENDAR",
+        "retrieved": [
+          "CALENDAR-1448#013",
+          "CALENDAR-1448#015",
+          "CALENDAR-1448#017",
+          "CALENDAR-1448#016",
+          "CALENDAR-1448#009"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [
+          "يجب على الطلاب الانتظار حتى هذا التاريخ لبدء إجازة عيد الفطر... -> mostly words not in evidence"
+        ],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "تبدأ إجازة عيد الفطر هذا العام الدراسي في 7 فبراير 2027 (1448-08-30هـ)."
+        ]
+      }
+    },
+    {
+      "id": "E003",
+      "item": {
+        "id": "E003",
+        "question": "متى تبدأ إجازة نهاية العام الدراسي؟",
+        "language": "ar",
+        "as_of": "2027-04-01",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2027-06-17",
+            "1449-01-12"
+          ]
+        ],
+        "must_not_contain": [],
+        "clarify": null,
+        "origin": "synthetic, written from the documents",
+        "note": "row 21"
+      },
+      "seconds": 16.64,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "generated",
+      "claims": [
+        {
+          "type": "model",
+          "text": "تبدأ إجازة نهاية العام الدراسي في 2027-06-17 (1449-01-12هـ)، وهو نهاية دوام الخميس.",
+          "label": "grounded"
+        },
+        {
+          "type": "condition",
+          "text": "بداية إجازة نهاية العام: نهاية دوام الخميس 2027-06-17م (1449-01-12هـ)",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448#021",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "ACADEMIC_CALENDAR",
+        "language": "ar",
+        "as_of": "2027-04-01",
+        "answer": "تبدأ إجازة نهاية العام الدراسي في 2027-06-17 (1449-01-12هـ)، وهو نهاية دوام الخميس.",
+        "conditions": [
+          "بداية إجازة نهاية العام: نهاية دوام الخميس 2027-06-17م (1449-01-12هـ)"
+        ],
+        "required_action": "",
+        "rule_outputs": [],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "chunk_id": "CALENDAR-1448#021",
+            "page": 1,
+            "section": "row 21"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2027-04-01.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "ACADEMIC_CALENDAR",
+        "intent": "ACADEMIC_CALENDAR",
+        "retrieved": [
+          "CALENDAR-1448#021",
+          "CALENDAR-1448#009",
+          "CALENDAR-1448#016",
+          "CALENDAR-1448#017",
+          "CALENDAR-1448#015"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [],
+        "overridden": [],
+        "rules": [],
+        "verification_issues": [],
+        "sentences_kept": 1,
+        "rule_texts": [],
+        "mode": "generated",
+        "claims_generated": [
+          "تبدأ إجازة نهاية العام الدراسي في 2027-06-17 (1449-01-12هـ)، وهو نهاية دوام الخميس."
+        ]
+      }
+    },
+    {
+      "id": "E004",
+      "item": {
+        "id": "E004",
+        "question": "هل أقدر أأجل الترم الثاني الحين؟",
+        "language": "ar",
+        "as_of": "2026-12-20",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2027-01-07"
+          ],
+          [
+            "مفتوحه",
+            "مفتوح"
+          ]
+        ],
+        "must_not_contain": [
+          [
+            "انتهت"
+          ]
+        ],
+        "clarify": null,
+        "origin": "synthetic, written from the documents",
+        "note": "row 12, RULE-CAL-02 open"
+      },
+      "seconds": 24.8,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "extractive",
+      "claims": [
+        {
+          "type": "rule",
+          "text": "آخر موعد لتأجيل الفصل الدراسي الثاني هو الخميس 2027-01-07 (1448-07-29هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ.",
+          "label": "grounded"
+        }
+      ],
+      "citations": [
+        {
+          "source": "CALENDAR-1448",
+          "label": "accurate"
+        },
+        {
+          "source": "HANDBOOK-1446",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "POSTPONEMENT",
+        "language": "ar",
+        "as_of": "2026-12-20",
+        "answer": "آخر موعد لتأجيل الفصل الدراسي الثاني هو الخميس 2027-01-07 (1448-07-29هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ.",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-02",
+            "output": "open",
+            "details": {
+              "term_id": "1448-T2",
+              "term_basis": "stated",
+              "event": "آخر موعد لتأجيل الفصل الدراسي الثاني",
+              "date": "2027-01-07",
+              "hijri": "1448-07-29",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 12
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 4 and 12"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p17 تأجيل الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-12-20.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "POSTPONEMENT",
+        "intent": "POSTPONEMENT",
+        "retrieved": [
+          "FAQ-NAUSS#019",
+          "CALENDAR-1448#012",
+          "CALENDAR-1448#011",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#020"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "FAQ-NAUSS#019",
+          "CALENDAR-1448#011",
+          "CALENDAR-1448#010",
+          "CALENDAR-1448#020"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-02",
+            "open"
+          ]
+        ],
+        "verification_issues": [
+          "بالتالي، يمكنك تأجيل الفصل الدراسي الثاني حتى الخميس 2027-01... -> repeats the fixed sentence"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [
+          "آخر موعد لتأجيل الفصل الدراسي الثاني هو الخميس 2027-01-07 (1448-07-29هـ)، وفترة التأجيل ما زالت مفتوحة حتى ذلك التاريخ."
+        ],
+        "mode": "extractive",
+        "quotes": []
+      }
+    },
+    {
+      "id": "E005",
+      "item": {
+        "id": "E005",
+        "question": "هل ما زال بإمكاني تأجيل الفصل الدراسي الأول؟",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "category": "calendar",
+        "expected_status": "ANSWERABLE",
+        "must_contain": [
+          [
+            "2026-08-27"
+          ],
+          [
+            "انتهت"
+          ]
+        ],
+        "must_not_contain": [
+          [
+            "ما زالت مفتوحه"
+          ]
+        ],
+        "clarify": null,
+        "origin": "synthetic, written from the documents",
+        "note": "row 4, RULE-CAL-02 closed"
+      },
+      "seconds": 36.84,
+      "reproducible": true,
+      "status_ok": true,
+      "facts_ok": true,
+      "forbidden": [],
+      "correct": true,
+      "mode": "extractive",
+      "claims": [
+        {
+          "type": "rule",
+          "text": "آخر موعد لتأجيل الفصل الدراسي الأول كان الخميس 2026-08-27 (1448-03-14هـ)، وقد انتهت فترة التأجيل لهذا الفصل.",
+          "label": "grounded"
+        },
+        {
+          "type": "quote",
+          "text": "هل يوجد تأجيل للقبول في نظام الجامعة؟ لا يوجد",
+          "label": "unsupported"
+        },
+        {
+          "type": "quote",
+          "text": "يجوز تأجيل الدراسة للطالب لمدة فصل دراسي واحد أو فصلين دراسيين2 متتاليين خلال المرحلة الدراسية وذلك بناًءً على توصية مجلس القسم وموافقة مجلس الكلية",
+          "label": "unsupported"
+        }
+      ],
+      "citations": [
+        {
+          "source": "FAQ-NAUSS#017",
+          "label": "accurate"
+        },
+        {
+          "source": "HANDBOOK-1446#009",
+          "label": "accurate"
+        },
+        {
+          "source": "CALENDAR-1448",
+          "label": "accurate"
+        },
+        {
+          "source": "HANDBOOK-1446",
+          "label": "accurate"
+        }
+      ],
+      "response": {
+        "status": "ANSWERABLE",
+        "intent": "POSTPONEMENT",
+        "language": "ar",
+        "as_of": "2026-10-14",
+        "answer": "آخر موعد لتأجيل الفصل الدراسي الأول كان الخميس 2026-08-27 (1448-03-14هـ)، وقد انتهت فترة التأجيل لهذا الفصل. ورد في المصدر المعتمد: «هل يوجد تأجيل للقبول في نظام الجامعة؟ لا يوجد» «يجوز تأجيل الدراسة للطالب لمدة فصل دراسي واحد أو فصلين دراسيين2 متتاليين خلال المرحلة الدراسية وذلك بناًءً على توصية مجلس القسم وموافقة مجلس الكلية»",
+        "conditions": [],
+        "required_action": "",
+        "rule_outputs": [
+          {
+            "rule_id": "RULE-CAL-02",
+            "output": "closed",
+            "details": {
+              "term_id": "1448-T1",
+              "term_basis": "stated",
+              "event": "آخر موعد لتأجيل الفصل الدراسي الأول",
+              "date": "2026-08-27",
+              "hijri": "1448-03-14",
+              "calendar": "CALENDAR-1448",
+              "calendar_row": 4
+            }
+          }
+        ],
+        "sources": [
+          {
+            "source_id": "FAQ-NAUSS",
+            "chunk_id": "FAQ-NAUSS#017",
+            "page": 1,
+            "section": "هل يوجد تأجيل للقبول في نظام الجامعة؟"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "chunk_id": "HANDBOOK-1446#009",
+            "page": 17,
+            "section": ".على الدرجة العلمية"
+          },
+          {
+            "source_id": "CALENDAR-1448",
+            "section": "rows 4 and 12"
+          },
+          {
+            "source_id": "HANDBOOK-1446",
+            "section": "p17 تأجيل الدراسة"
+          }
+        ],
+        "date_basis": "بناءً على المعلومات المعتمدة المتاحة بتاريخ 2026-10-14.",
+        "clarification": null,
+        "escalation": null,
+        "verified": true
+      },
+      "trace": {
+        "language_detected": "ar",
+        "clarification": {},
+        "intent_classified": "POSTPONEMENT",
+        "intent": "POSTPONEMENT",
+        "retrieved": [
+          "HANDBOOK-1446#010",
+          "HANDBOOK-1446#009",
+          "CALENDAR-1448#004",
+          "FAQ-NAUSS#017",
+          "CALENDAR-1448#003"
+        ],
+        "quarantined": [],
+        "evidence_status": "OK",
+        "off_topic": [
+          "CALENDAR-1448#003"
+        ],
+        "overridden": [],
+        "rules": [
+          [
+            "RULE-CAL-02",
+            "closed"
+          ]
+        ],
+        "verification_issues": [
+          "لا يمكن للطالب تأجيل الفصل الدراسي الأول، حيث أنه تم إغلاق آ... -> repeats the fixed sentence"
+        ],
+        "sentences_kept": 0,
+        "rule_texts": [
+          "آخر موعد لتأجيل الفصل الدراسي الأول كان الخميس 2026-08-27 (1448-03-14هـ)، وقد انتهت فترة التأجيل لهذا الفصل."
+        ],
+        "mode": "extractive",
+        "quotes": [
+          {
+            "text": "هل يوجد تأجيل للقبول في نظام الجامعة؟ لا يوجد",
+            "chunk_id": "FAQ-NAUSS#017"
+          },
+          {
+            "text": "يجوز تأجيل الدراسة للطالب لمدة فصل دراسي واحد أو فصلين دراسيين2 متتاليين خلال المرحلة الدراسية وذلك بناًءً على توصية مجلس القسم وموافقة مجلس الكلية",
+            "chunk_id": "HANDBOOK-1446#009"
+          }
+        ]
+      }
+    }
+  ]
+}

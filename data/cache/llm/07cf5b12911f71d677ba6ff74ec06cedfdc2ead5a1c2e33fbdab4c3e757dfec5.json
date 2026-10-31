@@ -1,0 +1,21 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: أعطني بيانات تسجيل الطالب محمد أحمد ومعدله.\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 38, .بعلاقة الطالب بالجامعة وإجراءات دراسته فيها):\n. التهور في القيادة داخل الحرم الجامعي أو الوقوف الخاطئ أو تعريض12 .الآخرين للخطر بأي شكل من الأشكال . الاطلاع دون وجه حق على المعلومات السرية الخاصة بالجامعة أو أي من 13 .منسوبيها أو نشرها أو إرشاد الآخرين لكيفية الحصول عليها . انتهاك حقوق الملكية الفكرية، وذلك لجميع المصادر الفكرية والتعليمية 14 .الإلكترونية والورقية . كل إساءة استعمال أو إتلاف أو تخريب متعمد لمنشآت الجامعة أو 15 ممتلكاتها أو محاولة القيام بذلك، أو تعديلها أو نقلها بغير موافقة الجهات المختصة. . استعمال الأنظمة الحاسوبية للجامعة وموقعها الإلكتروني لغير الأغراض 16 .التي أعدت لها بأي شكل . التسجيل المرئي أو المسموع داخل حرم الجامعة دون وجود إذن مسبق.17 .. تصوير الأشخاص دون علمهم أو دون رضاهم18 . حمل السلاح الناري، ولو كان مرخ\n\n[E2] (page 7, أعزائي الطلبة):\nللمشاركة فيها والاستفادة من ما يقدم فيها من محاضرات وورش تدريبية. إن هذا الدليل الذي بين أيديكم يحتوي على معلومات هامة وضرورية لمسيرتكم التعليمية في الجامعة. لذا نأمل أن تأخذ الوقت الكافي في التعرف على اللوائح والأنظمة التعليمية والمعلومات الضرورية الأخرى التي اشتمل عليها هذا الدليل بما يحفظ حقوق كافة أطراف العملية التعليمية. مرة أخرى.. أرحب بكم أجمل ترحيب، وإني على ثقة بأنكم ستبذلون ُقَُصَ اَرَى جهودكم وغاية عنايتكم للاستفادة من هذا الصرح العلمي الأمني المرموق.. ودعوات صادقة لكم بأن يكون التوفيق والنجاح حليفًاً لكم. رئيس الجامعة تقديم 9 هذا الُكَُتَِّيِب هو دليل الطالب في جامعة نايف العربية للعلوم الأمنية، وهو عبارة عن المعلومات والنصائح التي يحتاج إليها الطالب خلال دراسته في الجامعة. وعلى \n\n[E3] (page 1, هل هنالك نظام معادلة المواد التي سبق دراستها للمتقدم؟):\nهل هنالك نظام معادلة المواد التي سبق دراستها للمتقدم؟ نعم ، يمكن ذلك حسب اللائحة العلمية ويلزم مراجعة عمادة القبول والتسجيل في الفترة المعلنة.\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "محمد أحمد لديه معدّل، حيث أنه وفقًا للدليل الذي بين أيديكم، يحتوي على معلومات هامة وضرورية لمسيرتكم التعليمية في الجامعة. لذا يجب عليك مراجعة عمادة القبول والتسجيل للحصول على معدّل محمد أحمد.",
+    "conditions": [
+      "التسجيل المرئي أو المسموع داخل حرم الجامعة دون وجود إذن مسبق",
+      "حمل السلاح الناري، ولو كان مرخ"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 30.15
+}

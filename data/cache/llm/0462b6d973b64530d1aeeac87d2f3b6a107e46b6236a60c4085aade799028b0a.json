@@ -1,0 +1,21 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in English. Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\nالحرمان من دخول الاختبار = exam deprivation\n\nDate the question is about: 2026-10-14\nQuestion: I need an extension of my study period by one more year.\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 1, هل يمكن لي التقديم مرة أخرى إذا لم يتم قبولي في السنة الماضية؟):\nهل يمكن لي التقديم مرة أخرى إذا لم يتم قبولي في السنة الماضية؟ نعم. يمكنك التقدم بطلب جديد\n\n[E2] (page 1, row 24):\n)ه1450-1449( م2028-2027 بداية الدراسة للعام الدراسي: الأحد 2027-08-22م (1449-03-20هـ)\n\n[E3] (page 33, .والجزاءات، والمرافق، والخدمات في الجامعة):\n. توفير نظام فَّعَال للإرشاد الأكاديمي، وبيئة دراسية ومناخ أكاديمي 8 مناسب ُيُمِّكّن الطلبة من الاستثمار الأمثل لقدراتهم، وطاقاتهم، وتحقيق الحد الأقصى من الاستيعاب العلمي والتحصيل الأكاديمي. . إعلان التقويم الجامعي والجداول الدراسية مع بداية كل عام دراسي، 9 .وعدم تغيير أوقاتها إلا في حالة الضرورة 34 . التعريف بتوصيف المقرر الدراسي، وأهدافه، وموضوعاته، ومراجعه10 ،الرئيسة، والواجبات المطلوبة من الطلبة، وأنواع التقاويم، وتوقيتاتها وتوزيع الدرجات الخاصة بكل منها. . تقديم المادة العلمية بشكل واضح وتسلسلي، واستخدام ما ُيُسّهّل ذلك 11 .من تقنيات وأنشطة واستراتيجيات تعليمية . الإعلان عن حالات الحرمان من دخول الاختبارات وإبلاغ الطلاب المعنيين 12 .بها قبل الاختبار النهائي حسب اللوائح والتعليمات . إعدا\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "The evidence indicates that you can apply again if you were not accepted in the previous year. There is no mention of an extension for the study period.",
+    "conditions": [
+      "the evidence does not mention any conditions related to study period extension"
+    ],
+    "required_action": "the student should not request an extension as no such option is provided in the evidence",
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 19.23
+}

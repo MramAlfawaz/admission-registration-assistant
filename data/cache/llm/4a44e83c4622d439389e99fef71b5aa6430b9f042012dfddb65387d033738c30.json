@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: حسب دليل البرامج القديم 1447، كم رسوم ماجستير الأمن الوطني؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 45, متطلبات التخرج):\n، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز الساعات اُلم ُقررة في البرنامج بنجاح بمعدل تراكمي لا يقل عن .متطلبات الحصول على الدرجة العلمية :مزايا البرنامج وزارة الموارد البشرية.- التصنيف السعودي الموحد للمهن . وزارة التعليم-التصنيف السعودي الموحد للمستويات والتخصصات التعليمية .)مصنف مهنيًاً من الهيئة السعودية للتخصصات الصحية (أخصائي مختبرات جنائية .يقدم البرنامج باللغة العربية .)مدة الدراسة: عامان دراسيان (أربعة فصول دراسية منتظمة ريال مقسمة بالتساوي100,000 :الرسوم الدراسية للبرنامج .على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية ماجستير الأمن الوطني مقدمة ، يمثل الأمن الوطني محور السياسات الداخلية والخارجية للدول وهدفها الأول، إذ يتعلق بوجود الدولة، واستمراريتها ،وصيانة ح\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "وفقاً للدليل البرامج القديم 1447، فإن رسوم ماجستير الأمن الوطني تبلغ 100,000 ريال مقسمة بالتساوي على الفصول الدراسية.",
+    "conditions": [
+      "رسوم الدراسية للبرنامج تبلغ 100,000 ريال مقسمة بالتساوي على الفصول الدراسية"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 20.94
+}

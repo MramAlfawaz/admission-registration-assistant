@@ -1,0 +1,20 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: متى أدفع الرسوم الدراسية؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 1, هل يتم سدد الرسوم الدراسية لكل مرحلة عند بدء التسجيل؛ كاملة أم يمكن تقسيطها؟):\nهل يتم سدد الرسوم الدراسية لكل مرحلة عند بدء التسجيل؛ كاملة أم يمكن تقسيطها؟ يتم سداد الرسوم الدراسية في بداية كل فصل دراسي وفقًا للتقويم الدراسي.\n\n[E2] (page 1, هل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟):\nهل يحق للمتقدم استرداد الرسوم الدراسية التي تم سدادها عند الانسحاب من البرنامج الأكاديمي؟ يحق للدارس أن يسترد الرسوم الدراسية فقط دون الرسوم الإدارية؛ شريطة أن يكون ذلك قبل تاريخ بداية الدراسة حسب التقويم الأكاديمي المُعتمد، وتقديم طلب الانسحاب إلى عمادة القبول والتسجيل.\n\n[E3] (page 19, .الاختبارات النهائية بأسبوعين):\nبشرط أن تكون مطروحة من قبل القسم، وإذا لم تطرح تلك المقررات في الفصل التالي تؤجل دراسته للفصل الذي يتم فيه طرح مقررات الفصل الذي تم الاعتذار عنه. . لا تحتسب مدة الاعتذار عن مواصلة الدراسة ضمن الفرص الإضافية*.4 .. تحتسب مدة الاعتذار ضمن الحد الأقصى للحصول على الدرجة العلمية5 .. لا يحق للطالب المعتذر استعادة الرسوم الدراسية المدفوعة6 الانسحاب من الجامعة أوًلاً: يجوز للطالب تقديم طلب الانسحاب من البرنامج الأكاديمي إلى عمادة القبول والتسجيل. قبل بدء الاختبارات النهائية حسب التقويم الدراسي المعتمد ويتم إشعار القسم الأكاديمي المختص بهذا الإجراء، ولا يحق له استعادة الرسوم الدراسية المدفوعة، ويجوز له استرداد ما دفع من رسوم دراسية للفصول التي لم يدرسها في حال تقدم بطلب الانسحاب قبل تاريخ بدء الدراسة.\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "بناءً على المعلومات المقدمة، يجب دفع الرسوم الدراسية في بداية كل فصل دراسي وفقًا للتقويم الدراسي. لا يوجد إشارة إلى موعد محدد لدفع الرسوم الدراسية في 2026-10-14.",
+    "conditions": [
+      "لا يوجد موعد محدد لدفع الرسوم الدراسية في 2026-10-14"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 28.25
+}

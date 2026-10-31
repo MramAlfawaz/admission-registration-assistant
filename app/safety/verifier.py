@@ -21,10 +21,13 @@ DECISION = ["تم قبولك", "سيتم قبولك", "انت مقبول", "تم
             "تم اعتماد", "يحق لك الاستثناء", "مؤهل للقبول",
             "you are accepted", "you will be accepted", "you are admitted", "you will be admitted",
             "has been approved", "will be approved", "you qualify for admission", "your request will be"]
+SAYS_OPEN = ["ما زال", "ما زالت", "مازال", "مازالت", "لا يزال", "لا تزال", "مفتوح", "لم ينته", "لم تنته",
+             "still open", "is open", "remains open", "not passed", "not yet passed", "has not ended", "not closed"]
+SAYS_CLOSED = ["انتهت", "انتهي", "مغلق", "اغلقت", "has closed", "is closed", "has passed", "has ended", "too late"]
 SUBMIT = ["قدم الطلب", "تقديم طلب", "يجب تقديم", "يمكنك التقديم", "قدم اعتذار", "submit", "apply now", "you can still"]
 
 
-def _numbers(text):
+def number_tokens(text):
     """Return the set of number tokens in a text, with date parts split out."""
     text = text.translate(ARABIC_DIGITS)
     found = set()
@@ -35,6 +38,23 @@ def _numbers(text):
     for date in re.findall(r"\d{4}-\d{2}-\d{2}", text):
         found.update(p.lstrip("0") for p in date.split("-"))
     return found
+
+
+def contradicts_rules(text, rule_outputs):
+    """Return issues when a text says a window is open that a rule found closed, or the reverse.
+
+    Used for model sentences and for quoted evidence alike, so neither a model nor a
+    planted passage can reopen a closed deadline.
+    """
+    norm = normalize_for_search(text)
+    closed = any(r["output"] in ("closed", "refund_not_eligible") for r in rule_outputs)
+    is_open = any(r["output"] == "open" for r in rule_outputs)
+    issues = []
+    if closed and not is_open and any(p in norm for p in SAYS_OPEN):
+        issues.append("says the period is open although the rule says it has closed")
+    if is_open and not closed and any(p in norm for p in SAYS_CLOSED):
+        issues.append("says the period has closed although the rule says it is open")
+    return issues
 
 
 def verify_text(text, language, evidence_texts, rule_outputs, question=""):
@@ -63,11 +83,11 @@ def verify_text(text, language, evidence_texts, rule_outputs, question=""):
         issues.append(f"internal identifier shown: {LEAKED_ID.search(text).group(0)}")
     allowed = set()
     for t in list(evidence_texts) + [question]:
-        allowed |= _numbers(t)
+        allowed |= number_tokens(t)
     for r in rule_outputs:
         for v in r["details"].values():
-            allowed |= _numbers(str(v))
-    unsupported = sorted(n for n in _numbers(text) - allowed if len(n) > 0)
+            allowed |= number_tokens(str(v))
+    unsupported = sorted(n for n in number_tokens(text) - allowed if len(n) > 0)
     if unsupported:
         issues.append(f"numbers not in evidence: {', '.join(unsupported[:8])}")
     norm = normalize_for_search(text)
@@ -84,4 +104,5 @@ def verify_text(text, language, evidence_texts, rule_outputs, question=""):
     closed = any(r["output"] in ("closed", "refund_not_eligible") for r in rule_outputs)
     if closed and any(p in norm for p in SUBMIT):
         issues.append("advises acting although the period has closed")
+    issues += contradicts_rules(text, rule_outputs)
     return issues

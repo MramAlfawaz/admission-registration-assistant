@@ -82,12 +82,19 @@ def build_calendar(cfg, args):
 def ingest(cfg, args):
     """Chunk every source into one JSON-lines file; identical input gives identical output."""
     from app.documents.ingest import build_chunks
+    from app.documents.injection import split_flagged
 
     chunks = []
     for s in load_sources(cfg):
         part = build_chunks(s, cfg.RAW_DIR)
         log.info("%s: %d chunks", s["source_id"], len(part))
         chunks.extend(part)
+    chunks, flagged = split_flagged(chunks)
+    quarantine = Path(cfg.PROCESSED_DIR) / "quarantine.json"
+    quarantine.parent.mkdir(parents=True, exist_ok=True)
+    quarantine.write_text(json.dumps(flagged, ensure_ascii=False, indent=2), encoding="utf-8")
+    for f in flagged:
+        log.warning("kept out of the index (text addressed to the model): %s %s", f["chunk_id"], f["signals"])
     out = Path(cfg.PROCESSED_DIR) / "chunks.jsonl"
     out.parent.mkdir(parents=True, exist_ok=True)
     body = "".join(json.dumps(c, ensure_ascii=False, sort_keys=True) + "\n" for c in chunks)
@@ -373,6 +380,126 @@ def generate_sample(cfg, args):
         log.info("expectation checks passed %d/%d", len(passed), len(rows))
 
 
+def _report_md(title, summary, rows, frozen):
+    """Write the human-readable Experiment 3 report."""
+    o, ar, en = summary["overall"], summary["ar"], summary["en"]
+    keys = [("status_accuracy", "status accuracy (all six)"), ("correct_refusal_rate", "correct refusal rate"),
+            ("correct_refusal_exact_status", "correct refusal, exact status"), ("false_refusal_rate", "false refusal rate"),
+            ("answer_correct_when_answered", "answer correct when answered"), ("end_to_end_correct", "end-to-end correct"),
+            ("wrong_answers_shown", "wrong answers shown to a student"), ("grounded_claim_rate", "grounded claim rate (judged claims)"),
+            ("unsupported_claim_rate", "unsupported claim rate (judged claims)"),
+            ("model_claim_grounded_rate", "grounded rate, model sentences only"), ("claims_unverified", "claims needing human review"),
+            ("citation_accuracy", "citation accuracy (judged citations)"), ("self_service_rate", "self-service rate")]
+    lines = [f"# {title}", "", f"Set: `evaluation/end_to_end/inquiries.jsonl`, sha256 `{frozen}`, {o['n']} inquiries.",
+             "Automatic first-pass labels; see `docs/evaluation.md` for definitions and limits.", "",
+             "| metric | overall | Arabic | English |", "|---|---|---|---|"]
+    lines += [f"| {label} | {o[k]} | {ar[k]} | {en[k]} |" for k, label in keys]
+    lines += ["", f"Response time (s): median {summary['seconds'].get('median')}, p90 {summary['seconds'].get('p90')}, "
+              f"max {summary['seconds'].get('max')}. Reproducible on repeat: {summary.get('reproducible_rate')}.",
+              f"Answer modes: {summary['modes']}", "", "## confusion (rows expected, columns returned)", "",
+              "| expected \\ returned | " + " | ".join(s[:12] for s in summary["confusion"]) + " |",
+              "|---" * (len(summary["confusion"]) + 1) + "|"]
+    for e, cols in summary["confusion"].items():
+        lines.append(f"| {e} | " + " | ".join(str(v) for v in cols.values()) + " |")
+    lines += ["", "## every incorrect inquiry", "", "| id | lang | expected | returned | mode | problem |", "|---|---|---|---|---|---|"]
+    for r in rows:
+        if r["correct"]:
+            continue
+        problem = []
+        if not r["status_ok"]:
+            problem.append("wrong status")
+        elif not r["facts_ok"]:
+            problem.append("required fact missing")
+        if r["forbidden"]:
+            problem.append(f"forbidden: {', '.join(r['forbidden'])}")
+        lines.append(f"| {r['item']['id']} | {r['item']['language']} | {r['item']['expected_status']} | "
+                     f"{r['response']['status']} | {r['mode']} | {'; '.join(problem)} |")
+    return "\n".join(lines) + "\n"
+
+
+def evaluate_e2e(cfg, args):
+    """Experiment 3: run the frozen end-to-end set and score status, refusals, claims and citations."""
+    import csv
+
+    from app.pipeline.evaluate import load_jsonl, review_sheet, run_set, score_row, summarize
+    from app.pipeline.factory import build_assistant
+
+    path = Path(cfg.EVAL_DIR) / "end_to_end" / "inquiries.jsonl"
+    frozen = hashlib.sha256(path.read_bytes()).hexdigest()
+    expected = (Path(cfg.EVAL_DIR) / "end_to_end" / "FROZEN").read_text().split()[0]
+    if frozen != expected:
+        log.error("inquiries.jsonl changed after it was frozen (sha256 %s, frozen %s); refusing to score", frozen[:12], expected[:12])
+        return
+    items = load_jsonl(path)[: args.limit or None]
+    assistant = build_assistant(cfg)
+    assistant.escalation_log = Path(cfg.EVAL_DIR) / "results" / f"{args.out}_escalations.jsonl"  # keep the real log clean
+    assistant.escalation_log.unlink(missing_ok=True)
+    chunk_text = {c["chunk_id"]: c["text"] for c in assistant.retriever.chunks}
+    rows = []
+    for i, row in enumerate(run_set(assistant, items, chunk_text, repeat=not args.no_repeat), 1):
+        score_row(row, chunk_text)
+        rows.append(row)
+        log.info("%3d/%d %s %-22s -> %-22s %s %5.1fs", i, len(items), row["item"]["id"], row["item"]["expected_status"],
+                 row["response"]["status"], "ok " if row["correct"] else "BAD", row["seconds"])
+    summary = summarize(rows)
+    results = Path(cfg.EVAL_DIR) / "results"
+    results.mkdir(parents=True, exist_ok=True)
+    stored = [{"id": r["item"]["id"], "item": r["item"], "seconds": r["seconds"], "reproducible": r.get("reproducible"),
+               "status_ok": r["status_ok"], "facts_ok": r["facts_ok"], "forbidden": r["forbidden"], "correct": r["correct"],
+               "mode": r["mode"], "claims": r["claims"], "citations": r["citations"],
+               "response": {k: v for k, v in r["response"].items() if not k.startswith("_")},
+               "trace": r["response"].get("_trace", {})} for r in rows]
+    (results / f"{args.out}.json").write_text(json.dumps({"set_sha256": frozen, "summary": summary, "rows": stored},
+                                                         ensure_ascii=False, indent=2), encoding="utf-8")
+    (results / f"{args.out}.md").write_text(_report_md(f"Experiment 3: {args.out}", summary, rows, frozen[:12]),
+                                            encoding="utf-8")
+    sheet = review_sheet(rows)
+    with (results / f"{args.out}_review.csv").open("w", encoding="utf-8-sig", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=list(sheet[0]) if sheet else ["id"])
+        writer.writeheader()
+        writer.writerows(sheet)
+    o = summary["overall"]
+    log.info("status accuracy %s | correct refusal %s | false refusal %s | wrong answers shown %s | grounded %s "
+             "(unverified %s) | citation accuracy %s | median %ss", o["status_accuracy"], o["correct_refusal_rate"],
+             o["false_refusal_rate"], o["wrong_answers_shown"], o["grounded_claim_rate"], o["claims_unverified"],
+             o["citation_accuracy"], summary["seconds"].get("median"))
+    log.info("-> %s.json, %s.md, %s_review.csv in %s", args.out, args.out, args.out, results)
+
+
+def evaluate_adversarial(cfg, args):
+    """Run the adversarial cases; expected behaviour is refusal, the correct status or escalation."""
+    from app.documents.injection import injection_signals
+    from app.pipeline.evaluate import InjectingRetriever, load_jsonl, score_adversarial
+    from app.pipeline.factory import build_assistant
+
+    cases = load_jsonl(Path(cfg.EVAL_DIR) / "adversarial" / "cases.jsonl")
+    assistant = build_assistant(cfg)
+    assistant.escalation_log = Path(cfg.EVAL_DIR) / "results" / f"{args.out}_escalations.jsonl"
+    assistant.escalation_log.unlink(missing_ok=True)
+    base_retriever, base_sources = assistant.retriever, assistant.sources_by_id
+    rows = []
+    for case in cases:
+        signals = injection_signals(case["inject"]) if case.get("inject") else []
+        if case.get("inject"):
+            # Bypass the ingest scanner on purpose: the pipeline must stay safe even if a bad page got in.
+            assistant.retriever = InjectingRetriever(base_retriever, case["inject"])
+            assistant.sources_by_id = {**base_sources, InjectingRetriever.SOURCE["source_id"]: InjectingRetriever.SOURCE}
+        response = assistant.answer(case["question"], case["as_of"])
+        assistant.retriever, assistant.sources_by_id = base_retriever, base_sources
+        passed, reasons = score_adversarial(case, response, signals)
+        rows.append({"id": case["id"], "kind": case["kind"], "question": case["question"], "passed": passed,
+                     "reasons": reasons, "scanner_signals": signals, "status": response["status"],
+                     "answer": response["answer"], "sources": response.get("sources", []),
+                     "trace": response.get("_trace", {})})
+        log.info("%s %-18s %-22s %s %s", case["id"], case["kind"], response["status"], "PASS" if passed else "FAIL",
+                 "; ".join(reasons))
+    out = Path(cfg.EVAL_DIR) / "results" / f"{args.out}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({"passed": sum(r["passed"] for r in rows), "n": len(rows), "rows": rows},
+                              ensure_ascii=False, indent=2), encoding="utf-8")
+    log.info("adversarial passed %d/%d -> %s", sum(r["passed"] for r in rows), len(rows), out)
+
+
 def build_parser():
     """Define the command-line interface."""
     parser = argparse.ArgumentParser(description="Admission assistant tasks")
@@ -410,6 +537,12 @@ def build_parser():
     gs.add_argument("--n", type=int, default=10)
     gs.add_argument("--file", default=None, help="question file with expected_status, e.g. evaluation/generation/smoke.jsonl")
     gs.add_argument("--out", default="generation_sample", help="results file name in evaluation/results/")
+    e2e = sub.add_parser("evaluate-e2e", help="Experiment 3 on the frozen end-to-end set")
+    e2e.add_argument("--out", default="e2e_v1", help="results name in evaluation/results/")
+    e2e.add_argument("--limit", type=int, default=0, help="run only the first N inquiries (smoke run)")
+    e2e.add_argument("--no-repeat", action="store_true", help="skip the reproducibility re-run")
+    adv = sub.add_parser("evaluate-adversarial", help="run the adversarial cases")
+    adv.add_argument("--out", default="adversarial_v1", help="results name in evaluation/results/")
     add = sub.add_parser("add-source", help="register a new document version")
     add.add_argument("--file", required=True, help="path to the new PDF or HTML file")
     add.add_argument("--source-id", required=True, help="e.g. CALENDAR-1449")
@@ -432,7 +565,8 @@ COMMANDS = {"fetch": fetch, "peek": peek, "build-calendar": build_calendar,
             "evaluate-retrieval": evaluate_retrieval, "search": search,
             "evaluate-conflicts": evaluate_conflicts, "conflict-report": conflict_report,
             "rule": run_rule, "rules-doc": rules_doc,
-            "ask": ask, "generate-sample": generate_sample}
+            "ask": ask, "generate-sample": generate_sample,
+            "evaluate-e2e": evaluate_e2e, "evaluate-adversarial": evaluate_adversarial}
 
 
 def main():

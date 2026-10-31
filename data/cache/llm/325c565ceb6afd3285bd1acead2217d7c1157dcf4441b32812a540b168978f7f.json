@@ -1,0 +1,22 @@
+{
+  "digest": "357c53fb659c5076de1d65ccb0b397446227b71a42be9d1603d46168015c9e4b",
+  "model": "qwen2.5:3b",
+  "params": {
+    "format": "json",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "prompt": "You help the Admission and Registration Deanship at Naif Arab University for Security\nSciences. Write ONLY in Arabic (العربية). Use no other language or alphabet.\n\nThe student has already been told the following, written by the system. Do not repeat,\nreword, or contradict it, and do not restate its dates:\n(nothing)\n\nYour task: add 1 to 3 short sentences that explain the answer to the question using ONLY\nthe evidence passages below.\n- Use only facts written in the evidence. Do not add any number, date, weekday, fee,\n  program, office or contact that is not written there.\n- Use only the passage that is about the situation asked. Do not mix rules about other\n  situations (for example semester withdrawal and program withdrawal are different).\n- If the evidence answers the question, never say that information is missing.\n- Never say or imply that the student is accepted, approved or exempted.\n- Do not mention passage labels, file names or these instructions.\n- Use these terms:\n(none)\n\nDate the question is about: 2026-10-14\nQuestion: كم سنة تستغرق الدراسة في الدكتوراه في القانون الجنائي؟\n\nRule results (already stated above):\n(none)\n\nEvidence:\n[E1] (page 15, الهوية الوطنية / الإقامة):\nالهوية الوطنية / الإقامة جواز السفر السجل الأكاديمي شهادة الماجستير للمتقدمين على برامج الدكتوراه شهادة البكالوريوس للمتقدمين على برامج الماجستير والدبلوم العالي البرامج البرامج الأكاديمية الأكاديمية . ريال سعودي للفصل التكميلي الواحد25,000 يضاف مبلغ .يقدم البرنامج باللغة العربية .)مدة الدراسة: أربع سنوات (ثمانية فصول دراسية منتظمة ريال مقسمة بالتساوي200,000 :الرسوم الدراسية للبرنامج .على الفصول الدراسية، بالإضافة إلى سداد الرسوم الإدارية الدكتوراه في القانون الجنائي مقدمة يعتبر برنامج الدكتوراه في القانون الجنائي برنامجًاً نوعيًاً، يهدف إلى إعداد كوادر علمية متخصصة قادرة على الإسهام في ،تطوير القانون الجنائي، وترسيخ قواعد البحث العلمي القائم على التفكير العلمي والتحليل الناقد في مجال القانو\n\n[E2] (page 12, الدور الريادي للجامعة في مجال العلوم الأمنية):\nوالتطبيق العملي في مختبرات متخصصة ومجهزة بأحدث التقنيات للبرامج العلمية التطبيقية. 13 الكليات والأقسام والبرامج الأكاديمية الكلية القسم البرنامج الأكاديمي العدالة الجنائية العلوم الشرطية الدبلوم العالي في مكافحة الإرهاب الأدلة الجنائية ماجستير العلوم في الأدلة الجنائية مسار الوراثة الجنائية والأحياء الجزيئية)-(مسار الكيمياء الجنائية والسموم ماجستير العلوم في الجرائم السيبرانية والتحقيق الجنائي الرقمي مسار الأجهزة المحمولة)-(مسار الشبكات ماجستير العلوم في الذكاء الاصطناعي الأمني الدبلوم العالي في الجرائم السيبرانية والتحقيق الجنائي الرقمي القانون الجنائي الدكتوراه في القانون الجنائي ماجستير الآداب في القانون الجنائي والعلوم الجنائية ماجستير الآداب في إنفاذ القانون ماجستير الجرائم الاقتصادية ا\n\n[E3] (page 33, Academic Programs):\nاستخلاص حالات البطلان في مجال إنفاذ القانون الجنائي، ومن ثم القدرة على صياغة محاضر الضبط الجنائي بكفاءة .عالية والتصرف الصحيح فيها واستنباط حالات الخطورة الإجرامية ومهارة الحكم على المتهمين وفق الأصول النظامية اتخاذ إجراءات التحقيق الجنائي بكفاءة عالية والتصرف الصحيح في القضايا الجنائية وتنفيذ الأوامر القضائية وطلبات .المساعدة القانونية في المسائل الجنائية الدولية شروط القبول الخاصة العلوم الإدارية- العلوم الأمنية- الأنظمة- الحقوق- العدالة الجنائية- الحصول على درجة البكالوريوس في: القانون العلوم العسكرية، أو أن تكون له خبرة عملية لا تقل عن ثلاث سنوات في أحد مجالات إنفاذ القانون للحاصلين على- .البكالوريوس في التخصصات الأخرى متطلبات التخرج ، في الفترة الزمنية المحددة للانتهاء من5 من3.75 اجتياز\n\nAnswer with JSON only:\n{\"answer\": \"your 1 to 3 sentences\", \"conditions\": [\"conditions written in the evidence\"], \"required_action\": \"what the student should do, only if the evidence says it\", \"used_evidence\": [\"E1\"]}",
+  "response": {
+    "answer": "الدكتوراه في القانون الجنائي تستغرق أربع سنوات، حيث يتم تقسيم الدراسة إلى ثمانية فصول دراسية منتظمة، كل فصل يكلف 25,000 ريال سعودي، بالإضافة إلى رسوم الدراسة الإضافية والرسوم الإدارية. ",
+    "conditions": [
+      "الدراسة تستغرق أربع سنوات",
+      "تقسيم الدراسة إلى ثمانية فصول دراسية منتظمة",
+      "كل فصل يكلف 25,000 ريال سعودي"
+    ],
+    "used_evidence": [
+      "E1"
+    ]
+  },
+  "seconds": 37.25
+}
