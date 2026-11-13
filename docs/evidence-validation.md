@@ -52,7 +52,7 @@ department review.
   of conflicts met while answering the gold questions, for the department.
 
 ## limitations
-- The planted set was written by the developer alongside the code, so its perfect score
+- The planted set was written by the project team alongside the code, so its perfect score
   is optimistic; the real-document check is the stronger evidence.
 - In the programs guide, a program's duration and fee box often names no program
   (page layout), so its subject is empty and treated as general.

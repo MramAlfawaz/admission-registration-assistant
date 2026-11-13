@@ -106,8 +106,8 @@ Written from the v1 analysis only; the held-out results were not read until afte
 | search missed the calendar, completeness blocked a rule that has it | results computed from the calendar or stated from the rule library are not blocked by missing search results; the calendar row is attached as evidence | `pipeline/assistant.py` |
 | model took a number of another kind (application fee 2000, PhD supplementary 5000) | a fee in a model sentence must be the kind of fee the question asks about, judged by the nearest fee label to that amount in the evidence | `safety/sentence_filter.py` |
 | model misread thresholds (pass mark 5.00, honours 5.00, appeals once) | thresholds stated by code from the rule library when the student asks what the rule is: pass mark, honours, attendance, warning GPA, graduation GPA, appeals, closure after two warnings, re-enrolment window | `rule_sentences.statement_sentences` |
-| wrong intent, so the right rule never ran | rules are also triggered by the question's own words (refund, withdrawal from the program, warning, graduation) | `rules/selection.py` |
-| deadline sentences attached to questions not about time | a deadline rule answers only questions asking when, whether a period is still open, or a yes/no "can I" | `rules/selection.py` |
+| wrong intent, so the right rule never ran | rules are also triggered by the question's own words (refund, withdrawal from the program, warning, graduation) | `app/rules/selection.py` |
+| deadline sentences attached to questions not about time | a deadline rule answers only questions asking when, whether a period is still open, or a yes/no "can I" | `app/rules/selection.py` |
 | degree named in the question never reached the rules | context key `degree_level` passed on as `degree` (pre-existing bug) | `pipeline/assistant.py` |
 | the plain word "calendar" taken for an internal id | ids must look like ids (`CALENDAR-1448`, `[E1]`, `Evidence E3`) | `safety/verifier.py` |
 | "refund not eligible" read as "closed" | only a closed rule with no open rule blocks advice to submit | `safety/verifier.py` |

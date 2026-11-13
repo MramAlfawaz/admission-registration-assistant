@@ -307,7 +307,7 @@ with `source_id`, `document_type`, `authority_level`, `version`, `effective_from
 | ADMISSION-PAGE-2025 | procedure | 4 | from 2025-08-23 |
 | FAQ-NAUSS | faq | 5 | undated |
 
-`dates_assumed: true` marks dates set by the developer because the document does not state them.
+`dates_assumed: true` marks dates set by the project team because the document does not state them.
 
 ### the Arabic extraction problem
 Text extracted from the PDFs contained about 1,086 reversed words, for example
@@ -897,7 +897,7 @@ Pre-handover checklist (1.10):
 - **4 reversed words remain** after the extraction fix (about 0.07% of words).
 - **Some lines in the programs guide** keep mixed-direction segments in the wrong order within the line; meaning is preserved for search but quotes may read awkwardly.
 - **Add/drop and single-course withdrawal** are not covered by any source and will be answered `INSUFFICIENT_EVIDENCE`.
-- **Evaluation questions are synthetic** and written by the same developer who wrote the keyword rules, which may favour the baseline.
+- **Evaluation questions are synthetic** and written by the same team that wrote the keyword rules, which may favour the baseline.
 - **Mixed-language questions** number only 4.
 - **English retrieval is weaker** than Arabic (hybrid recall@10 0.68 vs 1.00); candidate fixes are listed in `docs/retrieval-failures.md` and must be tested on new questions.
 - **Programs guide layout (1448)**: each program's language, duration and fee box is extracted *before* the program's title, so it shares a passage with the end of the previous program. This caused the false criminology "conflict" and wrong gold annotations R059/R061. Fix planned: chunk at program boundaries, measured before and after.

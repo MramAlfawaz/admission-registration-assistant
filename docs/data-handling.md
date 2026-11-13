@@ -34,7 +34,7 @@ Application and escalation logs: 30 days, then deleted. Evaluation results: kept
 as evidence for the reported numbers (synthetic questions only).
 
 ## evaluation data
-All evaluation questions are **synthetic**, written by the developer from the public documents. No
+All evaluation questions are **synthetic**, written by the project team from the public documents. No
 anonymised inquiry log was available (brief, Phase 0). No personal data is committed: the only
 student identifiers in the repository are invented test values (for example `441234567` in the
 adversarial set, used to check that the system refuses).

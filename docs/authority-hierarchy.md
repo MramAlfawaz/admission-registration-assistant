@@ -1,7 +1,7 @@
 # authority hierarchy
 
 Required by the brief (Section 12). It records which document type wins when two approved
-documents disagree. **Status: assumed by the developer; not yet agreed with the Deanship of
+documents disagree. **Status: assumed by the project team; not yet agreed with the Deanship of
 Admission and Registration.** The brief asks for this to be agreed with the department; until it
 is, every resolved conflict is also flagged for department review (`conflict-report`).
 
@@ -29,7 +29,7 @@ The losing passage is removed from the evidence for that answer and listed for r
   at least two weeks before final exams (latest 2026-11-22 for term 1); the calendar sets 2026-11-19.
   The calendar date is the stricter one and is the date the rule uses (`docs/rules.md`).
 - **A document is never in conflict with itself**; differences inside one document are left to the reader.
-- **Dates not stated in a document** are set by the developer and marked `dates_assumed: true` in
+- **Dates not stated in a document** are set by the project team and marked `dates_assumed: true` in
   `data/sources.json`. An assumed date can decide which version is in force; this is a limitation.
 
 ## known false conflict

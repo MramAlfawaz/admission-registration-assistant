@@ -124,7 +124,7 @@ Everything known to be wrong, untested or handled badly, most serious first.
    rule. The checks compare words, numbers, weekdays and open/closed; they do not understand meaning.
 6. **Fixes shaped by the evaluation sets.** The honest held-out figure is `holdout_after` (status accuracy
    0.825); every later held-out run is optimistic because later fixes were informed by it.
-7. **Evaluation questions are synthetic**, written by the developer; no real inquiry log was available.
+7. **Evaluation questions are synthetic**, written by the project team; no real inquiry log was available.
    Only 4 mixed-language questions.
 8. **Authority order and four document dates are assumed** (`docs/authority-hierarchy.md`,
    `dates_assumed` in `data/sources.json`); the Deanship has not confirmed them. E008's expected label

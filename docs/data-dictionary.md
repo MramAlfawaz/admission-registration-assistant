@@ -15,7 +15,7 @@ Every data structure the system reads or writes, with its fields. Shared identif
 | status | enum | approved, superseded |
 | supersedes | string / null | source_id this version replaces |
 | language | enum | ar, en |
-| dates_assumed | bool | true when the developer set dates the document does not state |
+| dates_assumed | bool | true when the project team set dates the document does not state |
 | url, filename | string | where `fetch` downloads it and the local file name in `data/raw/` |
 
 ## `data/processed/chunks.jsonl`: retrievable passages (built by `ingest`)
