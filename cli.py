@@ -32,9 +32,9 @@ def fetch(cfg, args):
         if not s.get("url"):
             log.error("%s has no url and its file is missing: %s", s["source_id"], target)
             continue
-        for attempt in range(3):
+        for attempt in range(5):  # nauss.edu.sa can be slow (Space build failed on a read timeout, 2026-11-13)
             try:
-                r = requests.get(s["url"], headers=headers, timeout=30)
+                r = requests.get(s["url"], headers=headers, timeout=(15, 180))
                 r.raise_for_status()
                 target.write_bytes(r.content)
                 log.info("saved %s -> %s (%d KB)", s["source_id"], target, len(r.content) // 1024)
