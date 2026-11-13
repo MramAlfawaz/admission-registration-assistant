@@ -11,6 +11,19 @@ GENERIC = {"فصل", "دراسي", "دراسيه", "دراسه", "طالب", "ط
            "هناك", "عام", "اول", "ثاني", "طلب", "يجب", "ايش", "كيف", "لائحه", "لوائح", "نظام", "انظمه",
            "عندكم", "ممكن", "لازم", "عشان", "قديش", "تبغي", "ابي", "اقدر", "يمكنني", "جامعتكم"}
 
+# The Deanship's own name contains التسجيل and القبول. A passage that only names the office says nothing
+# about registration or admission (public demo, 2026-11-11: "ماهو موعد التسجيل للفصل القادم؟" was answered
+# with a refund sentence ending "...إلى عمادة القبول والتسجيل"). The name is ignored when matching, unless
+# the question itself names the office.
+OFFICE_NAME = re.compile(r"(?:عماد[ةه]\s+)?القبول\s+و\s*التسجيل")
+
+
+def _without_office_name(question, text):
+    """Remove the Deanship's name from evidence text, unless the question names the office."""
+    if OFFICE_NAME.search(question):
+        return text
+    return OFFICE_NAME.sub(" ", text)
+
 
 def split_sentences(text):
     """Split passage text into sentences of readable length.
@@ -73,7 +86,7 @@ def relevance_filter(question, glossary=()):
     words = [t for t in q_tokens if t not in GENERIC and not t.isascii()]
 
     def qualifies(sentence):
-        tokens = tokenize(sentence)
+        tokens = tokenize(_without_office_name(question, sentence))
         if terms:
             return any(_has(tokens, term) for term in terms)
         return any(_has(tokens, w) for w in words)
@@ -110,7 +123,7 @@ def evidence_fits(question, texts, glossary=()):
     """
     if not texts:
         return False
-    ev_tokens = _with_bare(tokenize(" ".join(texts)))
+    ev_tokens = _with_bare(tokenize(" ".join(_without_office_name(question, t) for t in texts)))
     q_tokens = tokenize(question)
     lowered = question.lower()
     terms = [tokenize(ar) for ar, en in glossary
