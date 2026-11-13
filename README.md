@@ -62,7 +62,7 @@ Standards document.
 | held-out inquiries (frozen before fixes) | 40: status accuracy 0.85 before, 0.825 after the step 11b fixes |
 | Experiment 4: same model with no retrieval | 14/100 correct and 79 wrong answers shown, against 82/100 and 13 for the assistant |
 | response time (no cached calls, 8 GB Intel Mac) | median 32 s; answered 35 s, refusals 2 s |
-| automated tests | 219 passing |
+| automated tests | 222 passing |
 | public demo | https://huggingface.co/spaces/m11ram/admission-registration-assistant (Hugging Face Space, CPU) |
 | Arabic words repaired in PDF extraction | 1,086 reversed words reduced to 4 |
 
@@ -128,7 +128,7 @@ The same steps by hand: `cp .env.example .env`, `python cli.py fetch`, `python c
 ```bash
 python -m pytest -q
 ```
-Check: `219 passed`.
+Check: `222 passed`.
 
 **7. ask one question from the command line**
 ```bash
@@ -264,7 +264,7 @@ evaluation/
 docs/          handover-memo, architecture, environment/, troubleshooting/, authority-hierarchy,
                data-handling, intent-taxonomy, retrieval-failures, evidence-validation, rules,
                verification-and-escalation, evaluation, e2e-v1-failures, data-dictionary
-tests/         219 tests with fixtures from the real documents; conftest.py
+tests/         222 tests with fixtures from the real documents; conftest.py
 docker/        Dockerfile and docker-compose.yml (local two-service run), start.sh
 Dockerfile     the public demo image (Hugging Face Space: app and Ollama in one container)
 scripts/       clean_install_check.sh
@@ -824,6 +824,18 @@ Measured after the fix: on the public demo (2 shared CPU cores): model load 6 s 
 - **Not done**: an install test by someone outside the team, and a Windows run. The automated clean-install
   check (part C) is the evidence for reproducibility on a fresh clone; it does not replace a stranger
   following the README.
+
+### part F: final check before submission (`tests/test_fixes_14.py`)
+- **Found on the public demo** (2026-11-11): "ماهو موعد التسجيل للفصل القادم؟" was answered as `ANSWERABLE` with an
+  unrelated refund sentence. No approved document gives a registration date, so the correct result is
+  `INSUFFICIENT_EVIDENCE`.
+- **Cause**: the word التسجيل in the Deanship's name ("...إلى عمادة القبول والتسجيل") counted as a shared key word, so
+  the passage passed the evidence gate and the quote filter (1 of 3 key words, exactly the one-third threshold).
+- **Fix**: the office name is ignored when question words are matched against evidence, unless the question itself
+  names the office (`app/generation/extractive.py`).
+- **Result** (`e2e_v6`, `holdout_v6`, `adversarial_v7`): scores unchanged; `compare-runs` 100 of 100 and 40 of 40
+  inquiries identical to v5; adversarial 17/17. The question now returns `INSUFFICIENT_EVIDENCE` with a referral to
+  the Deanship. 222 tests pass.
 
 ---
 
