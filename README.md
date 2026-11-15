@@ -20,8 +20,8 @@ Project, Data Science course. Built to the project brief and the Development
 Standards document.
 
 > **Status:** complete (2026-10-31). All 13 phases built and evaluated; the public demo runs at https://huggingface.co/spaces/m11ram/admission-registration-assistant.
-> Not done, and stated as limitations: rating by Deanship specialists (an AI-drafted review stands in,
-> Experiment 5), a recorded user evaluation with staff, an install test by someone outside the team, and a
+> Not done, and stated as limitations: rating by Deanship specialists, a recorded user evaluation with staff, an install test by someone
+> outside the team, and a
 > Windows run (`docs/handover-memo.md`, section 1). The block at the top of this file is read by Hugging
 > Face Spaces, not by GitHub.
 > The assistant answers end to end from the command line: it classifies the question,
