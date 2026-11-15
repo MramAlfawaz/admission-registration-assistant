@@ -1,6 +1,5 @@
 ---
 title: Admission and Registration Assistant
-emoji: 🎓
 colorFrom: green
 colorTo: gray
 sdk: docker
@@ -17,7 +16,7 @@ for Security Sciences (NAUSS). It answers student questions in Arabic and Englis
 used, and refers the student to staff when the evidence is missing, contradictory,
 or the question needs an official decision.
 
-Project 5A, Data Science course. Built to the project brief and the Development
+Project, Data Science course. Built to the project brief and the Development
 Standards document.
 
 > **Status:** complete (2026-10-31). All 13 phases built and evaluated; the public demo runs at https://huggingface.co/spaces/m11ram/admission-registration-assistant.
