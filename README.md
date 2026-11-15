@@ -946,4 +946,4 @@ Pre-handover checklist (1.10):
 | 10. verification and escalation (10b: per-sentence filter) | done |
 | 11. evaluation and adversarial testing | done (Experiment 5 with the limitations stated) |
 | 12. student interface | done |
-| 13. deployment and handover | done: public demo, bootstrap, Docker, handover documents; outside install test and Windows run not done |
+| 13. deployment and handover | done: public demo, bootstrap, Docker, handover documents.
